@@ -13,14 +13,14 @@ public class GameFlow : MonoBehaviour
     public TMP_Text timerSec_TextBox;
     bool gameOnPause = false;
     float countdown;
-    float gameDuration = 180;
+    const float GAME_DURATION = 320;
 
     private void Start()
     {
         mainMenu_window.gameObject.SetActive(true);
         pause_window.gameObject.SetActive(false);
         endGame_window.gameObject.SetActive(false);
-        countdown = gameDuration;
+        countdown = GAME_DURATION;
     }
 
     private void Update()
@@ -55,13 +55,13 @@ public class GameFlow : MonoBehaviour
         else
         {
             endGame_window.gameObject.SetActive(true);
-            countdown = 10;
+            ResetCountdown();
         }
     }
 
     private void ResetCountdown()
     {
-        countdown = gameDuration;
+        countdown = GAME_DURATION;
     }
 
     public void SetGameOnPause(bool value)
