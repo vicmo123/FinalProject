@@ -30,7 +30,12 @@ public class GameManager : IFlow
     public void GameManagerSetup()
     {
         managerList = new List<IFlow>();
-        FillManagerList(AnimalManager.Instance);
+
+        //Add your system manager here : 
+        FillManagerList(
+            AnimalManager.Instance, 
+            AbilityManager.Instance
+            );
     }
 
     public void PreInitialize()

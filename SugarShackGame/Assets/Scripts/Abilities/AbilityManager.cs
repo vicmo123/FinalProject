@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class AbilityManager : IFlow
 {
-    #region singleton
+    #region Singleton
     private static AbilityManager instance;
-    private AbilityManager() { }
 
-    public static AbilityManager Instance()
+    public static AbilityManager Instance
     {
-        if (instance == null)
+        get
         {
-            instance = new AbilityManager();
+            if (instance == null)
+            {
+                instance = new AbilityManager();
+            }
+            return instance;
         }
-        return instance;
+    }
+
+    private AbilityManager()
+    {
     }
     #endregion
 
