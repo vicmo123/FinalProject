@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Animal : MonoBehaviour
+public class Animal : IFlow
 {
-    // Start is called before the first frame update
-    void Start()
+    public AnimalData data;
+    public virtual void PreInitialize()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Initialize()
     {
-        
+        Debug.Log("Animal initialize");
+    }
+
+    public virtual void Refresh()
+    {
+    }
+
+    public virtual void PhysicsRefresh()
+    {
     }
 }
