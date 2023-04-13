@@ -8,7 +8,7 @@ public class AbilityManager : IFlow
     private static AbilityManager instance;
     private AbilityManager() { }
 
-    public static AbilityManager GetInstance()
+    public static AbilityManager Instance()
     {
         if (instance == null)
         {
@@ -20,6 +20,7 @@ public class AbilityManager : IFlow
 
     public void PreInitialize()
     {
+        Debug.Log("Ability Manager PreInit");
     }
 
     public void Initialize()
