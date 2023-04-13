@@ -10,16 +10,17 @@ public class MainEntry : MonoBehaviour
         gameManager = new GameManager();
         gameManager.PreInitialize();
     }
+
     void Start()
     {
         gameManager.Initialize();
     }
 
-    // Update is called once per frame
     void Update()
     {
         gameManager.Refresh();
     }
+
     private void FixedUpdate()
     {
         gameManager.PhysicsRefresh();
