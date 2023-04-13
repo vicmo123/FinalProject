@@ -27,23 +27,21 @@ public class AnimalManager : IFlow
 
     private List<Animal> animalList;
 
-    void IFlow.PreInitialize()
+    public void PreInitialize()
     {
         animalList = new List<Animal>();
+        Debug.Log("Animals");
     }
 
-    void IFlow.Initialize()
+    public void Initialize()
     {
-        throw new System.NotImplementedException();
     }
 
-    void IFlow.Refresh()
+    public void Refresh()
     {
-        throw new System.NotImplementedException();
     }
 
-    void IFlow.PhysicsRefresh()
+    public void PhysicsRefresh()
     {
-        throw new System.NotImplementedException();
     }
 }

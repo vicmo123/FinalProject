@@ -4,26 +4,25 @@ using UnityEngine;
 
 public class MainEntry : MonoBehaviour
 {
-    GameManager gameManager;
     private void Awake()
     {
-        gameManager = new GameManager();
-        gameManager.PreInitialize();
+        GameManager.Instance.GameManagerSetup();
+        GameManager.Instance.PreInitialize();
     }
 
     void Start()
     {
-        gameManager.Initialize();
+        GameManager.Instance.Initialize();
     }
 
     void Update()
     {
-        gameManager.Refresh();
+        GameManager.Instance.Refresh();
     }
 
     private void FixedUpdate()
     {
-        gameManager.PhysicsRefresh();
+        GameManager.Instance.PhysicsRefresh();
     }
     
 }
