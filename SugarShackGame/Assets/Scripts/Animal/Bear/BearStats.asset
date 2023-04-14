@@ -12,7 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f275b31b84752934b895e94dce78064b, type: 3}
   m_Name: BearStats
   m_EditorClassIdentifier: 
-  walkSpeed: 10
-  runSpeed: 20
+  walkSpeed: 3
+  runSpeed: 5
+  rotationSpeed: 5
   fovLenght: 10
   walkRadius: 15
+  hp: 100
+  viewRadius: 10
+  viewAngle: 45
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
