@@ -25,40 +25,21 @@ public class AnimalManager : IFlow
     }
     #endregion
 
-    private enum AnimalTypes
-    {
-        BEAR,
-        DEER,
-        FOX
-    }
-
+    private AnimalFactory animalFactory;
     private List<Animal> animalList;
     private int maxNumberAnimals = 10;
-    private int intialNumberOfAnimals = 3;
+    private int initialNumberOfAnimals = 25;
     private Vector2 rangeTimeOfSpawn = new Vector2(3, 5);
 
     public void PreInitialize()
     {
+        animalFactory = new AnimalFactory();
         animalList = new List<Animal>();
-        Debug.Log("Animals");
-
-        foreach (Animal animal in animalList)
-        {
-            animal.PreInitialize();
-        }
     }
 
     public void Initialize()
     {
-        for (int i = 0; i < intialNumberOfAnimals; i++)
-        {
-            animalList.Add(GetRandomAnimal());
-        }
-
-        foreach (Animal animal in animalList)
-        {
-            animal.Initialize();
-        }
+        populateMap();
     }
 
     public void Refresh()
@@ -77,27 +58,32 @@ public class AnimalManager : IFlow
         }
     }
 
-    private Animal GetRandomAnimal()
+    public void populateMap()
     {
-        int AnimalTypesMemberCount = System.Enum.GetNames(typeof(AnimalTypes)).Length;
-        AnimalTypes chosenAnimalType = (AnimalTypes)Random.Range(0, AnimalTypesMemberCount - 1);
-        Animal toRet = new Animal();
-
-        switch (chosenAnimalType)
+        AddAnimal("Deer");
+        for (int i = 0; i < initialNumberOfAnimals; i++)
         {
-            case AnimalTypes.BEAR:
-                toRet = new Bear();
-                break;
-            case AnimalTypes.DEER:
-                toRet = new Deer();
-                break;
-            case AnimalTypes.FOX:
-                toRet = new Fox();
-                break;
-            default:
-                break;
+            AddAnimal();
+        }
+    }
+
+    private void AddAnimal(string animalName = null)
+    {
+        if (animalName == null)
+        {
+            int randomNameIndex = Random.Range(0, animalFactory.animalNames.Length);
+            animalName = animalFactory.animalNames[randomNameIndex];
         }
 
-        return toRet;
+        Animal newAnimal = animalFactory.CreateAnimal(animalName);
+        
+        if (newAnimal != null)
+        {
+            newAnimal.PreInitialize();
+            newAnimal.Initialize();
+
+            animalList.Add(newAnimal);
+            newAnimal.transform.position = Vector3.zero;
+        }
     }
 }

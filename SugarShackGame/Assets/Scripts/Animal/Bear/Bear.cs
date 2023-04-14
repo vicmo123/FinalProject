@@ -22,4 +22,17 @@ public class Bear : Animal
     {
         base.PhysicsRefresh();
     }
+
+    public override bool IsPatrolFinished()
+    {
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+
+            Debug.Log("Bear special transition");
+            return true;
+        }
+        else
+            return false;
+    }
 }
