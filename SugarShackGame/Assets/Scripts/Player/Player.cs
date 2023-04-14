@@ -8,17 +8,21 @@ public class Player : MonoBehaviour, IFlow
 
     public void Initialize()
     {
+
     }
 
     public void PhysicsRefresh()
     {
+
     }
 
     public void PreInitialize()
     {
+
     }
 
     public void Refresh()
     {
+
     }
 }

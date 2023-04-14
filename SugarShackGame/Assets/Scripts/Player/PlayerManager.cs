@@ -25,6 +25,9 @@ public class PlayerManager : IFlow
     }
     #endregion
 
+    Player player1;
+    Player player2;
+
     public void PreInitialize()
     {
 
