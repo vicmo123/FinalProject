@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "Animal/Stats")]
+[CreateAssetMenu(menuName = "Stats/Animal")]
 public class AnimalStats : ScriptableObject
 {
     //Movement

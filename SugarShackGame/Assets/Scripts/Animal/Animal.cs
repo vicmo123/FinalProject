@@ -32,7 +32,6 @@ public class Animal : MonoBehaviour, IFlow
     {
         stateMachine.UpdateStateMachine();
         UpdateRotation();
-        
     }
 
     public virtual void PhysicsRefresh()
