@@ -1,90 +1,115 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(CharacterController))]
+public class PlayerController : MonoBehaviour, IFlow
 {
-    Rigidbody rb;
+    [SerializeField] private float playerSpeed;
+    [SerializeField] private float initialSpeed = 2.0f;
+    [SerializeField] private float maxWalkSpeed = 5.0f;
+    [SerializeField] private float maxRunSpeed = 10.0f;
+    [SerializeField] private float accelerationSpeed = 0.5f;
 
-    //Moving stats
-    [SerializeField] private float moveSpeed = 50f;
-    [SerializeField] private float runSpeed = 75f;
-    [SerializeField] private float viewSensitivity = 200f;
-    [SerializeField] private float maxWalkSpeed = 25f;
-    [SerializeField] private float maxRunSpeed = 35f;
+    [SerializeField] private float jumpHeight = 1.0f;
+    [SerializeField] private float gravityValue = -9.81f;
 
-    //Jumping stats
-    [SerializeField] private float jumpAmount = 35;
-    private Vector3 augmentedGravityScale = new Vector3(0, -12, 0);
-    private bool isGrounded = false;
-    private float groundCheckDistance = 1.05f;
-    private int jumpsPerformed = 0;
+    private CharacterController controller;
+    private Vector3 playerVelocity;
+    private bool groundedPlayer;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        rb.useGravity = false;
+    private Vector2 movementInput = Vector2.zero;
+    private bool isMoving = false;
+    private bool jumped = false;
+    private bool isRunning = false;
+
+    [SerializeField] private float sensitivity = 3;
+    private Vector2 look;
+    private float lookRotation;
+
+    [SerializeField] private GameObject camHolder;
+
+    private void Start() {
+        Cursor.lockState = CursorLockMode.Locked;
+
+        controller = gameObject.GetComponent<CharacterController>();
+
+        playerSpeed = initialSpeed;
     }
 
-    void Update()
-    {
-        Jump();
-        MovePlayer();
+    public void OnMove(InputAction.CallbackContext context) {
+        movementInput = context.ReadValue<Vector2>();
+        isMoving = true;
     }
 
-    void MovePlayer()
-    {
-        bool isRunning = false;
+    public void OnJump(InputAction.CallbackContext context) {
+        jumped = context.action.triggered;
+    }
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            rb.velocity += transform.forward * moveSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            rb.velocity += -transform.forward * moveSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + -1.0f * viewSensitivity * Time.deltaTime, 0);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 1.0f * viewSensitivity * Time.deltaTime, 0);
-        }   
-        if (Input.GetKey(KeyCode.R))
-        {
-            rb.velocity += transform.forward * runSpeed * Time.deltaTime;
+    public void OnLook(InputAction.CallbackContext context) {
+        look = context.ReadValue<Vector2>();
+    }
+
+    public void OnRun(InputAction.CallbackContext context) {
+        if (context.action.triggered)
             isRunning = true;
-        }
-
-        if (rb.velocity.magnitude > maxWalkSpeed && !isRunning)
-            rb.velocity = rb.velocity.normalized * maxWalkSpeed;
-        else if(rb.velocity.magnitude > maxRunSpeed && isRunning)
-            rb.velocity = rb.velocity.normalized * maxRunSpeed;
-
-        if (isGrounded)
-            jumpsPerformed = 0;
     }
 
-    private void Jump()
-    {
-        isGrounded = Physics.Raycast(transform.position, -transform.up, groundCheckDistance);
+    public void OnTest(InputAction.CallbackContext context) {
+        Debug.Log("Test called on " + gameObject.name + " !");
+    }
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(transform.up * jumpAmount, ForceMode.Impulse);
-            jumpsPerformed = 1;
+    private void FixedUpdate() {
+        Movement();
+        Look();
+        isMoving = false;
+    }
+
+    void Movement() {
+        if (movementInput != Vector2.zero)
+            playerSpeed = Mathf.MoveTowards(playerSpeed, isRunning ? maxRunSpeed : maxWalkSpeed, accelerationSpeed * Time.deltaTime);
+        else {
+            playerSpeed = initialSpeed;
+            isRunning = false;
         }
-        else if (!isGrounded && Input.GetKeyDown(KeyCode.Space) && jumpsPerformed < 2)
-        {
-            rb.AddForce(transform.up * jumpAmount, ForceMode.Impulse);
-            jumpsPerformed = 2;
+
+        groundedPlayer = controller.isGrounded;
+        if (groundedPlayer && playerVelocity.y < 0) {
+            playerVelocity.y = 0f;
         }
-        else if (!isGrounded)
-        {
-            rb.AddForce(augmentedGravityScale, ForceMode.Acceleration);
+
+        Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
+        controller.Move(move * Time.fixedDeltaTime * playerSpeed);
+
+
+        // Changes the height position of the player..
+        if (jumped && groundedPlayer) {
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
+
+        playerVelocity.y += gravityValue * Time.fixedDeltaTime;
+        controller.Move(playerVelocity * Time.fixedDeltaTime);
+    }
+    private void Look() {
+        // Turn
+        transform.Rotate(Vector3.up * look.x * sensitivity);
+
+        // Look
+        lookRotation += (-look.y * sensitivity);
+        lookRotation = Mathf.Clamp(lookRotation, -75, 75);
+        camHolder.transform.eulerAngles = new Vector3(lookRotation, camHolder.transform.eulerAngles.y, camHolder.transform.eulerAngles.z);
+    }
+
+    public void PreInitialize() {
+    }
+
+    public void Initialize() {
+    }
+
+    public void Refresh() {
+    }
+
+    public void PhysicsRefresh() {
+        Movement();
     }
 }

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f275b31b84752934b895e94dce78064b, type: 3}
+  m_Name: BearStats
+  m_EditorClassIdentifier: 
+  walkSpeed: 3
+  runSpeed: 5
+  rotationSpeed: 5
+  fovLenght: 10
+  walkRadius: 15
+  hp: 100
+  viewRadius: 10
+  viewAngle: 45
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0

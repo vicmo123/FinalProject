@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deer : MonoBehaviour
+public class Deer : Animal
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void PreInitialize()
     {
-        
+        base.PreInitialize();
+    }
+    public override void Initialize()
+    {
+        base.Initialize();
+        Debug.Log("I am a deer");
+    }
+    public override void Refresh()
+    {
+        base.Refresh();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void PhysicsRefresh()
     {
-        
+        base.PhysicsRefresh();
     }
 }
