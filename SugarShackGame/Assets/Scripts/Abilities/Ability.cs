@@ -1,25 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[System.Serializable]
 public class Ability : ScriptableObject
 {
-    public string name;
-    public bool isActive;
+    public Sprite sprite;
+    public string abilityName;
     public float activeTime;
+    public float cooldownTime;
 
-    public Ability()
+    public Ability() { }
+
+    public Ability(string name, Sprite sprite, float activeTime, float cooldownTime)
     {
-        Activate();
-    }
-    public Ability(string name, bool isActive, float activeTime)
-    {
-        this.name = name;
-        this.isActive = isActive;
+        this.abilityName = name;
+        this.sprite = sprite;
         this.activeTime = activeTime;
+        this.cooldownTime = cooldownTime;
     }
 
-    private void Activate()
+    public virtual void Activate()
     {
-        this.isActive = true;
+        Debug.Log("Base of ability called");
     }
 }
