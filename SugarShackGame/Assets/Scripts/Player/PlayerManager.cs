@@ -53,23 +53,23 @@ public class PlayerManager : IFlow
         if (Input.GetKeyDown(KeyCode.V))
         {
             currentBeardIndex++;
-            if (currentBeardIndex >= factory.beardColorList.Count)
+            if (currentBeardIndex >= factory.beardColors.Length)
             {
                 currentBeardIndex = 0;
             }
 
-            factory.ChangePlayerColor(ref player1, factory.beardColorList[currentBeardIndex], factory.shirtColorList[currentShirtIndex]);
+            factory.ChangePlayerColor(ref player1, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
             currentShirtIndex++;
-            if (currentShirtIndex >= factory.shirtColorList.Count)
+            if (currentShirtIndex >= factory.shirtColors.Length)
             {
                 currentShirtIndex = 0;
             }
 
-            factory.ChangePlayerColor(ref player1, factory.beardColorList[currentBeardIndex], factory.shirtColorList[currentShirtIndex]);
+            factory.ChangePlayerColor(ref player1, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
         }
     }
 
@@ -81,7 +81,7 @@ public class PlayerManager : IFlow
 
     public void AddPlayers()
     {
-        player1 = factory.CreatPlayer(factory.beardColorList[currentBeardIndex], factory.shirtColorList[currentShirtIndex]);
+        player1 = factory.CreatPlayer(factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
         //player2 = factory.CreatPlayer(factory.beardColorList[1], factory.shirtColorList[0]);
 
         player1.PreInitialize();

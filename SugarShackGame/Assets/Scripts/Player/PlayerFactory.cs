@@ -5,44 +5,40 @@ using UnityEngine;
 public class PlayerFactory
 {
     private GameObject playerPrefab;
-    private Dictionary<ColorCombination, Material> matMap;
+    private Dictionary<ColorCombination, Material> materialsMap;
     private const string PATH_MAT = "Models/LumberJack/textures/Materials/";
     private const string PATH_PREFAB = "Prefabs/Player/Player";
 
-    public IReadOnlyList<string> beardColorList { get; private set; }
-    public IReadOnlyList<string> shirtColorList { get; private set; }
+    public string[] beardColors { get; private set; }
+    public string[] shirtColors { get; private set; }
 
     public PlayerFactory()
     {
-        beardColorList = new List<string>();
-        shirtColorList = new List<string>();
-
-        matMap = new Dictionary<ColorCombination, Material>();
-
         LoadAssets();
     }
 
     private void LoadAssets()
     {
+        materialsMap = new Dictionary<ColorCombination, Material>();
         var mats = Resources.LoadAll<Material>(PATH_MAT);
 
-        List<string> beardColors = new List<string>();
-        List<string> shirtColors = new List<string>();
+        List<string> beardColorsList = new List<string>();
+        List<string> shirtColorsList = new List<string>();
 
         foreach (var mat in mats)
         {
             string[] colorNames = mat.name.Split("-");
 
-            if (!beardColors.Contains(colorNames[0]))
-                beardColors.Add(colorNames[0]);
-            if (!shirtColors.Contains(colorNames[1]))
-                shirtColors.Add(colorNames[1]);
+            if (!beardColorsList.Contains(colorNames[0]))
+                beardColorsList.Add(colorNames[0]);
+            if (!shirtColorsList.Contains(colorNames[1]))
+                shirtColorsList.Add(colorNames[1]);
 
-            matMap.Add(new ColorCombination(colorNames[0], colorNames[1]), mat);
+            materialsMap.Add(new ColorCombination(colorNames[0], colorNames[1]), mat);
         }
-
-        beardColorList = beardColors;
-        shirtColorList = shirtColors;
+        
+        beardColors = beardColorsList.ToArray();
+        shirtColors = shirtColorsList.ToArray();
 
         playerPrefab = Resources.Load<GameObject>(PATH_PREFAB);
     }
@@ -54,7 +50,7 @@ public class PlayerFactory
 
         if (playerToRet.playerRenderer != null)
         {
-            playerToRet.playerRenderer.material = matMap[new ColorCombination(beardColor, shirtColor)];
+            playerToRet.playerRenderer.material = materialsMap[new ColorCombination(beardColor, shirtColor)];
         }
 
         return playerToRet.GetComponent<Player>();
@@ -64,7 +60,7 @@ public class PlayerFactory
     {
         if (player.playerRenderer != null)
         {
-            player.playerRenderer.material = matMap[new ColorCombination(newBeardColor, newShirtColor)];
+            player.playerRenderer.material = materialsMap[new ColorCombination(newBeardColor, newShirtColor)];
         }
     }
 

@@ -8,7 +8,7 @@ public class TextureEditorTool : EditorWindow
     private Color sourceColor;
     private Color targetColor;
 
-    [MenuItem("Tools/Texture Editor Tool")]
+    [MenuItem("Custom Tools/Texture Editor Tool")]
     public static void ShowWindow()
     {
         TextureEditorTool window = (TextureEditorTool)EditorWindow.GetWindow(typeof(TextureEditorTool));
