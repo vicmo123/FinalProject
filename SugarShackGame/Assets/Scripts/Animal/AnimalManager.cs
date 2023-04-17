@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Manager(typeof(AnimalManager))]
 public class AnimalManager : IFlow
 {
     #region Singleton

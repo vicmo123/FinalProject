@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Terrain
   - Trap
+  - Maple
   layers:
   - Default
   - TransparentFX

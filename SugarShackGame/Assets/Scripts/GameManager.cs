@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Reflection;
 
 public class GameManager : IFlow
 {
@@ -31,13 +33,8 @@ public class GameManager : IFlow
     {
         managerList = new List<IFlow>();
 
-        //Add your system manager here : 
-        FillManagerList(
-            AnimalManager.Instance, 
-            AbilityManager.Instance,
-            PlayerManager.Instance,
-            UIGameManager.Instance
-            );
+        //Must add ManagerAttribute to your Manager for it to be added to the list. It must be a singleton with Instance property
+        FillManagerList();
     }
 
     public void PreInitialize()
@@ -74,9 +71,27 @@ public class GameManager : IFlow
 
     private void FillManagerList(params IFlow[] managers)
     {
-        foreach (var manager in managers)
+        foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
         {
-            managerList.Add(manager);
+            var attributes = type.GetCustomAttributes(typeof(ManagerAttribute), true);
+            if (attributes.Length > 0)
+            {
+                ManagerAttribute managerAttribute = (ManagerAttribute)attributes[0];
+                if (typeof(IFlow).IsAssignableFrom(managerAttribute.ManagerType))
+                {
+                    var instanceProperty = managerAttribute.ManagerType.GetProperty("Instance");
+                    var instance = instanceProperty.GetValue(null);
+                    if (instance != null && instance is IFlow)
+                    {
+                        AddManagerToList((IFlow)instance);
+                    }
+                }
+            }
         }
+    }
+
+    private void AddManagerToList(IFlow toAdd)
+    {
+        managerList.Add(toAdd);
     }
 }
