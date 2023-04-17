@@ -74,21 +74,24 @@ public class GameManager : IFlow
         foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
         {
             var attributes = type.GetCustomAttributes(typeof(ManagerAttribute), true);
-
             if (attributes.Length > 0)
             {
                 ManagerAttribute managerAttribute = (ManagerAttribute)attributes[0];
-
                 if (typeof(IFlow).IsAssignableFrom(managerAttribute.ManagerType))
                 {
                     var instanceProperty = managerAttribute.ManagerType.GetProperty("Instance");
                     var instance = instanceProperty.GetValue(null);
                     if (instance != null && instance is IFlow)
                     {
-                        managerList.Add((IFlow)instance);
+                        AddManagerToList((IFlow)instance);
                     }
                 }
             }
         }
+    }
+
+    private void AddManagerToList(IFlow toAdd)
+    {
+        managerList.Add(toAdd);
     }
 }
