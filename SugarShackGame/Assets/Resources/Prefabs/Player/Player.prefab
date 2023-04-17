@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56342507088c5454187359c9b90f5726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  playerRenderer: {fileID: 3450514196200946682}
 --- !u!1001 &4173333082256879767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,6 +104,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e61da5af85b51024b85a8e6625a3773a, type: 3}
+--- !u!23 &3450514196200946682 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: e61da5af85b51024b85a8e6625a3773a, type: 3}
+  m_PrefabInstance: {fileID: 4173333082256879767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4494611320736569212 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e61da5af85b51024b85a8e6625a3773a, type: 3}

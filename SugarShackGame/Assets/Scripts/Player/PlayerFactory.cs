@@ -9,8 +9,8 @@ public class PlayerFactory
     private const string PATH_MAT = "Models/LumberJack/textures/Materials/";
     private const string PATH_PREFAB = "Prefabs/Player/Player";
 
-    public List<string> beardColorList { get; private set; }
-    public List<string> shirtColorList { get; private set; }
+    public IReadOnlyList<string> beardColorList { get; private set; }
+    public IReadOnlyList<string> shirtColorList { get; private set; }
 
     public PlayerFactory()
     {
@@ -18,42 +18,53 @@ public class PlayerFactory
         shirtColorList = new List<string>();
 
         matMap = new Dictionary<ColorCombination, Material>();
+
+        LoadAssets();
+    }
+
+    private void LoadAssets()
+    {
         var mats = Resources.LoadAll<Material>(PATH_MAT);
-        
+
+        List<string> beardColors = new List<string>();
+        List<string> shirtColors = new List<string>();
+
         foreach (var mat in mats)
         {
             string[] colorNames = mat.name.Split("-");
 
-            if (!beardColorList.Contains(colorNames[0]))
-                beardColorList.Add(colorNames[0]);
-            if (!shirtColorList.Contains(colorNames[1]))
-                shirtColorList.Add(colorNames[1]);
+            if (!beardColors.Contains(colorNames[0]))
+                beardColors.Add(colorNames[0]);
+            if (!shirtColors.Contains(colorNames[1]))
+                shirtColors.Add(colorNames[1]);
 
             matMap.Add(new ColorCombination(colorNames[0], colorNames[1]), mat);
         }
+
+        beardColorList = beardColors;
+        shirtColorList = shirtColors;
 
         playerPrefab = Resources.Load<GameObject>(PATH_PREFAB);
     }
 
     public Player CreatPlayer(string beardColor, string shirtColor)
     {
-        GameObject playerToRet = GameObject.Instantiate<GameObject>(playerPrefab);
+        GameObject prefab = GameObject.Instantiate<GameObject>(playerPrefab);
+        Player playerToRet = prefab.GetComponent<Player>();
 
-        Renderer renderer = playerToRet.transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
-        if (renderer != null)
+        if (playerToRet.playerRenderer != null)
         {
-            renderer.material = matMap[new ColorCombination(beardColor, shirtColor)];
+            playerToRet.playerRenderer.material = matMap[new ColorCombination(beardColor, shirtColor)];
         }
 
         return playerToRet.GetComponent<Player>();
     }
 
-    public void ChangePlayerColor(ref Player player, string beardColor, string shirtColor)
+    public void ChangePlayerColor(ref Player player, string newBeardColor, string newShirtColor)
     {
-        Renderer renderer = player.transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
-        if (renderer != null)
+        if (player.playerRenderer != null)
         {
-            renderer.material = matMap[new ColorCombination(beardColor, shirtColor)];
+            player.playerRenderer.material = matMap[new ColorCombination(newBeardColor, newShirtColor)];
         }
     }
 

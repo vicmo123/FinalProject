@@ -49,7 +49,7 @@ public class PlayerManager : IFlow
         player1.Refresh();
         //player2.Refresh();
 
-
+        //For demo
         if (Input.GetKeyDown(KeyCode.V))
         {
             currentBeardIndex++;
@@ -59,7 +59,6 @@ public class PlayerManager : IFlow
             }
 
             factory.ChangePlayerColor(ref player1, factory.beardColorList[currentBeardIndex], factory.shirtColorList[currentShirtIndex]);
-            Debug.Log("V");
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -71,7 +70,6 @@ public class PlayerManager : IFlow
             }
 
             factory.ChangePlayerColor(ref player1, factory.beardColorList[currentBeardIndex], factory.shirtColorList[currentShirtIndex]);
-            Debug.Log("C");
         }
     }
 

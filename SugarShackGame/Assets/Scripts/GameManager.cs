@@ -33,6 +33,7 @@ public class GameManager : IFlow
     {
         managerList = new List<IFlow>();
 
+        //Must add ManagerAttribute to your Manager for it to be added to the list. It must be a singleton with Instance property
         FillManagerList();
     }
 
