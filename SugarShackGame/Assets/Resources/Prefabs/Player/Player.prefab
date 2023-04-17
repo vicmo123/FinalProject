@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56342507088c5454187359c9b90f5726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  stats: {fileID: 11400000, guid: 791dde1157ed24d43bf14e79ebe308f2, type: 2}
   playerRenderer: {fileID: 7643430111020299685}
 --- !u!1001 &3964361446300846095
 PrefabInstance:
