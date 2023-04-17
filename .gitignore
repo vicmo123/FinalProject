@@ -150,7 +150,7 @@ StyleCopReport.xml
 *_p.c
 *_h.h
 *.ilk
-*.obj
+
 *.iobj
 *.pch
 *.ipdb

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205638ba3a5020a41a4290060cb6968d, type: 3}
   m_Name: StatsPlayer
   m_EditorClassIdentifier: 
-  someStat: 0
+  someStat: 5
