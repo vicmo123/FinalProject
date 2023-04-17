@@ -29,6 +29,10 @@ public class PlayerManager : IFlow
     Player player1;
     Player player2;
 
+    //Temp for demo
+    int currentBeardIndex = 0;
+    int currentShirtIndex = 0;
+
     public void PreInitialize()
     {
         factory = new PlayerFactory();
@@ -42,24 +46,49 @@ public class PlayerManager : IFlow
     public void Refresh()
     {
         player1.Refresh();
-        player2.Refresh();
+        //player2.Refresh();
+
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            currentBeardIndex++;
+            if (currentBeardIndex >= factory.beardColorList.Count)
+            {
+                currentBeardIndex = 0;
+            }
+
+            factory.ChangePlayerColor(ref player1, factory.beardColorList[currentBeardIndex], factory.shirtColorList[currentShirtIndex]);
+            Debug.Log("V");
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            currentShirtIndex++;
+            if (currentShirtIndex >= factory.shirtColorList.Count)
+            {
+                currentShirtIndex = 0;
+            }
+
+            factory.ChangePlayerColor(ref player1, factory.beardColorList[currentBeardIndex], factory.shirtColorList[currentShirtIndex]);
+            Debug.Log("C");
+        }
     }
 
     public void PhysicsRefresh()
     {
         player1.PhysicsRefresh();
-        player2.PhysicsRefresh();
+        //player2.PhysicsRefresh();
     }
 
     public void AddPlayers()
     {
-        player1 = factory.CreatPlayer(factory.beardColorList[0], factory.shirtColorList[2]);
-        player2 = factory.CreatPlayer(factory.beardColorList[1], factory.shirtColorList[0]);
+        player1 = factory.CreatPlayer(factory.beardColorList[currentBeardIndex], factory.shirtColorList[currentShirtIndex]);
+        //player2 = factory.CreatPlayer(factory.beardColorList[1], factory.shirtColorList[0]);
 
         player1.PreInitialize();
-        player2.PreInitialize();
+        //player2.PreInitialize();
 
         player1.Initialize();
-        player2.Initialize();
+        //player2.Initialize();
     }
 }

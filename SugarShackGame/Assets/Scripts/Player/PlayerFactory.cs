@@ -48,6 +48,15 @@ public class PlayerFactory
         return playerToRet.GetComponent<Player>();
     }
 
+    public void ChangePlayerColor(ref Player player, string beardColor, string shirtColor)
+    {
+        Renderer renderer = player.transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material = matMap[new ColorCombination(beardColor, shirtColor)];
+        }
+    }
+
     private struct ColorCombination
     {
         public string beardColor;
