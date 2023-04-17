@@ -18,6 +18,7 @@ MonoBehaviour:
   fovLenght: 10
   walkRadius: 15
   hp: 80
+  targetTagName: Player
   viewRadius: 10
   viewAngle: 45
   targetMask:

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2996050625986772701}
-  - component: {fileID: 4142727660630815835}
   - component: {fileID: 5840635188322809160}
   - component: {fileID: 1059973490975107251}
   - component: {fileID: 454566616884672040}
@@ -37,19 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4142727660630815835
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1566715579714191924}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5840635188322809160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +51,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 8439efaa56da406468d10c105f8b802f, type: 2}
   agent: {fileID: 0}
   chaseTarget: {fileID: 0}
+  animController: {fileID: 2434709315635916184}
 --- !u!195 &1059973490975107251
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -84,7 +71,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0.4
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &454566616884672040
@@ -113,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 1566715579714191924}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58e66b73fb233ca40a648505e8dc2ff2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

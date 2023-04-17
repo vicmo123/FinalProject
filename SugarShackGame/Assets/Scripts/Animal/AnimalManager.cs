@@ -27,23 +27,33 @@ public class AnimalManager : IFlow
 
     private AnimalFactory animalFactory;
     private List<Animal> animalList;
-    private int maxNumberAnimals = 10;
-    private int initialNumberOfAnimals = 25;
-    private Vector2 rangeTimeOfSpawn = new Vector2(3, 5);
+    private int maxNumberAnimals = 25;
+    private int initialNumberOfAnimals = 3;
+    private Vector2 rangeTimeOfSpawn = new Vector2(3.0f, 5.0f);
+    private CountDownTimer timer;
 
     public void PreInitialize()
     {
         animalFactory = new AnimalFactory();
         animalList = new List<Animal>();
+
+        timer = new CountDownTimer(Random.Range(rangeTimeOfSpawn.x, rangeTimeOfSpawn.y), true);
+        timer.OnTimeIsUpLogic += () => {
+            if (animalList.Count < maxNumberAnimals)
+                SpawnAnimal();
+            timer.SetDuration(Random.Range(rangeTimeOfSpawn.x, rangeTimeOfSpawn.y));
+        };
     }
 
     public void Initialize()
     {
-        populateMap();
+        timer.StartTimer();
     }
 
     public void Refresh()
     {
+        timer.UpdateTimer();
+
         foreach (Animal animal in animalList)
         {
             animal.Refresh();
@@ -58,16 +68,7 @@ public class AnimalManager : IFlow
         }
     }
 
-    public void populateMap()
-    {
-        AddAnimal("Deer");
-        for (int i = 0; i < initialNumberOfAnimals; i++)
-        {
-            AddAnimal();
-        }
-    }
-
-    private void AddAnimal(string animalName = null)
+    private void SpawnAnimal(string animalName = null)
     {
         if (animalName == null)
         {
@@ -76,7 +77,7 @@ public class AnimalManager : IFlow
         }
 
         Animal newAnimal = animalFactory.CreateAnimal(animalName);
-        
+
         if (newAnimal != null)
         {
             newAnimal.PreInitialize();

@@ -35,6 +35,7 @@ public class GameManager : IFlow
         FillManagerList(
             AnimalManager.Instance, 
             AbilityManager.Instance,
+            PlayerManager.Instance,
             UIGameManager.Instance
             );
     }

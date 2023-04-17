@@ -9,7 +9,7 @@ public class Animal : MonoBehaviour, IFlow
     public NavMeshAgent agent;
     public AnimalStateMachine stateMachine;
     public GameObject chaseTarget = null;
-
+    public Animator animController;
 
     public virtual void PreInitialize()
     {
@@ -32,6 +32,7 @@ public class Animal : MonoBehaviour, IFlow
     {
         stateMachine.UpdateStateMachine();
         UpdateRotation();
+        UpdateAnimationSpeedVariable();
     }
 
     public virtual void PhysicsRefresh()
@@ -86,13 +87,13 @@ public class Animal : MonoBehaviour, IFlow
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 
-    private void FindVisibleTargets()
+    private void FindVisibleTargets(string targetTagName)
     {
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, stats.viewRadius, stats.targetMask);
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {
             Transform target = targetsInViewRadius[i].transform;
-            if (target.CompareTag("Player"))
+            if (target.CompareTag(targetTagName))
             {   
                 Vector3 dirToTarget = (target.position - transform.position).normalized;
                 if (Vector3.Angle(transform.forward, dirToTarget) < stats.viewAngle / 2)
@@ -105,6 +106,22 @@ public class Animal : MonoBehaviour, IFlow
                 }
             }
         }
+    }
+
+    public void UpdateAnimationSpeedVariable()
+    {
+        float currentSpeed = agent.velocity.magnitude;
+        float maxSpeed = agent.speed;
+        float speedRatio = currentSpeed / maxSpeed;
+
+        float animSpeed = 0f;
+
+        if (agent.speed == stats.walkSpeed) 
+            animSpeed = Mathf.Clamp01(speedRatio) * 0.7f;
+        else if (agent.speed == stats.runSpeed)
+            animSpeed = Mathf.Clamp01(speedRatio);
+
+        animController.SetFloat("Speed", animSpeed);
     }
 
     #region StateMachine Setup
@@ -181,40 +198,40 @@ public class Animal : MonoBehaviour, IFlow
     #region OnLogic
     public virtual void OnPatrolLogic()
     {
-        Debug.Log("Patrol");
+        stateMachine.CurrentState = AnimalStateMachine.Patrol;
         if (CheckIfDestinationReached())
         {
             agent.destination = GenerateRandomNavMeshPos();
         }
 
-        FindVisibleTargets();
+        FindVisibleTargets(stats.targetTagName);
     }
 
     public virtual void OnFleeLogic()
     {
-        Debug.Log("Flee");
+        stateMachine.CurrentState = AnimalStateMachine.Flee;
     }
 
     public virtual void OnChaseLogic()
     {
-        Debug.Log("Chase");
-        if(chaseTarget != null)
+        stateMachine.CurrentState = AnimalStateMachine.Chase;
+        if (chaseTarget != null)
             agent.destination = chaseTarget.transform.position;
     }
 
     public virtual void OnAttackLogic()
     {
-        Debug.Log("Attack");
+        stateMachine.CurrentState = AnimalStateMachine.Attack;
     }
 
     public virtual void OnSpecialActionLogic()
     {
-        Debug.Log("Special Action");
+        stateMachine.CurrentState = AnimalStateMachine.SpecialAction;
     }
 
     public virtual void OnRagdollLogic()
     {
-        Debug.Log("Ragdoll");
+        stateMachine.CurrentState = AnimalStateMachine.Ragdoll;
     }
     #endregion
 
@@ -231,7 +248,7 @@ public class Animal : MonoBehaviour, IFlow
 
     public virtual void OnChaseExit()
     {
-
+        agent.speed = stats.walkSpeed;
     }
 
     public virtual void OnAttackExit()

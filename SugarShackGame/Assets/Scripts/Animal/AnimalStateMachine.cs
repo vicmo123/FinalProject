@@ -13,8 +13,7 @@ public class AnimalStateMachine
         animal = _animal;
     }
 
-    #region StateMachine
-    public string CurrentState;
+    public string CurrentState { get; set; }
 
     //States
     public const string Patrol = "Patrol";
@@ -76,44 +75,46 @@ public class AnimalStateMachine
         {
             stateMachine.OnLogic();
         }
+
+        Debug.Log(CurrentState);
     }
 
     private void SetStates()
     {
         stateMachine.AddState(Patrol, new State(
-            onEnter: _ => OnPatrolEnter.Invoke(),
-            onLogic: _ => OnPatrolLogic.Invoke(),
-            onExit: _ => OnPatrolExit.Invoke()
+                onEnter: _ => OnPatrolEnter.Invoke(),
+                onLogic: _ => OnPatrolLogic.Invoke(),
+                onExit: _ => OnPatrolExit.Invoke()
             )
         );
         stateMachine.AddState(Flee, new State(
-            onEnter: _ => OnFleeEnter.Invoke(),
-            onLogic: _ => OnFleeLogic.Invoke(),
-            onExit: _ => OnFleeExit.Invoke()
+                onEnter: _ => OnFleeEnter.Invoke(),
+                onLogic: _ => OnFleeLogic.Invoke(),
+                onExit: _ => OnFleeExit.Invoke()
             )
         );
         stateMachine.AddState(Chase, new State(
-            onEnter: _ => OnChaseEnter.Invoke(),
-            onLogic: _ => OnChaseLogic.Invoke(),
-            onExit: _ => OnChaseExit.Invoke()
+                onEnter: _ => OnChaseEnter.Invoke(),
+                onLogic: _ => OnChaseLogic.Invoke(),
+                onExit: _ => OnChaseExit.Invoke()
             )
         );
         stateMachine.AddState(Attack, new State(
-            onEnter: _ => OnAttackEnter.Invoke(),
-            onLogic: _ => OnAttackLogic.Invoke(),
-            onExit: _ => OnAttackExit.Invoke()
+                onEnter: _ => OnAttackEnter.Invoke(),
+                onLogic: _ => OnAttackLogic.Invoke(),
+                onExit: _ => OnAttackExit.Invoke()
             )
         );
         stateMachine.AddState(SpecialAction, new State(
-            onEnter: _ => OnSpecialActionEnter.Invoke(),
-            onLogic: _ => OnSpecialActionLogic.Invoke(),
-            onExit: _ => OnSpecialActionExit.Invoke()
+                onEnter: _ => OnSpecialActionEnter.Invoke(),
+                onLogic: _ => OnSpecialActionLogic.Invoke(),
+                onExit: _ => OnSpecialActionExit.Invoke()
             )
         );
         stateMachine.AddState(Ragdoll, new State(
-            onEnter: _ => OnRagdollEnter.Invoke(),
-            onLogic: _ => OnRagdollLogic.Invoke(),
-            onExit: _ => OnRagdollExit.Invoke()
+                onEnter: _ => OnRagdollEnter.Invoke(),
+                onLogic: _ => OnRagdollLogic.Invoke(),
+                onExit: _ => OnRagdollExit.Invoke()
             )
          );
     }
@@ -129,5 +130,4 @@ public class AnimalStateMachine
         stateMachine.AddTransitionFromAny(new Transition("", Ragdoll, t => animal.stats.hp <= 0));
         stateMachine.AddTransitionFromAny(new Transition("", SpecialAction, t => IsSpecialActionTime.Invoke()));
     }
-    #endregion
 }
