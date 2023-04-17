@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Manager(typeof(PlayerManager))]
 public class PlayerManager : IFlow
 {
     #region Singleton

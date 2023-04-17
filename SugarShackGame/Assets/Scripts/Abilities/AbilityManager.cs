@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[Manager(typeof(AbilityManager))]
 public class AbilityManager : IFlow
 {
     #region Singleton
