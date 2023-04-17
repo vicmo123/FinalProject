@@ -22,9 +22,4 @@ public class Fox : Animal
     {
         base.PhysicsRefresh();
     }
-
-    public override void OnChaseLogic()
-    {
-        chaseTarget = null;
-    }
 }

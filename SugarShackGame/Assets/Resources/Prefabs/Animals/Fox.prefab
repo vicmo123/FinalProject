@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4478598880284496553}
-  - component: {fileID: 2965409282855370053}
   - component: {fileID: 5873842889113963258}
   - component: {fileID: 6456360197987062173}
   - component: {fileID: 2641882099954890006}
   - component: {fileID: -4029918119077577652}
+  - component: {fileID: 6195738336517929069}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Untagged
@@ -37,19 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2965409282855370053
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5508281290355475649}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5873842889113963258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +52,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: c9a98586f3a1a5e44badd80d8e828d6d, type: 2}
   agent: {fileID: 0}
   chaseTarget: {fileID: 0}
+  animController: {fileID: 6195738336517929069}
 --- !u!195 &6456360197987062173
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -84,7 +72,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0.4
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &2641882099954890006
@@ -115,6 +103,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6366ee97f6b541449155028b9487355a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &6195738336517929069
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5508281290355475649}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0444e3bc9ef7a7744930eebcf02989c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &7494139832863935959
 PrefabInstance:
   m_ObjectHideFlags: 0

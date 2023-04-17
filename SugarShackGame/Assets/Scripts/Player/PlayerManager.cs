@@ -30,18 +30,25 @@ public class PlayerManager : IFlow
 
     public void PreInitialize()
     {
-
+        player1.PreInitialize();
+        player2.PreInitialize();
     }
 
     public void Initialize()
     {
+        player1.Initialize();
+        player2.Initialize();
     }
 
     public void Refresh()
     {
+        player1.Refresh();
+        player2.Refresh();
     }
 
     public void PhysicsRefresh()
     {
+        player1.PhysicsRefresh();
+        player2.PhysicsRefresh();
     }
 }

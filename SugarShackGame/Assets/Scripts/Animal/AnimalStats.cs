@@ -15,6 +15,7 @@ public class AnimalStats : ScriptableObject
     [Range(0, 100)] public int hp;
 
     //Sight
+    public string targetTagName;
     [Range(0, 100)] public float viewRadius = 10f;
     [Range(0, 100)] public float viewAngle = 45f;
     public LayerMask targetMask;
