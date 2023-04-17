@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IFlow
 {
-    PlayerStats stats;
+    public PlayerStats stats;
+    public Renderer playerRenderer;
 
     public void Initialize()
     {
-
+        
     }
 
     public void PhysicsRefresh()

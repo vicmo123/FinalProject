@@ -8,8 +8,7 @@ public class Animal : MonoBehaviour, IFlow
     public AnimalStats stats;
     public NavMeshAgent agent;
     public AnimalStateMachine stateMachine;
-    [HideInInspector]public GameObject chaseTarget = null;
-
+    public GameObject chaseTarget = null;
     public Animator animController;
 
     public virtual void PreInitialize()
@@ -33,7 +32,7 @@ public class Animal : MonoBehaviour, IFlow
     {
         stateMachine.UpdateStateMachine();
         UpdateRotation();
-        ManageAnimationBlending();
+        UpdateAnimationSpeedVariable();
     }
 
     public virtual void PhysicsRefresh()
@@ -109,7 +108,7 @@ public class Animal : MonoBehaviour, IFlow
         }
     }
 
-    public void ManageAnimationBlending()
+    public void UpdateAnimationSpeedVariable()
     {
         float currentSpeed = agent.velocity.magnitude;
         float maxSpeed = agent.speed;
@@ -199,7 +198,7 @@ public class Animal : MonoBehaviour, IFlow
     #region OnLogic
     public virtual void OnPatrolLogic()
     {
-        Debug.Log("Patrol");
+        stateMachine.CurrentState = AnimalStateMachine.Patrol;
         if (CheckIfDestinationReached())
         {
             agent.destination = GenerateRandomNavMeshPos();
@@ -210,29 +209,29 @@ public class Animal : MonoBehaviour, IFlow
 
     public virtual void OnFleeLogic()
     {
-        Debug.Log("Flee");
+        stateMachine.CurrentState = AnimalStateMachine.Flee;
     }
 
     public virtual void OnChaseLogic()
     {
-        Debug.Log("Chase");
-        if(chaseTarget != null)
+        stateMachine.CurrentState = AnimalStateMachine.Chase;
+        if (chaseTarget != null)
             agent.destination = chaseTarget.transform.position;
     }
 
     public virtual void OnAttackLogic()
     {
-        Debug.Log("Attack");
+        stateMachine.CurrentState = AnimalStateMachine.Attack;
     }
 
     public virtual void OnSpecialActionLogic()
     {
-        Debug.Log("Special Action");
+        stateMachine.CurrentState = AnimalStateMachine.SpecialAction;
     }
 
     public virtual void OnRagdollLogic()
     {
-        Debug.Log("Ragdoll");
+        stateMachine.CurrentState = AnimalStateMachine.Ragdoll;
     }
     #endregion
 
