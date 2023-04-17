@@ -1,61 +1,76 @@
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
+using System.IO;
 
-public class TextureColorEditor : EditorWindow
+public class TextureEditorTool : EditorWindow
 {
-    private Texture2D texture;
+    public Texture2D textureToModify;
     private Color sourceColor;
     private Color targetColor;
 
-    [MenuItem("Custom Tools/Texture Color Editor")]
+    [MenuItem("Tools/Texture Editor Tool")]
     public static void ShowWindow()
     {
-        EditorWindow.GetWindow(typeof(TextureColorEditor));
+        TextureEditorTool window = (TextureEditorTool)EditorWindow.GetWindow(typeof(TextureEditorTool));
+        window.Show();
     }
 
-    private void OnGUI()
+    void OnGUI()
     {
-        GUILayout.Label("Modify Texture Colors", EditorStyles.boldLabel);
+        GUILayout.Label("Texture Modifier", EditorStyles.boldLabel);
 
-        // Add a field to select the texture
-        texture = (Texture2D)EditorGUILayout.ObjectField("Texture", texture, typeof(Texture2D), false);
+        textureToModify = EditorGUILayout.ObjectField("Texture To Modify", textureToModify, typeof(Texture2D), false) as Texture2D;
+        sourceColor = EditorGUILayout.ColorField("Color To Change", sourceColor);
+        targetColor = EditorGUILayout.ColorField("New Color", targetColor);
 
-        // Add a color field to select the source color
-        sourceColor = EditorGUILayout.ColorField("Source Color", sourceColor);
-
-        // Add a color field to select the target color
-        targetColor = EditorGUILayout.ColorField("Target Color", targetColor);
-
-        // Add a button to apply the color change
-        if (GUILayout.Button("Apply Color Change"))
+        if (GUILayout.Button("Modify Texture"))
         {
-            ChangeTextureColors(texture, sourceColor, targetColor);
+            ModifyTexture();
         }
     }
 
-    private void ChangeTextureColors(Texture2D texture, Color sourceColor, Color targetColor)
+    void ModifyTexture()
     {
-        // Loop through each pixel in the texture
-        for (int x = 0; x < texture.width; x++)
+        if (textureToModify == null)
         {
-            for (int y = 0; y < texture.height; y++)
-            {
-                // Get the color of the pixel
-                Color color = texture.GetPixel(x, y);
+            Debug.LogError("Please select a texture to modify");
+            return;
+        }
 
-                // Check if the color matches the source color
-                if (color == sourceColor)
-                {
-                    // Update the color of the pixel in the texture
-                    texture.SetPixel(x, y, targetColor);
-                }
+        int width = textureToModify.width;
+        int height = textureToModify.height;
+        TextureFormat format = TextureFormat.RGBA32;
+        bool mipMaps = textureToModify.mipmapCount > 1;
+
+        Texture2D newTexture = new Texture2D(width, height, format, mipMaps);
+
+        newTexture.wrapMode = textureToModify.wrapMode;
+        newTexture.filterMode = textureToModify.filterMode;
+        newTexture.anisoLevel = textureToModify.anisoLevel;
+
+        Color[] pixels = textureToModify.GetPixels();
+
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            float distance = Mathf.Sqrt(
+                Mathf.Pow(pixels[i].r - sourceColor.r, 2f) +
+                Mathf.Pow(pixels[i].g - sourceColor.g, 2f) +
+                Mathf.Pow(pixels[i].b - sourceColor.b, 2f));
+
+            if (distance < 0.1f)
+            {
+                pixels[i] = targetColor;
             }
         }
 
-        // Apply the changes to the texture
-        texture.Apply();
+        newTexture.SetPixels(pixels);
+        newTexture.Apply();
 
-        // Save the changes to the asset
-        EditorUtility.SetDirty(texture);
+        string texturePath = AssetDatabase.GetAssetPath(textureToModify);
+        byte[] textureData = newTexture.EncodeToPNG();
+        File.WriteAllBytes(texturePath, textureData);
+
+        AssetDatabase.ImportAsset(texturePath);
+        textureToModify = AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath);
     }
 }

@@ -34,7 +34,8 @@ public class GameManager : IFlow
         //Add your system manager here : 
         FillManagerList(
             AnimalManager.Instance, 
-            AbilityManager.Instance
+            AbilityManager.Instance,
+            PlayerManager.Instance
             );
     }
 

@@ -25,19 +25,18 @@ public class PlayerManager : IFlow
     }
     #endregion
 
+    PlayerFactory factory;
     Player player1;
     Player player2;
 
     public void PreInitialize()
     {
-        player1.PreInitialize();
-        player2.PreInitialize();
+        factory = new PlayerFactory();
     }
 
     public void Initialize()
     {
-        player1.Initialize();
-        player2.Initialize();
+        AddPlayers();
     }
 
     public void Refresh()
@@ -50,5 +49,17 @@ public class PlayerManager : IFlow
     {
         player1.PhysicsRefresh();
         player2.PhysicsRefresh();
+    }
+
+    public void AddPlayers()
+    {
+        player1 = factory.CreatPlayer(factory.beardColors[0], factory.shirtColors[2]);
+        player2 = factory.CreatPlayer(factory.beardColors[1], factory.shirtColors[0]);
+
+        player1.PreInitialize();
+        player2.PreInitialize();
+
+        player1.Initialize();
+        player2.Initialize();
     }
 }
