@@ -53,8 +53,8 @@ public class PlayerManager : IFlow
 
     public void AddPlayers()
     {
-        player1 = factory.CreatPlayer(factory.beardColors[0], factory.shirtColors[2]);
-        player2 = factory.CreatPlayer(factory.beardColors[1], factory.shirtColors[0]);
+        player1 = factory.CreatPlayer(factory.beardColorList[0], factory.shirtColorList[2]);
+        player2 = factory.CreatPlayer(factory.beardColorList[1], factory.shirtColorList[0]);
 
         player1.PreInitialize();
         player2.PreInitialize();
