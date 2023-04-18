@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [Manager(typeof(PlayerManager))]
 public class PlayerManager : IFlow
@@ -26,6 +27,7 @@ public class PlayerManager : IFlow
     }
     #endregion
 
+    PlayerInputManager playerInputManager;
     PlayerFactory factory;
     Player player1;
     Player player2;
@@ -36,12 +38,23 @@ public class PlayerManager : IFlow
 
     public void PreInitialize()
     {
+        playerInputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerInputManager>();
+        playerInputManager.playerJoinedEvent.AddListener((val) => {
+            val.gameObject.transform.position = Vector3.zero;
+            player1 = val.gameObject.GetComponent<Player>();
+            factory.ChangePlayerColor(ref player1, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
+            player1.PreInitialize();
+            //player2.PreInitialize();
+
+            player1.Initialize();
+            //player2.Initialize();
+        });
         factory = new PlayerFactory();
     }
 
     public void Initialize()
     {
-        AddPlayers();
+        //AddPlayers();
     }
 
     public void Refresh()

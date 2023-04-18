@@ -5,15 +5,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour, IFlow
 {
-    [SerializeField] private float playerSpeed;
-    [SerializeField] private float initialSpeed = 2.0f;
-    [SerializeField] private float maxWalkSpeed = 5.0f;
-    [SerializeField] private float maxRunSpeed = 10.0f;
-    [SerializeField] private float accelerationSpeed = 0.5f;
+    public PlayerStats stats;
 
-    [SerializeField] private float jumpHeight = 1.0f;
-    [SerializeField] private float gravityValue = -9.81f;
-
+    [HideInInspector] public float playerSpeed;
+    
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -22,18 +17,12 @@ public class PlayerController : MonoBehaviour, IFlow
     private bool jumped = false;
     private bool isRunning = false;
 
-    [SerializeField] private float sensitivity = 3;
     private Vector2 look;
     private float lookRotation;
 
     [SerializeField] private GameObject camHolder;
 
     private void Start() {
-        Cursor.lockState = CursorLockMode.Locked;
-
-        controller = gameObject.GetComponent<CharacterController>();
-
-        playerSpeed = initialSpeed;
     }
 
     public void OnMove(InputAction.CallbackContext context) {
@@ -48,7 +37,7 @@ public class PlayerController : MonoBehaviour, IFlow
         look = context.ReadValue<Vector2>();
     }
 
-    public void OnRun(InputAction.CallbackContext context) {
+    public void OnSprint(InputAction.CallbackContext context) {
         if (context.action.triggered)
             isRunning = true;
     }
@@ -59,9 +48,9 @@ public class PlayerController : MonoBehaviour, IFlow
 
     void Movement() {
         if (movementInput != Vector2.zero)
-            playerSpeed = Mathf.MoveTowards(playerSpeed, isRunning ? maxRunSpeed : maxWalkSpeed, accelerationSpeed * Time.deltaTime);
+            playerSpeed = Mathf.MoveTowards(playerSpeed, isRunning ? stats.maxRunSpeed : stats.maxWalkSpeed, stats.accelerationSpeed * Time.deltaTime);
         else {
-            playerSpeed = initialSpeed;
+            playerSpeed = stats.initialSpeed;
             isRunning = false;
         }
 
@@ -76,18 +65,18 @@ public class PlayerController : MonoBehaviour, IFlow
 
         // Changes the height position of the player..
         if (jumped && groundedPlayer) {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            playerVelocity.y += Mathf.Sqrt(stats.jumpHeight * -3.0f * stats.gravityValue);
         }
 
-        playerVelocity.y += gravityValue * Time.fixedDeltaTime;
+        playerVelocity.y += stats.gravityValue * Time.fixedDeltaTime;
         controller.Move(playerVelocity * Time.fixedDeltaTime);
     }
     private void Look() {
         // Turn
-        transform.Rotate(Vector3.up * look.x * sensitivity);
+        transform.Rotate(Vector3.up * look.x * stats.sensitivity);
 
         // Look
-        lookRotation += (-look.y * sensitivity);
+        lookRotation += (-look.y * stats.sensitivity);
         lookRotation = Mathf.Clamp(lookRotation, -75, 75);
         camHolder.transform.eulerAngles = new Vector3(lookRotation, camHolder.transform.eulerAngles.y, camHolder.transform.eulerAngles.z);
     }
@@ -96,6 +85,11 @@ public class PlayerController : MonoBehaviour, IFlow
     }
 
     public void Initialize() {
+        Cursor.lockState = CursorLockMode.Locked;
+
+        controller = gameObject.GetComponent<CharacterController>();
+
+        playerSpeed = stats.initialSpeed;
     }
 
     public void Refresh() {
