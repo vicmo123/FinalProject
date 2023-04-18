@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Manager(typeof(BucketManager))]
 public class BucketManager : MonoBehaviour, IFlow
 {
     #region Singleton

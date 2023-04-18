@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour, IFlow
     private bool groundedPlayer;
 
     private Vector2 movementInput = Vector2.zero;
-    private bool isMoving = false;
     private bool jumped = false;
     private bool isRunning = false;
 
@@ -39,7 +38,6 @@ public class PlayerController : MonoBehaviour, IFlow
 
     public void OnMove(InputAction.CallbackContext context) {
         movementInput = context.ReadValue<Vector2>();
-        isMoving = true;
     }
 
     public void OnJump(InputAction.CallbackContext context) {
@@ -57,12 +55,6 @@ public class PlayerController : MonoBehaviour, IFlow
 
     public void OnTest(InputAction.CallbackContext context) {
         Debug.Log("Test called on " + gameObject.name + " !");
-    }
-
-    private void FixedUpdate() {
-        Movement();
-        Look();
-        isMoving = false;
     }
 
     void Movement() {
@@ -111,5 +103,6 @@ public class PlayerController : MonoBehaviour, IFlow
 
     public void PhysicsRefresh() {
         Movement();
+        Look();
     }
 }
