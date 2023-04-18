@@ -5,7 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour, IFlow
 {
     public PlayerStats stats;
-    public Renderer playerRenderer;
+    public Renderer[] renderers;
+    public Animator animController;
 
     public void Initialize()
     {
@@ -24,6 +25,9 @@ public class Player : MonoBehaviour, IFlow
 
     public void Refresh()
     {
-
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            animController.SetFloat("Speed", 0.7f);
+        }
     }
 }
