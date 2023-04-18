@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1059973490975107251}
   - component: {fileID: 454566616884672040}
   - component: {fileID: 2434709315635916184}
+  - component: {fileID: 8732981480696989610}
   m_Layer: 0
   m_Name: Deer
   m_TagString: Untagged
@@ -49,9 +50,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 8439efaa56da406468d10c105f8b802f, type: 2}
-  agent: {fileID: 0}
+  agent: {fileID: 1059973490975107251}
   chaseTarget: {fileID: 0}
   animController: {fileID: 2434709315635916184}
+  ragdoll: {fileID: 8732981480696989610}
 --- !u!195 &1059973490975107251
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -110,6 +112,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &8732981480696989610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566715579714191924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a7b202cec83bf488efeddd2448dc13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8277442664871144117
 PrefabInstance:
   m_ObjectHideFlags: 0

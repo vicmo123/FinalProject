@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEngine.AI;
 
 public class Ragdoll : MonoBehaviour, IFlow
 {
     private Rigidbody[] ragdollRigidbodies;
-    public Animator animator;
-    public CharacterController characterController;
+    private Animator animator;
+    private CharacterController characterController;
+    private NavMeshAgent agent;
     public Action<Vector3, Vector3> ragdollTrigger;
 
     public void PreInitialize()
@@ -18,6 +20,7 @@ public class Ragdoll : MonoBehaviour, IFlow
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        agent = GetComponent<NavMeshAgent>();
 
         DisableRagdoll();
     }
@@ -58,6 +61,8 @@ public class Ragdoll : MonoBehaviour, IFlow
             animator.enabled = false;
         if(characterController)
             characterController.enabled = false;
+        if (agent)
+            agent.enabled = false;
     }
 
     private void DisableRagdoll()
@@ -71,5 +76,7 @@ public class Ragdoll : MonoBehaviour, IFlow
             animator.enabled = true;
         if (characterController)
             characterController.enabled = true;
+        if (agent)
+            agent.enabled = true;
     }
 }

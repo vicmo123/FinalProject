@@ -10,22 +10,24 @@ public class Animal : MonoBehaviour, IFlow
     public AnimalStateMachine stateMachine;
     public GameObject chaseTarget = null;
     public Animator animController;
+    public Ragdoll ragdoll;
 
     public virtual void PreInitialize()
-    {
-        agent = gameObject.GetComponent<NavMeshAgent>();
-
+    { 
         stateMachine = new AnimalStateMachine(this);
         stateMachine.InitStateMachine();
 
         agent.speed = stats.walkSpeed;
         agent.Warp(Vector3.zero);
         agent.destination = GenerateRandomNavMeshPos();
+
+        ragdoll.PreInitialize();
     }
 
     public virtual void Initialize()
     {
         SetDelgsForStateMachine();
+        ragdoll.Initialize();
     }
 
     public virtual void Refresh()
@@ -33,11 +35,12 @@ public class Animal : MonoBehaviour, IFlow
         stateMachine.UpdateStateMachine();
         UpdateRotation();
         UpdateAnimationSpeedVariable();
+        ragdoll.Refresh();
     }
 
     public virtual void PhysicsRefresh()
     {
-
+        ragdoll.PhysicsRefresh();
     }
 
     public Vector3 GenerateRandomNavMeshPos()
