@@ -11,6 +11,14 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     private float maxSapAmount = 20.0f;
     private float sapGainSpeed = 1.0f;
 
+    private float remainingTimeToClaim = 0.0f;
+    private float timeToClaim = 3.0f;
+    private float timeToSteal = 6.0f;
+    private float lastUsedTime = 0.0f;
+
+    private float cooldown = 1.0f;
+    private float endOfCooldown = 0.0f;
+
     public void Initialize() {
 
         int mapleType = Int32.Parse(transform.parent.name.Substring(7, 1));
@@ -28,11 +36,39 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     }
 
     public void Use(Player _player) {
-        if (_player == player) {
-            // If the playing using the bucket is the owner, gets sap
-        } else {
-            // If it is not the owner, allows them to claim the bucket
+        if (!player) {
+            // If there is no owner yet, allows them to claim the bucket
+            Claim(_player);
         }
+        else if (_player == player) {
+            if (Time.time >= endOfCooldown) {
+                // If the playing using the bucket is the owner, gets sap
+                sapAmount -= _player.playerBucket.AddSap(sapAmount);
+                endOfCooldown = Time.time + cooldown;
+            }
+        }
+        else {
+            // If it is not the owner, allows them to claim the bucket
+            Claim(_player);
+        }
+    }
+
+    private void Claim(Player _player) {
+        if (Time.time - Time.deltaTime == lastUsedTime) { // If the player is already claiming
+            if (remainingTimeToClaim > 0.0f)
+                remainingTimeToClaim -= Time.deltaTime;
+            else {
+                player = _player;
+                endOfCooldown = Time.time + cooldown;
+            }
+        } else { // If the player starts to claim
+            if (!player)
+                remainingTimeToClaim = timeToClaim;
+            else
+                remainingTimeToClaim = timeToSteal;
+        }
+
+        lastUsedTime = Time.time;
     }
 
     private void Sap() {

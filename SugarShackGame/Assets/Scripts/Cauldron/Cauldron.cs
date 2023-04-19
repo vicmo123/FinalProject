@@ -20,16 +20,23 @@ public class Cauldron : MonoBehaviour, IFlow, IUsable
     }
 
     public void PreInitialize() {
+        // "player" must be set here.
     }
 
     public void Refresh() {
+        BoilingSap();
+    }
+
+    private void BoilingSap() {
         if (sapAmount >= quantityForCan && !canProducing) { // If enough sap AND can is not already producing -> start producing a new one
             canProducing = true;
             remainingTime = timeToProduce;
-        } else if (canProducing) { // If can is already producing...
+        }
+        else if (canProducing) { // If can is already producing...
             if (remainingTime > 0) { // If there is time remaining before producing the can -> decrease remaining time
-                remainingTime -= Time.deltaTime; // QUESTION : how to make it stop decreasing during pause?
-            } else { // If time is up -> produce a can
+                remainingTime -= Time.deltaTime;
+            }
+            else { // If time is up -> produce a can
                 sapAmount -= quantityForCan;
                 canProducing = false;
                 // ADD A CAN TO THE PLAYER
@@ -37,11 +44,24 @@ public class Cauldron : MonoBehaviour, IFlow, IUsable
         }
     }
 
-    public void AddSap(float amount) {
-        sapAmount = Mathf.Clamp(sapAmount + amount, 0, maxSapAmount);
+    public float AddSap(float amount) {
+        float amountAdded = amount;
+        if (amount + sapAmount > maxSapAmount) {
+            amountAdded = maxSapAmount - sapAmount;
+            sapAmount = maxSapAmount;
+        }
+        else {
+            sapAmount += amount;
+        }
+
+        return amountAdded;
     }
 
-    public void Use(Player player) {
+    public void Use(Player _player) {
+        if (_player != player)
+            return;
+
+        _player.playerBucket.RemoveSap(AddSap(_player.playerBucket.sapAmount));
 
     }
 }

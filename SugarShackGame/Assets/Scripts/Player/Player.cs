@@ -10,6 +10,8 @@ public class Player : MonoBehaviour, IFlow
 
     public PlayerController playerController;
 
+    public PlayerBucket playerBucket;
+
     public void PreInitialize()
     {
         ragdoll.PreInitialize();
