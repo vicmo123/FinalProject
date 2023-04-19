@@ -64,29 +64,6 @@ public class PlayerManager : IFlow
         {
             player.Refresh();
         }
-
-        ////For demo
-        //if (Input.GetKeyDown(KeyCode.V))
-        //{
-        //    currentBeardIndex++;
-        //    if (currentBeardIndex >= factory.beardColors.Length)
-        //    {
-        //        currentBeardIndex = 0;
-        //    }
-
-        //    factory.ChangePlayerColor(ref player1, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    currentShirtIndex++;
-        //    if (currentShirtIndex >= factory.shirtColors.Length)
-        //    {
-        //        currentShirtIndex = 0;
-        //    }
-
-        //    factory.ChangePlayerColor(ref player1, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
-        //}
     }
 
     public void PhysicsRefresh()
@@ -115,5 +92,8 @@ public class PlayerManager : IFlow
 
         newPlayer.PreInitialize();
         newPlayer.Initialize();
+
+        currentBeardIndex++;
+        currentShirtIndex++;
     }
 }

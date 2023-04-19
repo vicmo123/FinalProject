@@ -637,7 +637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5038422299456298689}
   m_Layer: 0
-  m_Name: CameraTarget
+  m_Name: CameraRotationTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1901,6 +1901,7 @@ GameObject:
   - component: {fileID: 5967999252271429153}
   - component: {fileID: 17989432174153505}
   - component: {fileID: 8950332086840956507}
+  - component: {fileID: 2462538295123637722}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2011,28 +2012,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 8325441601633466841}
-  camTarget: {fileID: 5038422299456298689}
+  CinemachineCameraRotationTarget: {fileID: 5038422299456298689}
   model: {fileID: 5792557739903741713}
-  MoveSpeed: 10
-  SprintSpeed: 25
-  RotationSmoothTime: 0.12
-  SpeedChangeRate: 10
-  JumpHeight: 3
-  Gravity: -25
-  JumpTimeout: 0.5
-  FallTimeout: 0.15
-  analogMovement: 0
-  Grounded: 1
-  GroundedOffset: 0.45
-  GroundedRadius: 0.5
-  GroundLayers:
-    serializedVersion: 2
-    m_Bits: 256
   CinemachineCameraTarget: {fileID: 4891199521851231199}
-  TopClamp: 70
-  BottomClamp: -30
-  CameraAngleOverride: 10
-  LockCameraPosition: 0
+  playerStats: {fileID: 11400000, guid: 67f2e8ff81de1d54c9a393dba2abb936, type: 2}
+  _animator: {fileID: 902630649624965883}
+  _controller: {fileID: 5967999252271429153}
+  _inputHandler: {fileID: 2462538295123637722}
 --- !u!114 &8950332086840956507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2143,6 +2129,21 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 8325441601633466843}
+--- !u!114 &2462538295123637722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331886442063392701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1659c07cd7636a34883ee3752ca6fe07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  analogMovement: 0
+  cursorLocked: 1
+  cursorInputForLook: 1
 --- !u!1 &5341212998253359566
 GameObject:
   m_ObjectHideFlags: 0
