@@ -72,9 +72,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     }
 
     private void Sap() {
-        sapAmount += sapGainSpeed * Time.deltaTime;
-        if (sapAmount > maxSapAmount)
-            sapAmount = maxSapAmount;
+        sapAmount = Mathf.Clamp(sapAmount + (sapGainSpeed * Time.deltaTime), 0, maxSapAmount);
     }
 
     public bool CheckParent() {
