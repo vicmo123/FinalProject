@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4804905550187143802}
+  - component: {fileID: 9057631629690607087}
   m_Layer: 0
   m_Name: Collecting_Bucket_Covered
   m_TagString: Untagged
@@ -33,6 +34,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -64.246, z: 0}
+--- !u!135 &9057631629690607087
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5324843070276335808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.16976912
+  m_Center: {x: 0.002489433, y: 0.1653496, z: 5.569719e-11}
 --- !u!1 &7644369308083168157
 GameObject:
   m_ObjectHideFlags: 0

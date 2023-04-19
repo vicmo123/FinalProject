@@ -5,17 +5,18 @@ using UnityEngine;
 public class TriggerZoneEffect : MonoBehaviour
 {
     public Transform rockWallParent;
-    private List<SphereCollider> colliders;
+    private List<CapsuleCollider> colliders;
 
     private void Start()
     {
-        colliders = new List<SphereCollider>();
+        colliders = new List<CapsuleCollider>();
 
         //Get all the rocks children's component sphere collider
-        SphereCollider[] children = rockWallParent.GetComponentsInChildren<SphereCollider>();
-        for (int i = 1; i < children.Length; i++)
+        CapsuleCollider[] children = rockWallParent.GetComponentsInChildren<CapsuleCollider>();
+        for (int i = 0; i < children.Length; i++)
         {
             children[i].enabled = false;
+            Debug.Log(children[i].name.ToString());
             colliders.Add(children[i]);            
         }
     }
