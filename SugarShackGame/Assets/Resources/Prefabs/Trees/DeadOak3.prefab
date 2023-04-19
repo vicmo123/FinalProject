@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7440063534489480604
+--- !u!1 &9187363344909903444
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7440063534489480605}
-  - component: {fileID: 7440063534489480593}
-  - component: {fileID: 7440063534489480592}
-  - component: {fileID: 7440063534489480607}
-  - component: {fileID: 7440063534489480606}
+  - component: {fileID: 9187363344909810292}
+  - component: {fileID: 9187363344913234516}
+  - component: {fileID: 9187363344912103572}
+  - component: {fileID: 4220545537106647431}
+  - component: {fileID: 4065375016060613648}
   m_Layer: 0
-  m_Name: Bucket
-  m_TagString: Bucket
+  m_Name: DeadOak3
+  m_TagString: Maple
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7440063534489480605
+--- !u!4 &9187363344909810292
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7440063534489480604}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.5, z: 0.8}
+  m_GameObject: {fileID: 9187363344909903444}
+  m_LocalRotation: {x: -0.7313709, y: 0.0060394714, z: -0.0005730642, w: 0.68195295}
+  m_LocalPosition: {x: 54.37661, y: 11.484112, z: 100.56347}
+  m_LocalScale: {x: 312.74756, y: 312.7476, z: 312.7476}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7440063534489480593
+--- !u!33 &9187363344913234516
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7440063534489480604}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &7440063534489480592
+  m_GameObject: {fileID: 9187363344909903444}
+  m_Mesh: {fileID: 4300000, guid: d3779d08c8890354f955d1dab50264fd, type: 3}
+--- !u!23 &9187363344912103572
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7440063534489480604}
+  m_GameObject: {fileID: 9187363344909903444}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a7e94a2b20f1f5c44978490ec3cad29c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,30 +85,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7440063534489480607
-CapsuleCollider:
+--- !u!65 &4220545537106647431
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7440063534489480604}
+  m_GameObject: {fileID: 9187363344909903444}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &7440063534489480606
-MonoBehaviour:
+  serializedVersion: 2
+  m_Size: {x: 0.007842534, y: 0.0058804266, z: 0.01080849}
+  m_Center: {x: -0.013057043, y: -0.0028045503, z: -0.016030448}
+--- !u!135 &4065375016060613648
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7440063534489480604}
+  m_GameObject: {fileID: 9187363344909903444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22d762cc1fdf4584a825a3295c11a432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sapAmount: 0
+  serializedVersion: 2
+  m_Radius: 0.013058799
+  m_Center: {x: -0.012188812, y: -0.0036055553, z: 0.0026289632}

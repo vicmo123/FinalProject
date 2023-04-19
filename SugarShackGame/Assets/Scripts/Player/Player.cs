@@ -10,8 +10,6 @@ public class Player : MonoBehaviour, IFlow
 
     public PlayerController playerController;
 
-    //public SnowBallManager snowBallManager;
-
     public void PreInitialize()
     {
         ragdoll.PreInitialize();
