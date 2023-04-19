@@ -2046,8 +2046,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 17989432174153505}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 2462538295123637722}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -2062,8 +2062,8 @@ MonoBehaviour:
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 17989432174153505}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 2462538295123637722}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -2078,8 +2078,8 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 17989432174153505}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 2462538295123637722}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnSprint
         m_Mode: 0
         m_Arguments:
@@ -2094,8 +2094,8 @@ MonoBehaviour:
     m_ActionName: Player/Sprint[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 17989432174153505}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 2462538295123637722}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -2110,8 +2110,8 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 17989432174153505}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 2462538295123637722}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnTest
         m_Mode: 0
         m_Arguments:
@@ -2124,6 +2124,70 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 67dcb285-47e0-416e-a735-e4485202ec04
     m_ActionName: Player/Test[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2462538295123637722}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
+        m_MethodName: OnThrow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 196d6916-1a24-49e7-99ea-8959447f55a0
+    m_ActionName: Player/Throw[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2462538295123637722}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
+        m_MethodName: OnUse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 87e2cf39-ff05-43f0-a0b2-da37b9b49e18
+    m_ActionName: Player/Use[/XInputControllerWindows/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2462538295123637722}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
+        m_MethodName: OnLeftPowerUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7d3274b7-089e-4862-894e-97ea6a81b83d
+    m_ActionName: Player/LeftPowerUp[/XInputControllerWindows/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2462538295123637722}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
+        m_MethodName: OnRightPowerUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 60442112-8ba9-41f0-a479-55147d4ac97f
+    m_ActionName: Player/RightPowerUp[/XInputControllerWindows/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2141,6 +2205,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1659c07cd7636a34883ee3752ca6fe07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  move: {x: 0, y: 0}
+  look: {x: 0, y: 0}
+  jump: 0
+  sprint: 0
+  Throw: 0
+  Use: 0
+  UseLeftPowerUp: 0
+  UseRightPowerUp: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1

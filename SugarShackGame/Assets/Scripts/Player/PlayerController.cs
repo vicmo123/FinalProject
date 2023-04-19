@@ -23,7 +23,10 @@ public class PlayerController : MonoBehaviour, IFlow
 
     //Stats for movement control
     [SerializeField] private PlayerStats playerStats;
-    
+
+    //Inputs
+    [SerializeField]
+    private CustomInputHandler _inputHandler;
 
     //Cinemachine
     private float _cinemachineTargetYaw;
@@ -58,9 +61,7 @@ public class PlayerController : MonoBehaviour, IFlow
     [SerializeField]
     private CharacterController _controller;
 
-    //Input results
-    [SerializeField]//If not causing null reference on draw gizmos
-    private CustomInputHandler _inputHandler;
+    
 
     private const float _threshold = 0.01f;
 
@@ -77,33 +78,6 @@ public class PlayerController : MonoBehaviour, IFlow
 #endif
         }
     }
-
-    //These must be here to work for some reason, doenst work in custom handler.
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        _inputHandler.move = context.ReadValue<Vector2>();
-    }
-
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        _inputHandler.jump = context.action.triggered;
-    }
-
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        _inputHandler.look = context.ReadValue<Vector2>();
-    }
-
-    public void OnSprint(InputAction.CallbackContext context)
-    {
-        _inputHandler.sprint = context.action.triggered;
-    }
-
-    public void OnTest(InputAction.CallbackContext context)
-    {
-        Debug.Log("Test called on " + gameObject.name + " !");
-    }
-
 
     public void PreInitialize()
     {
@@ -177,7 +151,7 @@ public class PlayerController : MonoBehaviour, IFlow
 
         if (_grounded)
         {
-            Debug.Log("num" + _numberJumps);
+            //Debug.Log("num" + _numberJumps);
             _numberJumps = 0;
         }
     }

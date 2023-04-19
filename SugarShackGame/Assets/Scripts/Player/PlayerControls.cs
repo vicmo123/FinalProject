@@ -71,6 +71,42 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""196d6916-1a24-49e7-99ea-8959447f55a0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""87e2cf39-ff05-43f0-a0b2-da37b9b49e18"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftPowerUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d3274b7-089e-4862-894e-97ea6a81b83d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightPowerUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""60442112-8ba9-41f0-a479-55147d4ac97f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,6 +263,61 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Test"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2300cb97-5595-4799-9dc3-a614be5afe08"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01619526-64ff-4829-8b6c-c43c6fb7f2bd"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a718dd6a-9475-464b-a012-9118ca12a48d"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""afacf5b8-d06b-4cbc-bbe9-52d6d61b4323"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""LeftPowerUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b9a1222e-c7e9-4ed0-84c0-18a58f8eb323"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""RightPowerUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -263,6 +354,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Test = m_Player.FindAction("Test", throwIfNotFound: true);
+        m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
+        m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
+        m_Player_LeftPowerUp = m_Player.FindAction("LeftPowerUp", throwIfNotFound: true);
+        m_Player_RightPowerUp = m_Player.FindAction("RightPowerUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -327,6 +422,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Test;
+    private readonly InputAction m_Player_Throw;
+    private readonly InputAction m_Player_Use;
+    private readonly InputAction m_Player_LeftPowerUp;
+    private readonly InputAction m_Player_RightPowerUp;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -336,6 +435,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Test => m_Wrapper.m_Player_Test;
+        public InputAction @Throw => m_Wrapper.m_Player_Throw;
+        public InputAction @Use => m_Wrapper.m_Player_Use;
+        public InputAction @LeftPowerUp => m_Wrapper.m_Player_LeftPowerUp;
+        public InputAction @RightPowerUp => m_Wrapper.m_Player_RightPowerUp;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -360,6 +463,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Test.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTest;
                 @Test.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTest;
                 @Test.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTest;
+                @Throw.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrow;
+                @Throw.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrow;
+                @Throw.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrow;
+                @Use.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUse;
+                @Use.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUse;
+                @Use.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUse;
+                @LeftPowerUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftPowerUp;
+                @LeftPowerUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftPowerUp;
+                @LeftPowerUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftPowerUp;
+                @RightPowerUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightPowerUp;
+                @RightPowerUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightPowerUp;
+                @RightPowerUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightPowerUp;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -379,6 +494,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Test.started += instance.OnTest;
                 @Test.performed += instance.OnTest;
                 @Test.canceled += instance.OnTest;
+                @Throw.started += instance.OnThrow;
+                @Throw.performed += instance.OnThrow;
+                @Throw.canceled += instance.OnThrow;
+                @Use.started += instance.OnUse;
+                @Use.performed += instance.OnUse;
+                @Use.canceled += instance.OnUse;
+                @LeftPowerUp.started += instance.OnLeftPowerUp;
+                @LeftPowerUp.performed += instance.OnLeftPowerUp;
+                @LeftPowerUp.canceled += instance.OnLeftPowerUp;
+                @RightPowerUp.started += instance.OnRightPowerUp;
+                @RightPowerUp.performed += instance.OnRightPowerUp;
+                @RightPowerUp.canceled += instance.OnRightPowerUp;
             }
         }
     }
@@ -408,5 +535,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnTest(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
+        void OnUse(InputAction.CallbackContext context);
+        void OnLeftPowerUp(InputAction.CallbackContext context);
+        void OnRightPowerUp(InputAction.CallbackContext context);
     }
 }
