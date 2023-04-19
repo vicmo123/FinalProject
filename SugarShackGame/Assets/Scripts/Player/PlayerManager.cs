@@ -1,6 +1,8 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [Manager(typeof(PlayerManager))]
 public class PlayerManager : IFlow
@@ -26,9 +28,10 @@ public class PlayerManager : IFlow
     }
     #endregion
 
+    private LayerMask[] playerCamMasks;
+    PlayerInputManager playerInputManager;
     PlayerFactory factory;
-    Player player1;
-    Player player2;
+    public List<Player> players { get; private set; }
 
     //Temp for demo
     int currentBeardIndex = 0;
@@ -36,58 +39,61 @@ public class PlayerManager : IFlow
 
     public void PreInitialize()
     {
+        playerCamMasks = new LayerMask[2];
+        playerCamMasks[0] = LayerMask.GetMask("Player1");
+        playerCamMasks[1] = LayerMask.GetMask("Player2");
+
+        players = new List<Player>();
+
+        playerInputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerInputManager>();
+        playerInputManager.playerJoinedEvent.AddListener((input) => {
+            CreatePlayer(input);
+        });
+
         factory = new PlayerFactory();
     }
 
     public void Initialize()
     {
-        AddPlayers();
+        
     }
 
     public void Refresh()
     {
-        player1.Refresh();
-        //player2.Refresh();
-
-        //For demo
-        if (Input.GetKeyDown(KeyCode.V))
+        foreach (var player in players)
         {
-            currentBeardIndex++;
-            if (currentBeardIndex >= factory.beardColors.Length)
-            {
-                currentBeardIndex = 0;
-            }
-
-            factory.ChangePlayerColor(ref player1, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            currentShirtIndex++;
-            if (currentShirtIndex >= factory.shirtColors.Length)
-            {
-                currentShirtIndex = 0;
-            }
-
-            factory.ChangePlayerColor(ref player1, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
+            player.Refresh();
         }
     }
 
     public void PhysicsRefresh()
     {
-        player1.PhysicsRefresh();
-        //player2.PhysicsRefresh();
+        foreach (var player in players)
+        {
+            player.PhysicsRefresh();
+        }
     }
 
-    public void AddPlayers()
+    public void CreatePlayer(PlayerInput input)
     {
-        player1 = factory.CreatPlayer(factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
-        //player2 = factory.CreatPlayer(factory.beardColorList[1], factory.shirtColorList[0]);
 
-        player1.PreInitialize();
-        //player2.PreInitialize();
+        Player newPlayer = null;
 
-        player1.Initialize();
-        //player2.Initialize();
+        input.gameObject.transform.position = Vector3.zero;
+        newPlayer = input.gameObject.GetComponent<Player>();
+        factory.ChangePlayerColor(ref newPlayer, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
+
+        players.Add(newPlayer);
+
+        int layerToAdd = (int)Mathf.Log(playerCamMasks[players.Count - 1].value, 2);
+        newPlayer.GetComponentInChildren<CinemachineVirtualCamera>().gameObject.layer = layerToAdd;
+        newPlayer.GetComponentInChildren<CinemachineBrain>().gameObject.layer = layerToAdd;
+        newPlayer.GetComponentInChildren<Camera>().cullingMask |= 1 << layerToAdd;
+
+        newPlayer.PreInitialize();
+        newPlayer.Initialize();
+
+        currentBeardIndex++;
+        currentShirtIndex++;
     }
 }

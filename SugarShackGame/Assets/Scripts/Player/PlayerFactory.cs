@@ -48,9 +48,12 @@ public class PlayerFactory
         GameObject prefab = GameObject.Instantiate<GameObject>(playerPrefab);
         Player playerToRet = prefab.GetComponent<Player>();
 
-        if (playerToRet.playerRenderer != null)
+        if (playerToRet.renderers != null)
         {
-            playerToRet.playerRenderer.material = materialsMap[new ColorCombination(beardColor, shirtColor)];
+            foreach (var renderer in playerToRet.renderers)
+            {
+                renderer.material = materialsMap[new ColorCombination(beardColor, shirtColor)];
+            }
         }
 
         return playerToRet.GetComponent<Player>();
@@ -58,9 +61,12 @@ public class PlayerFactory
 
     public void ChangePlayerColor(ref Player player, string newBeardColor, string newShirtColor)
     {
-        if (player.playerRenderer != null)
+        if (player.renderers != null)
         {
-            player.playerRenderer.material = materialsMap[new ColorCombination(newBeardColor, newShirtColor)];
+            foreach (var renderer in player.renderers)
+            {
+                renderer.material = materialsMap[new ColorCombination(newBeardColor, newShirtColor)];
+            }
         }
     }
 
