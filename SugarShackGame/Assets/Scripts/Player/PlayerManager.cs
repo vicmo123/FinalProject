@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class PlayerManager : IFlow
     }
     #endregion
 
+    private LayerMask[] playerCamMasks;
     PlayerInputManager playerInputManager;
     PlayerFactory factory;
     public List<Player> players { get; private set; }
@@ -37,21 +39,15 @@ public class PlayerManager : IFlow
 
     public void PreInitialize()
     {
+        playerCamMasks = new LayerMask[2];
+        playerCamMasks[0] = LayerMask.GetMask("Player1");
+        playerCamMasks[1] = LayerMask.GetMask("Player2");
+
         players = new List<Player>();
 
         playerInputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerInputManager>();
-        playerInputManager.playerJoinedEvent.AddListener((val) => {
-            Player newPlayer = new Player();
-
-            val.gameObject.transform.position = Vector3.zero;
-            newPlayer = val.gameObject.GetComponent<Player>();
-            factory.ChangePlayerColor(ref newPlayer, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
-            
-            newPlayer.PreInitialize();
-
-            newPlayer.Initialize();
-
-            players.Add(newPlayer);
+        playerInputManager.playerJoinedEvent.AddListener((input) => {
+            CreatePlayer(input);
         });
 
         factory = new PlayerFactory();
@@ -97,7 +93,27 @@ public class PlayerManager : IFlow
     {
         foreach (var player in players)
         {
-            player.Refresh();
+            player.PhysicsRefresh();
         }
+    }
+
+    public void CreatePlayer(PlayerInput input)
+    {
+
+        Player newPlayer = null;
+
+        input.gameObject.transform.position = Vector3.zero;
+        newPlayer = input.gameObject.GetComponent<Player>();
+        factory.ChangePlayerColor(ref newPlayer, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
+
+        players.Add(newPlayer);
+
+        int layerToAdd = (int)Mathf.Log(playerCamMasks[players.Count - 1].value, 2);
+        newPlayer.GetComponentInChildren<CinemachineVirtualCamera>().gameObject.layer = layerToAdd;
+        newPlayer.GetComponentInChildren<CinemachineBrain>().gameObject.layer = layerToAdd;
+        newPlayer.GetComponentInChildren<Camera>().cullingMask |= 1 << layerToAdd;
+
+        newPlayer.PreInitialize();
+        newPlayer.Initialize();
     }
 }

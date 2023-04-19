@@ -962,6 +962,7 @@ GameObject:
   - component: {fileID: 1210056940}
   - component: {fileID: 1210056939}
   - component: {fileID: 1210056941}
+  - component: {fileID: 1210056942}
   m_Layer: 0
   m_Name: MainEntry
   m_TagString: GameController
@@ -1052,6 +1053,14 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!81 &1210056942
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210056938}
+  m_Enabled: 1
 --- !u!1001 &1244681122
 PrefabInstance:
   m_ObjectHideFlags: 0

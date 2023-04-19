@@ -7,6 +7,7 @@ TagManager:
   - Terrain
   - Trap
   - Maple
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - EndGame
   - MainMenu
   - Ground
-  - 
-  - 
+  - Player1
+  - Player2
   - 
   - 
   - 
