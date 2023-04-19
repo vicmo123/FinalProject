@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 755327345}
   - component: {fileID: 755327344}
   - component: {fileID: 755327343}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TargetPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1139,7 +1139,7 @@ GameObject:
   - component: {fileID: 1474921187}
   - component: {fileID: 1474921186}
   - component: {fileID: 1474921185}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TargetTrampoline
   m_TagString: Trap
   m_Icon: {fileID: 0}
@@ -1535,7 +1535,7 @@ GameObject:
   - component: {fileID: 2118525333}
   - component: {fileID: 2118525332}
   - component: {fileID: 2118525331}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlaneAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
