@@ -19,7 +19,11 @@ public class CustomInputHandler : MonoBehaviour
     [HideInInspector]
     public bool sprint { get; private set; } = false;
     [HideInInspector]
-    public float Throw { get; private set; } = 0.0f;
+    public float ThrowForce { get; private set; } = 0.0f;
+    [HideInInspector]
+    public bool ThrowPressed { get; set; } = false;
+    [HideInInspector]
+    public bool ThrowReleased { get; set; } = false;
     [HideInInspector]
     public bool Use { get; private set; } = false;
     [HideInInspector]
@@ -63,7 +67,9 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        Throw = (float)context.duration;
+        ThrowPressed = context.performed;
+        ThrowReleased = context.canceled;
+        ThrowForce = (float)context.duration;
     }
 
     public void OnUse(InputAction.CallbackContext context)
@@ -81,14 +87,6 @@ public class CustomInputHandler : MonoBehaviour
         UseRightPowerUp = context.action.triggered;
     }
     #endregion
-
-    private void Update()
-    {
-        Debug.Log("T - " + Throw);
-        Debug.Log("U - " + Use);
-        Debug.Log("R - " + UseRightPowerUp);
-        Debug.Log("L - " + UseLeftPowerUp);
-    }
 
     private void OnApplicationFocus(bool hasFocus)
     {

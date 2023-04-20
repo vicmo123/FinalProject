@@ -76,7 +76,6 @@ public class PlayerManager : IFlow
 
     public void CreatePlayer(PlayerInput input)
     {
-
         Player newPlayer = null;
 
         input.gameObject.transform.position = Vector3.zero;

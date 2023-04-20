@@ -10,31 +10,33 @@ public class Player : MonoBehaviour, IFlow
 
     public PlayerController playerController;
     public PlayerBucket playerBucket;
+    public Thrower throwerComponent;
 
     public void PreInitialize()
     {
         ragdoll.PreInitialize();
         playerController.PreInitialize();
+        throwerComponent.PreInitialize();
     }
 
     public void Initialize()
     {
         ragdoll.Initialize();
         playerController.Initialize();
+        throwerComponent.Initialize();
     }
 
     public void Refresh()
     {
         ragdoll.Refresh();
-
-        //animController.SetFloat("Speed", Mathf.Clamp01(playerController.playerSpeed/stats.maxWalkSpeed));
-
         playerController.Refresh();
+        throwerComponent.Refresh();
     }
 
     public void PhysicsRefresh()
     {
         ragdoll.PhysicsRefresh();
         playerController.PhysicsRefresh();
+        throwerComponent.PhysicsRefresh();
     }
 }
