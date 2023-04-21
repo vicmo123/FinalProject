@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Ability))]
+[CustomEditor(typeof(AbilityOLD))]
 public class AbilityDrawer : Editor
 {
     public SerializedProperty spriteProperty;

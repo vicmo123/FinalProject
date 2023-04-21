@@ -1,65 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using UnityEditor;
 using UnityEngine;
 
-public class AbilityFactory
+public class AbilityFactory : MonoBehaviour
 {
-    Dictionary<string, AbilityHolder> abilityDict;
-    List<string> abilityNames;
+    private string folderPath = "Prefabs/Abilities/";
+    private Dictionary<string, Ability> abilityDict;
+    public string[] abilityNames;
 
     public AbilityFactory()
     {
+        Debug.Log("AbilityFactory");
         InitializeDictResources();
-    }
-
-    public AbilityHolder CreateAbility(string abilityName)
-    {
-        AbilityHolder abHolder;
-
-        if (abilityDict.ContainsKey(abilityName))
-            abHolder = GameObject.Instantiate<AbilityHolder>(abilityDict[abilityName]);
-        else
-            throw new System.Exception("Ability Factory : The name of the ability doesn't correspond to an existing ability in the resources dictionnary");
-
-        return abHolder;
-    }
-
-    public string GetRandomAbilityName()
-    {        
-        return abilityNames[Random.Range(0, abilityNames.Count)];
     }
 
     private void InitializeDictResources()
     {
         //populate the dictionnary with AbilityHolder Prefabs
-        abilityDict = new Dictionary<string, AbilityHolder>();
-        string[] prefabGuids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Scripts/Abilities/AbilityStats" });
+        abilityDict = new Dictionary<string, Ability>();
+        GameObject[] prefabs = Resources.LoadAll<GameObject>(folderPath);
 
-        if (prefabGuids.Length == 0)
-            throw new System.Exception("AbilityFactory :  no AbilityHolder prefab was found in the file AbilityStats. Have they been moved to another file ?");
+        abilityNames = new string[prefabs.Length];
 
-        foreach (string guid in prefabGuids)
+        for (int i = 0; i < prefabs.Length; i++)
         {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-            string prefabName = prefab.name;
-            AbilityHolder ab = prefab.GetComponent<AbilityHolder>();
-            abilityDict.Add(prefabName, ab);
-        }
-
-        //Populate dictionnary of names (list of strings)
-        InitializeNameDict();
+            abilityDict.Add(prefabs[i].name, prefabs[i].GetComponent<Ability>());
+            abilityNames[i] = prefabs[i].name;
+        }        
     }
 
-    private void InitializeNameDict()
+    public Ability CreateAbility(string abilityName)
     {
-        abilityNames = new List<string>();
+        Ability newAbility = GameObject.Instantiate<Ability>(abilityDict[abilityName]);
 
-        foreach (KeyValuePair<string, AbilityHolder> el in abilityDict)
-        {
-            abilityNames.Add(el.Key);
-        }
+        newAbility.gameObject.SetActive(false);
+
+        if (newAbility != null)
+            return newAbility;
+        else
+            throw new System.Exception("Ability Factory : The name of the ability doesn't correspond to an existing ability in the resources dictionnary");
+                
     }
 }

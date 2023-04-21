@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Stats/AppleStats")]
-public class AppleStats : Ability
+
+public class AppleStats : AbilityOLD
 {
 
     public AppleStats(string name, Sprite sprite, float activeTime, float cooldownTime) : base(name, sprite, activeTime, cooldownTime)

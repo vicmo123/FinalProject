@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832d43e6e6727b247a735190be839ab7, type: 3}
+  m_Name: HornOLD
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2692976556824948205, guid: f41930e4fd999de459b10d4132b798d7, type: 3}
+  sprite: {fileID: 21300000, guid: 95279266531e0664087d0051e7e59448, type: 3}
+  abilityName: Horn
+  activeTime: 3
+  cooldownTime: 5
+  isThowable: 1
+  velocity: 2

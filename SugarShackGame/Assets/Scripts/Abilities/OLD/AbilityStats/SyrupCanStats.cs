@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Stats/SyrupCanStats")]
-public class SyrupCanStats : Ability
+public class SyrupCanStats : AbilityOLD
 {
 
     public SyrupCanStats(string name, Sprite sprite, float activeTime, float cooldownTime) : base(name, sprite, activeTime, cooldownTime)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Test_Ability : MonoBehaviour
 {
-    public Slot slot;
+    public SlotOLD slot;
     private AbilityHolder ability1;
     private AbilityHolder ability2;
 

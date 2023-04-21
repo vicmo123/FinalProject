@@ -5,6 +5,11 @@ using UnityEngine;
 [Manager(typeof(AbilityManager))]
 public class AbilityManager : IFlow
 {
+    private AbilityFactory abilityFactory;
+    private List<Ability> abilityList;
+    private List<Ability> toRemove;
+    
+
     #region Singleton
     private static AbilityManager instance;
 
@@ -22,91 +27,80 @@ public class AbilityManager : IFlow
 
     private AbilityManager()
     {
+        //Private constructor to prevent outside instantiation
     }
     #endregion
-    AbilityFactory factory;
-    List<AbilityHolder> inUse;
-    List<AbilityHolder> inCooldown;
-    string defaultAbility = "Apple";
-
 
     public void PreInitialize()
     {
-        factory = new AbilityFactory();
-        inUse = new List<AbilityHolder>();
-        inCooldown = new List<AbilityHolder>();
+        Debug.Log("AbilityManager");
+        abilityFactory = new AbilityFactory();
+        abilityList = new List<Ability>();
+        toRemove = new List<Ability>();
     }
 
     public void Initialize()
     {
     }
 
-    public void PhysicsRefresh()
-    {
-    }
-
-
     public void Refresh()
     {
-        for (int i = inUse.Count - 1; i >= 0; i--)
+        //Manage list of abilities that no longer need to be refreshed (need to be destroyed)
+        if (toRemove.Count > 0)
         {
-            //if ability is in cooldown, stop updating.
-            if (inUse[i].GetState() == AbilityState.Cooldown)
-            {                
-                inCooldown.Add(inUse[i]);
-                inUse.Remove(inUse[i]);
+            for (int i = (toRemove.Count - 1); i >= 0; i--)
+            {
+                abilityList.Remove(toRemove[i]);
+                GameObject.Destroy(toRemove[i]);
+            }
+            toRemove.Clear();
+        }
+
+        foreach(Ability ability in abilityList)
+        {
+            if (ability.state != AbilityState.Done)
+            {
+                ability.Refresh();
             }
             else
             {
-                inUse[i].Refresh();
-            }
-        }
 
-        for (int i = inCooldown.Count - 1; i >= 0; i--)
-        {
-            //refresh the cooldown list : running their countdown timer 
-            //when timer is at 0, remove from list
+                toRemove.Add(ability);
+            }
         }
     }
 
-    public AbilityHolder GenerateAbility()
+    public void PhysicsRefresh()
     {
-        int tries = 0;
-        string name = defaultAbility;
-
-        while (tries < 30)
+        foreach (Ability ability in abilityList)
         {
-            //Create Ability by asking the factory
-            name = factory.GetRandomAbilityName();
-            
-            bool isOnCooldown = false;
+            ability.PhysicsRefresh();
+        }
+    }
 
-            //Verify this ability is not part of the cooldown list
-            foreach (AbilityHolder ability in inCooldown)
-            {
-                if (ability.name == name)
-                {
-                    isOnCooldown = true;
-                    break;
-                }
-            }
-            if (!isOnCooldown)
-                break;
-
-            tries++;
+    public Ability CreateAbility(string abilityName = null)
+    {
+        if (abilityName == null)
+        {
+            abilityName = RandomAbility();
         }
 
-        //default ability
-        if (tries == 30)
-        {
-            name = defaultAbility;
-        }
-        AbilityHolder newAbility = factory.CreateAbility(name);
+        Ability newAbility = abilityFactory.CreateAbility(abilityName);
 
-        //Initialize the ability
-        newAbility.PreInitialize();
-        inUse.Add(newAbility);
+        if (newAbility != null)
+        {
+            newAbility.PreInitialize();
+            newAbility.Initialize();
+
+            abilityList.Add(newAbility);
+        }
 
         return newAbility;
+    }
+
+    public string RandomAbility()
+    {
+        int randomNameIndex = Random.Range(0, abilityFactory.abilityNames.Length);
+        return abilityFactory.abilityNames[randomNameIndex];
     }
 }

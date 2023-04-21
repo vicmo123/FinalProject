@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-public enum AbilityState { Ready, Active, Cooldown }
+public enum AbilityStateOLD { Ready, Active, Cooldown }
 
 public class AbilityHolder : MonoBehaviour, IFlow
 {
-    public Ability ability;
+    public AbilityOLD ability;
     private AbilityState state;
     private bool isActive;
     private float activeTime;
@@ -76,7 +76,7 @@ public class AbilityHolder : MonoBehaviour, IFlow
         return this.state;
     }
 
-    public Ability GetAbilityStats()
+    public AbilityOLD GetAbilityStats()
     {
         return this.ability;
     }

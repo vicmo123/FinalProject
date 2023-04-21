@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 
-public class Slot : MonoBehaviour
+public class SlotOLD : MonoBehaviour
 {
     public Image slotContainer;
     public Image pieContainer;
@@ -30,7 +30,7 @@ public class Slot : MonoBehaviour
 
     private void LoadNewAbility()
     {
-        currentAbility = AbilityManager.Instance.GenerateAbility();
+        currentAbility = AbilityManagerOLD.Instance.GenerateAbility();
     }
 
     private void DisplayAbility(Sprite sprite, float duration)
