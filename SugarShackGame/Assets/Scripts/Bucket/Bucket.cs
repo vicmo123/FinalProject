@@ -1,15 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bucket : MonoBehaviour, IFlow, IUsable
 {
     Player player;
 
-    [HideInInspector] public float sapAmount = 0.0f;
+    [SerializeField] private GameObject fillingBarObject;
+    private FillingBar fillingBar;
+    [SerializeField] private Transform positionForFillingBar;
+
+    public float sapAmount = 0.0f;
     private float maxSapAmount = 20.0f;
-    private float sapGainSpeed = 1.0f;
+    private float sapGainSpeed = 3.0f;
 
     private float remainingTimeToClaim = 0.0f;
     private float timeToClaim = 3.0f;
@@ -23,12 +25,19 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
         int mapleType = Int32.Parse(transform.parent.name.Substring(7, 1));
         transform.localPosition = BucketManager.Instance.bucketPositionDic[mapleType];
+        fillingBar.transform.SetParent(null);
     }
 
     public void PhysicsRefresh() {
+        if (player)
+            fillingBar.Rotate(player);
     }
 
     public void PreInitialize() {
+        fillingBar = GameObject.Instantiate(fillingBarObject).GetComponent<FillingBar>();
+        fillingBar.PreInitialize();
+        fillingBar.transform.SetParent(transform);
+        fillingBar.transform.position = positionForFillingBar.position;
     }
 
     public void Refresh() {
@@ -41,11 +50,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
             Claim(_player);
         }
         else if (_player == player) {
-            if (Time.time >= endOfCooldown) {
-                // If the playing using the bucket is the owner, gets sap
-                sapAmount -= _player.playerBucket.AddSap(sapAmount);
-                endOfCooldown = Time.time + cooldown;
-            }
+            CollectSap(_player);
         }
         else {
             // If it is not the owner, allows them to claim the bucket
@@ -54,11 +59,13 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     }
 
     private void Claim(Player _player) {
-        if (Time.time - Time.deltaTime == lastUsedTime) { // If the player is already claiming
+        Debug.Log("Bucket is being claimed!");
+        if (Time.time - lastUsedTime <= 1.0f) { // If the player is already claiming
             if (remainingTimeToClaim > 0.0f)
                 remainingTimeToClaim -= Time.deltaTime;
             else {
-                player = _player;
+                // Bucket is claimed
+                Claimed(_player);
                 endOfCooldown = Time.time + cooldown;
             }
         } else { // If the player starts to claim
@@ -71,8 +78,30 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
         lastUsedTime = Time.time;
     }
 
+    private void CollectSap(Player _player) {
+        if (Time.time >= endOfCooldown) {
+            Debug.Log("Sap collected!");
+            // If the playing using the bucket is the owner, gets sap
+            sapAmount -= _player.playerBucket.AddSap(sapAmount);
+            fillingBar.Fill(sapAmount, maxSapAmount);
+            endOfCooldown = Time.time + cooldown;
+        }
+    }
+
+    private void Claimed(Player _player) {
+        if (player)
+            Debug.Log("Bucket was stolen!");
+        else
+            Debug.Log("Bucket was claimed!");
+
+        player = _player;
+
+        // Temporary change of color
+    }
+
     private void Sap() {
         sapAmount = Mathf.Clamp(sapAmount + (sapGainSpeed * Time.deltaTime), 0, maxSapAmount);
+        fillingBar.Fill(sapAmount, maxSapAmount);
     }
 
     public bool CheckParent() {

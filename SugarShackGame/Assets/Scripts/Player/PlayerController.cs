@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour, IFlow
         Move();
 
         Debug.Log(_playerInput.currentControlScheme);
+        CheckForUsing();
     }
 
     private void LateUpdate()
@@ -344,4 +345,19 @@ public class PlayerController : MonoBehaviour, IFlow
     //        AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
     //    }
     //}
+
+    private void CheckForUsing() {
+        Player _player = transform.GetComponent<Player>();
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.TransformDirection(Vector3.forward), out hit, 1000)) {
+            if (hit.transform.gameObject.CompareTag("Bucket")) {
+                Bucket bucket = hit.transform.GetComponent<Bucket>();
+
+                if (_inputHandler.Use)
+                    bucket.Use(_player);
+            }
+        }
+        //Debug.DrawRay(model.position + new Vector3(0, .5f, 0), model.TransformDirection(Vector3.forward), Color.red, 1000);
+    }
 }
