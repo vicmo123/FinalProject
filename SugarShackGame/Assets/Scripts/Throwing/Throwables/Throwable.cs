@@ -63,6 +63,7 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
     {
         timer.StartTimer();
         gameObject.transform.SetParent(null);
+        rb.isKinematic = false;
     }
 
     public virtual void AttachToThrower(Thrower thrower)

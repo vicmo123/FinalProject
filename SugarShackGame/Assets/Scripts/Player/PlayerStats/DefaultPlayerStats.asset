@@ -16,7 +16,7 @@ MonoBehaviour:
   SprintSpeed: 25
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
-  JumpHeight: 5
+  JumpHeight: 3
   Gravity: -30
   JumpTimeout: 0.5
   FallTimeout: 0.15
@@ -29,5 +29,5 @@ MonoBehaviour:
     m_Bits: 256
   TopClamp: 70
   BottomClamp: -30
-  CameraAngleOverride: 0
+  CameraAngleOverride: 10
   LockCameraPosition: 0

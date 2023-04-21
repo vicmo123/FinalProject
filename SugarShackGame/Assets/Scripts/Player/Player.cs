@@ -5,17 +5,22 @@ using UnityEngine;
 public class Player : MonoBehaviour, IFlow
 {
     public Renderer[] renderers;
-    public Animator animController;
-    public Ragdoll ragdoll;
 
-    public PlayerController playerController;
-    public PlayerBucket playerBucket;
-    public Thrower throwerComponent;
+    private Ragdoll ragdoll;
+    private PlayerController playerController;
+    public PlayerBucket playerBucket { get; private set; }
+    private Thrower throwerComponent;
 
     public void PreInitialize()
     {
+        ragdoll = GetComponent<Ragdoll>();
+        playerController = GetComponent<PlayerController>();
+        playerBucket = GetComponent<PlayerBucket>();
+        throwerComponent = GetComponent<Thrower>();
+
         ragdoll.PreInitialize();
         playerController.PreInitialize();
+        playerBucket.PreInitialize();
         throwerComponent.PreInitialize();
     }
 
@@ -23,6 +28,7 @@ public class Player : MonoBehaviour, IFlow
     {
         ragdoll.Initialize();
         playerController.Initialize();
+        playerBucket.Initialize();
         throwerComponent.Initialize();
     }
 
@@ -30,6 +36,7 @@ public class Player : MonoBehaviour, IFlow
     {
         ragdoll.Refresh();
         playerController.Refresh();
+        playerBucket.Refresh();
         throwerComponent.Refresh();
     }
 
@@ -37,6 +44,7 @@ public class Player : MonoBehaviour, IFlow
     {
         ragdoll.PhysicsRefresh();
         playerController.PhysicsRefresh();
+        playerBucket.PhysicsRefresh();
         throwerComponent.PhysicsRefresh();
     }
 }
