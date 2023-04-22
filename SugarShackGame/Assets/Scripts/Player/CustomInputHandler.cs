@@ -30,6 +30,10 @@ public class CustomInputHandler : MonoBehaviour
     public bool UseLeftPowerUp { get; private set; } = false;
     [HideInInspector]
     public bool UseRightPowerUp { get; private set; } = false;
+    [HideInInspector]
+    public bool Aim { get; private set; } = false;
+
+
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -85,6 +89,11 @@ public class CustomInputHandler : MonoBehaviour
     public void OnRightPowerUp(InputAction.CallbackContext context)
     {
         UseRightPowerUp = context.action.triggered;
+    }
+
+    public void OnAim(InputAction.CallbackContext context)
+    {
+        Aim = context.action.triggered;
     }
     #endregion
 

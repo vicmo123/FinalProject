@@ -107,6 +107,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f7d2ca4-519e-4afb-9173-200bc2fc8fbb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -318,6 +327,45 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""RightPowerUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49b8820d-bc19-43d8-909b-56f690195556"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""UI_Navigation"",
+            ""id"": ""dfadd4f3-eace-4f99-a9ec-672a8396f5ff"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c53ca4e-2517-4088-8f5c-c60bb18e7c22"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""206745ab-0fd5-4ab0-a925-fdc53e604f72"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -363,6 +411,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
         m_Player_LeftPowerUp = m_Player.FindAction("LeftPowerUp", throwIfNotFound: true);
         m_Player_RightPowerUp = m_Player.FindAction("RightPowerUp", throwIfNotFound: true);
+        m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
+        // UI_Navigation
+        m_UI_Navigation = asset.FindActionMap("UI_Navigation", throwIfNotFound: true);
+        m_UI_Navigation_Newaction = m_UI_Navigation.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -431,6 +483,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Use;
     private readonly InputAction m_Player_LeftPowerUp;
     private readonly InputAction m_Player_RightPowerUp;
+    private readonly InputAction m_Player_Aim;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -444,6 +497,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Use => m_Wrapper.m_Player_Use;
         public InputAction @LeftPowerUp => m_Wrapper.m_Player_LeftPowerUp;
         public InputAction @RightPowerUp => m_Wrapper.m_Player_RightPowerUp;
+        public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -480,6 +534,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RightPowerUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightPowerUp;
                 @RightPowerUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightPowerUp;
                 @RightPowerUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightPowerUp;
+                @Aim.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -511,10 +568,46 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RightPowerUp.started += instance.OnRightPowerUp;
                 @RightPowerUp.performed += instance.OnRightPowerUp;
                 @RightPowerUp.canceled += instance.OnRightPowerUp;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // UI_Navigation
+    private readonly InputActionMap m_UI_Navigation;
+    private IUI_NavigationActions m_UI_NavigationActionsCallbackInterface;
+    private readonly InputAction m_UI_Navigation_Newaction;
+    public struct UI_NavigationActions
+    {
+        private @PlayerControls m_Wrapper;
+        public UI_NavigationActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_UI_Navigation_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_UI_Navigation; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UI_NavigationActions set) { return set.Get(); }
+        public void SetCallbacks(IUI_NavigationActions instance)
+        {
+            if (m_Wrapper.m_UI_NavigationActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_UI_NavigationActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public UI_NavigationActions @UI_Navigation => new UI_NavigationActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -544,5 +637,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnUse(InputAction.CallbackContext context);
         void OnLeftPowerUp(InputAction.CallbackContext context);
         void OnRightPowerUp(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
+    }
+    public interface IUI_NavigationActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

@@ -64,4 +64,23 @@ public class PlayerStats : ScriptableObject
 
     [Tooltip("For locking the camera position on all axis")]
     public bool LockCameraPosition = false;
+
+    [Header("Aiming stats")]
+    [Tooltip("Initial side position of the camera")]
+    public float initialCameraSideValue = 0.6f;
+
+    [Tooltip("Initial side position of the camera")]
+    public float TargetCameraSideValue = 0.85f;
+
+    [Tooltip("Initial distance of the camera from the player")]
+    public float initialCameraDistanceValue = 4.5f;
+
+    [Tooltip("close-up distance of the camera from the player")]
+    public float TargetCameraDistanceValue = 2f;
+
+    [Tooltip("to multiply the aim speed")]
+    public float CameraDistanceMultiplicator = 5f;
+
+    [Tooltip("Speed of aiming")]
+    public float aimSpeed = 3f;
 }

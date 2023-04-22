@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
@@ -10,14 +11,21 @@ using UnityEngine.InputSystem;
 #endif
 public class PlayerController : MonoBehaviour, IFlow
 {
-    //For better movement purposes
+    //Camera stuff
+    [Header("Camera")]
     [Tooltip("Main camera for this player's instance")]
     [SerializeField] private GameObject _mainCamera;
     [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
     [SerializeField]
     private GameObject _cinemachineCameraTarget;
+    [Tooltip("To be able to move the camera when aiming")]
+    [SerializeField]
+    private CinemachineVirtualCamera _cinemachineVirtualCamera;
+    [SerializeField]
+    private GameObject cursor;
 
     //Stats for movement control
+    [Header("Player Stats")]
     [SerializeField] private PlayerStats _playerStats;
 
     //Inputs
@@ -33,6 +41,8 @@ public class PlayerController : MonoBehaviour, IFlow
     //Cinemachine
     private float _cinemachineTargetYaw;
     private float _cinemachineTargetPitch;
+    private Cinemachine3rdPersonFollow _followComponent;
+    private float _cameraSideAim;
 
     //Player
     private float _speed;
@@ -83,6 +93,8 @@ public class PlayerController : MonoBehaviour, IFlow
         _controller = GetComponent<CharacterController>();
         _inputHandler = GetComponent<CustomInputHandler>();
         _animator = GetComponent<Animator>();
+        _followComponent = _cinemachineVirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+        _followComponent.CameraSide = _playerStats.initialCameraSideValue;
 
         if (_animator)
         {
@@ -94,15 +106,16 @@ public class PlayerController : MonoBehaviour, IFlow
 
     public void Initialize()
     {
-        
+
         if (_hasAnimator)
         {
             AssignAnimationIDs();
         }
-        
+
         // reset our timeouts on start
         _jumpTimeoutDelta = _playerStats.JumpTimeout;
         _fallTimeoutDelta = _playerStats.FallTimeout;
+        _cameraSideAim = _playerStats.initialCameraSideValue;
     }
 
     public void Refresh()
@@ -110,8 +123,8 @@ public class PlayerController : MonoBehaviour, IFlow
         JumpAndGravity();
         GroundedCheck();
         Move();
+        Aim();
 
-        Debug.Log(_playerInput.currentControlScheme);
     }
 
     private void LateUpdate()
@@ -121,7 +134,7 @@ public class PlayerController : MonoBehaviour, IFlow
 
     public void PhysicsRefresh()
     {
-        
+
     }
 
     private void AssignAnimationIDs()
@@ -217,15 +230,16 @@ public class PlayerController : MonoBehaviour, IFlow
             float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
 
             // rotate to face input direction relative to camera position
-            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            if (!_inputHandler.Aim)
+            {
+                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            }
         }
-
 
         Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
         // move the player
-        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                         new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
         // update animator if using character
         if (_hasAnimator)
@@ -301,6 +315,59 @@ public class PlayerController : MonoBehaviour, IFlow
         if (_verticalVelocity < _terminalVelocity)
         {
             _verticalVelocity += _playerStats.Gravity * Time.deltaTime;
+        }
+    }
+
+    public void Aim()
+    {
+        if (_inputHandler.Aim)
+        {
+            if (_inputHandler.Aim == true)
+            {
+                if (_followComponent.CameraSide < _playerStats.TargetCameraSideValue)
+                {
+                    _followComponent.CameraSide += _playerStats.aimSpeed * Time.deltaTime;
+                }
+
+                if (_followComponent.CameraDistance > _playerStats.TargetCameraDistanceValue)
+                {
+                    _followComponent.CameraDistance -= _playerStats.aimSpeed * 5f * Time.deltaTime;
+                }
+
+                if (!cursor.gameObject.activeInHierarchy)
+                {
+                    cursor.gameObject.SetActive(true);
+                }
+
+                if (_inputHandler.Aim)
+                {
+                    Vector3 camForward = _mainCamera.transform.forward;
+                    _targetRotation = Mathf.Atan2(camForward.x, camForward.z) * Mathf.Rad2Deg;
+                    float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
+
+                    // rotate to face input direction relative to camera position
+
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+
+                }
+            }
+        }
+        else if (!_inputHandler.Aim)
+        {
+            if (_followComponent.CameraSide > _playerStats.initialCameraSideValue)
+            {
+                _followComponent.CameraSide -= _playerStats.aimSpeed * Time.deltaTime;
+            }
+
+            if (_followComponent.CameraDistance < _playerStats.initialCameraDistanceValue)
+            {
+                _followComponent.CameraDistance += _playerStats.aimSpeed * 5f * Time.deltaTime;
+            }
+
+            if (cursor.gameObject.activeInHierarchy)
+            {
+                cursor.gameObject.SetActive(false);
+            }
         }
     }
 
