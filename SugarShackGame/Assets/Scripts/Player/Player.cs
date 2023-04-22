@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IFlow
         playerController.PreInitialize();
         playerBucket.PreInitialize();
         throwerComponent.PreInitialize();
+        playerBucket = transform.GetComponentInChildren<PlayerBucket>();
     }
 
     public void Initialize()
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour, IFlow
         playerController.Refresh();
         playerBucket.Refresh();
         throwerComponent.Refresh();
+
     }
 
     public void PhysicsRefresh()
