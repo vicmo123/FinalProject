@@ -4,30 +4,46 @@ using UnityEngine;
 
 public class Thrower : MonoBehaviour, IFlow
 {
+    [Header("Throwing")]
     public Transform attachPoint;
-    public CustomInputHandler inputHandler;
+    private CustomInputHandler inputHandler;
 
     public float throwForce;
     public Vector3 velocity;
     public float coolDown;
 
-    public bool IsHoldingThrowable = false;
+    private bool IsHoldingThrowable = false;
+    [HideInInspector]
     public Throwable toThrow = null;
+
+    private Animator animator;
+    private int _HoldingThrowableId;
+    private int _TimeToThrowId;
+
+    private PlayerAnimationEvents animEventReciever;
+    
 
     public void PreInitialize()
     {
-
+        inputHandler = GetComponent<CustomInputHandler>();
+        animator = GetComponent<Animator>();
+        animEventReciever = GetComponent<PlayerAnimationEvents>();
+        animEventReciever.OnThrowAnimation += () => { OnThrowLogic(); };
     }
 
     public void Initialize()
     {
-
+        _HoldingThrowableId = Animator.StringToHash("IsHoldingThrowable");
+        _TimeToThrowId = Animator.StringToHash("ThrowTime");
     }
 
     public void Refresh()
     {
-        if (inputHandler.ThrowPressed)
+        if (inputHandler.Throw)
         {
+            animator.SetBool(_TimeToThrowId, false);
+            animator.SetBool(_HoldingThrowableId, inputHandler.Throw);
+
             if (!IsHoldingThrowable)
             {
                 toThrow = ThrowableManager.Instance.AddObjectToCollection(ThrowableTypes.SnowBall);
@@ -36,16 +52,10 @@ public class Thrower : MonoBehaviour, IFlow
             }
         }
 
-        if (inputHandler.ThrowReleased)
+        if (!inputHandler.Throw)
         {
-            if (IsHoldingThrowable)
-            {
-                float timeHeld = inputHandler.ThrowForce;
-                Debug.Log(timeHeld);
-                toThrow.Throw(Vector3.zero);
-                toThrow = null;
-                IsHoldingThrowable = false;
-            }
+            animator.SetBool(_TimeToThrowId, true);
+            animator.SetBool(_HoldingThrowableId, IsHoldingThrowable);
         }
 
         if (inputHandler.UseLeftPowerUp)
@@ -62,5 +72,14 @@ public class Thrower : MonoBehaviour, IFlow
     public void PhysicsRefresh()
     {
 
+    }
+
+    public void OnThrowLogic()
+    {
+        float timeHeld = inputHandler.ThrowForce;
+        toThrow.Throw(Vector3.forward * timeHeld);
+        toThrow = null;
+        IsHoldingThrowable = false;
+        Debug.Log("Throw");
     }
 }

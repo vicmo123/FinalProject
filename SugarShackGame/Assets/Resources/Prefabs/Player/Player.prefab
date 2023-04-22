@@ -1932,6 +1932,7 @@ GameObject:
   - component: {fileID: 2462538295123637722}
   - component: {fileID: 974000302012181050}
   - component: {fileID: 8817624269213544639}
+  - component: {fileID: 6839153482449966018}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2278,12 +2279,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachPoint: {fileID: 5646486051690149682}
-  inputHandler: {fileID: 2462538295123637722}
   throwForce: 0
   velocity: {x: 0, y: 0, z: 0}
   coolDown: 0
-  IsHoldingThrowable: 0
   toThrow: {fileID: 0}
+--- !u!114 &6839153482449966018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331886442063392701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9583b565d4c9441be9c24fbf0ccbc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5341212998253359566
 GameObject:
   m_ObjectHideFlags: 0

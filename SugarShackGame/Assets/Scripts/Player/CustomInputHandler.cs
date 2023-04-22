@@ -21,7 +21,7 @@ public class CustomInputHandler : MonoBehaviour
     [HideInInspector]
     public float ThrowForce { get; private set; } = 0.0f;
     [HideInInspector]
-    public bool ThrowPressed { get; set; } = false;
+    public bool Throw { get; set; } = false;
     [HideInInspector]
     public bool ThrowReleased { get; set; } = false;
     [HideInInspector]
@@ -71,7 +71,7 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        ThrowPressed = context.performed;
+        Throw = context.action.triggered;
         ThrowReleased = context.canceled;
         ThrowForce = (float)context.duration;
     }
