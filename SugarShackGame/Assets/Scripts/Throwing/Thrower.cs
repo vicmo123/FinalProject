@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Thrower : MonoBehaviour, IFlow
 {
-    [Header("Throwing")]
+    [Header("Throwing Settings")]
     public Transform attachPoint;
     private CustomInputHandler inputHandler;
+    [SerializeField]
+    private Camera cam;
+    [SerializeField]
+    private RectTransform cursor;
+    [SerializeField]
+    private float cursorClipPlane;
 
-    public float throwForce;
-    public Vector3 velocity;
-    public float coolDown;
+    [SerializeField]
+    private float speed = 10f;
 
     private bool IsHoldingThrowable = false;
     [HideInInspector]
@@ -77,9 +83,24 @@ public class Thrower : MonoBehaviour, IFlow
     public void OnThrowLogic()
     {
         float timeHeld = inputHandler.ThrowForce;
-        toThrow.Throw(Vector3.forward * timeHeld);
+        toThrow.Throw(ComputeVelocityTowardsCursor() * speed * timeHeld);
         toThrow = null;
         IsHoldingThrowable = false;
         Debug.Log("Throw");
+    }
+
+    private Vector3 ComputeVelocityTowardsCursor()
+    {
+        // Get the position of the cursor in the viewport
+        Vector3 cursorPosViewport = new Vector3(0.5f, 0.5f, cam.farClipPlane / 2f);
+
+        // Get the direction from the player to the cursor position
+        Vector3 throwDirection = cam.ViewportToWorldPoint(cursorPosViewport) - attachPoint.position;
+        Debug.Log("throwDirection: " + throwDirection); // Debugging line
+
+        // Normalize the direction and multiply by the throw force to get the throw velocity
+        Vector3 throwVelocity = throwDirection.normalized;
+
+        return throwVelocity;
     }
 }

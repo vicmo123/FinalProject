@@ -9,8 +9,10 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
     [HideInInspector]
     public Transform throwerAttachPoint = null;
     public ThrowableData data;
+    [HideInInspector]
     public CountDownTimer timer;
-    public Rigidbody rb;
+    private Rigidbody rb;
+    [HideInInspector]
     public bool readyToBeDestroyed = false;
 
     private bool isActive = true;
@@ -34,6 +36,7 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
 
     public virtual void Initialize()
     {
+        rb = GetComponent<Rigidbody>();
         readyToBeDestroyed = false;
         timer = new CountDownTimer(data.TimeBeforeDestruction, false);
         timer.OnTimeIsUpLogic = ()  => { readyToBeDestroyed = true; };
@@ -64,6 +67,8 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
         timer.StartTimer();
         gameObject.transform.SetParent(null);
         rb.isKinematic = false;
+
+        rb.AddForce(velocity, ForceMode.Impulse);
     }
 
     public virtual void AttachToThrower(Thrower thrower)

@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour, IFlow
 
                 if (!cursor.gameObject.activeInHierarchy)
                 {
-                    cursor.gameObject.SetActive(true);
+                    //cursor.gameObject.SetActive(true);
                 }
 
                 if (_inputHandler.Aim)
@@ -362,7 +362,7 @@ public class PlayerController : MonoBehaviour, IFlow
 
             if (cursor.gameObject.activeInHierarchy)
             {
-                cursor.gameObject.SetActive(false);
+                //cursor.gameObject.SetActive(false);
             }
         }
     }

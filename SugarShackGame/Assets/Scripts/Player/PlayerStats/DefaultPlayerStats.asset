@@ -32,8 +32,8 @@ MonoBehaviour:
   CameraAngleOverride: 0
   LockCameraPosition: 0
   initialCameraSideValue: 0.6
-  TargetCameraSideValue: 0.8
+  TargetCameraSideValue: 0.7
   initialCameraDistanceValue: 4.5
   TargetCameraDistanceValue: 2
-  CameraDistanceMultiplicator: 5
+  CameraDistanceMultiplicator: 4.5
   aimSpeed: 3.5
