@@ -120,10 +120,10 @@ public class PlayerController : MonoBehaviour, IFlow
 
     public void Refresh()
     {
+        Aim();
         JumpAndGravity();
         GroundedCheck();
         Move();
-        Aim();
         CheckForUsing();
     }
 
@@ -227,11 +227,11 @@ public class PlayerController : MonoBehaviour, IFlow
         if (_inputHandler.move != Vector2.zero)
         {
             _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
-            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
 
             // rotate to face input direction relative to camera position
             if (!_inputHandler.Aim)
             {
+                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
         }
@@ -341,14 +341,10 @@ public class PlayerController : MonoBehaviour, IFlow
 
                 if (_inputHandler.Aim)
                 {
-                    Vector3 camForward = _mainCamera.transform.forward;
-                    _targetRotation = Mathf.Atan2(camForward.x, camForward.z) * Mathf.Rad2Deg;
+                    _targetRotation = Mathf.Atan2(_mainCamera.transform.forward.x, _mainCamera.transform.forward.z) * Mathf.Rad2Deg;
                     float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
 
-                    // rotate to face input direction relative to camera position
-
                     transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-
                 }
             }
         }
@@ -412,12 +408,15 @@ public class PlayerController : MonoBehaviour, IFlow
     //    }
     //}
 
-    private void CheckForUsing() {
+    private void CheckForUsing()
+    {
         Player _player = transform.GetComponent<Player>();
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.TransformDirection(Vector3.forward), out hit, 1000)) {
-            if (hit.transform.gameObject.CompareTag("Bucket")) {
+        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.TransformDirection(Vector3.forward), out hit, 1000))
+        {
+            if (hit.transform.gameObject.CompareTag("Bucket"))
+            {
                 Bucket bucket = hit.transform.GetComponent<Bucket>();
 
                 if (_inputHandler.Use)
