@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Apple : Ability
+public class MysteryBottle : Ability
 {
     public override void SpawnAbility(PlayerAbility_Test player)
     {
         base.SpawnAbility(player);
         //TODO
-        //Throw the apple/snowball
-        Debug.Log("Apple effect used by : " + player.gameObject.name);
-        gameObject.SetActive(false);
+        //Effect of the MysteryBottle to modify behaviour of player
+        //Random between 3 effets :
+        // 1. Drunk
+        // 2. Freeze
+        // 3. Slow
+        Debug.Log("MysteryBottle effect used by : " + player.gameObject.name);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -25,7 +28,7 @@ public class Apple : Ability
     public override void PreInitialize()
     {
         base.PreInitialize();
-        Debug.Log("Apple has been created!");
+        Debug.Log("MysteryBottle has been created!");
     }
 
     public override void Initialize()
@@ -37,11 +40,10 @@ public class Apple : Ability
     {
         base.PhysicsRefresh();
     }
-       
+
 
     public override void Refresh()
     {
         base.Refresh();
     }
-    
 }

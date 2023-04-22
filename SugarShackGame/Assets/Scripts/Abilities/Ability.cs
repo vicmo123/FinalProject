@@ -13,7 +13,6 @@ public class Ability : MonoBehaviour, IFlow
 
     public virtual void PreInitialize()
     {
-        Debug.Log("Base Ability Initialize");
         this.activeTimeLeft = stats.activeTime;
         this.cooldownTimeLeft = stats.cooldownTime;
         this.state = AbilityState.Ready;
@@ -62,7 +61,7 @@ public class Ability : MonoBehaviour, IFlow
         }
     }
 
-    public virtual void Activate(Player player)
+    public virtual void SpawnAbility(PlayerAbility_Test player)
     {
         this.state = AbilityState.Active;
         this.gameObject.SetActive(true);
@@ -76,7 +75,7 @@ public class Ability : MonoBehaviour, IFlow
         {
             //TODO
             //ask property of the player : abilityStartPosition
-            transform.position = player.transform.position;
+            transform.position = player.transform.position + new Vector3(0,1.5f,0);
         }
     }
 }

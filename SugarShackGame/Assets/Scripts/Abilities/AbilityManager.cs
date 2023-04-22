@@ -33,7 +33,7 @@ public class AbilityManager : IFlow
 
     public void PreInitialize()
     {
-        Debug.Log("AbilityManager");
+        
         abilityFactory = new AbilityFactory();
         abilityList = new List<Ability>();
         toRemove = new List<Ability>();
@@ -51,7 +51,7 @@ public class AbilityManager : IFlow
             for (int i = (toRemove.Count - 1); i >= 0; i--)
             {
                 abilityList.Remove(toRemove[i]);
-                GameObject.Destroy(toRemove[i]);
+                GameObject.Destroy(toRemove[i].gameObject);
             }
             toRemove.Clear();
         }

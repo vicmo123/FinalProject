@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-//[Manager(typeof(PlayerManager))]
+[Manager(typeof(PlayerManager))]
 public class PlayerManager : IFlow
 {
     #region Singleton

@@ -20,7 +20,7 @@ public class PlayerAbility_Test : MonoBehaviour
         ability = slot1.GetAbility();
         if (ability != null)
         {
-            ability.Activate(new Player());
+            ability.SpawnAbility(this);
         }
     }
     private void Update()

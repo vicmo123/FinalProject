@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Apple : Ability
+public class SugarCan : Ability
 {
     public override void SpawnAbility(PlayerAbility_Test player)
     {
         base.SpawnAbility(player);
         //TODO
-        //Throw the apple/snowball
-        Debug.Log("Apple effect used by : " + player.gameObject.name);
-        gameObject.SetActive(false);
+        //Effect of the SugarCan to add to UI of player
+        Debug.Log("SugarCan effect used by : " + player.gameObject.name);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -25,7 +24,7 @@ public class Apple : Ability
     public override void PreInitialize()
     {
         base.PreInitialize();
-        Debug.Log("Apple has been created!");
+        Debug.Log("SugarCan has been created!");
     }
 
     public override void Initialize()
@@ -37,11 +36,10 @@ public class Apple : Ability
     {
         base.PhysicsRefresh();
     }
-       
+
 
     public override void Refresh()
     {
         base.Refresh();
     }
-    
 }

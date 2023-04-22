@@ -10,7 +10,6 @@ public class AbilityFactory : MonoBehaviour
 
     public AbilityFactory()
     {
-        Debug.Log("AbilityFactory");
         InitializeDictResources();
     }
 

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Horn : Ability
 {
-    public override void Activate(Player player)
+    public override void SpawnAbility(PlayerAbility_Test player)
     {
-        base.Activate(player);
-        //TODO
-        //Effect of the horn to modify behaviour of animals
+        base.SpawnAbility(player);       
+        Activate(player);        
+    }
+
+    public void Activate(PlayerAbility_Test player)
+    {
         Debug.Log("Horn effect used by : " + player.gameObject.name);
     }
 
@@ -16,7 +19,7 @@ public class Horn : Ability
     {
         if (collision.gameObject.tag == "Player")
         {
-            Activate(collision.gameObject.GetComponent<Player>());
+            SpawnAbility(collision.gameObject.GetComponent<PlayerAbility_Test>());
             gameObject.SetActive(false);
         }
     }
@@ -24,7 +27,6 @@ public class Horn : Ability
     public override void PreInitialize()
     {
         base.PreInitialize();
-        Debug.Log("Horn has been created!");
     }
 
     public override void Initialize()
