@@ -841,6 +841,7 @@ GameObject:
   - component: {fileID: 1210056939}
   - component: {fileID: 1210056941}
   - component: {fileID: 1210056942}
+  - component: {fileID: 1210056943}
   m_Layer: 0
   m_Name: MainEntry
   m_TagString: GameController
@@ -939,6 +940,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210056938}
   m_Enabled: 1
+--- !u!114 &1210056943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210056938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4907e1353f9a2b244972eb9cbbd1bffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1245490577 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4751373514903479492, guid: 22c696fb2a48837448f3e63583c27a68, type: 3}

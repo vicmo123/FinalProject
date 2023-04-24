@@ -53,6 +53,7 @@ public class Thrower : MonoBehaviour, IFlow
 
             if (!IsHoldingThrowable)
             {
+                SoundManager.Play?.Invoke(SoundListEnum.Bell);
                 toThrow = ThrowableManager.Instance.AddObjectToCollection(ThrowableTypes.SnowBall);
                 toThrow.AttachToThrower(this);
                 IsHoldingThrowable = true;
@@ -67,13 +68,14 @@ public class Thrower : MonoBehaviour, IFlow
 
         if (inputHandler.UseLeftPowerUp)
         {
+            SoundManager.Play?.Invoke(SoundListEnum.Chop);
             //ThrowableManager.Instance.AddObjectToCollection(ThrowableTypes.Apple);
-            GetComponent<Ragdoll>().Recover();
         }
 
         if (inputHandler.UseRightPowerUp)
         {
-            ThrowableManager.Instance.AddObjectToCollection(ThrowableTypes.Trampoline);
+            SoundManager.Play?.Invoke(SoundListEnum.completetask_0);
+            //ThrowableManager.Instance.AddObjectToCollection(ThrowableTypes.Trampoline);
         }
     }
 

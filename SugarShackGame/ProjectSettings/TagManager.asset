@@ -9,6 +9,7 @@ TagManager:
   - Maple
   - CinemachineTarget
   - Bucket
+  - Animal
   layers:
   - Default
   - TransparentFX
