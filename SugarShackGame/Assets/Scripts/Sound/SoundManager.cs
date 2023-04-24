@@ -22,7 +22,6 @@ public class SoundManager : MonoBehaviour
         soundMap = new Dictionary<SoundListEnum, AudioSource>();
 
         LoadSounds();
-        InstantiateSounds();
 
         Play = (name) => { PlaySound(name); };
         Stop = (name) => { StopSound(name); };
@@ -40,57 +39,40 @@ public class SoundManager : MonoBehaviour
         {
             var soundPrefab = Resources.Load<GameObject>(folderPath + soundName.ToString());
             if (soundPrefab != null)
-            {
-                var soundInstance = Object.Instantiate(soundPrefab.GetComponent<AudioSource>());
-                soundInstance.transform.SetParent(transform);
-
-                soundMap.Add(soundName, soundInstance);
-            }
+                soundMap.Add(soundName, InstantiateSound(soundPrefab.GetComponent<AudioSource>()));
             else
-            {
                 Debug.LogWarning($"Could not load sound {soundName.ToString()} from path {folderPath}");
-            }
         }
     }
 
-    private void InstantiateSounds()
+    private AudioSource InstantiateSound(AudioSource original)
     {
-        foreach (var sound in soundMap)
-        {
-            
-        }
+        var soundInstance = Instantiate(original, transform);
+        return soundInstance;
     }
 
     private void PlaySound(SoundListEnum soundName)
     {
         if (soundMap.ContainsKey(soundName))
-        {
             soundMap[soundName].Play();
-        }
     }
 
     private void StopSound(SoundListEnum soundName)
     {
         if (soundMap.ContainsKey(soundName))
-        {
             soundMap[soundName].Stop();
-        }
     }
 
     private void SetSoundVolume(SoundListEnum soundName, float volume)
     {
         if (soundMap.ContainsKey(soundName))
-        {
             soundMap[soundName].volume = volume;
-        }
     }
 
     private void SetSoundPitch(SoundListEnum soundName, float pitch)
     {
         if (soundMap.ContainsKey(soundName))
-        {
             soundMap[soundName].pitch = pitch;
-        }
     }
 
     private void PauseSound(SoundListEnum soundName)
@@ -99,9 +81,7 @@ public class SoundManager : MonoBehaviour
         {
             var audioSource = soundMap[soundName];
             if (audioSource.isPlaying)
-            {
                 audioSource.Pause();
-            }
         }
     }
 
@@ -111,9 +91,7 @@ public class SoundManager : MonoBehaviour
         {
             var audioSource = soundMap[soundName];
             if (!audioSource.isPlaying)
-            {
                 audioSource.UnPause();
-            }
         }
     }
 
