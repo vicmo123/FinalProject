@@ -67,28 +67,24 @@ public class AudioPrefabCreator : EditorWindow
             return;
         }
 
-        string[] audioFiles = Directory.GetFiles(audioFolderPath);
+        // Split the path to get the Resource path
+        var splitPath = audioFolderPath.Split("Resources/");
 
-        foreach (string audioFile in audioFiles)
+        Debug.Log(splitPath[1]);
+        // Load the audio clip using Resources.Load()
+        AudioClip[] clips = Resources.LoadAll<AudioClip>(splitPath[1] + "/");
+
+        foreach (var clip in clips)
         {
-            if (!audioFile.Contains(".meta"))
-            {
-                string clipName = Path.GetFileNameWithoutExtension(audioFile);
+            // Create the prefab
+            GameObject prefab = new GameObject();
+            prefab.AddComponent<AudioSource>().clip = clip;
 
-                // Load the audio clip using Resources.Load()
-                AudioClip clip = Resources.Load<AudioClip>("Audio/" + clipName);
+            // Save the prefab
+            string prefabPath = prefabFolderPath + "/" + clip.name + ".prefab";
+            PrefabUtility.SaveAsPrefabAsset(prefab, prefabPath);
 
-                // Create the prefab
-                GameObject prefab = new GameObject(clipName);
-                AudioSource audioSource = prefab.AddComponent<AudioSource>();
-                audioSource.clip = clip;
-
-                // Save the prefab
-                string prefabPath = prefabFolderPath + "/" + clipName + ".prefab";
-                PrefabUtility.SaveAsPrefabAsset(prefab, prefabPath);
-            }
+            prefabsCreated = true;
         }
-
-        prefabsCreated = true;
     }
 }
