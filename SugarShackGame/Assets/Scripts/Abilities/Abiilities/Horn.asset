@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd0bb1bbe9046f429299d61068807b8, type: 3}
   m_Name: Horn
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 2936070999571994912, guid: c0c191e7eedc368419ebb0b9adba1587, type: 3}
   sprite: {fileID: 0}
   abilityName: 
   isThowable: 0

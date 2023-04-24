@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd0bb1bbe9046f429299d61068807b8, type: 3}
   m_Name: SugarCan
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 6427925266527875458, guid: 02537399c30c1094cb50e1abf0326b0c, type: 3}
   sprite: {fileID: 21300000, guid: 51d09496ac31b4d45b8336a647cdf845, type: 3}
   abilityName: SugarCan
   isThowable: 0

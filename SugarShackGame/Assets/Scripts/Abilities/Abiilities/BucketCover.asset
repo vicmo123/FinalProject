@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd0bb1bbe9046f429299d61068807b8, type: 3}
   m_Name: BucketCover
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 5658730387632418781, guid: 068d40eb1af152d45aaa472013654f18, type: 3}
   sprite: {fileID: 0}
   abilityName: BucketCover
   isThowable: 0
