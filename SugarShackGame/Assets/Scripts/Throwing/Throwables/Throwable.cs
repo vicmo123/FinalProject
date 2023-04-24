@@ -6,14 +6,14 @@ using UnityEngine;
 
 public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, IThrowable
 {
-    [HideInInspector]
-    public Transform throwerAttachPoint = null;
     public ThrowableData data;
     [HideInInspector]
     public CountDownTimer timer;
     private Rigidbody rb;
     [HideInInspector]
     public bool readyToBeDestroyed = false;
+
+    private Thrower thrower = null;
 
     private bool isActive = true;
     public bool IsActive
@@ -26,6 +26,7 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
     {
         IsActive = true;
         gameObject.SetActive(IsActive);
+        thrower = null;
     }
 
     public void Deactivate()
@@ -39,12 +40,12 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
         rb = GetComponent<Rigidbody>();
         readyToBeDestroyed = false;
         timer = new CountDownTimer(data.TimeBeforeDestruction, false);
-        timer.OnTimeIsUpLogic = ()  => { readyToBeDestroyed = true; };
+        timer.OnTimeIsUpLogic = () => { readyToBeDestroyed = true; };
     }
 
     public virtual void PreInitialize()
     {
-        
+
     }
 
     public virtual void Refresh()
@@ -54,7 +55,7 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
 
     public virtual void PhysicsRefresh()
     {
-
+        Debug.Log(thrower);
     }
 
     public ThrowableTypes GetThrowableType()
@@ -71,13 +72,28 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
         rb.AddForce(velocity, ForceMode.Impulse);
     }
 
-    public virtual void AttachToThrower(Thrower thrower)
+    public virtual void AttachToThrower(Thrower _thrower)
     {
-        throwerAttachPoint = thrower.attachPoint;
-        gameObject.transform.position = throwerAttachPoint.position;
-        gameObject.transform.SetParent(throwerAttachPoint);
+        thrower = _thrower;
+        gameObject.transform.position = thrower.attachPoint.position;
+        gameObject.transform.SetParent(thrower.attachPoint);
 
         rb.isKinematic = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Thrower collided = collision.gameObject.GetComponentInParent<Thrower>();
+        if (collided != thrower || collided == null)
+        {
+            Ragdoll ragdollComponent = collision.collider.GetComponentInParent<Ragdoll>();
+
+            if (ragdollComponent != null)
+            {
+                Vector3 force = rb.velocity;
+                ragdollComponent.ragdollTrigger.Invoke(collision.GetContact(0).point, force);
+            }
+        }
     }
 }
 

@@ -84,15 +84,20 @@ public class PlayerManager : IFlow
 
         players.Add(newPlayer);
 
-        int layerToAdd = (int)Mathf.Log(playerCamMasks[players.Count - 1].value, 2);
-        newPlayer.GetComponentInChildren<CinemachineVirtualCamera>().gameObject.layer = layerToAdd;
-        newPlayer.GetComponentInChildren<CinemachineBrain>().gameObject.layer = layerToAdd;
-        newPlayer.GetComponentInChildren<Camera>().cullingMask |= 1 << layerToAdd;
+        FixCinemachineCam(ref newPlayer);
 
         newPlayer.PreInitialize();
         newPlayer.Initialize();
 
         currentBeardIndex++;
         currentShirtIndex++;
+    }
+
+    private void FixCinemachineCam(ref Player player)
+    {
+        int layerToAdd = (int)Mathf.Log(playerCamMasks[players.Count - 1].value, 2);
+        player.GetComponentInChildren<CinemachineVirtualCamera>().gameObject.layer = layerToAdd;
+        player.GetComponentInChildren<CinemachineBrain>().gameObject.layer = layerToAdd;
+        player.GetComponentInChildren<Camera>().cullingMask |= 1 << layerToAdd;
     }
 }

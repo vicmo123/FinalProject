@@ -229,7 +229,7 @@ public class PlayerController : MonoBehaviour, IFlow
             _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
 
             // rotate to face input direction relative to camera position
-            if (!_inputHandler.Aim)
+            if (!_inputHandler.Aim && !_inputHandler.Throw)
             {
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
@@ -320,9 +320,9 @@ public class PlayerController : MonoBehaviour, IFlow
 
     public void Aim()
     {
-        if (_inputHandler.Aim)
+        if (_inputHandler.Aim || _inputHandler.Throw)
         {
-            if (_inputHandler.Aim == true)
+            if (_inputHandler.Aim)
             {
                 if (_followComponent.CameraSide < _playerStats.TargetCameraSideValue)
                 {
@@ -333,22 +333,20 @@ public class PlayerController : MonoBehaviour, IFlow
                 {
                     _followComponent.CameraDistance -= _playerStats.aimSpeed * 5f * Time.deltaTime;
                 }
-
-                if (!cursor.gameObject.activeInHierarchy)
-                {
-                    //cursor.gameObject.SetActive(true);
-                }
-
-                if (_inputHandler.Aim)
-                {
-                    _targetRotation = Mathf.Atan2(_mainCamera.transform.forward.x, _mainCamera.transform.forward.z) * Mathf.Rad2Deg;
-                    float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
-
-                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-                }
             }
+            
+            if (!cursor.gameObject.activeInHierarchy)
+            {
+                cursor.gameObject.SetActive(true);
+            }
+
+            _targetRotation = Mathf.Atan2(_mainCamera.transform.forward.x, _mainCamera.transform.forward.z) * Mathf.Rad2Deg;
+            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
+            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+
         }
-        else if (!_inputHandler.Aim)
+
+        if (!_inputHandler.Aim)
         {
             if (_followComponent.CameraSide > _playerStats.initialCameraSideValue)
             {
@@ -362,7 +360,7 @@ public class PlayerController : MonoBehaviour, IFlow
 
             if (cursor.gameObject.activeInHierarchy)
             {
-                //cursor.gameObject.SetActive(false);
+                cursor.gameObject.SetActive(false);
             }
         }
     }
