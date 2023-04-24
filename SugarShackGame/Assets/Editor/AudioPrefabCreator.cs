@@ -7,7 +7,7 @@ public class AudioPrefabCreator : EditorWindow
     private string audioFolderPath = "";
     private string prefabFolderPath = "";
 
-    [MenuItem("Custom Tools/Audio Prefab Creator")]
+    [MenuItem("Custom Tools/Sound/Audio Prefab Creator")]
     static void Init()
     {
         AudioPrefabCreator window = (AudioPrefabCreator)EditorWindow.GetWindow(typeof(AudioPrefabCreator));

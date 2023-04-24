@@ -30,7 +30,7 @@ public class GenerateTerrain : ScriptableWizard
     public bool randomizeOffsetX = true;
     public bool randomizeOffsetY = true;
 
-    [MenuItem("Custom Tools/Generate Terrain")]
+    [MenuItem("Custom Tools/Terrain/Generate Terrain")]
     static void CreateWizard()
     {
         ScriptableWizard.DisplayWizard<GenerateTerrain>("Generate Terrain", "Apply", "Generate Random");

@@ -8,7 +8,7 @@ public static class GameSoundsEnumGenerator
 {
     private const string SOUNDS_FOLDER_PATH = "Assets/Resources/Sounds/AudioPrefabs/";
 
-    [MenuItem("Custom Tools/Add Sounds To Enum")]
+    [MenuItem("Custom Tools/Sound/Add Sounds To Enum")]
     public static void GenerateGameSoundsEnum()
     {
         string[] prefabPaths = Directory.GetFiles(SOUNDS_FOLDER_PATH, "*.prefab");
