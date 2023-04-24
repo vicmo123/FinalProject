@@ -27,9 +27,9 @@ public class BucketManager : IFlow
 
     public void PreInitialize() {
         bucketPositionDic = new Dictionary<int, Vector3>();
-        bucketPositionDic.Add(1, new Vector3(-0.01358f, 0.01862f, 0.0061f));
-        bucketPositionDic.Add(2, new Vector3(0.0275f, -0.0001f, 0.0422f));
-        bucketPositionDic.Add(3, new Vector3(-0.012362f, 0.00132f, -0.015025f));
+        bucketPositionDic.Add(1, new Vector3(-0.01358f, 0.0224f, 0.0061f));
+        bucketPositionDic.Add(2, new Vector3(0.04f, -0.0001f, 0.0422f));
+        bucketPositionDic.Add(3, new Vector3(-0.012362f, 0.00184f, -0.01499f));
 
         buckets = new List<Bucket>();
         buckets.AddRange(Object.FindObjectsOfType<Bucket>());
