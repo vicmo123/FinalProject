@@ -18,7 +18,8 @@ public class Thrower : MonoBehaviour, IFlow
     [SerializeField]
     private float speed = 10f;
 
-    private bool IsHoldingThrowable = false;
+    [HideInInspector]
+    public bool IsHoldingThrowable = false;
     [HideInInspector]
     public Throwable toThrow = null;
 
@@ -66,7 +67,8 @@ public class Thrower : MonoBehaviour, IFlow
 
         if (inputHandler.UseLeftPowerUp)
         {
-            ThrowableManager.Instance.AddObjectToCollection(ThrowableTypes.Apple);
+            //ThrowableManager.Instance.AddObjectToCollection(ThrowableTypes.Apple);
+            GetComponent<Ragdoll>().Recover();
         }
 
         if (inputHandler.UseRightPowerUp)
@@ -86,7 +88,7 @@ public class Thrower : MonoBehaviour, IFlow
         toThrow.Throw(ComputeVelocityTowardsCursor() * speed * timeHeld);
         toThrow = null;
         IsHoldingThrowable = false;
-        Debug.Log("Throw");
+        //Debug.Log("Throw");
     }
 
     private Vector3 ComputeVelocityTowardsCursor()
@@ -96,7 +98,7 @@ public class Thrower : MonoBehaviour, IFlow
 
         // Get the direction from the player to the cursor position
         Vector3 throwDirection = cam.ViewportToWorldPoint(cursorPosViewport) - attachPoint.position;
-        Debug.Log("throwDirection: " + throwDirection); // Debugging line
+        //Debug.Log("throwDirection: " + throwDirection); // Debugging line
 
         // Normalize the direction and multiply by the throw force to get the throw velocity
         Vector3 throwVelocity = throwDirection.normalized;

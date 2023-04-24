@@ -37,12 +37,12 @@ public class PlayerController : MonoBehaviour, IFlow
     //Other
     private Animator _animator;
     private CharacterController _controller;
+    private Thrower _thrower;
 
     //Cinemachine
     private float _cinemachineTargetYaw;
     private float _cinemachineTargetPitch;
     private Cinemachine3rdPersonFollow _followComponent;
-    private float _cameraSideAim;
 
     //Player
     private float _speed;
@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour, IFlow
         _animator = GetComponent<Animator>();
         _followComponent = _cinemachineVirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         _followComponent.CameraSide = _playerStats.initialCameraSideValue;
+        _thrower = GetComponent<Thrower>();
 
         if (_animator)
         {
@@ -115,7 +116,6 @@ public class PlayerController : MonoBehaviour, IFlow
         // reset our timeouts on start
         _jumpTimeoutDelta = _playerStats.JumpTimeout;
         _fallTimeoutDelta = _playerStats.FallTimeout;
-        _cameraSideAim = _playerStats.initialCameraSideValue;
     }
 
     public void Refresh()
@@ -229,7 +229,7 @@ public class PlayerController : MonoBehaviour, IFlow
             _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
 
             // rotate to face input direction relative to camera position
-            if (!_inputHandler.Aim && !_inputHandler.Throw)
+            if (!_inputHandler.Aim && !_inputHandler.Throw && !_thrower.IsHoldingThrowable)
             {
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
@@ -324,7 +324,7 @@ public class PlayerController : MonoBehaviour, IFlow
         {
             if (_inputHandler.Aim)
             {
-                if (_followComponent.CameraSide < _playerStats.TargetCameraSideValue)
+                if (_followComponent.CameraSide < _playerStats.initialCameraSideValue)
                 {
                     _followComponent.CameraSide += _playerStats.aimSpeed * Time.deltaTime;
                 }

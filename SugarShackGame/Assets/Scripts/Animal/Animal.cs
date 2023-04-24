@@ -178,7 +178,6 @@ public class Animal : MonoBehaviour, IFlow
 
     public virtual void OnChaseEnter()
     {
-        Debug.Log("enter");
         agent.speed = stats.runSpeed;
     }
 
@@ -241,7 +240,7 @@ public class Animal : MonoBehaviour, IFlow
     #region OnExit
     public virtual void OnPatrolExit()
     {
-        Debug.Log("exit");
+        
     }
 
     public virtual void OnFleeExit()

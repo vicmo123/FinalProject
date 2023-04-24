@@ -76,7 +76,7 @@ public class AnimalStateMachine
             stateMachine.OnLogic();
         }
 
-        Debug.Log(CurrentState);
+        //Debug.Log(CurrentState);
     }
 
     private void SetStates()
