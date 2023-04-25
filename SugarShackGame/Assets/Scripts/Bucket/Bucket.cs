@@ -73,12 +73,12 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
         Bounds treeBounds = _parent.gameObject.GetComponentInChildren<BoxCollider>().bounds;
         Bounds bucketBounds = transform.GetComponentInChildren<BoxCollider>().bounds;
 
-        transform.position = new Vector3(0, yPos, 0);
-        Ray ray = new Ray(transform.position + bucketBounds.ClosestPoint(_parent.gameObject.transform.position), (treeBounds.ClosestPoint(transform.position) - transform.position).normalized);
-        float distance;
-        treeBounds.IntersectRay(ray, out distance);
+        transform.position = new Vector3(
+            treeBounds.center.x,
+            treeBounds.center.y - treeBounds.extents.y + yPos,
+            treeBounds.center.z + treeBounds.extents.z + bucketBounds.extents.z
+            );
 
-        transform.position += (treeBounds.ClosestPoint(transform.position) - transform.position + bucketBounds.ClosestPoint(_parent.gameObject.transform.position)).normalized * distance;
 
         transform.SetParent(_parent);
     }
