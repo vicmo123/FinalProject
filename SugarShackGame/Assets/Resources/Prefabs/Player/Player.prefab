@@ -780,7 +780,7 @@ MonoBehaviour:
   m_ShowDebugText: 0
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
+  m_WorldUpOverride: {fileID: 6713866366709577945}
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
@@ -2040,7 +2040,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a7b202cec83bf488efeddd2448dc13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LerpSpeed: 15
+  lerpSpeed: 5
+  timeBeforeRecovery: 2
 --- !u!143 &5967999252271429153
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2315,6 +2316,7 @@ MonoBehaviour:
   cursor: {fileID: 8410576267159015340}
   cursorClipPlane: 0
   speed: 10
+  IsHoldingThrowable: 0
   toThrow: {fileID: 0}
 --- !u!114 &6839153482449966018
 MonoBehaviour:
@@ -2639,7 +2641,7 @@ MonoBehaviour:
   CameraDistance: 4.5
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   IgnoreTag: Player
   CameraRadius: 0.15
   DampingIntoCollision: 0
