@@ -5,7 +5,7 @@ using UnityEngine;
 public class Cauldron : MonoBehaviour, IFlow, IUsable
 {
     [HideInInspector] public Player player;
-    private float sapAmount = 0.0f;
+    [SerializeField] private float sapAmount = 0.0f;
     private float maxSapAmount = 75.0f;
     private float quantityForCan = 10.0f;
 

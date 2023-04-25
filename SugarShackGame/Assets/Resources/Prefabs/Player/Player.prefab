@@ -714,8 +714,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2638729458249309510}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20000005, y: 1, z: -4}
+  m_LocalRotation: {x: 0.013823209, y: -0.006823835, z: 0.0000943385, w: 0.9998812}
+  m_LocalPosition: {x: 0.21364349, y: 1.0276444, z: -3.9995246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3013,7 +3013,7 @@ GameObject:
   - component: {fileID: 3467336853530200426}
   - component: {fileID: 2453502575115574418}
   m_Layer: 0
-  m_Name: ReleasePoint
+  m_Name: LineRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
