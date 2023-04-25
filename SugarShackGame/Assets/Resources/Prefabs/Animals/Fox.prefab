@@ -137,7 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a7b202cec83bf488efeddd2448dc13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lerpSpeed: 2
+  minLerpSpeed: 1
+  maxLerpSpeed: 2
   timeBeforeRecovery: 2
 --- !u!1001 &7494139832863935959
 PrefabInstance:
