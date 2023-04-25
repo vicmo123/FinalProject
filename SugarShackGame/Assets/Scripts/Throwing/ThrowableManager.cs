@@ -32,21 +32,33 @@ public class ThrowableManager : IFlow
     private ThrowableFactoryPool.ThrowableFactory factory;
     private int prefillAmountPerType = 5;
 
-    public void RemoveObjectFromCollection(ThrowableTypes type,Throwable throwable)
+    private void RemoveObjectFromCollection(ThrowableTypes type,Throwable throwable)
     {
         Collection.Remove(throwable);
         pool.Pool(type, throwable);
     }
 
-    public Throwable AddObjectToCollection(ThrowableTypes type)
+    public bool TryAddObjectToCollection(ThrowableTypes type, Thrower thrower)
     {
-        Throwable newObj = factory.CreateObject(type);
-        Collection.Add(newObj);
+        if (!thrower.IsHoldingThrowable)
+        {
+            Throwable newObj = factory.CreateObject(type);
+            Collection.Add(newObj);
 
-        newObj.Initialize();
-        newObj.PreInitialize();
+            newObj.Initialize();
+            newObj.PreInitialize();
 
-        return newObj;
+            newObj.AttachToThrower(thrower);
+
+            thrower.toThrow = newObj;
+            thrower.ComputeNewLayerMask();
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void ManageCollectionWithConditions(params System.Predicate<Throwable>[] conditions)

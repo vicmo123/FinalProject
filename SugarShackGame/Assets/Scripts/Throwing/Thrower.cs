@@ -69,11 +69,7 @@ public class Thrower : MonoBehaviour, IFlow
             if (!IsHoldingThrowable)
             {
                 SoundManager.Play?.Invoke(SoundListEnum.Bell);
-                toThrow = ThrowableManager.Instance.AddObjectToCollection(ThrowableTypes.SnowBall);
-                toThrow.AttachToThrower(this);
-                IsHoldingThrowable = true;
-
-                ComputeNewLayerMask();
+                ThrowableManager.Instance.TryAddObjectToCollection(ThrowableTypes.SnowBall, this);
             }
 
             DrawProjection();
@@ -134,7 +130,7 @@ public class Thrower : MonoBehaviour, IFlow
         return Mathf.Clamp(speed * timeHeld, speed, maxSpeed);
     }
 
-    private void ComputeNewLayerMask()
+    public void ComputeNewLayerMask()
     {
         int ballLAyer = toThrow.gameObject.layer;
         for (int i = 0; i < 32; i++)
