@@ -23,6 +23,8 @@ public class Player : MonoBehaviour, IFlow
         playerBucket.PreInitialize();
         throwerComponent.PreInitialize();
         playerBucket = transform.GetComponentInChildren<PlayerBucket>();
+
+        CauldronManager.Instance.CreateCauldron(this);
     }
 
     public void Initialize()

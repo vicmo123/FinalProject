@@ -20,7 +20,6 @@ public class Cauldron : MonoBehaviour, IFlow, IUsable
     }
 
     public void PreInitialize() {
-        // "player" must be set here.
     }
 
     public void Refresh() {
