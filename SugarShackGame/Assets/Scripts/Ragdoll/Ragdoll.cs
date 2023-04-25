@@ -63,7 +63,6 @@ public class Ragdoll : MonoBehaviour, IFlow
 
     private void TriggerRagdoll(Vector3 hitPoint, Vector3 hitForce)
     {
-        RecordAllPositionAndRotation();
         EnableRagdoll();
 
         Rigidbody hitRigidbody = partsList.OrderBy(part => Vector3.Distance(part.rb.position, hitPoint)).First().rb;
@@ -78,6 +77,8 @@ public class Ragdoll : MonoBehaviour, IFlow
         {
             part.rb.isKinematic = false;
         }
+
+        RecordAllPositionAndRotation();
 
         if (animator)
         {
@@ -141,6 +142,8 @@ public class Ragdoll : MonoBehaviour, IFlow
 
         yield return new WaitUntil(() => numCoroutines == 0);
 
+        RecordAllPositionAndRotation();
+
         if (animator)
         {
             animator.enabled = true;
@@ -182,8 +185,6 @@ public class Ragdoll : MonoBehaviour, IFlow
 
         ragdollPart.rb.transform.localPosition = endPos;
         ragdollPart.rb.transform.localRotation = endRot;
-
-        ragdollPart.SetCurrentPositionAndRotation();
 
         numCoroutines--;
     }

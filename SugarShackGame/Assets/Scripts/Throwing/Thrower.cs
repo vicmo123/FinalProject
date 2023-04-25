@@ -11,12 +11,25 @@ public class Thrower : MonoBehaviour, IFlow
     [SerializeField]
     private Camera cam;
     [SerializeField]
-    private RectTransform cursor;
-    [SerializeField]
-    private float cursorClipPlane;
-
-    [SerializeField]
     private float speed = 10f;
+    [SerializeField]
+    private float maxSpeed = 50f;
+    private float timeHeld = 0f;
+
+    [Header("Aiming")]
+    [Header("Display Controls")]
+    [SerializeField]
+    private LineRenderer lineRenderer;
+    [SerializeField]
+    [Range(10, 100)]
+    private int linePoints = 25;
+    [SerializeField]
+    [Range(0.01f, 0.25f)]
+    private float timeBetweenPoints = 0.1f;
+    [SerializeField]
+    private Transform launchPosition;
+    [SerializeField]
+    private LayerMask throwableCollisionMask;
 
     [HideInInspector]
     public bool IsHoldingThrowable = false;
@@ -28,7 +41,7 @@ public class Thrower : MonoBehaviour, IFlow
     private int _TimeToThrowId;
 
     private PlayerAnimationEvents animEventReciever;
-    
+
 
     public void PreInitialize()
     {
@@ -48,6 +61,8 @@ public class Thrower : MonoBehaviour, IFlow
     {
         if (inputHandler.Throw)
         {
+            timeHeld += Time.deltaTime;
+            
             animator.SetBool(_TimeToThrowId, false);
             animator.SetBool(_HoldingThrowableId, inputHandler.Throw);
 
@@ -57,7 +72,11 @@ public class Thrower : MonoBehaviour, IFlow
                 toThrow = ThrowableManager.Instance.AddObjectToCollection(ThrowableTypes.SnowBall);
                 toThrow.AttachToThrower(this);
                 IsHoldingThrowable = true;
+
+                ComputeNewLayerMask();
             }
+
+            DrawProjection();
         }
 
         if (!inputHandler.Throw)
@@ -77,6 +96,8 @@ public class Thrower : MonoBehaviour, IFlow
             SoundManager.Play?.Invoke(SoundListEnum.completetask_0);
             //ThrowableManager.Instance.AddObjectToCollection(ThrowableTypes.Trampoline);
         }
+
+        
     }
 
     public void PhysicsRefresh()
@@ -86,25 +107,74 @@ public class Thrower : MonoBehaviour, IFlow
 
     public void OnThrowLogic()
     {
-        float timeHeld = inputHandler.ThrowForce;
-        toThrow.Throw(ComputeVelocityTowardsCursor() * speed * timeHeld);
+        toThrow.Throw(gameObject.transform.forward * ComputeSpeed());
         toThrow = null;
         IsHoldingThrowable = false;
-        //Debug.Log("Throw");
+        timeHeld = 0;
+        lineRenderer.enabled = false;
     }
 
-    private Vector3 ComputeVelocityTowardsCursor()
+    //private Vector3 ComputeVelocityTowardsCursor()
+    //{
+    //    // Get the position of the cursor in the viewport
+    //    Vector3 cursorPosViewport = new Vector3(0.5f, 0.5f, cam.farClipPlane / 2f);
+
+    //    // Get the direction from the player to the cursor position
+    //    Vector3 throwDirection = cam.ViewportToWorldPoint(cursorPosViewport) - attachPoint.position;
+    //    //Debug.Log("throwDirection: " + throwDirection); // Debugging line
+
+    //    // Normalize the direction and multiply by the throw force to get the throw velocity
+    //    Vector3 throwVelocity = throwDirection.normalized;
+
+    //    return throwVelocity;
+    //}
+
+    private float ComputeSpeed()
     {
-        // Get the position of the cursor in the viewport
-        Vector3 cursorPosViewport = new Vector3(0.5f, 0.5f, cam.farClipPlane / 2f);
+        return Mathf.Clamp(speed * timeHeld, speed, maxSpeed);
+    }
 
-        // Get the direction from the player to the cursor position
-        Vector3 throwDirection = cam.ViewportToWorldPoint(cursorPosViewport) - attachPoint.position;
-        //Debug.Log("throwDirection: " + throwDirection); // Debugging line
+    private void ComputeNewLayerMask()
+    {
+        int ballLAyer = toThrow.gameObject.layer;
+        for (int i = 0; i < 32; i++)
+        {
+            if (!Physics.GetIgnoreLayerCollision(ballLAyer, i))
+            {
+                throwableCollisionMask |= 1 << i; // magic
+            }
+        }
+    }
 
-        // Normalize the direction and multiply by the throw force to get the throw velocity
-        Vector3 throwVelocity = throwDirection.normalized;
+    private void DrawProjection()
+    {
+        lineRenderer.enabled = true;
+        lineRenderer.positionCount = Mathf.CeilToInt(linePoints / timeBetweenPoints) + 1;
+        Vector3 startPosition = launchPosition.position;
+        Vector3 startVelocity = ComputeSpeed() * gameObject.transform.forward / toThrow.rb.mass;
 
-        return throwVelocity;
+        int i = 0;
+        lineRenderer.SetPosition(i, startPosition);
+        for (float time = 0; time < linePoints; time += timeBetweenPoints)
+        {
+            i++;
+            Vector3 point = startPosition + time * startVelocity;
+            point.y = startPosition.y + startVelocity.y * time + (Physics.gravity.y / 2f * time * time);
+
+            lineRenderer.SetPosition(i, point);
+
+            Vector3 lastPosition = lineRenderer.GetPosition(i - 1);
+
+            if (Physics.Raycast(lastPosition,
+                (point - lastPosition).normalized,
+                out RaycastHit hit,
+                (point - lastPosition).magnitude,
+                throwableCollisionMask))
+            {
+                lineRenderer.SetPosition(i, hit.point);
+                lineRenderer.positionCount = i + 1;
+                return;
+            }
+        }
     }
 }

@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour, IFlow
         _animator = GetComponent<Animator>();
         _followComponent = _cinemachineVirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         _followComponent.CameraSide = _playerStats.initialCameraSideValue;
+        _followComponent.CameraDistance = _playerStats.initialCameraDistanceValue;
         _thrower = GetComponent<Thrower>();
 
         if (_animator)
@@ -331,7 +332,7 @@ public class PlayerController : MonoBehaviour, IFlow
 
                 if (_followComponent.CameraDistance > _playerStats.TargetCameraDistanceValue)
                 {
-                    _followComponent.CameraDistance -= _playerStats.aimSpeed * 5f * Time.deltaTime;
+                    _followComponent.CameraDistance -= _playerStats.aimSpeed * _playerStats.CameraDistanceMultiplicator * Time.deltaTime;
                 }
             }
             
@@ -355,7 +356,7 @@ public class PlayerController : MonoBehaviour, IFlow
 
             if (_followComponent.CameraDistance < _playerStats.initialCameraDistanceValue)
             {
-                _followComponent.CameraDistance += _playerStats.aimSpeed * 5f * Time.deltaTime;
+                _followComponent.CameraDistance += _playerStats.aimSpeed * _playerStats.CameraDistanceMultiplicator * Time.deltaTime;
             }
 
             if (cursor.gameObject.activeInHierarchy)

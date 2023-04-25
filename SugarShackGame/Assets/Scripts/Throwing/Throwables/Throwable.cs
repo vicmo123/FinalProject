@@ -2,16 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 
 public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, IThrowable
 {
     public ThrowableData data;
     [HideInInspector]
     public CountDownTimer timer;
-    private Rigidbody rb;
+    [HideInInspector]
+    public Rigidbody rb;
     [HideInInspector]
     public bool readyToBeDestroyed = false;
+    public float rotationSpeed = 10f;
 
     private Thrower thrower = null;
 
@@ -63,13 +65,18 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
         return data.type;
     }
 
-    public virtual void Throw(Vector3 velocity)
+    public virtual void Throw(Vector3 velocity, bool addRotation = false, bool isGhost = false)
     {
         timer.StartTimer();
         gameObject.transform.SetParent(null);
         rb.isKinematic = false;
 
         rb.AddForce(velocity, ForceMode.Impulse);
+
+        if (addRotation)
+        {
+            rb.AddTorque(Random.insideUnitSphere * rotationSpeed);
+        }
     }
 
     public virtual void AttachToThrower(Thrower _thrower)
