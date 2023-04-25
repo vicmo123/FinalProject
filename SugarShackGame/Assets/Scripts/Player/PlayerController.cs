@@ -68,10 +68,8 @@ public class PlayerController : MonoBehaviour, IFlow
     private const float _threshold = 0.01f;
     private bool _hasAnimator;
 
-    private bool IsCurrentDeviceMouse
-    {
-        get
-        {
+    private bool IsCurrentDeviceMouse {
+        get {
 #if ENABLE_INPUT_SYSTEM
             return _playerInput.currentControlScheme == "Keyboard";
 #else
@@ -80,8 +78,7 @@ public class PlayerController : MonoBehaviour, IFlow
         }
     }
 
-    public void PreInitialize()
-    {
+    public void PreInitialize() {
         Cursor.lockState = CursorLockMode.Locked;
 
         _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
@@ -98,19 +95,16 @@ public class PlayerController : MonoBehaviour, IFlow
         _followComponent.CameraDistance = _playerStats.initialCameraDistanceValue;
         _thrower = GetComponent<Thrower>();
 
-        if (_animator)
-        {
+        if (_animator) {
             _hasAnimator = true;
         }
 
         _grounded = _playerStats.GroundedInitialValue;
     }
 
-    public void Initialize()
-    {
+    public void Initialize() {
 
-        if (_hasAnimator)
-        {
+        if (_hasAnimator) {
             AssignAnimationIDs();
         }
 
@@ -119,8 +113,7 @@ public class PlayerController : MonoBehaviour, IFlow
         _fallTimeoutDelta = _playerStats.FallTimeout;
     }
 
-    public void Refresh()
-    {
+    public void Refresh() {
         Aim();
         JumpAndGravity();
         GroundedCheck();
@@ -128,18 +121,15 @@ public class PlayerController : MonoBehaviour, IFlow
         CheckForUsing();
     }
 
-    private void LateUpdate()
-    {
+    private void LateUpdate() {
         CameraRotation();
     }
 
-    public void PhysicsRefresh()
-    {
+    public void PhysicsRefresh() {
 
     }
 
-    private void AssignAnimationIDs()
-    {
+    private void AssignAnimationIDs() {
         _animIDSpeed = Animator.StringToHash("Speed");
         _animIDGrounded = Animator.StringToHash("Grounded");
         _animIDJump = Animator.StringToHash("Jump");
@@ -147,8 +137,7 @@ public class PlayerController : MonoBehaviour, IFlow
         _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
     }
 
-    private void GroundedCheck()
-    {
+    private void GroundedCheck() {
         // set sphere position, with offset
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - _playerStats.GroundedOffset,
             transform.position.z);
@@ -156,17 +145,14 @@ public class PlayerController : MonoBehaviour, IFlow
             QueryTriggerInteraction.Ignore);
 
         // update animator if using character
-        if (_hasAnimator)
-        {
+        if (_hasAnimator) {
             _animator.SetBool(_animIDGrounded, _grounded);
         }
     }
 
-    private void CameraRotation()
-    {
+    private void CameraRotation() {
         // if there is an input and camera position is not fixed
-        if (_inputHandler.look.sqrMagnitude >= _threshold && !_playerStats.LockCameraPosition)
-        {
+        if (_inputHandler.look.sqrMagnitude >= _threshold && !_playerStats.LockCameraPosition) {
             //Don't multiply mouse input by Time.deltaTime;
             float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
@@ -183,8 +169,7 @@ public class PlayerController : MonoBehaviour, IFlow
             _cinemachineTargetYaw, 0.0f);
     }
 
-    private void Move()
-    {
+    private void Move() {
         // set target speed based on move speed, sprint speed and if sprint is pressed
         float targetSpeed = _inputHandler.sprint ? _playerStats.SprintSpeed : _playerStats.MoveSpeed;
 
@@ -202,8 +187,7 @@ public class PlayerController : MonoBehaviour, IFlow
 
         // accelerate or decelerate to target speed
         if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-            currentHorizontalSpeed > targetSpeed + speedOffset)
-        {
+            currentHorizontalSpeed > targetSpeed + speedOffset) {
             // creates curved result rather than a linear one giving a more organic speed change
             // note T in Lerp is clamped, so we don't need to clamp our speed
             _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
@@ -212,8 +196,7 @@ public class PlayerController : MonoBehaviour, IFlow
             // round speed to 3 decimal places
             _speed = Mathf.Round(_speed * 1000f) / 1000f;
         }
-        else
-        {
+        else {
             _speed = targetSpeed;
         }
 
@@ -225,13 +208,11 @@ public class PlayerController : MonoBehaviour, IFlow
 
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is a move input rotate player when the player is moving
-        if (_inputHandler.move != Vector2.zero)
-        {
+        if (_inputHandler.move != Vector2.zero) {
             _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
 
             // rotate to face input direction relative to camera position
-            if (!_inputHandler.Aim && !_inputHandler.Throw && !_thrower.IsHoldingThrowable)
-            {
+            if (!_inputHandler.Aim && !_inputHandler.Throw && !_thrower.IsHoldingThrowable) {
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
@@ -243,67 +224,55 @@ public class PlayerController : MonoBehaviour, IFlow
         _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
         // update animator if using character
-        if (_hasAnimator)
-        {
+        if (_hasAnimator) {
             _animator.SetFloat(_animIDSpeed, _animationBlend);
             _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
         }
     }
 
-    private void JumpAndGravity()
-    {
-        if (_grounded)
-        {
+    private void JumpAndGravity() {
+        if (_grounded) {
             // reset the fall timeout timer
             _fallTimeoutDelta = _playerStats.FallTimeout;
 
             // update animator if using character
-            if (_hasAnimator)
-            {
+            if (_hasAnimator) {
                 _animator.SetBool(_animIDJump, false);
                 _animator.SetBool(_animIDFreeFall, false);
             }
 
             // stop our velocity dropping infinitely when grounded
-            if (_verticalVelocity < 0.0f)
-            {
+            if (_verticalVelocity < 0.0f) {
                 _verticalVelocity = -2f;
             }
 
             // Jump
-            if (_inputHandler.jump && _jumpTimeoutDelta <= 0.0f)
-            {
+            if (_inputHandler.jump && _jumpTimeoutDelta <= 0.0f) {
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
                 _verticalVelocity = Mathf.Sqrt(_playerStats.JumpHeight * -2f * _playerStats.Gravity);
 
                 // update animator if using character
-                if (_hasAnimator)
-                {
+                if (_hasAnimator) {
                     _animator.SetBool(_animIDJump, true);
                 }
             }
 
             // jump timeout
-            if (_jumpTimeoutDelta >= 0.0f)
-            {
+            if (_jumpTimeoutDelta >= 0.0f) {
                 _jumpTimeoutDelta -= Time.deltaTime;
             }
         }
-        else
-        {
+        else {
             // reset the jump timeout timer
             _jumpTimeoutDelta = _playerStats.JumpTimeout;
 
             // fall timeout
-            if (_fallTimeoutDelta >= 0.0f)
-            {
+            if (_fallTimeoutDelta >= 0.0f) {
                 _fallTimeoutDelta -= Time.deltaTime;
             }
-            else
-            {
+            else {
                 // update animator if using character
-                if (_hasAnimator)
-                {
+                if (_hasAnimator) {
                     _animator.SetBool(_animIDFreeFall, true);
                 }
             }
@@ -313,31 +282,24 @@ public class PlayerController : MonoBehaviour, IFlow
         }
 
         // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-        if (_verticalVelocity < _terminalVelocity)
-        {
+        if (_verticalVelocity < _terminalVelocity) {
             _verticalVelocity += _playerStats.Gravity * Time.deltaTime;
         }
     }
 
-    public void Aim()
-    {
-        if (_inputHandler.Aim || _inputHandler.Throw)
-        {
-            if (_inputHandler.Aim)
-            {
-                if (_followComponent.CameraSide < _playerStats.initialCameraSideValue)
-                {
+    public void Aim() {
+        if (_inputHandler.Aim || _inputHandler.Throw) {
+            if (_inputHandler.Aim) {
+                if (_followComponent.CameraSide < _playerStats.initialCameraSideValue) {
                     _followComponent.CameraSide += _playerStats.aimSpeed * Time.deltaTime;
                 }
 
-                if (_followComponent.CameraDistance > _playerStats.TargetCameraDistanceValue)
-                {
+                if (_followComponent.CameraDistance > _playerStats.TargetCameraDistanceValue) {
                     _followComponent.CameraDistance -= _playerStats.aimSpeed * _playerStats.CameraDistanceMultiplicator * Time.deltaTime;
                 }
             }
-            
-            if (!cursor.gameObject.activeInHierarchy)
-            {
+
+            if (!cursor.gameObject.activeInHierarchy) {
                 cursor.gameObject.SetActive(true);
             }
 
@@ -347,34 +309,28 @@ public class PlayerController : MonoBehaviour, IFlow
 
         }
 
-        if (!_inputHandler.Aim)
-        {
-            if (_followComponent.CameraSide > _playerStats.initialCameraSideValue)
-            {
+        if (!_inputHandler.Aim) {
+            if (_followComponent.CameraSide > _playerStats.initialCameraSideValue) {
                 _followComponent.CameraSide -= _playerStats.aimSpeed * Time.deltaTime;
             }
 
-            if (_followComponent.CameraDistance < _playerStats.initialCameraDistanceValue)
-            {
+            if (_followComponent.CameraDistance < _playerStats.initialCameraDistanceValue) {
                 _followComponent.CameraDistance += _playerStats.aimSpeed * _playerStats.CameraDistanceMultiplicator * Time.deltaTime;
             }
 
-            if (cursor.gameObject.activeInHierarchy)
-            {
+            if (cursor.gameObject.activeInHierarchy) {
                 cursor.gameObject.SetActive(false);
             }
         }
     }
 
-    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
-    {
+    private static float ClampAngle(float lfAngle, float lfMin, float lfMax) {
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected() {
         Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
         Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
 
@@ -407,29 +363,27 @@ public class PlayerController : MonoBehaviour, IFlow
     //    }
     //}
 
-    private void CheckForUsing()
-    {
+    private void CheckForUsing() {
         Player _player = transform.GetComponent<Player>();
 
-        RaycastHit hit;
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position + new Vector3(0, .3f, 0), 1, transform.TransformDirection(Vector3.forward), 1000);
 
-        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.TransformDirection(Vector3.forward), out hit, 1000))
-        {
-            if (hit.transform.gameObject.CompareTag("Bucket"))
-            {
-                Bucket bucket = hit.transform.GetComponent<Bucket>();
+        if (hits.Length > 0) {
+            foreach (var hit in hits) {
+                if (hit.transform.gameObject.CompareTag("Bucket")) {
+                    Bucket bucket = hit.transform.GetComponent<Bucket>();
 
-                if (_inputHandler.Use)
-                    bucket.Use(_player);
-            }
-
-            if (hit.transform.gameObject.CompareTag("Cauldron"))
-            {
-                Cauldron cauldron = hit.transform.GetComponent<Cauldron>();
-
-                if (cauldron.player == _player) {
                     if (_inputHandler.Use)
-                        cauldron.Use(_player);
+                        bucket.Use(_player);
+                }
+
+                if (hit.transform.gameObject.CompareTag("Cauldron")) {
+                    Cauldron cauldron = hit.transform.GetComponent<Cauldron>();
+
+                    if (cauldron.player == _player) {
+                        if (_inputHandler.Use)
+                            cauldron.Use(_player);
+                    }
                 }
             }
         }

@@ -23,11 +23,9 @@ public class CauldronManager : IFlow
     #endregion
 
     List<Cauldron> cauldrons;
+    GameObject[] cauldronObjects;
 
     public void Initialize() {
-        foreach (var cauldron in cauldrons) {
-            cauldron.Initialize();
-        }
     }
 
     public void PhysicsRefresh() {
@@ -39,14 +37,22 @@ public class CauldronManager : IFlow
     public void PreInitialize() {
         cauldrons = new List<Cauldron>();
 
-        foreach (var cauldron in cauldrons) {
-            cauldron.PreInitialize();
-        }
+        cauldronObjects = GameObject.FindGameObjectsWithTag("Cauldron");
     }
 
     public void Refresh() {
         foreach (var cauldron in cauldrons) {
             cauldron.Refresh();
         }
+    }
+
+    public void CreateCauldron(Player _player) {
+        Cauldron cauldron = cauldronObjects[cauldrons.Count].AddComponent<Cauldron>();
+        cauldron.player = _player;
+
+        cauldron.PreInitialize();
+        cauldron.Initialize();
+
+        cauldrons.Add(cauldron);
     }
 }
