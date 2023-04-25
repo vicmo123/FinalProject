@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ThrowableAbility : Ability
 {
-    public override void Activate()
+
+
+    public override void Activate(Player player)
     {
         base.Activate();
         Debug.Log("ThrowableAbility activation");
-        //ThrowableManager.Instance.AddObjectToCollection()
+        ThrowableManager.Instance.TryAddObjectToCollection(type, player.throwerComponent);     
     }
 }

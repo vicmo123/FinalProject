@@ -7,7 +7,7 @@ namespace ThrowableFactoryPool
 {
     public class ThrowablePool
     {
-        private Dictionary<ThrowableTypes, Queue<Throwable>> throwablePools;
+        private Dictionary<AbilityType, Queue<Throwable>> throwablePools;
 
         public ThrowablePool()
         {
@@ -16,9 +16,9 @@ namespace ThrowableFactoryPool
 
         public void Initialize()
         {
-            throwablePools = new Dictionary<ThrowableTypes, Queue<Throwable>>();
+            throwablePools = new Dictionary<AbilityType, Queue<Throwable>>();
 
-            List<ThrowableTypes> enums = System.Enum.GetValues(typeof(ThrowableTypes)).Cast<ThrowableTypes>().ToList();
+            List<AbilityType> enums = System.Enum.GetValues(typeof(AbilityType)).Cast<AbilityType>().ToList();
 
             for (int i = 0; i < enums.Count; i++)
             {
@@ -26,13 +26,13 @@ namespace ThrowableFactoryPool
             }
         }
 
-        public void Pool(ThrowableTypes throwableType,Throwable objToPool)
+        public void Pool(AbilityType throwableType,Throwable objToPool)
         {
             objToPool.Deactivate();
             throwablePools[throwableType].Enqueue(objToPool);
         }
 
-        public Throwable Depool(ThrowableTypes throwableType)
+        public Throwable Depool(AbilityType throwableType)
         {
             Throwable toRet = (throwablePools[throwableType].Count > 0) ? throwablePools[throwableType].Dequeue() : null;
             if (toRet)

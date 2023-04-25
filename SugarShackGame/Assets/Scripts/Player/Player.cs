@@ -9,7 +9,8 @@ public class Player : MonoBehaviour, IFlow
     private Ragdoll ragdoll;
     private PlayerController playerController;
     public PlayerBucket playerBucket { get; private set; }
-    private Thrower throwerComponent;
+    [HideInInspector]
+    public Thrower throwerComponent;
 
     public void PreInitialize()
     {

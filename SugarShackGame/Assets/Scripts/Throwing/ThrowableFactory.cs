@@ -8,7 +8,7 @@ namespace ThrowableFactoryPool
 {
     public class ThrowableFactory
     {
-        private Dictionary<ThrowableTypes, Throwable> resourceDict;
+        private Dictionary<AbilityType, Throwable> resourceDict;
         private string folderPath = "Prefabs/Throwables/";
         private ThrowablePool pool;
 
@@ -20,8 +20,8 @@ namespace ThrowableFactoryPool
 
         private void Initialize()
         {
-            resourceDict = new Dictionary<ThrowableTypes, Throwable>();
-            List<ThrowableTypes> enums = System.Enum.GetValues(typeof(ThrowableTypes)).Cast<ThrowableTypes>().ToList();
+            resourceDict = new Dictionary<AbilityType, Throwable>();
+            List<AbilityType> enums = System.Enum.GetValues(typeof(AbilityType)).Cast<AbilityType>().ToList();
 
             foreach (var enumType in enums)
             {
@@ -45,7 +45,7 @@ namespace ThrowableFactoryPool
             return Resources.Load<GameObject>(folder + path);
         }
 
-        public Throwable CreateObject(ThrowableTypes throwableName)
+        public Throwable CreateObject(AbilityType throwableName)
         {
             Throwable toRet = ReleaseObject(throwableName);
             if (toRet == null)
@@ -61,7 +61,7 @@ namespace ThrowableFactoryPool
             return toRet;
         }
 
-        private Throwable ReleaseObject(ThrowableTypes throwableName)
+        private Throwable ReleaseObject(AbilityType throwableName)
         {
             Throwable toRet = pool.Depool(throwableName);
             if (toRet == null)

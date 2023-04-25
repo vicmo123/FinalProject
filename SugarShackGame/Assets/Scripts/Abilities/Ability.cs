@@ -15,7 +15,7 @@ public class Ability : MonoBehaviour, IFlow
     [SerializeField]
     protected SoundListEnum sound;
 
-    public virtual void Activate()
+    public virtual void Activate(Player player)
     {
         Debug.Log("Base of ability called");
     }

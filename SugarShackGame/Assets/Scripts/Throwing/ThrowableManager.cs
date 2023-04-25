@@ -32,13 +32,13 @@ public class ThrowableManager : IFlow
     private ThrowableFactoryPool.ThrowableFactory factory;
     private int prefillAmountPerType = 5;
 
-    private void RemoveObjectFromCollection(ThrowableTypes type,Throwable throwable)
+    private void RemoveObjectFromCollection(AbilityType type,Throwable throwable)
     {
         Collection.Remove(throwable);
         pool.Pool(type, throwable);
     }
 
-    public bool TryAddObjectToCollection(ThrowableTypes type, Thrower thrower)
+    public bool TryAddObjectToCollection(AbilityType type, Thrower thrower)
     {
         if (!thrower.IsHoldingThrowable)
         {
@@ -116,7 +116,7 @@ public class ThrowableManager : IFlow
 
     private void PrefillPool()
     {
-        var enums = System.Enum.GetValues(typeof(ThrowableTypes)).Cast<ThrowableTypes>().ToArray();
+        var enums = System.Enum.GetValues(typeof(AbilityType)).Cast<AbilityType>().ToArray();
         for (int i = 0; i < enums.Length; i++)
         {
             for (int j = 0; j < prefillAmountPerType; j++)
