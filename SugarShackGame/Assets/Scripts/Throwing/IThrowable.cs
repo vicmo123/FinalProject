@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IThrowable
 {
-    public void AttachToThrower(Thrower thrower);
-    public void Throw(Vector3 velocity, bool addRotation = false, bool isGhost = false);
+    void AttachToThrower(Thrower thrower);
+    void Throw(Vector3 velocity, bool addRotation = false, bool isGhost = false);
 }

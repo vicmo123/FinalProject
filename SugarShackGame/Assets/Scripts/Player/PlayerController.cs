@@ -122,7 +122,8 @@ public class PlayerController : MonoBehaviour, IFlow
     }
 
     private void LateUpdate() {
-        CameraRotation();
+        if(_inputHandler && _playerStats)
+            CameraRotation();
     }
 
     public void PhysicsRefresh() {
