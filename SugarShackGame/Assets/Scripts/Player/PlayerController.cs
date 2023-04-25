@@ -411,6 +411,7 @@ public class PlayerController : MonoBehaviour, IFlow
         Player _player = transform.GetComponent<Player>();
 
         RaycastHit hit;
+
         if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.TransformDirection(Vector3.forward), out hit, 1000))
         {
             if (hit.transform.gameObject.CompareTag("Bucket"))
@@ -419,6 +420,16 @@ public class PlayerController : MonoBehaviour, IFlow
 
                 if (_inputHandler.Use)
                     bucket.Use(_player);
+            }
+
+            if (hit.transform.gameObject.CompareTag("Cauldron"))
+            {
+                Cauldron cauldron = hit.transform.GetComponent<Cauldron>();
+
+                if (cauldron.player == _player) {
+                    if (_inputHandler.Use)
+                        cauldron.Use(_player);
+                }
             }
         }
         //Debug.DrawRay(model.position + new Vector3(0, .5f, 0), model.TransformDirection(Vector3.forward), Color.red, 1000);
