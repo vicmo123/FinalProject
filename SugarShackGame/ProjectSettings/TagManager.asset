@@ -10,6 +10,7 @@ TagManager:
   - CinemachineTarget
   - Bucket
   - Animal
+  - Cauldron
   layers:
   - Default
   - TransparentFX
