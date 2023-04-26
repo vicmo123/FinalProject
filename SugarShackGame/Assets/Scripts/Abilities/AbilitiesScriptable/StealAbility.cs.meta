@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:SugarShackGame/Assets/Scripts/Abilities/Abilities/StealAbility.cs.meta
+guid: bfef6a705737b8f458a39881ea11c76d
+=======
+guid: 2df704dc6511bdb4ab1d620b9938bde2
+>>>>>>> 17a14d23657b327dcba3a2eae271288ba8a22c72:SugarShackGame/Assets/Scripts/Abilities/AbilitiesScriptable/StealAbility.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
