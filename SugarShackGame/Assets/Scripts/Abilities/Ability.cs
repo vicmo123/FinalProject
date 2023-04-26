@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum AbilityType { MysteryDrink, Horn, Steal, Syrup, BucketNotSpill, Trampoline, Apple, Iceball, GiantBall};
+public enum AbilityType { MysteryDrink, Horn, Steal, Syrup, BucketNotSpill, Trampoline, Apple, Iceball, GiantSnowBall, SnowBall};
 
-public class Ability : MonoBehaviour, IFlow
+public class Ability : MonoBehaviour
 {
     [Header("Ability Links")]
     [SerializeField]
@@ -18,6 +18,10 @@ public class Ability : MonoBehaviour, IFlow
     public virtual void Activate(Player player)
     {
         Debug.Log("Base of ability called");
+        //s'attache a la main
+       // if (ThrowableManager.Instance.TryAddObjectToCollection(type, player.receiver))
+        
+
     }
 
     public Sprite GetSprite()
@@ -25,13 +29,6 @@ public class Ability : MonoBehaviour, IFlow
         return sprite;
     }
 
-    public virtual void Initialize()
-    {
-    }
-
-    public virtual void PhysicsRefresh()
-    {
-    }
 
     public void PlaySound()
     {
@@ -43,11 +40,4 @@ public class Ability : MonoBehaviour, IFlow
        
     }
 
-    public virtual void PreInitialize()
-    {
-    }
-
-    public virtual void Refresh()
-    {
-    }
 }
