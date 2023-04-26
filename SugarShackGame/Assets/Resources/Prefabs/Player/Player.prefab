@@ -1964,8 +1964,6 @@ GameObject:
   - component: {fileID: 974000302012181050}
   - component: {fileID: 8817624269213544639}
   - component: {fileID: 6839153482449966018}
-  - component: {fileID: -7949722174655697222}
-  - component: {fileID: 675582131296451607}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2317,6 +2315,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachPoint: {fileID: 7409226925695674762}
   cam: {fileID: 2638729458249309508}
+  speed: 10
+  maxSpeed: 50
+  lineRenderer: {fileID: 2453502575115574418}
+  linePoints: 25
+  timeBetweenPoints: 0.01
+  launchPosition: {fileID: 7409226925695674762}
+  throwableCollisionMask:
+    serializedVersion: 2
+    m_Bits: 0
   IsHoldingThrowable: 0
   toThrow: {fileID: 0}
 --- !u!114 &6839153482449966018
@@ -2329,30 +2336,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb9583b565d4c9441be9c24fbf0ccbc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-7949722174655697222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5331886442063392701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd2060901d165454fa5126979163075c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &675582131296451607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5331886442063392701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbe63183adaa7a94c8bcc2e5cc99860b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5341212998253359566

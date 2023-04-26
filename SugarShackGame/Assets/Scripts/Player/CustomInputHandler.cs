@@ -23,9 +23,9 @@ public class CustomInputHandler : MonoBehaviour
     [HideInInspector]
     public bool Use { get; private set; } = false;
     [HideInInspector]
-    public bool UseLeftPowerUp { get; set; } = false;
+    public bool UseLeftPowerUp { get; private set; } = false;
     [HideInInspector]
-    public bool UseRightPowerUp { get; set; } = false;
+    public bool UseRightPowerUp { get; private set; } = false;
     [HideInInspector]
     public bool Aim { get; private set; } = false;
 
