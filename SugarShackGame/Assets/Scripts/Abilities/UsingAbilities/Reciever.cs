@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[Manager(typeof(AbilityManager))]
-public class AbilityManager : MonoBehaviour, IFlow
+public class Reciever : MonoBehaviour, IFlow
 {
-    
+    public UnThrowableAbility toUse = null;
     public void Initialize()
     {
     }

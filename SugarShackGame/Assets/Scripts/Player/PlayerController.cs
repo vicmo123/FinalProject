@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour, IFlow
         JumpAndGravity();
         GroundedCheck();
         Move();
-        CheckForUsing();
+        //CheckForUsing();
     }
 
     private void LateUpdate() {
@@ -364,30 +364,30 @@ public class PlayerController : MonoBehaviour, IFlow
     //    }
     //}
 
-    private void CheckForUsing() {
-        Player _player = transform.GetComponent<Player>();
+    //private void CheckForUsing() {
+    //    Player _player = transform.GetComponent<Player>();
 
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position + new Vector3(0, .3f, 0), 1, transform.TransformDirection(Vector3.forward), 1000);
+    //    RaycastHit[] hits = Physics.SphereCastAll(transform.position + new Vector3(0, .3f, 0), 1, transform.TransformDirection(Vector3.forward), 1000);
 
-        if (hits.Length > 0) {
-            foreach (var hit in hits) {
-                if (hit.transform.gameObject.CompareTag("Bucket")) {
-                    Bucket bucket = hit.transform.GetComponent<Bucket>();
+    //    if (hits.Length > 0) {
+    //        foreach (var hit in hits) {
+    //            if (hit.transform.gameObject.CompareTag("Bucket")) {
+    //                Bucket bucket = hit.transform.GetComponent<Bucket>();
 
-                    if (_inputHandler.Use)
-                        bucket.Use(_player);
-                }
+    //                if (_inputHandler.Use)
+    //                    bucket.Use(_player);
+    //            }
 
-                if (hit.transform.gameObject.CompareTag("Cauldron")) {
-                    Cauldron cauldron = hit.transform.GetComponent<Cauldron>();
+    //            if (hit.transform.gameObject.CompareTag("Cauldron")) {
+    //                Cauldron cauldron = hit.transform.GetComponent<Cauldron>();
 
-                    if (cauldron.player == _player) {
-                        if (_inputHandler.Use)
-                            cauldron.Use(_player);
-                    }
-                }
-            }
-        }
-        //Debug.DrawRay(model.position + new Vector3(0, .5f, 0), model.TransformDirection(Vector3.forward), Color.red, 1000);
-    }
+    //                if (cauldron.player == _player) {
+    //                    if (_inputHandler.Use)
+    //                        cauldron.Use(_player);
+    //                }
+    //            }
+    //        }
+    //    }
+    //    //Debug.DrawRay(model.position + new Vector3(0, .5f, 0), model.TransformDirection(Vector3.forward), Color.red, 1000);
+    //}
 }
