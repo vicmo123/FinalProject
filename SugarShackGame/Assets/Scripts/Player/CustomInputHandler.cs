@@ -28,6 +28,9 @@ public class CustomInputHandler : MonoBehaviour
     public bool UseRightPowerUp { get; set; } = false;
     [HideInInspector]
     public bool Aim { get; private set; } = false;
+    [HideInInspector]
+    public bool Pause { get; private set; } = false;
+
 
 
 
@@ -88,6 +91,11 @@ public class CustomInputHandler : MonoBehaviour
     public void OnAim(InputAction.CallbackContext context)
     {
         Aim = context.action.triggered;
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        Pause = context.action.triggered;
     }
     #endregion
 
