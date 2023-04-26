@@ -60,7 +60,7 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
         Debug.Log(thrower);
     }
 
-    public AbilityType GetThrowableType()
+    public ThrowableTypes GetThrowableType()
     {
         return data.type;
     }
@@ -101,11 +101,6 @@ public class Throwable : MonoBehaviour, IFlow, ThrowableFactoryPool.IPoolable, I
                 ragdollComponent.ragdollTrigger.Invoke(collision.GetContact(0).point, force);
             }
         }
-    }
-
-    public virtual void OnThrowLogic(Vector3 velocity)
-    {
-        
     }
 }
 

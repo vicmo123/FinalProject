@@ -8,7 +8,7 @@ public class ThrowableAbility : Ability
 
     public override void Activate(Player player)
     {
-        base.Activate(player);
+        base.Activate();
         Debug.Log("ThrowableAbility activation");
         ThrowableManager.Instance.TryAddObjectToCollection(type, player.throwerComponent);     
     }

@@ -48,9 +48,7 @@ public class Thrower : MonoBehaviour, IFlow
         inputHandler = GetComponent<CustomInputHandler>();
         animator = GetComponent<Animator>();
         animEventReciever = GetComponent<PlayerAnimationEvents>();
-        animEventReciever.OnThrowAnimation += () => {
-            OnThrowLogic();
-        };
+        animEventReciever.OnThrowAnimation += () => { OnThrowLogic(); };
     }
 
     public void Initialize()
@@ -71,7 +69,7 @@ public class Thrower : MonoBehaviour, IFlow
             if (!IsHoldingThrowable)
             {
                 SoundManager.Play?.Invoke(SoundListEnum.Bell);
-                ThrowableManager.Instance.TryAddObjectToCollection(AbilityType.Apple, this);
+                ThrowableManager.Instance.TryAddObjectToCollection(ThrowableTypes.SnowBall, this);
             }
 
             DrawProjection();

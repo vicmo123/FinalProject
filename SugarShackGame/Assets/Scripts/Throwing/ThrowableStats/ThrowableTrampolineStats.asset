@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a548f2f801813b42b62958f402710fd, type: 3}
-  m_Name: IceBallStats
+  m_Name: ThrowableTrampolineStats
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   TimeBeforeDestruction: 10
   Acceleration: 20
   MaxSpeed: 300

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class StatusAbility : Ability
 {
-    public override void Activate(Player player)
+    public override void Activate()
     {
-        base.Activate(player);
+        base.Activate();
         Debug.Log("StatusAbility Activate function");
     }
 
