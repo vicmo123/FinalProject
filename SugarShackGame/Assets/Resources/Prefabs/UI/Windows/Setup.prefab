@@ -2219,7 +2219,7 @@ GameObject:
   - component: {fileID: 8374898196548102102}
   - component: {fileID: 8374898196548102097}
   m_Layer: 5
-  m_Name: SetupMenu
+  m_Name: Setup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
