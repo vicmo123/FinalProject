@@ -5,21 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour, IFlow
 {
     public Renderer[] renderers;
-    public PlayerBucket playerBucket { get; private set; }
 
     private Ragdoll ragdoll;
     private PlayerController playerController;
-<<<<<<< HEAD
     public PlayerBucket playerBucket { get; private set; }
     [HideInInspector]
     public Thrower throwerComponent;
-=======
-    [HideInInspector]
-    public Thrower throwerComponent;
-    [HideInInspector]
-    public Reciever recieverComponent;
-    private PlayerAbilityHandler abilityHander;
->>>>>>> 17a14d23657b327dcba3a2eae271288ba8a22c72
 
     public void PreInitialize()
     {
@@ -27,17 +18,13 @@ public class Player : MonoBehaviour, IFlow
         playerController = GetComponent<PlayerController>();
         playerBucket = GetComponent<PlayerBucket>();
         throwerComponent = GetComponent<Thrower>();
-        recieverComponent = GetComponent<Reciever>();
-        abilityHander = GetComponent<PlayerAbilityHandler>();
 
         ragdoll.PreInitialize();
         playerController.PreInitialize();
         playerBucket.PreInitialize();
         throwerComponent.PreInitialize();
-        recieverComponent.PreInitialize();
-        abilityHander.PreInitialize();
-
         playerBucket = transform.GetComponentInChildren<PlayerBucket>();
+
         CauldronManager.Instance.CreateCauldron(this);
     }
 
@@ -47,8 +34,6 @@ public class Player : MonoBehaviour, IFlow
         playerController.Initialize();
         playerBucket.Initialize();
         throwerComponent.Initialize();
-        recieverComponent.Initialize();
-        abilityHander.Initialize();
     }
 
     public void Refresh()
@@ -57,8 +42,7 @@ public class Player : MonoBehaviour, IFlow
         playerController.Refresh();
         playerBucket.Refresh();
         throwerComponent.Refresh();
-        recieverComponent.Refresh();
-        abilityHander.Refresh();
+
     }
 
     public void PhysicsRefresh()
@@ -67,7 +51,5 @@ public class Player : MonoBehaviour, IFlow
         playerController.PhysicsRefresh();
         playerBucket.PhysicsRefresh();
         throwerComponent.PhysicsRefresh();
-        recieverComponent.PhysicsRefresh();
-        abilityHander.PhysicsRefresh();
     }
 }
