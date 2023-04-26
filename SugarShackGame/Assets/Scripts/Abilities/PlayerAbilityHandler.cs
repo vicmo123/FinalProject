@@ -6,14 +6,17 @@ public class PlayerAbilityHandler : MonoBehaviour, IFlow
 {
     //3rd slot for snowballs
     private int numberOfSlots = 3;
-    private Ability[] abilitySlots;
+    [HideInInspector]
+    public Ability[] abilitySlots;
     private AbilityFactory slotFactory;
     private Player player;
 
     private CustomInputHandler inputHandler;
-    private int indexLeftSlot = 0;
-    private int indexRightSlot = 1;
-    private int indexSnowBallSlot = 2;
+    [HideInInspector]
+    public readonly int indexLeftSlot = 0;
+    [HideInInspector]
+    public readonly int indexRightSlot = 1;
+    private readonly int indexSnowBallSlot = 2;
 
     public void PreInitialize()
     {

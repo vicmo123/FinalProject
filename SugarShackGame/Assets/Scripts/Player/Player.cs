@@ -13,7 +13,8 @@ public class Player : MonoBehaviour, IFlow
     public Thrower throwerComponent;
     [HideInInspector]
     public Reciever recieverComponent;
-    private PlayerAbilityHandler abilityHander;
+    [HideInInspector]
+    public PlayerAbilityHandler abilityHander;
 
     public void PreInitialize()
     {

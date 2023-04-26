@@ -44,6 +44,11 @@ public class ThrowableAbility : AbilityComponent
 
     private void OnCollisionEnter(Collision collision)
     {
+        OnCollisionLogic(collision);
+    }
+
+    public virtual void OnCollisionLogic(Collision collision)
+    {
         Thrower collided = collision.gameObject.GetComponentInParent<Thrower>();
         if (collided != thrower || collided == null)
         {
