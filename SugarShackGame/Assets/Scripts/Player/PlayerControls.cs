@@ -288,7 +288,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""01619526-64ff-4829-8b6c-c43c6fb7f2bd"",
                     ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""Throw"",

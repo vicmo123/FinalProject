@@ -24,12 +24,11 @@ public class BucketManager : IFlow
 
     private List<Bucket> buckets;
     public Dictionary<int, Vector3> bucketPositionDic;
+    private GameObject bucketPrefab;
+
 
     public void PreInitialize() {
-        bucketPositionDic = new Dictionary<int, Vector3>();
-        bucketPositionDic.Add(1, new Vector3(-0.01358f, 0.0224f, 0.0061f));
-        bucketPositionDic.Add(2, new Vector3(0.04f, -0.0001f, 0.0422f));
-        bucketPositionDic.Add(3, new Vector3(-0.012362f, 0.00184f, -0.01499f));
+        bucketPrefab = Resources.Load("Prefabs/Bucket/Bucket") as GameObject;
 
         buckets = new List<Bucket>();
         buckets.AddRange(Object.FindObjectsOfType<Bucket>());
@@ -39,9 +38,21 @@ public class BucketManager : IFlow
             if (!buckets[i].CheckParent()) {
                 GameObject.Destroy(buckets[i].gameObject);
                 buckets.Remove(buckets[i]);
-            } else {
+            }
+            else {
                 buckets[i].PreInitialize();
             }
+        }
+
+        GameObject[] maples = GameObject.FindGameObjectsWithTag("Maple");
+        foreach (var maple in maples) {
+            if (!maple.GetComponentInChildren<Bucket>()) {
+                Bucket bucket = GameObject.Instantiate(bucketPrefab).GetComponent<Bucket>();
+                bucket.gameObject.transform.SetParent(maple.transform);
+                bucket.PreInitialize();
+                buckets.Add(bucket);
+            }
+
         }
     }
 

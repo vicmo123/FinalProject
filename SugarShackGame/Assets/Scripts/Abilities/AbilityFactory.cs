@@ -1,65 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using UnityEditor;
 using UnityEngine;
+using System.Linq;
 
 public class AbilityFactory
 {
-    Dictionary<string, AbilityHolder> abilityDict;
-    List<string> abilityNames;
+    private Dictionary<AbilityType, Ability> resourceDict;
+    private List<AbilityType> abilityNames;
 
     public AbilityFactory()
     {
-        InitializeDictResources();
+        resourceDict = new Dictionary<AbilityType, Ability>();
+        LoadResources();
     }
 
-    public AbilityHolder CreateAbility(string abilityName)
+    public void LoadResources()
     {
-        AbilityHolder abHolder;
+        abilityNames = System.Enum.GetValues(typeof(AbilityType)).Cast<AbilityType>().ToList();
 
-        if (abilityDict.ContainsKey(abilityName))
-            abHolder = GameObject.Instantiate<AbilityHolder>(abilityDict[abilityName]);
-        else
-            throw new System.Exception("Ability Factory : The name of the ability doesn't correspond to an existing ability in the resources dictionnary");
-
-        return abHolder;
-    }
-
-    public string GetRandomAbilityName()
-    {        
-        return abilityNames[Random.Range(0, abilityNames.Count)];
-    }
-
-    private void InitializeDictResources()
-    {
-        //populate the dictionnary with AbilityHolder Prefabs
-        abilityDict = new Dictionary<string, AbilityHolder>();
-        string[] prefabGuids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Scripts/Abilities/AbilityStats" });
-
-        if (prefabGuids.Length == 0)
-            throw new System.Exception("AbilityFactory :  no AbilityHolder prefab was found in the file AbilityStats. Have they been moved to another file ?");
-
-        foreach (string guid in prefabGuids)
+        foreach (var name in abilityNames)
         {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-            string prefabName = prefab.name;
-            AbilityHolder ab = prefab.GetComponent<AbilityHolder>();
-            abilityDict.Add(prefabName, ab);
+            var abilityObj = (Ability)ScriptableObject.CreateInstance(name + "Ability");
+            resourceDict.Add(name, abilityObj);
         }
 
-        //Populate dictionnary of names (list of strings)
-        InitializeNameDict();
+        //For the random to not create snowballs
+        abilityNames.Remove(AbilityType.SnowBall);
     }
 
-    private void InitializeNameDict()
+    public Ability CreateAbility(AbilityType type)
     {
-        abilityNames = new List<string>();
+        return resourceDict[type];
+    }
 
-        foreach (KeyValuePair<string, AbilityHolder> el in abilityDict)
-        {
-            abilityNames.Add(el.Key);
-        }
+    public Ability CreateRandomAbility()
+    {
+        return resourceDict[abilityNames[Random.Range(0, abilityNames.Count)]];
     }
 }

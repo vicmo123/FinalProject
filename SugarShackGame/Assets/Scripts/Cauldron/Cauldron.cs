@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Cauldron : MonoBehaviour, IFlow, IUsable
 {
-    private Player player;
-    private float sapAmount = 0.0f;
+    [HideInInspector] public Player player;
+    [SerializeField] private float sapAmount = 0.0f;
     private float maxSapAmount = 75.0f;
     private float quantityForCan = 10.0f;
 
@@ -20,7 +20,6 @@ public class Cauldron : MonoBehaviour, IFlow, IUsable
     }
 
     public void PreInitialize() {
-        // "player" must be set here.
     }
 
     public void Refresh() {

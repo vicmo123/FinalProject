@@ -21,10 +21,15 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     private float cooldown = 1.0f;
     private float endOfCooldown = 0.0f;
 
-    public void Initialize() {
+    private Color originalColor;
+    private Renderer bucketRenderer;
 
-        int mapleType = Int32.Parse(transform.parent.name.Substring(7, 1));
-        transform.localPosition = BucketManager.Instance.bucketPositionDic[mapleType];
+    public void Initialize() {
+        Placement();
+
+        bucketRenderer = GetComponentInChildren<Renderer>();
+        originalColor = bucketRenderer.material.color;
+
         fillingBar.transform.SetParent(null);
     }
 
@@ -58,6 +63,26 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
         }
     }
 
+    private void Placement() {
+        float yPos = .8f;
+
+        Transform _parent = transform.parent;
+        transform.SetParent(null);
+        transform.localScale = new Vector3(1, 1, 1);
+
+        Bounds treeBounds = _parent.gameObject.GetComponentInChildren<BoxCollider>().bounds;
+        Bounds bucketBounds = transform.GetComponentInChildren<BoxCollider>().bounds;
+
+        transform.position = new Vector3(
+            treeBounds.center.x,
+            treeBounds.center.y - treeBounds.extents.y + yPos,
+            treeBounds.center.z + treeBounds.extents.z + bucketBounds.extents.z
+            );
+
+
+        transform.SetParent(_parent);
+    }
+
     private void Claim(Player _player) {
         Debug.Log("Bucket is being claimed!");
         if (Time.time - lastUsedTime <= 1.0f) { // If the player is already claiming
@@ -68,7 +93,8 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
                 Claimed(_player);
                 endOfCooldown = Time.time + cooldown;
             }
-        } else { // If the player starts to claim
+        }
+        else { // If the player starts to claim
             if (!player)
                 remainingTimeToClaim = timeToClaim;
             else
@@ -76,6 +102,14 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
         }
 
         lastUsedTime = Time.time;
+    }
+
+    private void ChangeColor(Color color) {
+        bucketRenderer.material.color = color;
+    }
+
+    private void ResetColor() {
+        bucketRenderer.material.color = originalColor;
     }
 
     private void CollectSap(Player _player) {
@@ -89,6 +123,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     }
 
     private void Claimed(Player _player) {
+        ChangeColor(Color.blue);
         if (player)
             Debug.Log("Bucket was stolen!");
         else
