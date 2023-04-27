@@ -6,10 +6,11 @@ public class ThrowableAbility : AbilityComponent
 {
     [HideInInspector]
     public Rigidbody rb;
+    [Header("Throwable stats")]
     public float rotationSpeed = 10f;
     public float speed = 10f;
     public float maxSpeed = 50f;
-    private Thrower thrower = null;
+    protected Thrower thrower = null;
 
 
     public override void Initialize()
@@ -39,7 +40,7 @@ public class ThrowableAbility : AbilityComponent
 
         rb.isKinematic = true;
         thrower.toThrow = this;
-        _thrower.IsHoldingThrowable = true;
+        thrower.IsHoldingThrowable = true;
     }
 
     private void OnCollisionEnter(Collision collision)

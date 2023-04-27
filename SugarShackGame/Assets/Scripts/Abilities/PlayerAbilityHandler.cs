@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 public class PlayerAbilityHandler : MonoBehaviour, IFlow
 {
@@ -16,7 +17,7 @@ public class PlayerAbilityHandler : MonoBehaviour, IFlow
     public readonly int indexLeftSlot = 0;
     [HideInInspector]
     public readonly int indexRightSlot = 1;
-    private readonly int indexSnowBallSlot = 2;
+    private readonly int indexNextToThrow = 2;
 
     public void PreInitialize()
     {
@@ -44,7 +45,7 @@ public class PlayerAbilityHandler : MonoBehaviour, IFlow
 
     private void ManageSlots()
     {
-        TryUseAbility();
+        TryUseAbilities();
     }
 
     private void FillSlots()
@@ -52,47 +53,52 @@ public class PlayerAbilityHandler : MonoBehaviour, IFlow
         for (int i = 0; i < abilitySlots.Length; i++)
         {
             abilitySlots[i] = slotFactory.CreateRandomAbility();
-            if (i == indexSnowBallSlot)
+            if (i == indexNextToThrow)
             {
                 abilitySlots[i] = slotFactory.CreateAbility(AbilityType.SnowBall);
             }
         }
     }
 
-    private void TryUseAbility()
+    private void TryUseAbilities()
     {
         if (inputHandler.Throw)
         {
-            if (abilitySlots[indexSnowBallSlot].Activate(player))
+            if (abilitySlots[indexNextToThrow].Activate(player))
             {
-                var objAbility = AbilityObjectManager.Instance.AddObjectToCollection(AbilityType.SnowBall, player);
-                objAbility.InitAbility(abilitySlots[indexSnowBallSlot], player);
+                var objAbility = AbilityObjectManager.Instance.AddObjectToCollection(abilitySlots[indexNextToThrow].type, player);
+                objAbility.InitAbility(abilitySlots[indexNextToThrow], player);
+
+                //Reset
+                abilitySlots[indexNextToThrow] = slotFactory.CreateAbility(AbilityType.SnowBall);
             }
         }
 
-        if (inputHandler.UseLeftPowerUp)
+        inputHandler.UseLeftPowerUp = TryUseAbility(inputHandler.UseLeftPowerUp, indexLeftSlot);
+        inputHandler.UseRightPowerUp = TryUseAbility(inputHandler.UseRightPowerUp, indexRightSlot);
+    }
+
+    public bool TryUseAbility(bool input, int slotIndex)
+    {
+        if (input)
         {
-            if (abilitySlots[indexLeftSlot].Activate(player))
+            if (abilitySlots[slotIndex].Activate(player))
             {
-                inputHandler.UseLeftPowerUp = false;
-                abilitySlots[indexLeftSlot] = slotFactory.CreateRandomAbility();
-
-                var objAbility = AbilityObjectManager.Instance.AddObjectToCollection(abilitySlots[indexLeftSlot].type, player);
-                objAbility.InitAbility(abilitySlots[indexLeftSlot], player);
+                input = false;
+                if (abilitySlots[slotIndex].isThrowable)
+                {
+                    abilitySlots[indexNextToThrow] = abilitySlots[slotIndex];
+                }
+                else
+                {
+                    var objAbility = AbilityObjectManager.Instance.AddObjectToCollection(abilitySlots[slotIndex].type, player);
+                    objAbility.InitAbility(abilitySlots[slotIndex], player);
+                }
+                Debug.Log(abilitySlots[slotIndex]);
+                abilitySlots[slotIndex] = slotFactory.CreateRandomAbility();
             }
         }
 
-        if (inputHandler.UseRightPowerUp)
-        {
-            if (abilitySlots[indexRightSlot].Activate(player))
-            {
-                inputHandler.UseRightPowerUp = false;
-                abilitySlots[indexRightSlot] = slotFactory.CreateRandomAbility();
-
-                var objAbility = AbilityObjectManager.Instance.AddObjectToCollection(abilitySlots[indexRightSlot].type, player);
-                objAbility.InitAbility(abilitySlots[indexRightSlot], player);
-            }
-        }
-
+        return input;
     }
 }
