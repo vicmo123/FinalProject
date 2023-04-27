@@ -559,7 +559,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 921fb6bd5ad2c974eb52eb6cccc852f6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1407,7 +1407,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 921fb6bd5ad2c974eb52eb6cccc852f6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2011,6 +2011,9 @@ MonoBehaviour:
   - {fileID: 4126932079170352012}
   - {fileID: 2714291085489095891}
   - {fileID: 1478455865204295403}
+  throwerComponent: {fileID: 0}
+  recieverComponent: {fileID: 0}
+  abilityHander: {fileID: 0}
 --- !u!95 &902630649624965883
 Animator:
   serializedVersion: 5
@@ -2270,6 +2273,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 4c53ca4e-2517-4088-8f5c-c60bb18e7c22
     m_ActionName: UI_Navigation/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7dca1581-5976-4aee-8665-5898b0be6736
+    m_ActionName: Player/Pause[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2343,6 +2350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2060901d165454fa5126979163075c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitySlots: []
 --- !u!114 &675582131296451607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2355,6 +2363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe63183adaa7a94c8bcc2e5cc99860b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toUse: {fileID: 0}
 --- !u!1 &5341212998253359566
 GameObject:
   m_ObjectHideFlags: 0
@@ -3503,7 +3512,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 921fb6bd5ad2c974eb52eb6cccc852f6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3709,7 +3718,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 921fb6bd5ad2c974eb52eb6cccc852f6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4094,7 +4103,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 921fb6bd5ad2c974eb52eb6cccc852f6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
