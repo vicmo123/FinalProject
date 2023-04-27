@@ -15,6 +15,8 @@ public class Player : MonoBehaviour, IFlow
     public Reciever recieverComponent;
     [HideInInspector]
     public PlayerAbilityHandler abilityHander;
+    [HideInInspector]
+    public SyrupCanManager syrupCanManager;
 
     public void PreInitialize()
     {
@@ -34,6 +36,7 @@ public class Player : MonoBehaviour, IFlow
 
         playerBucket = transform.GetComponentInChildren<PlayerBucket>();
         CauldronManager.Instance.CreateCauldron(this);
+        syrupCanManager = new SyrupCanManager();
     }
 
     public void Initialize()
