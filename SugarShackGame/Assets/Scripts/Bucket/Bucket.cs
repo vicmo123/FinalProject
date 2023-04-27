@@ -9,7 +9,9 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     private FillingBar fillingBar;
     [SerializeField] private Transform positionForFillingBar;
 
-    public float sapAmount = 0.0f;
+    private Highlight highlight;
+
+    [HideInInspector] public float sapAmount = 0.0f;
     private float maxSapAmount = 20.0f;
     private float sapGainSpeed = 3.0f;
 
@@ -31,6 +33,8 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
         originalColor = bucketRenderer.material.color;
 
         fillingBar.transform.SetParent(null);
+
+        highlight.Initialize();
     }
 
     public void PhysicsRefresh() {
@@ -39,14 +43,20 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     }
 
     public void PreInitialize() {
+        highlight = GetComponent<Highlight>();
+
         fillingBar = GameObject.Instantiate(fillingBarObject).GetComponent<FillingBar>();
         fillingBar.PreInitialize();
         fillingBar.transform.SetParent(transform);
         fillingBar.transform.position = positionForFillingBar.position;
+
+        highlight.PreInitialize();
     }
 
     public void Refresh() {
         Sap();
+
+        highlight.Refresh();
     }
 
     public void Use(Player _player) {
@@ -81,6 +91,10 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
 
         transform.SetParent(_parent);
+    }
+
+    public void Looked(Player _player) {
+        highlight.ToggleHighlight(true);
     }
 
     private void Claim(Player _player) {
