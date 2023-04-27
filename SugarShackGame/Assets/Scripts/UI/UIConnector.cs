@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class UIConnector : MonoBehaviour, IFlow
+public class UIConnector : MonoBehaviour
 {
     public Canvas pause_window;
     public Canvas endGame_window;
@@ -31,24 +31,15 @@ public class UIConnector : MonoBehaviour, IFlow
     bool gameOnPause = false;
     float countdown;
     const float GAME_DURATION = 320;
-    public void PreInitialize()
+    private void Awake()
     {
-    }
-    public void Initialize()
-    {
-        Image[] slots = { slot1P1, slot2P1 };
-        UIManagerP1.Connect(viewport1, slots, bucketP1, cansP1);
-        UIManagerP2.Connect(viewport1, slots, bucketP1, cansP1);
+        Image[] p1Slots = { slot1P1, slot2P1 };
+        Image[] p2Slots = { slot1P2, slot2P2 };
+
+        UIGameTime.Instance.ConnectUISlots(p1Slots, p2Slots);
     }
 
-    public void PhysicsRefresh()
-    {
-    }
 
-    
 
-    public void Refresh()
-    {
-    }
-    
+
 }

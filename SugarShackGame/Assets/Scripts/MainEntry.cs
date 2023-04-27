@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum GameState { Title, SettingUp, Game, Pause, GameOver}
 
 public class MainEntry : MonoBehaviour
 {
