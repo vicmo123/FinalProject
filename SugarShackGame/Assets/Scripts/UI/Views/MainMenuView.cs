@@ -30,6 +30,7 @@ public class MainMenuView : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Starting the game");
+        //Faire appel au UI Manager to go to next scene
     }
     public void GoToCreditsView()
     {

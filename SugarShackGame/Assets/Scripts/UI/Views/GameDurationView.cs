@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GameDurationView : MonoBehaviour
+{
+    public Button opt1Button;
+    public float timeOpt1;
+    public Button opt2Button;
+    public float timeOpt2;
+    public Button opt3Button;
+    public float timeOpt3;
+    public Button startGameButton;
+
+    private void Awake()
+    {
+        Button btn1 = opt1Button.GetComponent<Button>();
+        Button btn2 = opt2Button.GetComponent<Button>();
+        Button btn3 = opt3Button.GetComponent<Button>();
+        Button startBtn = startGameButton.GetComponent<Button>();
+
+        btn1.onClick.AddListener(() => SetGameDuration(timeOpt1));
+        btn2.onClick.AddListener(() => SetGameDuration(timeOpt2));
+        btn3.onClick.AddListener(() => SetGameDuration(timeOpt3));
+        startBtn.onClick.AddListener(() => UIManager.Instance.LoadOneScene(ScenesNames.GamePlay));
+    }
+
+    public void SetGameDuration(float duration)
+    {
+        UIManager.Instance.gameDuration = duration;
+        Debug.Log("Game duration is : " + duration);
+    }
+
+    
+}
