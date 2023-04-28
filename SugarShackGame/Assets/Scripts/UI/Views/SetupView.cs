@@ -7,6 +7,8 @@ public class SetupView : MonoBehaviour
 {
    
     private PlayerFactory factory;
+    private bool p1Connected;
+    private bool p2Connected;
 
     #region Player
     public Transform p1SPawn;
@@ -19,6 +21,8 @@ public class SetupView : MonoBehaviour
     private int P2CurrentBeard = 1;
     private int P1CurrentShirt = 0;
     private int P2CurrentShirt = 3;
+    private string p1Device;
+    private string p2Device;
     #endregion
 
     #region  Arrows Buttons
@@ -40,6 +44,14 @@ public class SetupView : MonoBehaviour
     }
     private void Update()
     {
+
+        if(Input.GetJoystickNames().Length > 0 )
+        {
+            if (!p1Connected)
+            {
+               string[] joystickName =  Input.GetJoystickNames();
+            }
+        }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             //++P1CurrentBeard;
