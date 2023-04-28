@@ -1,47 +1,107 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SetupView : MonoBehaviour
 {
-    public Transform player1SPawn;
-    public Transform player2Spawn;
+   
     private PlayerFactory factory;
-    Player p1;
-    Player p2;
+
+    #region Player
+    public Transform p1SPawn;
+    public Transform p2Spawn;
+    private Player p1;
+    private Player p2;
     private string[] beards;
     private string[] shirts;
-    private string P1CurrentBeard;
-    private string P2CurrentBeard;
+    private int P1CurrentBeard = 0;
+    private int P2CurrentBeard = 1;
+    private int P1CurrentShirt = 0;
+    private int P2CurrentShirt = 3;
+    #endregion
 
-    Rigidbody m_Rigidbody;
-    Vector3 m_YAxis;
+    #region  Arrows Buttons
+    [Header("Arrows")]
+    public Button p1_leftArrowBtn;
+    public Button p1_rightArrowBtn;
+    public Button p2_leftArrowBtn;
+    public Button p2_rightArrowBtn;
+    #endregion
+
 
     private void Awake()
     {
         factory = new PlayerFactory("Prefabs/Player/PlayerDemo");
         beards = factory.beardColors;
         shirts = factory.shirtColors;
-
-         p1 = factory.CreatPlayer(beards[0], shirts[0]);
-         p2 = factory.CreatPlayer(beards[1], shirts[3]);
-
-        p1.transform.position = player1SPawn.position;
-        p1.transform.rotation = new Quaternion(0,1,0,0);
-        p1.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-        p2.transform.position = player2Spawn.position;
-        p2.transform.rotation = new Quaternion(0, 1, 0, 0);
-        p2.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-
+        InitializeButtons();
+        LoadPlayers();  
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-           //switch color of the beard! :)
+            //++P1CurrentBeard;
+            ++P1CurrentShirt;
+            // P1CurrentBeard %= beards.Length;
+            P1CurrentShirt %= shirts.Length;
+            factory.ChangePlayerColor(ref p1, beards[P1CurrentBeard], shirts[P1CurrentShirt]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            //--P1CurrentBeard;
+            --P1CurrentShirt;
+            if (P1CurrentShirt == -1)
+            {
+                P1CurrentShirt = shirts.Length - 1;
+            }
+            //if (P1CurrentBeard == -1)
+            //{
+            //    P1CurrentBeard = beards.Length - 1;
+            //}
+            factory.ChangePlayerColor(ref p1, beards[P1CurrentBeard], shirts[P1CurrentShirt]);
         }
 
     }
+
+    public void P1RightArrow()
+    {
+        ++P1CurrentShirt;
+        P1CurrentShirt %= shirts.Length;
+        factory.ChangePlayerColor(ref p1, beards[P1CurrentBeard], shirts[P1CurrentShirt]);
+    }
+
+    public void P1LeftArrow()
+    {
+        --P1CurrentShirt;
+        if (P1CurrentShirt == -1)
+        {
+            P1CurrentShirt = shirts.Length - 1;
+        }
+        factory.ChangePlayerColor(ref p1, beards[P1CurrentBeard], shirts[P1CurrentShirt]);
+    }
+
+    public void P2RightArrow()
+    {
+        ++P2CurrentShirt;
+        P2CurrentShirt %= shirts.Length;
+        factory.ChangePlayerColor(ref p2, beards[P2CurrentBeard], shirts[P2CurrentShirt]);
+    }
+
+    public void P2LeftArrow()
+    {
+        --P2CurrentShirt;
+        if (P2CurrentShirt == -1)
+        {
+            P2CurrentShirt = shirts.Length - 1;
+        }
+        factory.ChangePlayerColor(ref p2, beards[P2CurrentBeard], shirts[P2CurrentShirt]);
+    }
+
+
+
 
     //   	        1. List of Sprite of all characters declination
     //			  2. Current Sprite : What is the current selection of color of both player
@@ -50,4 +110,31 @@ public class SetupView : MonoBehaviour
     //			  5. State of player :  {Setup, Ready}
     //
     //              when Ready : not checking inputs 
+    private void InitializeButtons()
+    {
+        Button p1_Left = p1_leftArrowBtn.GetComponent<Button>();
+        p1_Left.onClick.AddListener(P1LeftArrow);
+
+        Button p1_Right = p1_rightArrowBtn.GetComponent<Button>();
+        p1_Right.onClick.AddListener(P1RightArrow);
+
+        Button p2_Left = p2_leftArrowBtn.GetComponent<Button>();
+        p2_Left.onClick.AddListener(P2LeftArrow);
+
+        Button p2_Right = p2_rightArrowBtn.GetComponent<Button>();
+        p2_Right.onClick.AddListener(P2RightArrow);
+    }
+    private void LoadPlayers()
+    {
+        p1 = factory.CreatPlayer(beards[0], shirts[0]);
+        p2 = factory.CreatPlayer(beards[1], shirts[3]);
+
+        p1.transform.position = p1SPawn.position;
+        p1.transform.rotation = new Quaternion(0, 1, 0, 0);
+        p1.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
+        p2.transform.position = p2Spawn.position;
+        p2.transform.rotation = new Quaternion(0, 1, 0, 0);
+        p2.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+    }
 }
