@@ -11,6 +11,7 @@ TagManager:
   - Bucket
   - Animal
   - Cauldron
+  - Eatable
   layers:
   - Default
   - TransparentFX

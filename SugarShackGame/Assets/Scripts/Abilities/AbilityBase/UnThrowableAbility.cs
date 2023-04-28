@@ -4,20 +4,39 @@ using UnityEngine;
 
 public class UnThrowableAbility : AbilityComponent
 {
+    private Reciever reciever = null;
+    [HideInInspector]
+    public Rigidbody rb;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        rb = GetComponent<Rigidbody>();
+
+        timer.OnTimeIsUpLogic += () =>
+        {
+            reciever.toUse = null;
+            reciever.IsHoldingUnThrowable = false;
+            reciever = null;
+        };
+    }
+
     public override void InitAbility(Ability _stats, Player _player)
     {
         base.InitAbility(_stats, _player);
         AttachToReciever(_player.recieverComponent);
     }
 
-    private void AttachToReciever(Reciever reciever)
+    private void AttachToReciever(Reciever _reciever)
     {
-        gameObject.transform.position = Vector3.zero;
+        reciever = _reciever;
+        gameObject.transform.position = reciever.attachPoint.position;
+        gameObject.transform.SetParent(reciever.attachPoint);
+
+        rb.isKinematic = true;
+        reciever.toUse = this;
+        reciever.IsHoldingUnThrowable = true;
+
         timer.StartTimer();
-    }
-
-    private void Use()
-    {
-
     }
 }

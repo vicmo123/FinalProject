@@ -12,6 +12,9 @@ public class Animal : MonoBehaviour, IFlow
     public Animator animController;
     public Ragdoll ragdoll;
 
+    [HideInInspector]
+    public bool isScared = false;
+
     public virtual void PreInitialize()
     { 
         stateMachine = new AnimalStateMachine(this);
@@ -36,6 +39,11 @@ public class Animal : MonoBehaviour, IFlow
         UpdateRotation();
         UpdateAnimationSpeedVariable();
         ragdoll.Refresh();
+
+        if(chaseTarget == null)
+        {
+            FindVisibleTargets(stats.targetTagName);
+        }
     }
 
     public virtual void PhysicsRefresh()
@@ -46,7 +54,7 @@ public class Animal : MonoBehaviour, IFlow
     public Vector3 GenerateRandomNavMeshPos()
     {
         Vector3 finalPosition = Vector3.zero;
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere.normalized * stats.walkRadius;
+        Vector3 randomDirection = Random.insideUnitSphere.normalized * stats.walkRadius;
         randomDirection += transform.position;
         if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, stats.walkRadius + transform.position.y, NavMesh.AllAreas))
         {
@@ -134,33 +142,25 @@ public class Animal : MonoBehaviour, IFlow
         stateMachine.OnPatrolEnter += () => { OnPatrolEnter(); };
         stateMachine.OnFleeEnter += () => { OnFleeEnter(); };
         stateMachine.OnChaseEnter += () => { OnChaseEnter(); };
-        stateMachine.OnAttackEnter += () => { OnAttackEnter(); };
         stateMachine.OnSpecialActionEnter += () => { OnSpecialActionEnter(); };
-        stateMachine.OnRagdollEnter += () => { OnRagdollEnter(); };
-
         //OnLogic
         stateMachine.OnPatrolLogic += () => { OnPatrolLogic(); };
         stateMachine.OnFleeLogic += () => { OnFleeLogic(); };
         stateMachine.OnChaseLogic += () => { OnChaseLogic(); };
-        stateMachine.OnAttackLogic += () => { OnAttackLogic(); };
         stateMachine.OnSpecialActionLogic += () => { OnSpecialActionLogic(); };
-        stateMachine.OnRagdollLogic += () => { OnRagdollLogic(); };
 
         //OnExit
         stateMachine.OnPatrolExit += () => { OnPatrolExit(); };
         stateMachine.OnFleeExit += () => { OnFleeExit(); };
         stateMachine.OnChaseExit += () => { OnChaseExit(); };
-        stateMachine.OnAttackExit += () => { OnAttackExit(); };
         stateMachine.OnSpecialActionExit += () => { OnSpecialActionExit(); };
-        stateMachine.OnRagdollExit += () => { OnRagdollExit(); };
 
         //Transitions
         stateMachine.IsPatrolFinished = () => { return IsPatrolFinished(); };
         stateMachine.IsFleeFinished = () => { return IsFleeFinished(); };
+        stateMachine.IsFleeTime = () => { return IsFleeTime(); };
         stateMachine.IsChaseFinished = () => { return IsChaseFinished(); };
-        stateMachine.IsAttackFinished = () => { return IsAttackFinished(); };
         stateMachine.IsSpecialActionFinished = () => { return IsSpecialActionFinished(); };
-        stateMachine.IsRagdollFinished = () => { return IsRagdollFinished(); };
         stateMachine.IsSpecialActionTime = () => { return IsSpecialActionTime(); };
     }
 
@@ -173,7 +173,7 @@ public class Animal : MonoBehaviour, IFlow
 
     public virtual void OnFleeEnter()
     {
-
+        Debug.Log("Time to flee");
     }
 
     public virtual void OnChaseEnter()
@@ -181,17 +181,7 @@ public class Animal : MonoBehaviour, IFlow
         agent.speed = stats.runSpeed;
     }
 
-    public virtual void OnAttackEnter()
-    {
-
-    }
-
     public virtual void OnSpecialActionEnter()
-    {
-
-    }
-
-    public virtual void OnRagdollEnter()
     {
 
     }
@@ -205,8 +195,6 @@ public class Animal : MonoBehaviour, IFlow
         {
             agent.destination = GenerateRandomNavMeshPos();
         }
-
-        FindVisibleTargets(stats.targetTagName);
     }
 
     public virtual void OnFleeLogic()
@@ -221,20 +209,11 @@ public class Animal : MonoBehaviour, IFlow
             agent.destination = chaseTarget.transform.position;
     }
 
-    public virtual void OnAttackLogic()
-    {
-        stateMachine.CurrentState = AnimalStateMachine.Attack;
-    }
-
     public virtual void OnSpecialActionLogic()
     {
         stateMachine.CurrentState = AnimalStateMachine.SpecialAction;
     }
 
-    public virtual void OnRagdollLogic()
-    {
-        stateMachine.CurrentState = AnimalStateMachine.Ragdoll;
-    }
     #endregion
 
     #region OnExit
@@ -253,17 +232,7 @@ public class Animal : MonoBehaviour, IFlow
         agent.speed = stats.walkSpeed;
     }
 
-    public virtual void OnAttackExit()
-    {
-
-    }
-
     public virtual void OnSpecialActionExit()
-    {
-
-    }
-
-    public virtual void OnRagdollExit()
     {
 
     }
@@ -272,7 +241,7 @@ public class Animal : MonoBehaviour, IFlow
     #region Transitons
     public virtual bool IsPatrolFinished()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (chaseTarget != null)
             return true;
         else
             return false;
@@ -280,7 +249,15 @@ public class Animal : MonoBehaviour, IFlow
 
     public virtual bool IsFleeFinished()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!isScared)
+            return true;
+        else
+            return false;
+    }
+
+    public virtual bool IsFleeTime()
+    {
+        if (isScared)
             return true;
         else
             return false;
@@ -294,23 +271,7 @@ public class Animal : MonoBehaviour, IFlow
             return false;
     }
 
-    public virtual bool IsAttackFinished()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            return true;
-        else
-            return false;
-    }
-
     public virtual bool IsSpecialActionFinished()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            return true;
-        else
-            return false;
-    }
-
-    public virtual bool IsRagdollFinished()
     {
         if (Input.GetKeyDown(KeyCode.Space))
             return true;

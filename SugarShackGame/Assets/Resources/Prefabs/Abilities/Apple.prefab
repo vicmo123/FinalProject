@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5273078417226080137}
   m_Layer: 0
   m_Name: Apple
-  m_TagString: Untagged
+  m_TagString: Eatable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,3 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1783a6a3ddac9ed43a581c94ab651bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityStats: {fileID: 0}
+  readyToBeDestroyed: 0
+  player: {fileID: 0}
+  rb: {fileID: 0}
+  rotationSpeed: 10
+  speed: 10
+  maxSpeed: 50

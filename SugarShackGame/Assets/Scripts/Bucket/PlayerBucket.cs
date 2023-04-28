@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerBucket : MonoBehaviour, IUsable, IFlow
 {
+    public GameObject bucketLid;
     public float sapAmount = 0.0f;
     private float maxSapAmount = 30.0f;
 
 
     public void Initialize() {
+        bucketLid.SetActive(false);
     }
 
     public void PhysicsRefresh() {
@@ -39,5 +41,13 @@ public class PlayerBucket : MonoBehaviour, IUsable, IFlow
 
     public void RemoveSap(float amount) {
         sapAmount = Mathf.Clamp(sapAmount - amount, 0, maxSapAmount);
+    }
+
+    public IEnumerator NoSpill(float duration)
+    {
+        bucketLid.SetActive(true);
+        //Todo no spill
+        yield return new WaitForSeconds(duration);
+        bucketLid.SetActive(false);
     }
 }

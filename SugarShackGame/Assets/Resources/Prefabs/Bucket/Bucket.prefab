@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 7440063534489480605}
   - component: {fileID: 7440063534489480606}
   - component: {fileID: 3933495132076701739}
+  - component: {fileID: 8290542196283369986}
   m_Layer: 0
   m_Name: Bucket
   m_TagString: Bucket
@@ -94,6 +95,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6, z: 0.6}
   m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!114 &8290542196283369986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7440063534489480604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5411fa3fe8109c246ad138aa565ad06c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderers:
+  - {fileID: 7518250859283043569}
+  color: {r: 0.5568628, g: 0.5568628, b: 0.5568628, a: 0.23529412}
 --- !u!1001 &7518250859284941971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -163,6 +179,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 505149d54bb78d14e99d6751368a2eb5, type: 3}
+--- !u!23 &7518250859283043569 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300002, guid: 505149d54bb78d14e99d6751368a2eb5, type: 3}
+  m_PrefabInstance: {fileID: 7518250859284941971}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7518250859284813329 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: 505149d54bb78d14e99d6751368a2eb5, type: 3}

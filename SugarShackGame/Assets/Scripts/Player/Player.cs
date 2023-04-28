@@ -14,7 +14,9 @@ public class Player : MonoBehaviour, IFlow
     [HideInInspector]
     public Reciever recieverComponent;
     [HideInInspector]
-    public PlayerAbilityHandler abilityHander;
+    public PlayerAbilityHandler abilityHandler;
+    [HideInInspector]
+    public SyrupCanManager syrupCanManager;
 
     public void PreInitialize()
     {
@@ -23,17 +25,18 @@ public class Player : MonoBehaviour, IFlow
         playerBucket = GetComponent<PlayerBucket>();
         throwerComponent = GetComponent<Thrower>();
         recieverComponent = GetComponent<Reciever>();
-        abilityHander = GetComponent<PlayerAbilityHandler>();
+        abilityHandler = GetComponent<PlayerAbilityHandler>();
 
         ragdoll.PreInitialize();
         playerController.PreInitialize();
         playerBucket.PreInitialize();
         throwerComponent.PreInitialize();
         recieverComponent.PreInitialize();
-        abilityHander.PreInitialize();
+        abilityHandler.PreInitialize();
 
         playerBucket = transform.GetComponentInChildren<PlayerBucket>();
         CauldronManager.Instance.CreateCauldron(this);
+        syrupCanManager = new SyrupCanManager();
     }
 
     public void Initialize()
@@ -43,7 +46,7 @@ public class Player : MonoBehaviour, IFlow
         playerBucket.Initialize();
         throwerComponent.Initialize();
         recieverComponent.Initialize();
-        abilityHander.Initialize();
+        abilityHandler.Initialize();
     }
 
     public void Refresh()
@@ -53,7 +56,7 @@ public class Player : MonoBehaviour, IFlow
         playerBucket.Refresh();
         throwerComponent.Refresh();
         recieverComponent.Refresh();
-        abilityHander.Refresh();
+        abilityHandler.Refresh();
     }
 
     public void PhysicsRefresh()
@@ -63,6 +66,6 @@ public class Player : MonoBehaviour, IFlow
         playerBucket.PhysicsRefresh();
         throwerComponent.PhysicsRefresh();
         recieverComponent.PhysicsRefresh();
-        abilityHander.PhysicsRefresh();
+        abilityHandler.PhysicsRefresh();
     }
 }

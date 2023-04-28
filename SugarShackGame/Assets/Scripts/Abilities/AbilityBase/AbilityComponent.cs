@@ -60,4 +60,9 @@ public class AbilityComponent : MonoBehaviour, IFlow
         Initialize();
         PreInitialize();
     }
+
+    public virtual void MakeEffect()
+    {
+        
+    }
 }

@@ -29,7 +29,7 @@ public class Thrower : MonoBehaviour, IFlow
         inputHandler = GetComponent<CustomInputHandler>();
         animator = GetComponent<Animator>();
         animEventReciever = GetComponent<PlayerAnimationEvents>();
-        animEventReciever.OnThrowAnimation += () => { OnThrowLogic(); };
+        animEventReciever.OnThrowAnimation += () => { OnThrowAnimationEvent(); };
     }
 
     public void Initialize()
@@ -60,7 +60,7 @@ public class Thrower : MonoBehaviour, IFlow
 
     }
 
-    public void OnThrowLogic()
+    public void OnThrowAnimationEvent()
     {
         toThrow.Throw(timeHeld);
         toThrow = null;
