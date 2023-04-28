@@ -50,7 +50,7 @@ public class PlayerManager : IFlow
             CreatePlayer(input);
         });
 
-        factory = new PlayerFactory();
+        factory = new PlayerFactory("Prefabs/Player/Player");
     }
 
     public void Initialize()

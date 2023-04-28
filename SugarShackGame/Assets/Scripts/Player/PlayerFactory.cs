@@ -7,7 +7,7 @@ public class PlayerFactory
     private GameObject playerPrefab;
     private Dictionary<ColorCombination, Material> materialsMap;
     private const string PATH_MAT = "Models/LumberJack/textures/Materials/";
-    private string PATH_PREFAB = "Prefabs/Player/LumberjackDemo";
+    private string PATH_PREFAB = "Prefabs/Player/Player";
 
     public string[] beardColors { get; private set; }
     public string[] shirtColors { get; private set; }

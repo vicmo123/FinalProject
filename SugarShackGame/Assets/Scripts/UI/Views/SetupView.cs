@@ -19,7 +19,7 @@ public class SetupView : MonoBehaviour
 
     private void Awake()
     {
-        factory = new PlayerFactory();
+        factory = new PlayerFactory("Prefabs/Player/LumberjackDemo");
         beards = factory.beardColors;
         shirts = factory.shirtColors;
 
