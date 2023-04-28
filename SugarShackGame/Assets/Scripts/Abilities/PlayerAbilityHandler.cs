@@ -100,10 +100,7 @@ public class PlayerAbilityHandler : MonoBehaviour, IFlow
             }
         }
 
-        if (inputHandler.Pause)
-        {
-            Debug.Log("Pause");
-        }
+        return input;
 
     }
 }

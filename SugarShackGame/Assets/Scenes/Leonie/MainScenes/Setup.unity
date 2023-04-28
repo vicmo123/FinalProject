@@ -401,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8374898196548102096, guid: 4d2c3043bb92ca54cae3a7a546672506, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8374898196548102096, guid: 4d2c3043bb92ca54cae3a7a546672506, type: 3}
       propertyPath: m_AnchorMax.x
@@ -453,19 +453,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8374898196548102096, guid: 4d2c3043bb92ca54cae3a7a546672506, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.9994533
+      value: 0.9999978
       objectReference: {fileID: 0}
     - target: {fileID: 8374898196548102096, guid: 4d2c3043bb92ca54cae3a7a546672506, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0329938
+      value: -0.000000018388429
       objectReference: {fileID: 0}
     - target: {fileID: 8374898196548102096, guid: 4d2c3043bb92ca54cae3a7a546672506, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0021101686
+      value: -0.0021118433
       objectReference: {fileID: 0}
     - target: {fileID: 8374898196548102096, guid: 4d2c3043bb92ca54cae3a7a546672506, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00006494114
+      value: 0.0000087072685
       objectReference: {fileID: 0}
     - target: {fileID: 8374898196548102096, guid: 4d2c3043bb92ca54cae3a7a546672506, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -481,11 +481,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8374898196548102096, guid: 4d2c3043bb92ca54cae3a7a546672506, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -0.242
       objectReference: {fileID: 0}
     - target: {fileID: 8374898196548102096, guid: 4d2c3043bb92ca54cae3a7a546672506, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 8374898196548102097, guid: 4d2c3043bb92ca54cae3a7a546672506, type: 3}
       propertyPath: m_BlockingObjects

@@ -54,13 +54,13 @@ public class UIGameTime : IFlow
     }
     public void LoadSlots()
     {
-        p1Slots = new Ability[2];
-        p1Slots[0] = PlayerManager.Instance.players[0].abilityHander.abilitySlots[0];
-        p1Slots[1] = PlayerManager.Instance.players[0].abilityHander.abilitySlots[1];
+        //p1Slots = new Ability[2];
+        //p1Slots[0] = PlayerManager.Instance.players[0].abilityHander.abilitySlots[0];
+        //p1Slots[1] = PlayerManager.Instance.players[0].abilityHander.abilitySlots[1];
 
-        p2Slots = new Ability[2];
-        p2Slots[0] = PlayerManager.Instance.players[1].abilityHander.abilitySlots[0];
-        p2Slots[1] = PlayerManager.Instance.players[1].abilityHander.abilitySlots[1];
+        //p2Slots = new Ability[2];
+        //p2Slots[0] = PlayerManager.Instance.players[1].abilityHander.abilitySlots[0];
+        //p2Slots[1] = PlayerManager.Instance.players[1].abilityHander.abilitySlots[1];
     }
 
     public void UpdateSlots()

@@ -19,17 +19,19 @@ public class SetupView : MonoBehaviour
 
     private void Awake()
     {
-        factory = new PlayerFactory("Prefabs/Player/LumberjackDemo");
+        factory = new PlayerFactory("Prefabs/Player/PlayerDemo");
         beards = factory.beardColors;
         shirts = factory.shirtColors;
 
          p1 = factory.CreatPlayer(beards[0], shirts[0]);
-         p2 = factory.CreatPlayer(beards[1], shirts[0]);
+         p2 = factory.CreatPlayer(beards[1], shirts[3]);
 
         p1.transform.position = player1SPawn.position;
         p1.transform.rotation = new Quaternion(0,1,0,0);
+        p1.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         p2.transform.position = player2Spawn.position;
         p2.transform.rotation = new Quaternion(0, 1, 0, 0);
+        p2.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
     }
     private void Update()
