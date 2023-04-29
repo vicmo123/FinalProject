@@ -21,7 +21,7 @@ public class SetupView : MonoBehaviour
     private int P2CurrentBeard = 1;
     private int P1CurrentShirt = 0;
     private int P2CurrentShirt = 3;
-    private string[] devices;
+    private string[] devices;    
     #endregion
 
     #region  Arrows Buttons
@@ -30,6 +30,11 @@ public class SetupView : MonoBehaviour
     public Button p1_rightArrowBtn;
     public Button p2_leftArrowBtn;
     public Button p2_rightArrowBtn;
+    #endregion
+
+    #region InputFields
+    public TMPro.TMP_InputField  p1_FieldName;
+    public TMPro.TMP_InputField p2_FieldName;
     #endregion
 
 
@@ -82,6 +87,12 @@ public class SetupView : MonoBehaviour
             //    P1CurrentBeard = beards.Length - 1;
             //}
             factory.ChangePlayerColor(ref p1, beards[P1CurrentBeard], shirts[P1CurrentShirt]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Name of player 1 : " + p1_FieldName.text);
+            Debug.Log("Name of player 2 : " + p2_FieldName.text);
         }
 
     }
