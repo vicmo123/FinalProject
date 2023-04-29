@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class SetupView : MonoBehaviour
 {
-   
+
     private PlayerFactory factory;
-    private bool p1Connected;
-    private bool p2Connected;
+    private bool p1Connected = false;
+    private bool p2Connected = false;
 
     #region Player
     public Transform p1SPawn;
@@ -21,8 +21,7 @@ public class SetupView : MonoBehaviour
     private int P2CurrentBeard = 1;
     private int P1CurrentShirt = 0;
     private int P2CurrentShirt = 3;
-    private string p1Device;
-    private string p2Device;
+    private string[] devices;
     #endregion
 
     #region  Arrows Buttons
@@ -36,20 +35,29 @@ public class SetupView : MonoBehaviour
 
     private void Awake()
     {
+        devices = new string[2];
         factory = new PlayerFactory("Prefabs/Player/PlayerDemo");
         beards = factory.beardColors;
         shirts = factory.shirtColors;
+        LoadPlayers();
         InitializeButtons();
-        LoadPlayers();  
     }
     private void Update()
     {
 
-        if(Input.GetJoystickNames().Length > 0 )
+        if (Input.GetJoystickNames().Length > 0)
         {
             if (!p1Connected)
             {
-               string[] joystickName =  Input.GetJoystickNames();
+                string[] joystickName = Input.GetJoystickNames();
+                devices[0] = joystickName[0];
+                p1Connected = true;
+            }
+            if (!p2Connected && Input.GetJoystickNames().Length == 2)
+            {
+                string[] joystickName = Input.GetJoystickNames();
+                devices[1] = joystickName[1];
+                p2Connected = true;
             }
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -83,6 +91,7 @@ public class SetupView : MonoBehaviour
         ++P1CurrentShirt;
         P1CurrentShirt %= shirts.Length;
         factory.ChangePlayerColor(ref p1, beards[P1CurrentBeard], shirts[P1CurrentShirt]);
+        StartCoroutine(Turn(p1));
     }
 
     public void P1LeftArrow()
@@ -93,6 +102,7 @@ public class SetupView : MonoBehaviour
             P1CurrentShirt = shirts.Length - 1;
         }
         factory.ChangePlayerColor(ref p1, beards[P1CurrentBeard], shirts[P1CurrentShirt]);
+        StartCoroutine(Turn(p1));
     }
 
     public void P2RightArrow()
@@ -100,6 +110,7 @@ public class SetupView : MonoBehaviour
         ++P2CurrentShirt;
         P2CurrentShirt %= shirts.Length;
         factory.ChangePlayerColor(ref p2, beards[P2CurrentBeard], shirts[P2CurrentShirt]);
+        StartCoroutine(Turn(p2));
     }
 
     public void P2LeftArrow()
@@ -110,9 +121,20 @@ public class SetupView : MonoBehaviour
             P2CurrentShirt = shirts.Length - 1;
         }
         factory.ChangePlayerColor(ref p2, beards[P2CurrentBeard], shirts[P2CurrentShirt]);
+        StartCoroutine(Turn(p2));
     }
 
-
+    public IEnumerator Turn(Player player)
+    {
+        float delta = 1.5f;
+        while (delta < 1.7f)
+        {
+             delta += Time.deltaTime;
+            player.transform.localScale = new Vector3(delta, delta, delta);
+            Debug.Log("turning");
+            yield return null;
+        }
+    }
 
 
     //   	        1. List of Sprite of all characters declination

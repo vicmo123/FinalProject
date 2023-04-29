@@ -2286,14 +2286,7 @@ GameObject:
   - component: {fileID: 902630649624965883}
   - component: {fileID: 758777609}
   - component: {fileID: 5967999252271429153}
-  - component: {fileID: 17989432174153505}
   - component: {fileID: 8950332086840956507}
-  - component: {fileID: 2462538295123637722}
-  - component: {fileID: 974000302012181050}
-  - component: {fileID: 8817624269213544639}
-  - component: {fileID: 6839153482449966018}
-  - component: {fileID: -7949722174655697222}
-  - component: {fileID: 675582131296451607}
   m_Layer: 0
   m_Name: PlayerDemo
   m_TagString: Player
@@ -2395,23 +2388,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.12, z: 0}
---- !u!114 &17989432174153505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5331886442063392701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 613c58f93d0a71042b3c1128ec2597fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainCamera: {fileID: 2638729458249309510}
-  _cinemachineCameraTarget: {fileID: 729620693941540550}
-  _cinemachineVirtualCamera: {fileID: 6075371598265408454}
-  cursor: {fileID: 5782285731268800214}
-  _playerStats: {fileID: 11400000, guid: 67f2e8ff81de1d54c9a393dba2abb936, type: 2}
 --- !u!114 &8950332086840956507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2439,7 +2415,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2462538295123637722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -2455,7 +2431,7 @@ MonoBehaviour:
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2462538295123637722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
@@ -2471,7 +2447,7 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2462538295123637722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnSprint
         m_Mode: 0
@@ -2487,7 +2463,7 @@ MonoBehaviour:
     m_ActionName: Player/Sprint[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2462538295123637722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
@@ -2503,7 +2479,7 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2462538295123637722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnTest
         m_Mode: 0
@@ -2519,7 +2495,7 @@ MonoBehaviour:
     m_ActionName: Player/Test[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2462538295123637722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnThrow
         m_Mode: 0
@@ -2535,7 +2511,7 @@ MonoBehaviour:
     m_ActionName: Player/Throw[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2462538295123637722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnUse
         m_Mode: 0
@@ -2551,7 +2527,7 @@ MonoBehaviour:
     m_ActionName: Player/Use[/XInputControllerWindows/buttonNorth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2462538295123637722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnLeftPowerUp
         m_Mode: 0
@@ -2567,7 +2543,7 @@ MonoBehaviour:
     m_ActionName: Player/LeftPowerUp[/XInputControllerWindows/leftShoulder]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2462538295123637722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnRightPowerUp
         m_Mode: 0
@@ -2583,7 +2559,7 @@ MonoBehaviour:
     m_ActionName: Player/RightPowerUp[/XInputControllerWindows/rightShoulder]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2462538295123637722}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
         m_MethodName: OnAim
         m_Mode: 0
@@ -2610,91 +2586,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 2638729458249309508}
---- !u!114 &2462538295123637722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5331886442063392701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1659c07cd7636a34883ee3752ca6fe07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  analogMovement: 0
-  cursorLocked: 1
-  cursorInputForLook: 1
---- !u!114 &974000302012181050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5331886442063392701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec64080b6429cc340a4e0d66c5e6926c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bucketLid: {fileID: 1577881727767956147}
-  sapAmount: 0
---- !u!114 &8817624269213544639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5331886442063392701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 434f2aeb08ba3ca4eb68ca2b03741860, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attachPoint: {fileID: 7409226925695674762}
-  cam: {fileID: 2638729458249309508}
-  IsHoldingThrowable: 0
-  toThrow: {fileID: 0}
---- !u!114 &6839153482449966018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5331886442063392701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb9583b565d4c9441be9c24fbf0ccbc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-7949722174655697222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5331886442063392701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd2060901d165454fa5126979163075c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilitySlots: []
---- !u!114 &675582131296451607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5331886442063392701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbe63183adaa7a94c8bcc2e5cc99860b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attachPoint: {fileID: 6944757927005846834}
-  IsHoldingUnThrowable: 0
-  toUse: {fileID: 0}
 --- !u!1 &5341212998253359566
 GameObject:
   m_ObjectHideFlags: 0
