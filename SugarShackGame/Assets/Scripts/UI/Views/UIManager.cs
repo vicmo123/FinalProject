@@ -35,6 +35,14 @@ public class UIManager
     //Gather all the different scenes
     //Plays a song before game starts
     //Remembers information gathered in UI from player
+    #region Player1Data
+    public string p1_name = "Player 1";
+    #endregion
+
+    #region Player2Data
+    public string p2_name = "Player 2";
+
+    #endregion
 
     public void LoadScenes()
     {
@@ -57,6 +65,11 @@ public class UIManager
     {
         --currentSceneIndex;
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public string[] GetPlayerNames()
+    {
+        return new string[] { p1_name, p2_name };
     }
 
 }
@@ -93,6 +106,6 @@ If not, then it will crash or find soup on the original scene instead of the nex
 
 The solution is simple, scene manager contains an event system you can listen for when scene finishes loading.
 
-But be aware of this pitfall
+But be aware of this pitfall : !!!!! = > Event called : sceneLoaded
 */
 

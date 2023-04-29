@@ -91,8 +91,9 @@ public class SetupView : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Name of player 1 : " + p1_FieldName.text);
-            Debug.Log("Name of player 2 : " + p2_FieldName.text);
+            UIManager.Instance.p1_name = p1_FieldName.text;
+            UIManager.Instance.p2_name = p2_FieldName.text;
+            
         }
 
     }
