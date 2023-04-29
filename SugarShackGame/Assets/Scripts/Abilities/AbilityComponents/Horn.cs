@@ -35,7 +35,6 @@ public class Horn : UnThrowableAbility
             if (toAppleDistance <= repulsionZoneRadius)
             {
                 Animal animalComponent = animal.GetComponent<Animal>();
-                animalComponent.chaseTarget = null;
                 animalComponent.isScared = true;
             }
         }

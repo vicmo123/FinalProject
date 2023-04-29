@@ -2374,9 +2374,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a7b202cec83bf488efeddd2448dc13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minLerpSpeed: 0.1
-  maxLerpSpeed: 0.5
+  minLerpSpeed: 0.5
+  maxLerpSpeed: 1
   timeBeforeRecovery: 2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!143 &5967999252271429153
 CharacterController:
   m_ObjectHideFlags: 0
