@@ -23,12 +23,9 @@ public class PlayerViewport : MonoBehaviour
     private void LoadResources()
     {
         devicesSprites = Resources.LoadAll<Sprite>("Sprites/UI_Views/Devices");
-        foreach (var item in devicesSprites)
-        {
-            Debug.Log(item);
-        }
         readySprites = Resources.LoadAll<Sprite>("Sprites/UI_Views/Ready");
     }
+
     public void LinkPlayer(Player player)
     {
         LoadResources();
@@ -94,18 +91,9 @@ public class PlayerViewport : MonoBehaviour
     {
         return isReady;
     }
-
+    
     public void FeedbackArrow(DirectionType direction)
     {
-
-    }
-    public void LeftArrowAction()
-    {
-
-    }
-
-    public void RightArrowAction()
-    {
-
-    }
+        //Polishing
+    }    
 }
