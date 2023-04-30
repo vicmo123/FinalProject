@@ -7,7 +7,7 @@ public class TitleView : MonoBehaviour
 {
     private void Awake()
     {
-        UIManager.Instance.LoadScenes();       
+        UIManager.Instance.Initialize();       
     }
     
     private void Update()

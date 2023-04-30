@@ -9,10 +9,13 @@ public enum DirectionType { Up, Down, Left, Right };
 public enum PlayerID { zero, First, Second };
 public class SetupView : MonoBehaviour
 {
+    public Canvas nextCanvas;
     private PlayerFactory factory;
     private PlayerControls actions;
 
     #region Player
+    private PlayerGameData[] players;
+
     public Transform p1SPawn;
     public Transform p2Spawn;
     private Player p1;
@@ -37,6 +40,7 @@ public class SetupView : MonoBehaviour
     private double startTime = 0;
     bool actionOver = false;
     #endregion
+
     #region ConnectedImg
     public Image[] connectImg;
     public TMP_Text[] texts;
@@ -47,18 +51,15 @@ public class SetupView : MonoBehaviour
 
     private void Awake()
     {
+        //REMOVE AFTER TESTING :
+        UIManager.Instance.Initialize();
+        //-------------------------------
         factory = new PlayerFactory("Prefabs/Player/PlayerDemo");
         beards = factory.beardColors;
         shirts = factory.shirtColors;
         LoadPlayers();
         LoadImages();
-
-        actions = new PlayerControls();
-        actions.UI_Navigation.Submit.performed += Submit_performed;
-        actions.UI_Navigation.Submit.started += Submit_started;
-        actions.UI_Navigation.Left.performed += Left_performed;
-        actions.UI_Navigation.Right.performed += Right_performed; ;
-        actions.UI_Navigation.Enable();
+        InitActions();
     }
 
     private void Submit_started(InputAction.CallbackContext obj)
@@ -70,22 +71,39 @@ public class SetupView : MonoBehaviour
     private void Submit_performed(InputAction.CallbackContext obj)
     {
         actionOver = true;
-        if (obj.control.device.deviceId == (int)PlayerID.First && obj.duration <= holdDuration)
+        Debug.Log("Submit was held for :" + obj.duration + " duration");
+        if (obj.control.device.deviceId == (int)PlayerID.First && obj.duration >= holdDuration)
         {
             connectImg[0].color = new Color(0.237f, 0.99f, 0.088f, 0.63f);
             texts[0].text = "Connected";
-            if (obj.control.device.name != "Keyboard" &&  devicesSprites[0].name == "Controller")
+
+            if (obj.control.device.name != "Keyboard")
+            {
+                //Sprite : controller appears for conection
                 devices[0].sprite = devicesSprites[0];
+            }
             else
             {
+                //Sprite : keyboard appears for conection
                 devices[0].sprite = devicesSprites[1];
             }
-            Debug.Log("Submit" + obj.control.device.deviceId);
         }
+
         if (obj.control.device.deviceId == (int)PlayerID.Second && obj.duration <= holdDuration)
         {
             connectImg[1].color = new Color(0.87f, 0.00f, 0.98f, 0.01f);
             connectImg[1].GetComponentInChildren<TextMeshPro>().text = "Connected";
+        }
+
+        SaveColors();
+        GoToNextPage();
+    }
+    private void SaveColors()
+    {
+        for (int i = 0; i < UIManager.Instance.players.Length; i++)
+        {
+            UIManager.Instance.players[i].indexBeard = players[i].indexBeard;
+            UIManager.Instance.players[i].indexShirt = players[i].indexShirt;
         }
     }
 
@@ -184,8 +202,13 @@ public class SetupView : MonoBehaviour
 
     private void LoadPlayers()
     {
-        p1 = factory.CreatPlayer(beards[0], shirts[0]);
-        p2 = factory.CreatPlayer(beards[1], shirts[3]);
+        players = UIManager.Instance.players;
+        players[0].indexBeard = 0;
+        players[0].indexShirt = 0;
+        players[1].indexBeard = 1;
+        players[1].indexShirt = 3;
+        p1 = factory.CreatPlayer(beards[players[0].indexBeard], shirts[players[0].indexShirt]);
+        p2 = factory.CreatPlayer(beards[players[1].indexBeard], shirts[players[1].indexShirt]);
 
         PlayerInput plInput1 = p1.gameObject.GetComponent<PlayerInput>();
         PlayerInput plInput2 = p2.gameObject.GetComponent<PlayerInput>();
@@ -203,10 +226,73 @@ public class SetupView : MonoBehaviour
     {
         devicesSprites = Resources.LoadAll<Sprite>("Sprites/UI_Views/Devices");
     }
+
+    private void InitActions()
+    {
+        actions = new PlayerControls();
+        actions.UI_Navigation.Submit.performed += Submit_performed;
+        actions.UI_Navigation.Submit.started += Submit_started;
+        actions.UI_Navigation.Left.performed += Left_performed;
+        actions.UI_Navigation.Right.performed += Right_performed; ;
+        actions.UI_Navigation.Enable();
+
+        InputSystem.onDeviceChange +=
+        (device, change) =>
+        {
+            switch (change)
+            {
+                case InputDeviceChange.Added:
+                    // New Device.
+                    //if id correspond to a player, !assign it
+                    for (int i = 0; i < UIManager.Instance.players.Length; i++)
+                    {
+                        if (UIManager.Instance.players[i].connected == false && UIManager.Instance.players[i].deviceId == 0)
+                        {
+                            UIManager.Instance.players[i].deviceId = device.deviceId;
+                            UIManager.Instance.players[i].deviceName = device.name;
+                            UIManager.Instance.players[i].connected = true;
+                            Debug.Log("New device added for Player " + UIManager.Instance.players[i].GetId() + " : " + device.name);
+                        }
+                    }
+                    //Assign to a player : Id, device
+                    break;
+                case InputDeviceChange.Disconnected:
+                    // Device got unplugged.
+                    for (int i = 0; i < UIManager.Instance.players.Length; i++)
+                    {
+                        if (UIManager.Instance.players[i].connected == true && UIManager.Instance.players[i].deviceId == device.deviceId)
+                        {
+                            UIManager.Instance.players[i].connected = false;
+                        }
+                    }
+                    break;
+                case InputDeviceChange.Reconnected:
+                    // Plugged back in.
+                    for (int i = 0; i < UIManager.Instance.players.Length; i++)
+                    {
+                        if (UIManager.Instance.players[i].connected == false && UIManager.Instance.players[i].deviceId == device.deviceId)
+                        {
+                            UIManager.Instance.players[i].connected = true;
+                        }
+                    }
+                    break;
+                default:
+                    // See InputDeviceChange reference for other event types.
+                    break;
+            }
+        };
+
+
+    }
+
+    private void GoToNextPage()
+    {
+        p1.gameObject.SetActive(false);
+        p2.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
+        nextCanvas.gameObject.SetActive(true);
+    }
+
 }
 
-public class PlayerViewport
-{
-
-}
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
-public enum ScenesNames { MainMenu, Setup, Title, GamePlay, EndGame};
+public enum ScenesNames { MainMenu, Setup, Title, GamePlay, EndGame };
 
 public class UIManager
 {
@@ -35,20 +35,28 @@ public class UIManager
     //Gather all the different scenes
     //Plays a song before game starts
     //Remembers information gathered in UI from player
+
+    public PlayerGameData[] players;
+
     #region Player1Data
     public string p1_name = "Player 1";
+    public string p1_deviceName = "";
+    public int p1_deviceId;
     #endregion
 
     #region Player2Data
     public string p2_name = "Player 2";
-
+    public string p2_deviceName = "";
+    public int p2_deviceId  ;
     #endregion
 
-    public void LoadScenes()
+    public void Initialize()
     {
+        players = new PlayerGameData[2] { new PlayerGameData(), new PlayerGameData() };
+
         sceneNames = System.Enum.GetValues(typeof(ScenesNames)).Cast<ScenesNames>().ToList();
         currentSceneIndex = 0;
-    }   
+    }
 
     public void LoadOneScene(ScenesNames name)
     {
@@ -67,11 +75,39 @@ public class UIManager
         SceneManager.LoadScene(currentSceneIndex);
     }
 
-    public string[] GetPlayerNames()
+    public string[] GetPlayerInfo()
     {
         return new string[] { p1_name, p2_name };
     }
+    public void ClearData()
+    {
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i] = null;
+        }
+        players = null;
+    }
+}
 
+public class PlayerGameData
+{
+    public static int playerId = 0;
+    public string name = "";
+    public string deviceName = "";
+    public int deviceId = 0;
+    public int indexBeard= 0;
+    public int indexShirt = 0;
+    public bool connected = false;
+
+    public PlayerGameData()
+    {
+        playerId++;
+    }
+
+    public int GetId()
+    {
+        return playerId;
+    }
 }
 
 /***
