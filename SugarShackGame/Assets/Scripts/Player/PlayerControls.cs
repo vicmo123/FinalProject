@@ -410,9 +410,45 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             ""id"": ""dfadd4f3-eace-4f99-a9ec-672a8396f5ff"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Up"",
                     ""type"": ""Button"",
                     ""id"": ""4c53ca4e-2517-4088-8f5c-c60bb18e7c22"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0fa5069-3c0c-425b-893e-48594536d8ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""b98aceea-2285-403e-9cda-7b69bbf0b10a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""0092dd44-8368-4f14-87b3-591c05c84f06"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""42fa7aae-e5f0-4fac-abee-20ef93d213d4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -423,11 +459,99 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""206745ab-0fd5-4ab0-a925-fdc53e604f72"",
-                    ""path"": """",
+                    ""path"": ""*/{PrimaryAction}"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
+                    ""groups"": ""Controller;Keyboard"",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""81297513-543c-4d3f-ba12-504e870a90b6"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f95691e3-9839-4688-9f3e-f6a0f129a90b"",
+                    ""path"": ""*/{PrimaryAction}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller;Keyboard"",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28083ce4-6c7a-4295-bfcd-1cad8b2ac6cf"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""286b6336-b1f5-4aa7-b4b2-a4a74211a465"",
+                    ""path"": ""*/{Submit}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7f908aa-3b0b-4ee0-878f-22871f88660a"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51ab7353-ba38-4129-90b4-6840a329d23a"",
+                    ""path"": ""*/{Back}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""120bdde5-7c5b-4b34-88f3-4dddbbcd16cf"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d92e8c48-d630-4ac1-a420-6f8dd270e014"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -479,7 +603,11 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI_Navigation
         m_UI_Navigation = asset.FindActionMap("UI_Navigation", throwIfNotFound: true);
-        m_UI_Navigation_Newaction = m_UI_Navigation.FindAction("New action", throwIfNotFound: true);
+        m_UI_Navigation_Up = m_UI_Navigation.FindAction("Up", throwIfNotFound: true);
+        m_UI_Navigation_Down = m_UI_Navigation.FindAction("Down", throwIfNotFound: true);
+        m_UI_Navigation_Submit = m_UI_Navigation.FindAction("Submit", throwIfNotFound: true);
+        m_UI_Navigation_Left = m_UI_Navigation.FindAction("Left", throwIfNotFound: true);
+        m_UI_Navigation_Right = m_UI_Navigation.FindAction("Right", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -652,12 +780,20 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     // UI_Navigation
     private readonly InputActionMap m_UI_Navigation;
     private IUI_NavigationActions m_UI_NavigationActionsCallbackInterface;
-    private readonly InputAction m_UI_Navigation_Newaction;
+    private readonly InputAction m_UI_Navigation_Up;
+    private readonly InputAction m_UI_Navigation_Down;
+    private readonly InputAction m_UI_Navigation_Submit;
+    private readonly InputAction m_UI_Navigation_Left;
+    private readonly InputAction m_UI_Navigation_Right;
     public struct UI_NavigationActions
     {
         private @PlayerControls m_Wrapper;
         public UI_NavigationActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_UI_Navigation_Newaction;
+        public InputAction @Up => m_Wrapper.m_UI_Navigation_Up;
+        public InputAction @Down => m_Wrapper.m_UI_Navigation_Down;
+        public InputAction @Submit => m_Wrapper.m_UI_Navigation_Submit;
+        public InputAction @Left => m_Wrapper.m_UI_Navigation_Left;
+        public InputAction @Right => m_Wrapper.m_UI_Navigation_Right;
         public InputActionMap Get() { return m_Wrapper.m_UI_Navigation; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -667,16 +803,40 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_UI_NavigationActionsCallbackInterface != null)
             {
-                @Newaction.started -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnNewaction;
+                @Up.started -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnUp;
+                @Up.performed -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnUp;
+                @Up.canceled -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnUp;
+                @Down.started -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnDown;
+                @Down.performed -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnDown;
+                @Down.canceled -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnDown;
+                @Submit.started -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnSubmit;
+                @Submit.performed -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnSubmit;
+                @Submit.canceled -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnSubmit;
+                @Left.started -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnLeft;
+                @Right.started -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnRight;
             }
             m_Wrapper.m_UI_NavigationActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @Up.started += instance.OnUp;
+                @Up.performed += instance.OnUp;
+                @Up.canceled += instance.OnUp;
+                @Down.started += instance.OnDown;
+                @Down.performed += instance.OnDown;
+                @Down.canceled += instance.OnDown;
+                @Submit.started += instance.OnSubmit;
+                @Submit.performed += instance.OnSubmit;
+                @Submit.canceled += instance.OnSubmit;
+                @Left.started += instance.OnLeft;
+                @Left.performed += instance.OnLeft;
+                @Left.canceled += instance.OnLeft;
+                @Right.started += instance.OnRight;
+                @Right.performed += instance.OnRight;
+                @Right.canceled += instance.OnRight;
             }
         }
     }
@@ -715,6 +875,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     }
     public interface IUI_NavigationActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnUp(InputAction.CallbackContext context);
+        void OnDown(InputAction.CallbackContext context);
+        void OnSubmit(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
     }
 }
