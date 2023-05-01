@@ -51,12 +51,24 @@ public class Animal : MonoBehaviour, IFlow
         ragdoll.PhysicsRefresh();
     }
 
-    public Vector3 GenerateRandomNavMeshPos()
+    public Vector3 GenerateRandomNavMeshPos(int areaMask = NavMesh.AllAreas)
     {
         Vector3 finalPosition = Vector3.zero;
         Vector3 randomDirection = Random.insideUnitSphere.normalized * stats.walkRadius;
         randomDirection += transform.position;
-        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, stats.walkRadius + transform.position.y, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, stats.walkRadius + transform.position.y, areaMask))
+        {
+            finalPosition = hit.position;
+        }
+        return finalPosition;
+    }
+
+    public Vector3 GetNavMeshPosition(Vector3 direction, float lenght, int areaMask = NavMesh.AllAreas)
+    {
+        Vector3 finalPosition = Vector3.zero;
+        Vector3 targetDirection = direction * lenght;
+        targetDirection += transform.position;
+        if (NavMesh.SamplePosition(targetDirection, out NavMeshHit hit, lenght + transform.position.y, areaMask))
         {
             finalPosition = hit.position;
         }
@@ -135,6 +147,17 @@ public class Animal : MonoBehaviour, IFlow
         animController.SetFloat("Speed", animSpeed);
     }
 
+    public Vector3 GetAwayFromPlayersDirection()
+    {
+        var Players = GameObject.FindGameObjectsWithTag("Player");
+
+        Vector3 averagePosition = (Players[0].transform.position + Players[1].transform.position) / 2;
+        Vector3 directionToAverage = averagePosition - transform.position;
+        Vector3 awayDirection = -directionToAverage.normalized;
+
+        return awayDirection;
+    }
+
     #region StateMachine Setup
     public void SetDelgsForStateMachine()
     {
@@ -173,7 +196,10 @@ public class Animal : MonoBehaviour, IFlow
 
     public virtual void OnFleeEnter()
     {
-        Debug.Log("Time to flee");
+        chaseTarget = null;
+        agent.speed = stats.runSpeed;
+
+        agent.destination = GetNavMeshPosition(GetAwayFromPlayersDirection(), stats.fleeDistance);
     }
 
     public virtual void OnChaseEnter()
@@ -200,6 +226,11 @@ public class Animal : MonoBehaviour, IFlow
     public virtual void OnFleeLogic()
     {
         stateMachine.CurrentState = AnimalStateMachine.Flee;
+
+        if (CheckIfDestinationReached())
+        {
+            isScared = false;
+        }
     }
 
     public virtual void OnChaseLogic()

@@ -5,14 +5,17 @@ using System.Linq;
 using System;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
+using UnityEngine.InputSystem;
 
 public class Ragdoll : MonoBehaviour, IFlow
 {
     //Ragdoll
     private List<RagdollBodyPart> partsList;
     public Action<Vector3, Vector3> ragdollTrigger;
+    public Action<Vector3> ragdollTriggerAll;
 
     //To Deactivate
+    private CustomInputHandler input;
     private Animator animator;
     private CharacterController characterController;
     private NavMeshAgent agent;
@@ -22,16 +25,25 @@ public class Ragdoll : MonoBehaviour, IFlow
     public float minLerpSpeed = 0.1f;
     public float maxLerpSpeed = 0.5f;
     public float timeBeforeRecovery = 2f;
-    private CountDownTimer timer;
-
+    public LayerMask groundMask;
+    private bool isInRagdollState = false;
+    public float timeBeforeForcingRecovery = 5f;
+    private CountDownTimer recoveryTimer;
 
     public void PreInitialize()
     {
-        timer = new CountDownTimer(timeBeforeRecovery, false);
-        timer.OnTimeIsUpLogic += () => { StartCoroutine(Recover()); };
+        // this timer is to force the recovery it it has been too long
+        recoveryTimer = new CountDownTimer(timeBeforeForcingRecovery, false);
+        recoveryTimer.OnTimeIsUpLogic = () =>
+        {
+            StartCoroutine(Recover());
+            isInRagdollState = false;
+        };
 
         ragdollTrigger = (hitPoint, hitForce) => { TriggerRagdoll(hitPoint, hitForce); };
+        ragdollTriggerAll = (hitForce) => { TriggerRagdollAll(hitForce); };
 
+        input = GetComponent<CustomInputHandler>();
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         agent = GetComponent<NavMeshAgent>();
@@ -51,9 +63,28 @@ public class Ragdoll : MonoBehaviour, IFlow
         DisableRagdoll();
     }
 
+    
     public void Refresh()
     {
-        timer.UpdateTimer();
+        if(isInRagdollState) {
+            bool allSleeping = true;
+            foreach (var part in partsList)
+            {
+                if (!part.rb.IsSleeping())
+                {
+                    allSleeping = false;
+                    break;
+                }
+            }
+
+            if (allSleeping)
+            {
+                StartCoroutine(Recover());
+                isInRagdollState = false;
+            }
+
+        }
+        recoveryTimer.UpdateTimer();
     }
 
     public void PhysicsRefresh()
@@ -67,8 +98,16 @@ public class Ragdoll : MonoBehaviour, IFlow
 
         Rigidbody hitRigidbody = partsList.OrderBy(part => Vector3.Distance(part.rb.position, hitPoint)).First().rb;
         hitRigidbody.AddForceAtPosition(hitForce, hitPoint, ForceMode.Impulse);
+    }
 
-        timer.StartTimer();
+    private void TriggerRagdollAll(Vector3 hitForce)
+    {
+        EnableRagdoll();
+
+        foreach (var part in partsList)
+        {
+            part.rb.AddForce(hitForce, ForceMode.Impulse);
+        }
     }
 
     private void EnableRagdoll()
@@ -78,8 +117,10 @@ public class Ragdoll : MonoBehaviour, IFlow
             part.rb.isKinematic = false;
         }
 
-        RecordAllPositionAndRotation();
-
+        if (input)
+        {
+            input.BlockControls();
+        }
         if (animator)
         {
             animator.enabled = false;
@@ -96,6 +137,9 @@ public class Ragdoll : MonoBehaviour, IFlow
         {
             playerController.enabled = false;
         }
+
+        isInRagdollState = true;
+        recoveryTimer.StartTimer();
     }
 
     private void DisableRagdoll()
@@ -105,6 +149,10 @@ public class Ragdoll : MonoBehaviour, IFlow
             part.rb.isKinematic = true;
         }
 
+        if (input)
+        {
+            input.UnlockControls();
+        }
         if (animator)
         {
             animator.enabled = true;
@@ -131,6 +179,7 @@ public class Ragdoll : MonoBehaviour, IFlow
 
         foreach (var ragdollPart in partsList)
         {
+            Debug.Log(ragdollPart.rb.gameObject.name);
             ragdollPart.rb.isKinematic = true;
             ragdollPart.rb.velocity = Vector3.zero;
             ragdollPart.rb.angularVelocity = Vector3.zero;
@@ -142,8 +191,10 @@ public class Ragdoll : MonoBehaviour, IFlow
 
         yield return new WaitUntil(() => numCoroutines == 0);
 
-        RecordAllPositionAndRotation();
-
+        if (input)
+        {
+            input.UnlockControls();
+        }
         if (animator)
         {
             animator.enabled = true;

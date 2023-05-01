@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f28286be6f599ed4dbdca8341a453c09, type: 2}
+  - {fileID: 2100000, guid: 66ba0c3ddbee5854c98cd9ee64b68918, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,3 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70cd0f77a2cb0a4f85973634f4cab8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityStats: {fileID: 0}
+  readyToBeDestroyed: 0
+  player: {fileID: 0}
+  rb: {fileID: 0}
+  rotationSpeed: 10
+  speed: 10
+  maxSpeed: 50
+  iceSpherePrefab: {fileID: 5037749448479562751, guid: de3d4af99c4a7374e8e163e33da6332b, type: 3}

@@ -20,4 +20,7 @@ public class AnimalStats : ScriptableObject
     [Range(0, 100)] public float viewAngle = 45f;
     public LayerMask targetMask;
     public LayerMask obstacleMask;
+
+    //flee
+    public float fleeDistance = 35f;
 }

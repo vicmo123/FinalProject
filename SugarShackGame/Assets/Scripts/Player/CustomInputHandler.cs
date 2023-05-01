@@ -11,13 +11,13 @@ using UnityEngine.InputSystem;
 public class CustomInputHandler : MonoBehaviour
 {
     [HideInInspector]
-    public Vector2 move { get; private set; } = Vector2.zero;
+    public Vector2 Move { get; private set; } = Vector2.zero;
     [HideInInspector]
-    public Vector2 look { get; private set; } = Vector2.zero;
+    public Vector2 Look { get; private set; } = Vector2.zero;
     [HideInInspector]
-    public bool jump { get; set; } = false; // For not braking movement script
+    public bool Jump { get; set; } = false; // For not breaking movement script
     [HideInInspector]
-    public bool sprint { get; private set; } = false;
+    public bool Sprint { get; private set; } = false;
     [HideInInspector]
     public bool Throw { get; set; } = false;
     [HideInInspector]
@@ -32,8 +32,6 @@ public class CustomInputHandler : MonoBehaviour
     public bool Pause { get; private set; } = false;
 
 
-
-
     [Header("Movement Settings")]
     public bool analogMovement;
 
@@ -41,56 +39,85 @@ public class CustomInputHandler : MonoBehaviour
     public bool cursorLocked = true;
     public bool cursorInputForLook = true;
 
+    private bool isControlsBlocked = false;
+
     #region CheckInput
     //These must be here to work for some reason, doenst work in custom handler.
     public void OnMove(InputAction.CallbackContext context)
     {
-        move = context.ReadValue<Vector2>();
+        if (!isControlsBlocked)
+            Move = context.ReadValue<Vector2>();
+        else
+            Move = Vector2.zero;
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        jump = context.action.triggered;
+        if (!isControlsBlocked)
+            Jump = context.action.triggered;
+        else
+            Jump = false;
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        look = context.ReadValue<Vector2>();
+        if (!isControlsBlocked)
+            Look = context.ReadValue<Vector2>();
+        else
+            Look = Vector2.zero;
     }
 
     public void OnSprint(InputAction.CallbackContext context)
     {
-        sprint = context.action.triggered;
+        if (!isControlsBlocked)
+            Sprint = context.action.triggered;
+        else
+            Sprint = false;
     }
 
     public void OnTest(InputAction.CallbackContext context)
     {
-        Debug.Log("Test called on " + gameObject.name + " !");
+        //Debug.Log("Test called on " + gameObject.name + " !");
     }
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        Throw = context.action.triggered;
+        if (!isControlsBlocked)
+            Throw = context.action.triggered;
+        else
+            Throw = false;
     }
 
     public void OnUse(InputAction.CallbackContext context)
     {
-        Use = context.action.triggered;
+        if (!isControlsBlocked)
+            Use = context.action.triggered;
+        else
+            Use = false;
     }
 
     public void OnLeftPowerUp(InputAction.CallbackContext context)
     {
-        UseLeftPowerUp = context.action.triggered;
+        if (!isControlsBlocked)
+            UseLeftPowerUp = context.action.triggered;
+        else
+            UseLeftPowerUp = false;
     }
 
     public void OnRightPowerUp(InputAction.CallbackContext context)
     {
-        UseRightPowerUp = context.action.triggered;
+        if (!isControlsBlocked)
+            UseRightPowerUp = context.action.triggered;
+        else
+            UseRightPowerUp = false;
     }
 
     public void OnAim(InputAction.CallbackContext context)
     {
-        Aim = context.action.triggered;
+        if (!isControlsBlocked)
+            Aim = context.action.triggered;
+        else
+            Aim = false;
     }
 
     public void OnPause(InputAction.CallbackContext context)
@@ -107,5 +134,15 @@ public class CustomInputHandler : MonoBehaviour
     private void SetCursorState(bool newState)
     {
         Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+    }
+
+    public void BlockControls()
+    {
+        isControlsBlocked = true;
+    }
+
+    public void UnlockControls()
+    {
+        isControlsBlocked = false;
     }
 }

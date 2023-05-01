@@ -127,3 +127,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e591e02e00b034ca600320c2e9d506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityStats: {fileID: 0}
+  readyToBeDestroyed: 0
+  player: {fileID: 0}
+  rb: {fileID: 0}
+  rotationSpeed: 10
+  speed: 10
+  maxSpeed: 50
+  trampolinePrefab: {fileID: 2494435809286605194, guid: 4ffa8f66ddcb2984da467f833b624bdb, type: 3}
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 256

@@ -54,6 +54,7 @@ MonoBehaviour:
   chaseTarget: {fileID: 0}
   animController: {fileID: 2434709315635916184}
   ragdoll: {fileID: 8732981480696989610}
+  isScared: 0
 --- !u!195 &1059973490975107251
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -127,6 +128,10 @@ MonoBehaviour:
   minLerpSpeed: 1
   maxLerpSpeed: 2
   timeBeforeRecovery: 2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 256
+  timeBeforeForcingRecovery: 5
 --- !u!1001 &8277442664871144117
 PrefabInstance:
   m_ObjectHideFlags: 0
