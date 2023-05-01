@@ -36,8 +36,6 @@ public class PlayerViewport : MonoBehaviour
         {
             foreach (var item in input.user.pairedDevices)
             {
-                Debug.Log(item.device.name);
-
                 if (item.device.name == DeviceType.Keyboard.ToString())
                 {
                     DisplayConnecteMsg(DeviceType.Keyboard);                    

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameDurationView : MonoBehaviour
 {
     public Button opt1Button;
+    private GameObject selectedObj;
     public float timeOpt1;
     public Button opt2Button;
     public float timeOpt2;
@@ -25,8 +27,13 @@ public class GameDurationView : MonoBehaviour
         btn2.onClick.AddListener(() => SetGameDuration(timeOpt2));
         btn3.onClick.AddListener(() => SetGameDuration(timeOpt3));
         startBtn.onClick.AddListener(() => UIManager.Instance.LoadOneScene(ScenesNames.GamePlay));
+        
+    }
 
-        InitActions();
+    private void Start()
+    {
+        selectedObj = EventSystem.current.currentSelectedGameObject;
+        Cursor.visible = false;
     }
     private void InitActions()
     {
@@ -35,6 +42,14 @@ public class GameDurationView : MonoBehaviour
         actions.UI_Settings_Duration.Down.performed += Down_performed;
         actions.UI_Settings_Duration.Submit.performed += Submit_performed;
         actions.UI_Settings_Duration.Enable();
+    }
+    
+    void Update()
+    {
+        if (EventSystem.current.currentSelectedGameObject == null)
+            EventSystem.current.SetSelectedGameObject(selectedObj);
+
+        selectedObj = EventSystem.current.currentSelectedGameObject;
     }
 
     private void Submit_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -58,5 +73,9 @@ public class GameDurationView : MonoBehaviour
         Debug.Log("Game duration is : " + duration);
     }
 
+    public void IsCalled()
+    {
+        //InitActions();
+    }
     
 }

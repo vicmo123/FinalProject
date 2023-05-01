@@ -282,6 +282,7 @@ public class SetupView : MonoBehaviour
             GoToNextPage();
             DisplayAllPlayerGameData();
             actions.UI_Navigation.Disable();
+            nextCanvas.GetComponent<GameDurationView>().IsCalled();
         }
     }
 
