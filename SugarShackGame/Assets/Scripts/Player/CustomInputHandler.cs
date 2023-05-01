@@ -15,7 +15,7 @@ public class CustomInputHandler : MonoBehaviour
     [HideInInspector]
     public Vector2 Look { get; private set; } = Vector2.zero;
     [HideInInspector]
-    public bool Jump { get; set; } = false; // For not braking movement script
+    public bool Jump { get; set; } = false; // For not breaking movement script
     [HideInInspector]
     public bool Sprint { get; private set; } = false;
     [HideInInspector]
@@ -74,7 +74,7 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnTest(InputAction.CallbackContext context)
     {
-        Debug.Log("Test called on " + gameObject.name + " !");
+        //Debug.Log("Test called on " + gameObject.name + " !");
     }
 
     public void OnThrow(InputAction.CallbackContext context)

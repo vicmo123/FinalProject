@@ -2294,6 +2294,7 @@ GameObject:
   - component: {fileID: 6839153482449966018}
   - component: {fileID: -7949722174655697222}
   - component: {fileID: 675582131296451607}
+  - component: {fileID: -9049782942133523735}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2342,6 +2343,7 @@ MonoBehaviour:
   throwerComponent: {fileID: 0}
   recieverComponent: {fileID: 0}
   abilityHandler: {fileID: 0}
+  footStepMaker: {fileID: 0}
 --- !u!95 &902630649624965883
 Animator:
   serializedVersion: 5
@@ -2694,6 +2696,29 @@ MonoBehaviour:
   attachPoint: {fileID: 6944757927005846834}
   IsHoldingUnThrowable: 0
   toUse: {fileID: 0}
+--- !u!114 &-9049782942133523735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331886442063392701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f257b98a19d13354a86856f72e2dcc07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footStepPrefab: {fileID: 9177542496743261405, guid: 5a3e1e475c62a7240a23de5ab130af13, type: 3}
+  feetObjects:
+  - {fileID: 8066056162132655490}
+  - {fileID: 4057072533768830704}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 256
+  footprintOffset: 0.05
+  maxFootprintDistance: 0.1
+  prefillAmount: 10
+  framesPerFootprint: 10
 --- !u!1 &5341212998253359566
 GameObject:
   m_ObjectHideFlags: 0

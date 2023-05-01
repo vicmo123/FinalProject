@@ -17,15 +17,20 @@ public class Player : MonoBehaviour, IFlow
     public PlayerAbilityHandler abilityHandler;
     [HideInInspector]
     public SyrupCanManager syrupCanManager;
+    [HideInInspector]
+    public PlayerFootStepMaker footStepMaker;
 
     public void PreInitialize()
     {
         ragdoll = GetComponent<Ragdoll>();
         playerController = GetComponent<PlayerController>();
+        //Allo Tommy
         playerBucket = GetComponent<PlayerBucket>();
+        playerBucket = transform.GetComponentInChildren<PlayerBucket>();
         throwerComponent = GetComponent<Thrower>();
         recieverComponent = GetComponent<Reciever>();
         abilityHandler = GetComponent<PlayerAbilityHandler>();
+        footStepMaker = GetComponent<PlayerFootStepMaker>();
 
         ragdoll.PreInitialize();
         playerController.PreInitialize();
@@ -33,8 +38,8 @@ public class Player : MonoBehaviour, IFlow
         throwerComponent.PreInitialize();
         recieverComponent.PreInitialize();
         abilityHandler.PreInitialize();
+        footStepMaker.PreInitialize();
 
-        playerBucket = transform.GetComponentInChildren<PlayerBucket>();
         CauldronManager.Instance.CreateCauldron(this);
         syrupCanManager = new SyrupCanManager();
     }
@@ -47,6 +52,7 @@ public class Player : MonoBehaviour, IFlow
         throwerComponent.Initialize();
         recieverComponent.Initialize();
         abilityHandler.Initialize();
+        footStepMaker.Initialize();
     }
 
     public void Refresh()
@@ -57,6 +63,7 @@ public class Player : MonoBehaviour, IFlow
         throwerComponent.Refresh();
         recieverComponent.Refresh();
         abilityHandler.Refresh();
+        footStepMaker.Refresh();
     }
 
     public void PhysicsRefresh()
@@ -67,5 +74,6 @@ public class Player : MonoBehaviour, IFlow
         throwerComponent.PhysicsRefresh();
         recieverComponent.PhysicsRefresh();
         abilityHandler.PhysicsRefresh();
+        footStepMaker.PhysicsRefresh();
     }
 }
