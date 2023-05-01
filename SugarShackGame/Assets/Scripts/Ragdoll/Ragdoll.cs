@@ -25,14 +25,20 @@ public class Ragdoll : MonoBehaviour, IFlow
     public float minLerpSpeed = 0.1f;
     public float maxLerpSpeed = 0.5f;
     public float timeBeforeRecovery = 2f;
-    private CountDownTimer timer;
     public LayerMask groundMask;
-
+    private bool isInRagdollState = false;
+    public float timeBeforeForcingRecovery = 5f;
+    private CountDownTimer recoveryTimer;
 
     public void PreInitialize()
     {
-        timer = new CountDownTimer(timeBeforeRecovery, false);
-        timer.OnTimeIsUpLogic += () => { StartCoroutine(Recover()); };
+        // this timer is to force the recovery it it has been too long
+        recoveryTimer = new CountDownTimer(timeBeforeForcingRecovery, false);
+        recoveryTimer.OnTimeIsUpLogic = () =>
+        {
+            StartCoroutine(Recover());
+            isInRagdollState = false;
+        };
 
         ragdollTrigger = (hitPoint, hitForce) => { TriggerRagdoll(hitPoint, hitForce); };
         ragdollTriggerAll = (hitForce) => { TriggerRagdollAll(hitForce); };
@@ -57,9 +63,28 @@ public class Ragdoll : MonoBehaviour, IFlow
         DisableRagdoll();
     }
 
+    
     public void Refresh()
     {
-        timer.UpdateTimer();
+        if(isInRagdollState) {
+            bool allSleeping = true;
+            foreach (var part in partsList)
+            {
+                if (!part.rb.IsSleeping())
+                {
+                    allSleeping = false;
+                    break;
+                }
+            }
+
+            if (allSleeping)
+            {
+                StartCoroutine(Recover());
+                isInRagdollState = false;
+            }
+
+        }
+        recoveryTimer.UpdateTimer();
     }
 
     public void PhysicsRefresh()
@@ -73,8 +98,6 @@ public class Ragdoll : MonoBehaviour, IFlow
 
         Rigidbody hitRigidbody = partsList.OrderBy(part => Vector3.Distance(part.rb.position, hitPoint)).First().rb;
         hitRigidbody.AddForceAtPosition(hitForce, hitPoint, ForceMode.Impulse);
-
-        timer.StartTimer();
     }
 
     private void TriggerRagdollAll(Vector3 hitForce)
@@ -85,8 +108,6 @@ public class Ragdoll : MonoBehaviour, IFlow
         {
             part.rb.AddForce(hitForce, ForceMode.Impulse);
         }
-
-        timer.StartTimer();
     }
 
     private void EnableRagdoll()
@@ -116,6 +137,9 @@ public class Ragdoll : MonoBehaviour, IFlow
         {
             playerController.enabled = false;
         }
+
+        isInRagdollState = true;
+        recoveryTimer.StartTimer();
     }
 
     private void DisableRagdoll()
