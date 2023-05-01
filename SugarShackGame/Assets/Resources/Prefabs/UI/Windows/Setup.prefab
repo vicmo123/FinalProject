@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8c70b402ecf93c54296d51296a5c57df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9fe4a57075785644fb69d403c868363f, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2084,7 +2084,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b4cd842003951b2429cbcb3dd4358d18, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 19b1bda22026d8343b0b216dec04cac1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2105,8 +2105,9 @@ GameObject:
   - component: {fileID: 2885264720270041016}
   - component: {fileID: 3537995689367609886}
   - component: {fileID: 7336311670458402758}
+  - component: {fileID: 429268308}
   m_Layer: 5
-  m_Name: Player2
+  m_Name: ViewportPlayer2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2178,6 +2179,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &429268308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5306042631679315871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e8c1819ea6a6448afff746b388ad83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawn: {fileID: 0}
+  leftArrowBtn: {fileID: 7218537138736848135}
+  rightArrowBtn: {fileID: 721408214490935994}
+  connectImg: {fileID: 1315575447071976897}
+  text: {fileID: 7797429428417118657}
+  deviceImg: {fileID: 1981036777789228418}
+  readyImg: {fileID: 886412299259250749}
+  startTime: 0
 --- !u!1 &5539578302304012841
 GameObject:
   m_ObjectHideFlags: 0
@@ -2495,7 +2516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9811321, g: 0.04939506, b: 0.023139905, a: 0.6392157}
+  m_Color: {r: 0.98039216, g: 0.050980393, b: 0.023529412, a: 0.6392157}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2529,7 +2550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5618672641059456609
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2790,7 +2811,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cca4a61cf70c4c242a2e5bcf7ea2ee1f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 19b1bda22026d8343b0b216dec04cac1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3339,12 +3360,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f558396f6fd0734f8634ce8dbc3d0db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextCanvas: {fileID: 0}
+  viewport1: {fileID: 206991641}
+  viewport2: {fileID: 429268308}
   p1SPawn: {fileID: 0}
   p2Spawn: {fileID: 0}
-  p1_leftArrowBtn: {fileID: 8197487755285326649}
-  p1_rightArrowBtn: {fileID: 395942430971712788}
-  p2_leftArrowBtn: {fileID: 7218537138736848135}
-  p2_rightArrowBtn: {fileID: 721408214490935994}
 --- !u!1 &8374898197476347976
 GameObject:
   m_ObjectHideFlags: 0
@@ -3491,8 +3511,9 @@ GameObject:
   - component: {fileID: 8374898197687845955}
   - component: {fileID: 8374898197687845953}
   - component: {fileID: 8374898197687845952}
+  - component: {fileID: 206991641}
   m_Layer: 5
-  m_Name: Player1
+  m_Name: ViewportPlayer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3565,6 +3586,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &206991641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8374898197687845954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e8c1819ea6a6448afff746b388ad83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawn: {fileID: 0}
+  leftArrowBtn: {fileID: 8197487755285326649}
+  rightArrowBtn: {fileID: 395942430971712788}
+  connectImg: {fileID: 4266019202217470338}
+  text: {fileID: 5843405102920224072}
+  deviceImg: {fileID: 3287339607810747131}
+  readyImg: {fileID: 1580238384831032066}
+  startTime: 0
 --- !u!1 &8554164821600857218
 GameObject:
   m_ObjectHideFlags: 0
@@ -3717,7 +3758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2438372238837249932
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3760,7 +3801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13860497, g: 1, b: 0.023584902, a: 0.6392157}
+  m_Color: {r: 0.12775205, g: 0.990566, b: 0.014017418, a: 0.6392157}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

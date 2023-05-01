@@ -37,7 +37,7 @@ public class PlayerFactory
 
             materialsMap.Add(new ColorCombination(colorNames[0], colorNames[1]), mat);
         }
-        
+
         beardColors = beardColorsList.ToArray();
         shirtColors = shirtColorsList.ToArray();
 
@@ -66,7 +66,8 @@ public class PlayerFactory
         {
             foreach (var renderer in player.renderers)
             {
-                renderer.material = materialsMap[new ColorCombination(newBeardColor, newShirtColor)];
+                //if (renderer != null)
+                    renderer.material = materialsMap[new ColorCombination(newBeardColor, newShirtColor)];
             }
         }
     }

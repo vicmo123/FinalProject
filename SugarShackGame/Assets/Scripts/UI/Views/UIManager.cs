@@ -30,11 +30,10 @@ public class UIManager
 
     public float gameDuration;
     private List<string> scenes;
-    private int currentSceneIndex;
+    private int currentScene = 0;
     private List<ScenesNames> sceneNames;
-    //Gather all the different scenes
-    //Plays a song before game starts
-    //Remembers information gathered in UI from player
+
+    public int CurrentScene { get => currentScene; set => currentScene = value; }
 
     public PlayerGameData[] players;
 
@@ -55,7 +54,7 @@ public class UIManager
         players = new PlayerGameData[2] { new PlayerGameData(), new PlayerGameData() };
 
         sceneNames = System.Enum.GetValues(typeof(ScenesNames)).Cast<ScenesNames>().ToList();
-        currentSceneIndex = 0;
+        CurrentScene = 0;
     }
 
     public void LoadOneScene(ScenesNames name)
@@ -65,19 +64,27 @@ public class UIManager
 
     public void LoadNextScene()
     {
-        ++currentSceneIndex;
-        SceneManager.LoadScene(currentSceneIndex);
+        CurrentScene++;
+        SceneManager.LoadScene(CurrentScene);
     }
 
     public void LoadPreviousScene()
     {
-        --currentSceneIndex;
-        SceneManager.LoadScene(currentSceneIndex);
+        if (CurrentScene != 0)
+        {
+            --CurrentScene;
+            SceneManager.LoadScene(CurrentScene);
+        }
+        else
+        {
+            throw new System.Exception("You can't go back to previous scene.");
+        }
     }
+    
 
-    public string[] GetPlayerInfo()
+    public PlayerGameData[] GetPlayerInfo()
     {
-        return new string[] { p1_name, p2_name };
+        return players;
     }
     public void ClearData()
     {
@@ -87,6 +94,7 @@ public class UIManager
         }
         players = null;
     }
+
 }
 
 public class PlayerGameData

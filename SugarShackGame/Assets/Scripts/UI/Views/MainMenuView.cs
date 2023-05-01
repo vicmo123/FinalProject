@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuView : MonoBehaviour
@@ -29,8 +30,11 @@ public class MainMenuView : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("Starting the game");
-        UIManager.Instance.LoadOneScene(ScenesNames.Setup);
+        UIManager.Instance.LoadNextScene();
+        //int index = UIManager.Instance.CurrentScene;
+        //++index;
+        //newScene(index);
+        //UIManager.Instance.CurrentScene = index;
     }
     public void GoToCreditsView()
     {
@@ -41,5 +45,30 @@ public class MainMenuView : MonoBehaviour
     {
         controls.gameObject.SetActive(true);
         this.gameObject.SetActive(false);
+    }
+
+
+    public void newScene(int sceneNumber)
+    {
+        SceneManager.LoadScene(sceneNumber);
+
+        if (SceneManager.GetActiveScene().buildIndex != sceneNumber)
+        {
+            StartCoroutine(waitForSceneLoad(sceneNumber));
+        }
+    }
+
+    IEnumerator waitForSceneLoad(int sceneNumber)
+    {
+        while (SceneManager.GetActiveScene().buildIndex != sceneNumber)
+        {
+            yield return null;
+        }
+
+        // Do anything after proper scene has been loaded
+        if (SceneManager.GetActiveScene().buildIndex == sceneNumber)
+        {
+            Debug.Log(SceneManager.GetActiveScene().buildIndex);
+        }       
     }
 }

@@ -19,7 +19,6 @@ public class TitleView : MonoBehaviour
     }
     void TaskOnClick()
     {
-        Debug.Log("Go to next scene");
-        UIManager.Instance.LoadOneScene(ScenesNames.MainMenu);
+        UIManager.Instance.LoadNextScene();
     }
 }

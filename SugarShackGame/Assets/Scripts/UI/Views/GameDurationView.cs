@@ -26,7 +26,7 @@ public class GameDurationView : MonoBehaviour
         btn1.onClick.AddListener(() => SetGameDuration(timeOpt1));
         btn2.onClick.AddListener(() => SetGameDuration(timeOpt2));
         btn3.onClick.AddListener(() => SetGameDuration(timeOpt3));
-        startBtn.onClick.AddListener(() => UIManager.Instance.LoadOneScene(ScenesNames.GamePlay));
+        startBtn.onClick.AddListener(() => UIManager.Instance.LoadNextScene());
         
     }
 
