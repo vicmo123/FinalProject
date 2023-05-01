@@ -76,12 +76,17 @@ public class PlayerManager : IFlow
 
     public void CreatePlayer(PlayerInput input)
     {
+        //int playerIndex = 0;
+        //if (input.user.index == 1)
+        //    playerIndex = 1;
+
         Player newPlayer = null;
 
         input.gameObject.transform.position = Vector3.zero;
         newPlayer = input.gameObject.GetComponent<Player>();
         factory.ChangePlayerColor(ref newPlayer, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
-
+        //newPlayer = factory.CreatPlayer( factory.beardColors[UIManager.Instance.players[playerIndex].indexBeard], factory.shirtColors[UIManager.Instance.players[playerIndex].indexShirt]);
+        //newPlayer.transform.position = new Vector3(4.62f, 1.37f, 3.21f);
         players.Add(newPlayer);
 
         FixCinemachineCam(ref newPlayer);
