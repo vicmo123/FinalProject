@@ -38,6 +38,8 @@ public class SetupView : MonoBehaviour
         //REMOVE AFTER TESTING :
         UIManager.Instance.Initialize();
         //-------------------------------
+        this.gameObject.SetActive(true);
+        nextCanvas.gameObject.SetActive(false);
 
         SetUIResources();
         LoadPlayers();
@@ -86,7 +88,7 @@ public class SetupView : MonoBehaviour
         actions = new PlayerControls();
         actions.UI_Navigation.Submit.performed += Submit_performed;
         actions.UI_Navigation.Left.performed += Left_performed;
-        actions.UI_Navigation.Right.performed += Right_performed; ;
+        actions.UI_Navigation.Right.performed += Right_performed; 
         actions.UI_Navigation.Enable();
 
         InputSystem.onDeviceChange +=
@@ -270,6 +272,7 @@ public class SetupView : MonoBehaviour
         {
             SaveColors();
             GoToNextPage();
+            actions.UI_Navigation.Disable();
         }
 
         //for debug purpose :
@@ -278,6 +281,7 @@ public class SetupView : MonoBehaviour
             SaveColors();
             GoToNextPage();
             DisplayAllPlayerGameData();
+            actions.UI_Navigation.Disable();
         }
     }
 

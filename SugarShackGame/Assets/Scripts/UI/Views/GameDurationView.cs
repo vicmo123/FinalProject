@@ -12,6 +12,7 @@ public class GameDurationView : MonoBehaviour
     public Button opt3Button;
     public float timeOpt3;
     public Button startGameButton;
+    private PlayerControls actions;
 
     private void Awake()
     {
@@ -24,6 +25,31 @@ public class GameDurationView : MonoBehaviour
         btn2.onClick.AddListener(() => SetGameDuration(timeOpt2));
         btn3.onClick.AddListener(() => SetGameDuration(timeOpt3));
         startBtn.onClick.AddListener(() => UIManager.Instance.LoadOneScene(ScenesNames.GamePlay));
+
+        InitActions();
+    }
+    private void InitActions()
+    {
+        actions = new PlayerControls();        
+        actions.UI_Settings_Duration.Up.performed += Up_performed;
+        actions.UI_Settings_Duration.Down.performed += Down_performed;
+        actions.UI_Settings_Duration.Submit.performed += Submit_performed;
+        actions.UI_Settings_Duration.Enable();
+    }
+
+    private void Submit_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Debug.Log("Submit ");
+    }
+
+    private void Down_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Debug.Log("Down");
+    }
+
+    private void Up_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Debug.Log("Up");
     }
 
     public void SetGameDuration(float duration)
