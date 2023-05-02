@@ -384,6 +384,8 @@ public class PlayerController : MonoBehaviour, IFlow
                 if (hit.transform.gameObject.CompareTag("Cauldron")) {
                     Cauldron cauldron = hit.transform.GetComponent<Cauldron>();
 
+                    cauldron.Looked(_player);
+
                     if (cauldron.player == _player) {
                         if (_inputHandler.Use)
                             cauldron.Use(_player);

@@ -11,19 +11,26 @@ public class Cauldron : MonoBehaviour, IFlow, IUsable
 
     private bool canProducing = false;
     private float timeToProduce = 5.0f;
-    private float remainingTime = 0.0f; 
+    private float remainingTime = 0.0f;
+
+    private Highlight highlight;
 
     public void Initialize() {
+        highlight.Initialize();
     }
 
     public void PhysicsRefresh() {
     }
 
     public void PreInitialize() {
+        highlight = GetComponent<Highlight>();
+        highlight.PreInitialize();
     }
 
     public void Refresh() {
         BoilingSap();
+
+        highlight.Refresh();
     }
 
     private void BoilingSap() {
@@ -38,7 +45,7 @@ public class Cauldron : MonoBehaviour, IFlow, IUsable
             else { // If time is up -> produce a can
                 sapAmount -= quantityForCan;
                 canProducing = false;
-                // ADD A CAN TO THE PLAYER
+                player.syrupCanManager.AddCan();
             }
         }
     }
@@ -54,6 +61,12 @@ public class Cauldron : MonoBehaviour, IFlow, IUsable
         }
 
         return amountAdded;
+    }
+    public void Looked(Player _player) {
+        if (_player != player)
+            return;
+
+        highlight.ToggleHighlight(true);
     }
 
     public void Use(Player _player) {

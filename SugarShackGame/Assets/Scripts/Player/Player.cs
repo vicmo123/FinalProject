@@ -20,6 +20,8 @@ public class Player : MonoBehaviour, IFlow
     public SyrupCanManager syrupCanManager;
     [HideInInspector]
     public PlayerFootStepMaker footStepMaker;
+    [HideInInspector]
+    public PlayerScore playerScore;
 
     public void PreInitialize()
     {
@@ -43,6 +45,7 @@ public class Player : MonoBehaviour, IFlow
 
         CauldronManager.Instance.CreateCauldron(this);
         syrupCanManager = new SyrupCanManager();
+        playerScore = new PlayerScore(this);
     }
 
     public void Initialize()

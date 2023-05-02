@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Bucket : MonoBehaviour, IFlow, IUsable
 {
-    Player player;
+    [HideInInspector]
+    public Player player;
 
     [SerializeField] private GameObject fillingBarObject;
     private FillingBar fillingBar;
@@ -44,13 +45,13 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
     public void PreInitialize() {
         highlight = GetComponent<Highlight>();
+        highlight.PreInitialize();
 
         fillingBar = GameObject.Instantiate(fillingBarObject).GetComponent<FillingBar>();
         fillingBar.PreInitialize();
         fillingBar.transform.SetParent(transform);
         fillingBar.transform.position = positionForFillingBar.position;
 
-        highlight.PreInitialize();
     }
 
     public void Refresh() {
