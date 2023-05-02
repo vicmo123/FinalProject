@@ -31,6 +31,8 @@ public class Cauldron : MonoBehaviour, IFlow, IUsable
         BoilingSap();
 
         highlight.Refresh();
+
+        //Debug.Log(player.playerScore.Calculate());
     }
 
     private void BoilingSap() {

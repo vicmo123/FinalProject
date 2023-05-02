@@ -29,6 +29,9 @@ public class Apple : ThrowableAbility
             float toAppleDistance = (transform.position - animal.transform.position).magnitude;
             if(toAppleDistance <= attractionDistance)
             {
+                // Bonus
+                thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.APPLE);
+
                 Animal animalComponent = animal.GetComponent<Animal>();
                 animalComponent.chaseTarget = gameObject;
                 OnDeactivate += () =>

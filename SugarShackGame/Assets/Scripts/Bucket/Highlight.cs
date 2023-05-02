@@ -37,7 +37,7 @@ public class Highlight : MonoBehaviour, IFlow
             endDelay = Time.time + highlightDelay;
             foreach (var material in materials) {
                 material.EnableKeyword("_EMISSION");
-                material.SetColor("_EmissionColor", color);
+                material.SetColor("_EmissionColor", color * -0.8f);
             }
         }
         else {

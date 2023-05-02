@@ -35,9 +35,6 @@ public class SetupView : MonoBehaviour
 
     private void Awake()
     {
-        //You need this insctruction if you only run the scene Setup because the UIManager is initialized in Title Scene.
-        //UIManager.Instance.Initialize();
-        //-------------------------------
         this.gameObject.SetActive(true);
         nextCanvas.gameObject.SetActive(false);
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnThrowableAbility : AbilityComponent
 {
-    private Reciever reciever = null;
+    protected Reciever reciever = null;
     [HideInInspector]
     public Rigidbody rb;
 

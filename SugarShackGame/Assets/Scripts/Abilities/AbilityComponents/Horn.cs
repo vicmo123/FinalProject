@@ -34,6 +34,9 @@ public class Horn : UnThrowableAbility
             float toAppleDistance = (transform.position - animal.transform.position).magnitude;
             if (toAppleDistance <= repulsionZoneRadius)
             {
+                // Bonus
+                reciever.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.HORN);
+
                 Animal animalComponent = animal.GetComponent<Animal>();
                 animalComponent.isScared = true;
             }
