@@ -12,6 +12,7 @@ TagManager:
   - Animal
   - Cauldron
   - Eatable
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

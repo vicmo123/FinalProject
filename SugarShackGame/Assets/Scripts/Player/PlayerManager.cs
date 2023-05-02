@@ -29,6 +29,7 @@ public class PlayerManager : IFlow
     #endregion
 
     public LayerMask[] playerCamMasks;
+    public GameObject[] spawnPositions;
     PlayerInputManager playerInputManager;
     PlayerFactory factory;
     public List<Player> players { get; private set; }
@@ -56,8 +57,8 @@ public class PlayerManager : IFlow
     }
 
     public void Initialize()
-    {
-        
+    {       
+       spawnPositions = GameObject.FindGameObjectsWithTag("SpawnPoint");        
     }
 
     public void Refresh()
@@ -86,7 +87,7 @@ public class PlayerManager : IFlow
 
         players[players.Count - 1].PreInitialize();
         players[players.Count - 1].Initialize();
-        players[players.Count - 1].SpawnAtLocation(new Vector3(10, 0, 5));
+        players[players.Count - 1].SpawnAtLocation(spawnPositions[players.Count - 1].transform.position);
 
         currentBeardIndex++;
         currentShirtIndex++;
