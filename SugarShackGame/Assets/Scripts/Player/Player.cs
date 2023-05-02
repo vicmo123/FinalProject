@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IFlow
     public PlayerFootStepMaker footStepMaker;
     [HideInInspector]
     public PlayerScore playerScore;
+    public int index;
 
     public void PreInitialize()
     {

@@ -16,8 +16,6 @@ public class PlayerViewport : MonoBehaviour
     private Sprite[] devicesSprites;
     private Sprite[] readySprites;
     public double startTime = 0;
-    private double holdDuration = 3f;
-    bool actionOver = false;
     private bool isReady = false;
     
     private void LoadResources()

@@ -83,6 +83,8 @@ public class PlayerManager : IFlow
         Player generatedPlayer = input.gameObject.GetComponent<Player>();
         factory.ChangePlayerColor(ref generatedPlayer, factory.beardColors[UIManager.Instance.playersGD[players.Count].indexBeard], factory.shirtColors[UIManager.Instance.playersGD[players.Count].indexShirt]);
         players.Add(generatedPlayer);
+        //Assign index to the player
+        players[players.Count - 1].index = players.Count - 1;
 
         FixCinemachineCam(players[players.Count - 1]);
         players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[UIManager.Instance.playersGD[players.Count -1].indexShirt]);
