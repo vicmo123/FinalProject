@@ -39,9 +39,16 @@ public class FillingBar : MonoBehaviour, IFlow
     }
 
     public void PhysicsRefresh() {
+        if (gameObject.layer == 9 && PlayerManager.Instance.players.Count > 0)
+            Rotate(PlayerManager.Instance.players[0]);
+        else if (gameObject.layer == 10 && PlayerManager.Instance.players.Count > 1)
+            Rotate(PlayerManager.Instance.players[1]);
     }
 
     public void PreInitialize() {
+        filled.gameObject.layer = gameObject.layer;
+        max.gameObject.layer = gameObject.layer;
+
         max.localScale = new Vector3(maxBarWidth, maxBarHeight, maxBarLenght);
         filled.localScale = new Vector3(filledBarWidth, filledBarHeight, filledBarLenght);
         filled.gameObject.SetActive(false);
