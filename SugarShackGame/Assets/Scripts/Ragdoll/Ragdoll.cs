@@ -26,7 +26,7 @@ public class Ragdoll : MonoBehaviour, IFlow
     public float maxLerpSpeed = 0.5f;
     public float timeBeforeRecovery = 2f;
     public LayerMask groundMask;
-    private bool isRagdollTriggered = false;
+    public bool isRagdollTriggered { get; private set; } = false;
     public float timeBeforeForcingRecovery = 5f;
     private CountDownTimer recoveryTimer;
 
