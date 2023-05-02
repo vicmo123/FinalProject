@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205638ba3a5020a41a4290060cb6968d, type: 3}
   m_Name: DefaultPlayerStats
   m_EditorClassIdentifier: 
-  MoveSpeed: 10
-  SprintSpeed: 25
+  MoveSpeed: 5
+  SprintSpeed: 15
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   JumpHeight: 3

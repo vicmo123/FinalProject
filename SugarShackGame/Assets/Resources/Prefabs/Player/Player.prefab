@@ -2340,10 +2340,15 @@ MonoBehaviour:
   - {fileID: 4126932079170352012}
   - {fileID: 2714291085489095891}
   - {fileID: 1478455865204295403}
+  color: {r: 0, g: 0, b: 0, a: 0}
   throwerComponent: {fileID: 0}
   recieverComponent: {fileID: 0}
   abilityHandler: {fileID: 0}
   footStepMaker: {fileID: 0}
+  playerScore:
+    syrupCans: 0
+    claimedBuckets: 0
+    bonusPoints: 0
 --- !u!95 &902630649624965883
 Animator:
   serializedVersion: 5
@@ -2741,6 +2746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f257b98a19d13354a86856f72e2dcc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  footStepContainer: {fileID: 0}
   footStepPrefab: {fileID: 9177542496743261405, guid: 5a3e1e475c62a7240a23de5ab130af13, type: 3}
   feetObjects:
   - {fileID: 8066056162132655490}

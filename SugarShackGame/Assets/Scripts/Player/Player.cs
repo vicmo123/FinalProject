@@ -29,8 +29,8 @@ public class Player : MonoBehaviour, IFlow
         ragdoll = GetComponent<Ragdoll>();
         playerController = GetComponent<PlayerController>();
         //Allo Tommy
-        playerBucket = GetComponent<PlayerBucket>();
         playerBucket = transform.GetComponentInChildren<PlayerBucket>();
+
         throwerComponent = GetComponent<Thrower>();
         recieverComponent = GetComponent<Reciever>();
         abilityHandler = GetComponent<PlayerAbilityHandler>();

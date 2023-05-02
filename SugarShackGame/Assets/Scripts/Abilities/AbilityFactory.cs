@@ -1,33 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using System.Reflection;
 
 public class AbilityFactory
 {
     private Dictionary<AbilityType, Ability> resourceDict;
     private List<AbilityType> abilityNames;
 
+    private const string folderPath = "AbilitiesScriptable/";
+
     public AbilityFactory()
     {
         resourceDict = new Dictionary<AbilityType, Ability>();
+        abilityNames = new List<AbilityType>();
         LoadResources();
     }
 
     public void LoadResources()
     {
-        abilityNames = System.Enum.GetValues(typeof(AbilityType)).Cast<AbilityType>().ToList();
-
-        foreach (var name in abilityNames)
+        Object[] assets = Resources.LoadAll(folderPath, typeof(Ability));
+        foreach (Ability scriptable in assets)
         {
-            var abilityObj = (Ability)ScriptableObject.CreateInstance(name + "Ability");
-            resourceDict.Add(name, abilityObj);
-
-            System.Type t = Assembly.GetExecutingAssembly().GetType(name.ToString());
-            if (t.IsSubclassOf(typeof(ThrowableAbility))) {
-                resourceDict[name].isThrowable = true;
-            }
+            resourceDict.Add(scriptable.type, scriptable);
+            abilityNames.Add(scriptable.type);
         }
 
         //For the random to not create snowballs

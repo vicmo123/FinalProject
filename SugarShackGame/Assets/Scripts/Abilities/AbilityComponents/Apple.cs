@@ -34,7 +34,7 @@ public class Apple : ThrowableAbility
 
                 Animal animalComponent = animal.GetComponent<Animal>();
                 animalComponent.chaseTarget = gameObject;
-                OnDeactivate = () =>
+                OnDeactivate += () =>
                 {
                     animalComponent.chaseTarget = null;
                 };

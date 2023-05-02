@@ -6,14 +6,14 @@ using System.Reflection;
 
 public enum AbilityType { MysteryDrink, Horn, Steal, Syrup, BucketCannotSpill, Trampoline, Apple, IceBall, GiantSnowBall, SnowBall};
 
-public abstract class Ability : ScriptableObject
+[CreateAssetMenu(menuName = "Stats/Ability")]
+public class Ability : ScriptableObject
 {
-    public virtual AbilityType type { get; set; }
-    public virtual Sprite sprite { get; set; }
-    public virtual SoundListEnum sound { get; set; }
-    public virtual bool isThrowable { get; set; }
-
-    public virtual float timeBeforeDestruction => 10.0f;
+    public AbilityType type;
+    public Sprite sprite;
+    public SoundListEnum sound;
+    public bool isThrowable;
+    public float timeBeforeDestruction;
 
     public virtual bool Activate(Player player)
     {

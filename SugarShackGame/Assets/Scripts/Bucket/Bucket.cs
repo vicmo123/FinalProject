@@ -7,7 +7,8 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     public Player player;
 
     [SerializeField] private GameObject fillingBarObject;
-    private FillingBar fillingBar;
+    private FillingBar fillingBarPlayer1;
+    private FillingBar fillingBarPlayer2;
     [SerializeField] private Transform positionForFillingBar;
 
     private Highlight highlight;
@@ -33,25 +34,38 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
         bucketRenderer = GetComponentInChildren<Renderer>();
         originalColor = bucketRenderer.material.color;
 
-        fillingBar.transform.SetParent(null);
+        fillingBarPlayer1.transform.SetParent(null);
+        fillingBarPlayer2.transform.SetParent(null);
 
         highlight.Initialize();
     }
 
     public void PhysicsRefresh() {
-        if (player)
-            fillingBar.Rotate(player);
+        fillingBarPlayer1.PhysicsRefresh();
+        fillingBarPlayer2.PhysicsRefresh();
     }
 
     public void PreInitialize() {
         highlight = GetComponent<Highlight>();
         highlight.PreInitialize();
 
-        fillingBar = GameObject.Instantiate(fillingBarObject).GetComponent<FillingBar>();
-        fillingBar.PreInitialize();
-        fillingBar.transform.SetParent(transform);
-        fillingBar.transform.position = positionForFillingBar.position;
+        CreateFillingBars();
 
+    }
+
+    private void CreateFillingBars() {
+        fillingBarPlayer1 = GameObject.Instantiate(fillingBarObject).GetComponent<FillingBar>();
+        fillingBarPlayer1.gameObject.layer = 9;
+        fillingBarPlayer1.transform.SetParent(transform);
+        fillingBarPlayer1.transform.position = positionForFillingBar.position;
+        fillingBarPlayer1.PreInitialize();
+
+
+        fillingBarPlayer2 = GameObject.Instantiate(fillingBarObject).GetComponent<FillingBar>();
+        fillingBarPlayer2.gameObject.layer = 10;
+        fillingBarPlayer2.transform.SetParent(transform);
+        fillingBarPlayer2.transform.position = positionForFillingBar.position;
+        fillingBarPlayer2.PreInitialize();
     }
 
     public void Refresh() {
@@ -132,7 +146,8 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
             Debug.Log("Sap collected!");
             // If the playing using the bucket is the owner, gets sap
             sapAmount -= _player.playerBucket.AddSap(sapAmount);
-            fillingBar.Fill(sapAmount, maxSapAmount);
+            fillingBarPlayer1.Fill(sapAmount, maxSapAmount);
+            fillingBarPlayer2.Fill(sapAmount, maxSapAmount);
             endOfCooldown = Time.time + cooldown;
         }
     }
@@ -151,7 +166,8 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
     private void Sap() {
         sapAmount = Mathf.Clamp(sapAmount + (sapGainSpeed * Time.deltaTime), 0, maxSapAmount);
-        fillingBar.Fill(sapAmount, maxSapAmount);
+        fillingBarPlayer1.Fill(sapAmount, maxSapAmount);
+        fillingBarPlayer2.Fill(sapAmount, maxSapAmount);
     }
 
     public bool CheckParent() {
