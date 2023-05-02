@@ -79,12 +79,14 @@ public class PlayerManager : IFlow
 
     public void InitializePlayer(PlayerInput input)
     {
+        Debug.Log("player" + input.user.index + " using : " + input.user.pairedDevices[0]);
         Player generatedPlayer = input.gameObject.GetComponent<Player>();
-        factory.ChangePlayerColor(ref generatedPlayer, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
+        factory.ChangePlayerColor(ref generatedPlayer, factory.beardColors[UIManager.Instance.playersGD[players.Count].indexBeard], factory.shirtColors[UIManager.Instance.playersGD[players.Count].indexShirt]);
         players.Add(generatedPlayer);
 
         FixCinemachineCam(players[players.Count - 1]);
-
+        players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[UIManager.Instance.playersGD[players.Count -1].indexShirt]);
+        Debug.Log(factory.shirtColors[UIManager.Instance.playersGD[players.Count -1].indexShirt].ToString());
         players[players.Count - 1].PreInitialize();
         players[players.Count - 1].Initialize();
         players[players.Count - 1].SpawnAtLocation(spawnPositions[players.Count - 1].transform.position);

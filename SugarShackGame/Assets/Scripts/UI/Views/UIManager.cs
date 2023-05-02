@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System.IO;
+
 public enum ScenesNames { MainMenu, Setup, Title, GamePlay, EndGame };
+public enum Colors { Blue, Green, Pink, Red, Yellow}
 
 public class UIManager
 {
@@ -28,6 +31,9 @@ public class UIManager
     }
     #endregion
 
+    
+
+    private bool DEBUG_MODE = true;
     public float gameDuration;
     private List<string> scenes;
     private int currentScene = 0;
@@ -35,7 +41,7 @@ public class UIManager
 
     public int CurrentScene { get => currentScene; set => currentScene = value; }
 
-    public PlayerGameData[] players;
+    public PlayerGameData[] playersGD;
 
     #region Player1Data
     public string p1_name = "Player 1";
@@ -51,12 +57,53 @@ public class UIManager
 
     public void Initialize()
     {
-        players = new PlayerGameData[2] { new PlayerGameData(), new PlayerGameData() };
+        playersGD = new PlayerGameData[2] { new PlayerGameData(), new PlayerGameData() };
 
+        if (DEBUG_MODE)
+        {
+            FakeFillPlayerGameData();
+        }
         sceneNames = System.Enum.GetValues(typeof(ScenesNames)).Cast<ScenesNames>().ToList();
         CurrentScene = 0;
     }
-
+    private void FakeFillPlayerGameData()
+    {
+        for (int i = 0; i < playersGD.Length; i++)
+        {
+            playersGD[i].connected = true;
+            playersGD[i].playerIndex = i + 1;
+            playersGD[i].indexShirt = i + 1;
+            playersGD[i].indexBeard = i;
+            playersGD[i].deviceId = i;
+            playersGD[i].name = $"player{i + 1}";
+        }
+    }
+    public Color AssignColor(string color)
+    {
+        Color newColor = Color.yellow;
+        //load all string from file
+        switch (color)
+        {
+            case "Blue":
+                newColor = Color.blue;
+                break;
+            case "Green":
+                newColor = Color.green;
+                break;
+            case "Pink":
+                //for some reason, pink seems to be green...
+                newColor = Color.magenta;
+                break;
+            case "Red":
+                newColor = Color.red;
+                break;
+            case "Yellow":
+                newColor = Color.yellow;
+                break;     
+                
+        }
+        return newColor;
+    }
     public void LoadOneScene(ScenesNames name)
     {
         SceneManager.LoadScene(name.ToString());
@@ -84,22 +131,22 @@ public class UIManager
 
     public PlayerGameData[] GetPlayerInfo()
     {
-        return players;
+        return playersGD;
     }
     public void ClearData()
     {
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < playersGD.Length; i++)
         {
-            players[i] = null;
+            playersGD[i] = null;
         }
-        players = null;
+        playersGD = null;
     }
 
 }
 
 public class PlayerGameData
 {
-    public static int playerId = 0;
+    public int playerIndex = 0;
     public string name = "";
     public string deviceName = "";
     public int deviceId = 0;
@@ -107,14 +154,10 @@ public class PlayerGameData
     public int indexShirt = 0;
     public bool connected = false;
 
-    public PlayerGameData()
-    {
-        playerId++;
-    }
 
     public int GetId()
     {
-        return playerId;
+        return playerIndex;
     }
 }
 

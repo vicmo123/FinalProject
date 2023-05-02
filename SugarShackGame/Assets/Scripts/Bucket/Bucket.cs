@@ -137,7 +137,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     }
 
     private void Claimed(Player _player) {
-        ChangeColor(Color.blue);
+        ChangeColor(_player.color);
         if (player)
             Debug.Log("Bucket was stolen!");
         else

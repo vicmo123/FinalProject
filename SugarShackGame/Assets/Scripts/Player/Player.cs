@@ -6,7 +6,8 @@ public class Player : MonoBehaviour, IFlow
 {
     public Renderer[] renderers;
     public PlayerBucket playerBucket { get; private set; }
-
+    [HideInInspector]
+    public Color color;
     private Ragdoll ragdoll;
     private PlayerController playerController;
     [HideInInspector]

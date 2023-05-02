@@ -367,7 +367,8 @@ public class PlayerController : MonoBehaviour, IFlow
     private void CheckForUsing() {
         Player _player = transform.GetComponent<Player>();
 
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position + new Vector3(0, .3f, 0), .1f, transform.TransformDirection(Vector3.forward), 1000);
+        
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position + new Vector3(0, .3f, 0), .05f, transform.TransformDirection(Vector3.forward), 3);
 
         if (hits.Length > 0) {
             foreach (var hit in hits) {

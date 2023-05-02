@@ -295,6 +295,28 @@
                 },
                 {
                     "name": "",
+                    "id": "eb734e53-f3a4-4296-a85c-04b5b6c55aa3",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb13aeee-f26f-448a-acc0-734e84959f37",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "afacf5b8-d06b-4cbc-bbe9-52d6d61b4323",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
@@ -362,7 +384,7 @@
                 {
                     "name": "",
                     "id": "f509dddb-c442-4cbf-93fb-63e904eea208",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",

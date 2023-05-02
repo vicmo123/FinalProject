@@ -48,15 +48,15 @@ public class SetupView : MonoBehaviour
 
     private void SetDefaultPlayerGameData()
     {
-        UIManager.Instance.players[0].indexBeard = 0;
-        UIManager.Instance.players[0].indexShirt = 0;
-        UIManager.Instance.players[1].indexBeard = 1;
-        UIManager.Instance.players[1].indexShirt = 3;
+        UIManager.Instance.playersGD[0].indexBeard = 0;
+        UIManager.Instance.playersGD[0].indexShirt = 0;
+        UIManager.Instance.playersGD[1].indexBeard = 1;
+        UIManager.Instance.playersGD[1].indexShirt = 3;
     }
 
     private void LoadPlayers()
     {
-        players = UIManager.Instance.players;
+        players = UIManager.Instance.playersGD;
 
         SetDefaultPlayerGameData();
 
@@ -98,35 +98,35 @@ public class SetupView : MonoBehaviour
             {
                 case InputDeviceChange.Added:
                     // New Device.
-                    for (int i = 0; i < UIManager.Instance.players.Length; i++)
+                    for (int i = 0; i < UIManager.Instance.playersGD.Length; i++)
                     {
-                        if (UIManager.Instance.players[i].connected == false && UIManager.Instance.players[i].deviceId == 0)
+                        if (UIManager.Instance.playersGD[i].connected == false && UIManager.Instance.playersGD[i].deviceId == 0)
                         {
-                            UIManager.Instance.players[i].deviceId = device.deviceId;
-                            UIManager.Instance.players[i].deviceName = device.name;
-                            UIManager.Instance.players[i].connected = true;
-                            Debug.Log("New device added for Player " + UIManager.Instance.players[i].GetId() + " : " + device.name);
+                            UIManager.Instance.playersGD[i].deviceId = device.deviceId;
+                            UIManager.Instance.playersGD[i].deviceName = device.name;
+                            UIManager.Instance.playersGD[i].connected = true;
+                            Debug.Log("New device added for Player " + UIManager.Instance.playersGD[i].GetId() + " : " + device.name);
                         }
                     }
                     //Assign to a player : Id, device
                     break;
                 case InputDeviceChange.Disconnected:
                     // Device got unplugged.
-                    for (int i = 0; i < UIManager.Instance.players.Length; i++)
+                    for (int i = 0; i < UIManager.Instance.playersGD.Length; i++)
                     {
-                        if (UIManager.Instance.players[i].connected == true && UIManager.Instance.players[i].deviceId == device.deviceId)
+                        if (UIManager.Instance.playersGD[i].connected == true && UIManager.Instance.playersGD[i].deviceId == device.deviceId)
                         {
-                            UIManager.Instance.players[i].connected = false;
+                            UIManager.Instance.playersGD[i].connected = false;
                         }
                     }
                     break;
                 case InputDeviceChange.Reconnected:
                     // Plugged back in.
-                    for (int i = 0; i < UIManager.Instance.players.Length; i++)
+                    for (int i = 0; i < UIManager.Instance.playersGD.Length; i++)
                     {
-                        if (UIManager.Instance.players[i].connected == false && UIManager.Instance.players[i].deviceId == device.deviceId)
+                        if (UIManager.Instance.playersGD[i].connected == false && UIManager.Instance.playersGD[i].deviceId == device.deviceId)
                         {
-                            UIManager.Instance.players[i].connected = true;
+                            UIManager.Instance.playersGD[i].connected = true;
                         }
                     }
                     break;
@@ -184,10 +184,10 @@ public class SetupView : MonoBehaviour
 
     private void SaveColors()
     {
-        for (int i = 0; i < UIManager.Instance.players.Length; i++)
+        for (int i = 0; i < UIManager.Instance.playersGD.Length; i++)
         {
-            UIManager.Instance.players[i].indexBeard = players[i].indexBeard;
-            UIManager.Instance.players[i].indexShirt = players[i].indexShirt;
+            UIManager.Instance.playersGD[i].indexBeard = players[i].indexBeard;
+            UIManager.Instance.playersGD[i].indexShirt = players[i].indexShirt;
         }
     }
 
@@ -204,40 +204,40 @@ public class SetupView : MonoBehaviour
     #region ArrowActions
     public void P1RightArrow()
     {
-        UIManager.Instance.players[0].indexShirt++;
-        UIManager.Instance.players[0].indexShirt %= shirts.Length;
-        factory.ChangePlayerColor(ref p1, beards[UIManager.Instance.players[0].indexBeard], shirts[UIManager.Instance.players[0].indexShirt]);
+        UIManager.Instance.playersGD[0].indexShirt++;
+        UIManager.Instance.playersGD[0].indexShirt %= shirts.Length;
+        factory.ChangePlayerColor(ref p1, beards[UIManager.Instance.playersGD[0].indexBeard], shirts[UIManager.Instance.playersGD[0].indexShirt]);
 
         StartCoroutine(SelectEffect(p1));
     }
 
     public void P1LeftArrow()
     {
-        UIManager.Instance.players[0].indexShirt--;
-        if (UIManager.Instance.players[0].indexShirt == -1)
+        UIManager.Instance.playersGD[0].indexShirt--;
+        if (UIManager.Instance.playersGD[0].indexShirt == -1)
         {
-            UIManager.Instance.players[0].indexShirt = shirts.Length - 1;
+            UIManager.Instance.playersGD[0].indexShirt = shirts.Length - 1;
         }
-        factory.ChangePlayerColor(ref p1, beards[UIManager.Instance.players[0].indexBeard], shirts[UIManager.Instance.players[0].indexShirt]);
+        factory.ChangePlayerColor(ref p1, beards[UIManager.Instance.playersGD[0].indexBeard], shirts[UIManager.Instance.playersGD[0].indexShirt]);
         StartCoroutine(SelectEffect(p1));
     }
 
     public void P2RightArrow()
     {
-        UIManager.Instance.players[1].indexShirt++;
-        UIManager.Instance.players[1].indexShirt %= shirts.Length;
-        factory.ChangePlayerColor(ref p2, beards[UIManager.Instance.players[1].indexBeard], shirts[UIManager.Instance.players[1].indexShirt]);
+        UIManager.Instance.playersGD[1].indexShirt++;
+        UIManager.Instance.playersGD[1].indexShirt %= shirts.Length;
+        factory.ChangePlayerColor(ref p2, beards[UIManager.Instance.playersGD[1].indexBeard], shirts[UIManager.Instance.playersGD[1].indexShirt]);
         StartCoroutine(SelectEffect(p2));
     }
 
     public void P2LeftArrow()
     {
-        UIManager.Instance.players[1].indexShirt--;
-        if (UIManager.Instance.players[1].indexShirt == -1)
+        UIManager.Instance.playersGD[1].indexShirt--;
+        if (UIManager.Instance.playersGD[1].indexShirt == -1)
         {
-            UIManager.Instance.players[1].indexShirt = shirts.Length - 1;
+            UIManager.Instance.playersGD[1].indexShirt = shirts.Length - 1;
         }
-        factory.ChangePlayerColor(ref p2, beards[UIManager.Instance.players[1].indexBeard], shirts[UIManager.Instance.players[1].indexShirt]);
+        factory.ChangePlayerColor(ref p2, beards[UIManager.Instance.playersGD[1].indexBeard], shirts[UIManager.Instance.playersGD[1].indexShirt]);
         StartCoroutine(SelectEffect(p2));
     }
     #endregion
@@ -257,14 +257,14 @@ public class SetupView : MonoBehaviour
     {
         if (obj.control.device.deviceId == (int)PlayerID.First)
         {
-            UIManager.Instance.players[0].deviceId = 1;
-            UIManager.Instance.players[0].deviceName = obj.control.device.name;
+            UIManager.Instance.playersGD[0].deviceId = 1;
+            UIManager.Instance.playersGD[0].deviceName = obj.control.device.name;
             viewport1.DisplayReady();
         }
         else if (obj.control.device.deviceId == (int)PlayerID.Second)
         {
-            UIManager.Instance.players[1].deviceId = 2;
-            UIManager.Instance.players[1].deviceName = obj.control.device.name;
+            UIManager.Instance.playersGD[1].deviceId = 2;
+            UIManager.Instance.playersGD[1].deviceName = obj.control.device.name;
             viewport2.DisplayReady();
         }
 
@@ -288,7 +288,7 @@ public class SetupView : MonoBehaviour
 
     private void DisplayAllPlayerGameData()
     {
-        foreach (var item in UIManager.Instance.players)
+        foreach (var item in UIManager.Instance.playersGD)
         {
             Debug.Log($"Player info : connected:{item.connected}, deviceId:{item.deviceId}, deviceName:{item.deviceName}, indexBeard:{item.indexBeard}, indexShirt:{item.indexShirt}, name:{item.name}");
         }
