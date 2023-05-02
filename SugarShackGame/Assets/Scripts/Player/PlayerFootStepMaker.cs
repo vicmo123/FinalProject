@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerFootStepMaker : MonoBehaviour, IFlow
 {
+    public Transform footStepContainer;
     public GameObject footStepPrefab;
     public Transform[] feetObjects;
     public LayerMask groundMask;
@@ -80,26 +81,25 @@ public class PlayerFootStepMaker : MonoBehaviour, IFlow
 
     private void GenerateFootSteps(Transform foot)
     {
-        //foreach (var foot in feetObjects)
+        RaycastHit hit;
+        if (Physics.Raycast(foot.position, Vector3.down, out hit, maxFootprintDistance, groundMask))
         {
-            RaycastHit hit;
-            if (Physics.Raycast(foot.position, Vector3.down, out hit, maxFootprintDistance, groundMask))
+            FootPrint newFootprint = factoryPool.Create(hit.point + hit.normal * footprintOffset, Quaternion.identity);
+
+            Vector3 newFootprintUp = hit.normal;
+            Vector3 newFootprintForward = Vector3.Cross(foot.right, newFootprintUp);
+            newFootprint.transform.rotation = Quaternion.LookRotation(newFootprintForward, newFootprintUp);
+
+            inGamePrintsList.Add(newFootprint);
+            newFootprint.timer.OnTimeIsUpLogic = () =>
             {
-                FootPrint newFootprint = factoryPool.Create(hit.point + hit.normal * footprintOffset, Quaternion.identity);
+                newFootprint.isReadyToBeDestoryed = true;
+            };
 
-                Vector3 newFootprintUp = hit.normal;
-                Vector3 newFootprintForward = Vector3.Cross(foot.right, newFootprintUp);
-                newFootprint.transform.rotation = Quaternion.LookRotation(newFootprintForward, newFootprintUp);
+            newFootprint.isReadyToBeDestoryed = false;
+            newFootprint.timer.StartTimer();
 
-                inGamePrintsList.Add(newFootprint);
-                newFootprint.timer.OnTimeIsUpLogic = () =>
-                {
-                    newFootprint.isReadyToBeDestoryed = true;
-                };
-
-                newFootprint.isReadyToBeDestoryed = false;
-                newFootprint.timer.StartTimer();
-            }
+            newFootprint.transform.SetParent(footStepContainer);
         }
     }
 
