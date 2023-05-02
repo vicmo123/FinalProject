@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Bucket : MonoBehaviour, IFlow, IUsable
@@ -25,14 +24,12 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     private float cooldown = 1.0f;
     private float endOfCooldown = 0.0f;
 
-    private Color originalColor;
     private Renderer bucketRenderer;
 
     public void Initialize() {
         Placement();
 
         bucketRenderer = GetComponentInChildren<Renderer>();
-        originalColor = bucketRenderer.material.color;
 
         fillingBarPlayer1.transform.SetParent(null);
         fillingBarPlayer2.transform.SetParent(null);
@@ -98,11 +95,25 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
         Bounds treeBounds = _parent.gameObject.GetComponentInChildren<BoxCollider>().bounds;
         Bounds bucketBounds = transform.GetComponentInChildren<BoxCollider>().bounds;
 
-        transform.position = new Vector3(
-            treeBounds.center.x,
-            treeBounds.center.y - treeBounds.extents.y + yPos,
-            treeBounds.center.z + treeBounds.extents.z + bucketBounds.extents.z
-            );
+        Vector3 newPos = Vector3.zero;
+        newPos.y = treeBounds.center.y - treeBounds.extents.y + yPos;
+
+        int temp = Random.Range(1, 4);
+        if (temp <= 2) {
+            newPos.x = treeBounds.center.x;
+            if (temp == 1)
+                newPos.z = treeBounds.center.z + treeBounds.extents.z + bucketBounds.extents.z;
+            else
+                newPos.z = treeBounds.center.z - treeBounds.extents.z - bucketBounds.extents.z;
+        } else {
+            newPos.z = treeBounds.center.z;
+            if (temp == 3)
+                newPos.x = treeBounds.center.x + treeBounds.extents.x + bucketBounds.extents.x;
+            else
+                newPos.x = treeBounds.center.x - treeBounds.extents.x - bucketBounds.extents.x;
+        }
+
+        transform.position = newPos;
 
 
         transform.SetParent(_parent);
