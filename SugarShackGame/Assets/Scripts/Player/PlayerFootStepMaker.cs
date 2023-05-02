@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerFootStepMaker : MonoBehaviour, IFlow
-{
-    public Transform footStepContainer;
+{ 
     public GameObject footStepPrefab;
     public Transform[] feetObjects;
     public LayerMask groundMask;
@@ -21,6 +20,7 @@ public class PlayerFootStepMaker : MonoBehaviour, IFlow
     private float XRotationVal = 90;
     private int currentFrame = 0;
 
+    private Transform footStepContainer;
     public void PreInitialize()
     {
         factoryPool = new footsteps.FootprintFactoryPool(footStepPrefab);
@@ -37,6 +37,8 @@ public class PlayerFootStepMaker : MonoBehaviour, IFlow
         {
             GenerateFootSteps(feetObjects[0]);
         };
+
+        footStepContainer = GameObject.FindGameObjectWithTag("FootStepContainer").transform;
     }
 
     public void PhysicsRefresh()
@@ -99,7 +101,10 @@ public class PlayerFootStepMaker : MonoBehaviour, IFlow
             newFootprint.isReadyToBeDestoryed = false;
             newFootprint.timer.StartTimer();
 
-            newFootprint.transform.SetParent(footStepContainer);
+            if (footStepContainer)
+            {
+                newFootprint.transform.SetParent(footStepContainer);
+            }
         }
     }
 
