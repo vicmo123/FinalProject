@@ -15,6 +15,10 @@ public class Animal : MonoBehaviour, IFlow
     [HideInInspector]
     public bool isScared = false;
 
+    [Header("Adapt To Slop Angle")]
+    public float maxRayDist = 100f;
+    public float slopeRotChangeSpeed = 10f;
+
     public void SpawnAtPosition(Vector3 spawnPos)
     {
         agent.speed = stats.walkSpeed;
@@ -47,6 +51,8 @@ public class Animal : MonoBehaviour, IFlow
         {
             FindVisibleTargets(stats.targetTagName);
         }
+
+        AdaptToSlopeAngle();
     }
 
     public virtual void PhysicsRefresh()
@@ -159,6 +165,39 @@ public class Animal : MonoBehaviour, IFlow
         Vector3 awayDirection = -directionToAverage.normalized;
 
         return awayDirection;
+    }
+
+    
+
+    public void AdaptToSlopeAngle()
+    {
+        //Get the object's position
+        Transform objTrans = gameObject.transform;
+        Vector3 origin = objTrans.position;
+
+        //Only register raycast consided as Hill(Can be any layer name)
+        int hillLayerIndex = LayerMask.NameToLayer("Ground");
+        //Calculate layermask to Raycast to. 
+        int layerMask = (1 << hillLayerIndex);
+
+
+        RaycastHit slopeHit;
+
+        //Perform raycast from the object's position downwards
+        if (Physics.Raycast(origin, Vector3.down, out slopeHit, maxRayDist, layerMask))
+        {
+            //Drawline to show the hit point
+            Debug.DrawLine(origin, slopeHit.point, Color.red);
+
+            //Get slope angle from the raycast hit normal then calcuate new pos of the object
+            Quaternion newRot = Quaternion.FromToRotation(objTrans.up, slopeHit.normal)
+                * objTrans.rotation;
+
+            //Apply the rotation 
+            objTrans.rotation = Quaternion.Lerp(objTrans.rotation, newRot,
+                Time.deltaTime * slopeRotChangeSpeed);
+
+        }
     }
 
     #region StateMachine Setup

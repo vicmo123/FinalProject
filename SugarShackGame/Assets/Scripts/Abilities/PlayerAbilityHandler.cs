@@ -40,7 +40,7 @@ public class PlayerAbilityHandler : MonoBehaviour, IFlow
 
     public void PhysicsRefresh()
     {
-        
+
     }
 
     private void ManageSlots()
