@@ -53,6 +53,12 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
     }
 
+    public void Refresh() {
+        Sap();
+
+        highlight.Refresh();
+    }
+
     private void CreateFillingBars() {
         fillingBarPlayer1 = GameObject.Instantiate(fillingBarObject).GetComponent<FillingBar>();
         fillingBarPlayer1.gameObject.layer = 9;
@@ -66,12 +72,6 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
         fillingBarPlayer2.transform.SetParent(transform);
         fillingBarPlayer2.transform.position = positionForFillingBar.position;
         fillingBarPlayer2.PreInitialize();
-    }
-
-    public void Refresh() {
-        Sap();
-
-        highlight.Refresh();
     }
 
     public void Use(Player _player) {
@@ -135,10 +135,6 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
     private void ChangeColor(Color color) {
         bucketRenderer.material.color = color;
-    }
-
-    private void ResetColor() {
-        bucketRenderer.material.color = originalColor;
     }
 
     private void CollectSap(Player _player) {
