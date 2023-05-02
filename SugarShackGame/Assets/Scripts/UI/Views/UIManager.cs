@@ -81,7 +81,6 @@ public class UIManager
     public Color AssignColor(string color)
     {
         Color newColor = Color.yellow;
-        //load all string from file
         switch (color)
         {
             case "Blue":
@@ -91,7 +90,6 @@ public class UIManager
                 newColor = Color.green;
                 break;
             case "Pink":
-                //for some reason, pink seems to be green...
                 newColor = Color.magenta;
                 break;
             case "Red":
