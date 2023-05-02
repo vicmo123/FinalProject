@@ -22,7 +22,7 @@ public class BucketManager : IFlow
     }
     #endregion
 
-    private List<Bucket> buckets;
+    public List<Bucket> buckets;
     public Dictionary<int, Vector3> bucketPositionDic;
     private GameObject bucketPrefab;
 
