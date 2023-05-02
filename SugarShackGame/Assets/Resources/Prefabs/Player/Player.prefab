@@ -1003,7 +1003,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 2551
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2607,6 +2607,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 4c53ca4e-2517-4088-8f5c-c60bb18e7c22
     m_ActionName: UI_Navigation/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7dca1581-5976-4aee-8665-5898b0be6736
+    m_ActionName: Player/Pause[/Keyboard/enter,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f0fa5069-3c0c-425b-893e-48594536d8ae
+    m_ActionName: UI_Navigation/Down[/Mouse/leftButton,/XInputControllerWindows/buttonSouth,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b98aceea-2285-403e-9cda-7b69bbf0b10a
+    m_ActionName: UI_Navigation/Submit[/Keyboard/enter,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0092dd44-8368-4f14-87b3-591c05c84f06
+    m_ActionName: UI_Navigation/Left[/Keyboard/a,/Keyboard/escape,/Mouse/backButton,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 42fa7aae-e5f0-4fac-abee-20ef93d213d4
+    m_ActionName: UI_Navigation/Right[/Keyboard/d,/XInputControllerWindows/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6cae651e-f1dd-4cf6-8c31-2445a01498fc
+    m_ActionName: UI_Settings_Duration/Up[/Keyboard/w,/Keyboard/upArrow,/XInputControllerWindows/buttonNorth,/XInputControllerWindows/dpad/up,/XInputControllerWindows/rightStick/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4de1547b-63e3-4d94-9f5d-0db14a657c88
+    m_ActionName: UI_Settings_Duration/Down[/Keyboard/s,/Keyboard/downArrow,/XInputControllerWindows/dpad/down,/XInputControllerWindows/leftStick/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 21af4b21-feca-4a08-a877-08f431ca211b
+    m_ActionName: UI_Settings_Duration/Submit[/Keyboard/enter,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/rightStick/down]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -28,10 +28,12 @@ public class PlayerManager : IFlow
     }
     #endregion
 
-    private LayerMask[] playerCamMasks;
+    public LayerMask[] playerCamMasks;
     PlayerInputManager playerInputManager;
     PlayerFactory factory;
     public List<Player> players { get; private set; }
+
+
 
     //Temp for demo
     int currentBeardIndex = 0;
@@ -46,10 +48,10 @@ public class PlayerManager : IFlow
         players = new List<Player>();
 
         playerInputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerInputManager>();
-        playerInputManager.playerJoinedEvent.AddListener((input) => {
-            CreatePlayer(input);
-        });
-
+        playerInputManager.onPlayerJoined += (input) =>
+        {
+            InitializePlayer(input);
+        };
         factory = new PlayerFactory("Prefabs/Player/Player");
     }
 
@@ -74,31 +76,23 @@ public class PlayerManager : IFlow
         }
     }
 
-    public void CreatePlayer(PlayerInput input)
+    public void InitializePlayer(PlayerInput input)
     {
-        //int playerIndex = 0;
-        //if (input.user.index == 1)
-        //    playerIndex = 1;
+        Player generatedPlayer = input.gameObject.GetComponent<Player>();
+        factory.ChangePlayerColor(ref generatedPlayer, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
+        players.Add(generatedPlayer);
 
-        Player newPlayer = null;
+        FixCinemachineCam(players[players.Count - 1]);
 
-        input.gameObject.transform.position = Vector3.zero;
-        newPlayer = input.gameObject.GetComponent<Player>();
-        factory.ChangePlayerColor(ref newPlayer, factory.beardColors[currentBeardIndex], factory.shirtColors[currentShirtIndex]);
-        //newPlayer = factory.CreatPlayer( factory.beardColors[UIManager.Instance.players[playerIndex].indexBeard], factory.shirtColors[UIManager.Instance.players[playerIndex].indexShirt]);
-        //newPlayer.transform.position = new Vector3(4.62f, 1.37f, 3.21f);
-        players.Add(newPlayer);
-
-        FixCinemachineCam(ref newPlayer);
-
-        newPlayer.PreInitialize();
-        newPlayer.Initialize();
+        players[players.Count - 1].PreInitialize();
+        players[players.Count - 1].Initialize();
+        players[players.Count - 1].SpawnAtLocation(new Vector3(10, 0, 5));
 
         currentBeardIndex++;
         currentShirtIndex++;
     }
 
-    private void FixCinemachineCam(ref Player player)
+    private void FixCinemachineCam(Player player)
     {
         int layerToAdd = (int)Mathf.Log(playerCamMasks[players.Count - 1].value, 2);
         player.GetComponentInChildren<CinemachineVirtualCamera>().gameObject.layer = layerToAdd;

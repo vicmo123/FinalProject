@@ -55,6 +55,15 @@ public class Player : MonoBehaviour, IFlow
         footStepMaker.Initialize();
     }
 
+    public void SpawnAtLocation(Vector3 spawnLocation)
+    {
+        CharacterController ctrl = GetComponent<CharacterController>();
+
+        ctrl.enabled = false;
+        transform.position = spawnLocation;
+        ctrl.enabled = true;
+    }
+
     public void Refresh()
     {
         ragdoll.Refresh();

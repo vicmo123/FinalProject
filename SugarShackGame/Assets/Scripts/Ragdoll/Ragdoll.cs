@@ -26,7 +26,7 @@ public class Ragdoll : MonoBehaviour, IFlow
     public float maxLerpSpeed = 0.5f;
     public float timeBeforeRecovery = 2f;
     public LayerMask groundMask;
-    private bool isInRagdollState = false;
+    private bool isRagdollTriggered = false;
     public float timeBeforeForcingRecovery = 5f;
     private CountDownTimer recoveryTimer;
 
@@ -37,7 +37,7 @@ public class Ragdoll : MonoBehaviour, IFlow
         recoveryTimer.OnTimeIsUpLogic = () =>
         {
             StartCoroutine(Recover());
-            isInRagdollState = false;
+            isRagdollTriggered = false;
         };
 
         ragdollTrigger = (hitPoint, hitForce) => { TriggerRagdoll(hitPoint, hitForce); };
@@ -66,7 +66,7 @@ public class Ragdoll : MonoBehaviour, IFlow
     
     public void Refresh()
     {
-        if(isInRagdollState) {
+        if(isRagdollTriggered) {
             bool allSleeping = true;
             foreach (var part in partsList)
             {
@@ -80,7 +80,7 @@ public class Ragdoll : MonoBehaviour, IFlow
             if (allSleeping)
             {
                 StartCoroutine(Recover());
-                isInRagdollState = false;
+                isRagdollTriggered = false;
             }
 
         }
@@ -138,7 +138,7 @@ public class Ragdoll : MonoBehaviour, IFlow
             playerController.enabled = false;
         }
 
-        isInRagdollState = true;
+        isRagdollTriggered = true;
         recoveryTimer.StartTimer();
     }
 
