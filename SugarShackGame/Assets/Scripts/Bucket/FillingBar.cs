@@ -24,11 +24,9 @@ public class FillingBar : MonoBehaviour, IFlow
 
         filledBarLenght = (fillAmount / maxAmount) * filledBarMaxLenght;
 
-        Transform parent = filled.parent;
-        filled.parent = null;
         filled.localScale = new Vector3(filledBarWidth, filledBarHeight, filledBarLenght);
-        filled.position = parent.position - new Vector3(0, 0, (filledBarMaxLenght / 2) - (filledBarLenght / 2));
-        filled.parent = parent;
+        filled.position = transform.position;
+        filled.localPosition += new Vector3(0, 0, (filledBarMaxLenght / 2) - (filledBarLenght / 2));
 
     }
 
