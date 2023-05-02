@@ -15,14 +15,17 @@ public class Animal : MonoBehaviour, IFlow
     [HideInInspector]
     public bool isScared = false;
 
+    public void SpawnAtPosition(Vector3 spawnPos)
+    {
+        agent.speed = stats.walkSpeed;
+        agent.Warp(spawnPos);
+        agent.destination = GenerateRandomNavMeshPos();
+    }
+
     public virtual void PreInitialize()
     { 
         stateMachine = new AnimalStateMachine(this);
         stateMachine.InitStateMachine();
-
-        agent.speed = stats.walkSpeed;
-        agent.Warp(Vector3.zero);
-        agent.destination = GenerateRandomNavMeshPos();
 
         ragdoll.PreInitialize();
     }

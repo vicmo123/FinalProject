@@ -15,6 +15,7 @@ TagManager:
   - SpawnPoint
   - NameDisplayer
   - FootStepContainer
+  - AnimalSpawn
   layers:
   - Default
   - TransparentFX

@@ -29,9 +29,20 @@ public class AnimalManager : IFlow
     private AnimalFactory animalFactory;
     private List<Animal> animalList;
     private int maxNumberAnimals = 25;
-    private int initialNumberOfAnimals = 3;
     private Vector2 rangeTimeOfSpawn = new Vector2(3.0f, 5.0f);
     private CountDownTimer timer;
+    private Transform[] spawnPoints;
+
+    private void IntializeSpawnPoints()
+    {
+        var gameObjects = GameObject.FindGameObjectsWithTag("AnimalSpawn");
+        spawnPoints = new Transform[gameObjects.Length];
+
+        for (int i = 0; i < gameObjects.Length; i++)
+        {
+            spawnPoints[i] = gameObjects[i].transform;
+        }
+    }
 
     public void PreInitialize()
     {
@@ -48,6 +59,7 @@ public class AnimalManager : IFlow
 
     public void Initialize()
     {
+        IntializeSpawnPoints();
         timer.StartTimer();
     }
 
@@ -85,7 +97,9 @@ public class AnimalManager : IFlow
             newAnimal.Initialize();
 
             animalList.Add(newAnimal);
-            newAnimal.transform.position = Vector3.zero;
+
+            int spawnIndex = Random.Range(0, spawnPoints.Length);
+            newAnimal.SpawnAtPosition(new Vector3(spawnPoints[spawnIndex].position.x, 0, spawnPoints[spawnIndex].position.z));
         }
     }
 }
