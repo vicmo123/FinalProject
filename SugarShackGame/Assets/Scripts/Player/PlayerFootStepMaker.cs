@@ -107,21 +107,4 @@ public class PlayerFootStepMaker : MonoBehaviour, IFlow
             }
         }
     }
-
-    private enum Side
-    {
-        Right,
-        Left
-    }
-
-    private IEnumerator SkipFrames(int numFramesToSkip)
-    {
-        int current = 0;
-
-        while (current < numFramesToSkip)
-        {
-            current++;
-            yield return null;
-        }
-    }
 }
