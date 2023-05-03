@@ -9,19 +9,25 @@ public class UIGamePlay : MonoBehaviour
     public Canvas Gameplay;
     public Canvas Pause;
     public Camera debug_Camera;
-    private PlayerInputManager pim;
+
     private List<Player> players;
-    private PlayerInput[] pi;
+    private List<PlayerInput> pi;
+
     public TMP_Text timerMin_TextBox;
     public TMP_Text timerSec_TextBox;
-    private PlayerControls actions;
+    public PlayerControls actions;
     float countdown;
     bool gameOnPause = false;
     const float GAME_DURATION = 320;
 
     private void Start()
     {
-        pi = FindObjectsOfType<PlayerInput>();
+        players = PlayerManager.Instance.players;
+        pi = new List<PlayerInput>();
+        foreach (var item in players)
+        {
+            pi.Add(item.GetComponent<PlayerInput>());
+        }
         //Turn off debug camera
         debug_Camera.gameObject.SetActive(false);
         //Display the right UI
@@ -31,31 +37,34 @@ public class UIGamePlay : MonoBehaviour
         countdown = GAME_DURATION;
 
         //Init actions :
+
         actions = new PlayerControls();
         actions.Player.Pause.performed += Pause_performed;
-        actions.UI_Navigation.Enable();
+        actions.Player.Enable();
     }
 
     private void Pause_performed(InputAction.CallbackContext obj)
     {
+        Debug.Log("PAUSE");
         gameOnPause = true;
+        Pause.gameObject.SetActive(true);
+        actions.UI_Navigation.Enable();
+        actions.Player.Disable();
+        for (int i = 0; i < pi.Count; i++)
+        {
+            pi[i].SwitchCurrentActionMap("UI_Navigation");
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Pause.gameObject.SetActive(true);
-            gameOnPause = true;
-        }
-        
         if (!gameOnPause)
             UpdateTime();
     }
 
     public void UpdateTime()
     {
-        if (countdown > 0 & !gameOnPause)
+        if (countdown > 0)
         {
             countdown -= Time.deltaTime;
             double d = System.Math.Round(countdown, 2);
@@ -67,8 +76,8 @@ public class UIGamePlay : MonoBehaviour
 
         else
         {
-            UIManager.Instance.LoadNextScene();
             ResetCountdown();
+            UIManager.Instance.LoadNextScene();
         }
     }
 
@@ -77,13 +86,14 @@ public class UIGamePlay : MonoBehaviour
         countdown = GAME_DURATION;
     }
 
-    public void SetGameOnPause(bool value)
-    {
-        gameOnPause = value;
-    }
-
     public void Resume()
     {
         gameOnPause = false;
+        Pause.gameObject.SetActive(false);
+        actions.UI_Navigation.Disable();
+        for (int i = 0; i < pi.Count; i++)
+        {
+            pi[i].SwitchCurrentActionMap("Player");
+        }
     }
 }
