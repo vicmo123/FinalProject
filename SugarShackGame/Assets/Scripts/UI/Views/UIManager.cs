@@ -36,10 +36,13 @@ public class UIManager
     private List<string> scenes;
     private int currentScene = 0;
     private List<ScenesNames> sceneNames;
+    private PlayerScore[] playerScores;
+    private int winnerIndex;
 
     public int CurrentScene { get => currentScene; set => currentScene = value; }
 
     public PlayerGameData[] playersGD;
+    public ScoreInfo[] scoreInfos;
 
     #region Player1Data
     public string p1_name = "Player 1";
@@ -124,15 +127,21 @@ public class UIManager
             throw new System.Exception("You can't go back to previous scene.");
         }
     }
-    
-    public PlayerGameData[] GetPlayerInfo()
-    {
-        return playersGD;
-    }
 
     public void GatherData()
     {
         Debug.Log("Gathering Data for the end of the game");
+        playerScores = new PlayerScore[2];
+        scoreInfos = new ScoreInfo[2];
+        for (int i = 0; i < PlayerManager.Instance.players.Count; i++)
+        {
+            playerScores[i] = PlayerManager.Instance.players[i].playerScore;
+            scoreInfos[i] = playerScores[i].GetScoreInfo();
+            Debug.Log("Player " + playerScores[i].Index + ", nbBuckets : " + scoreInfos[i].claimedBuckets + " total bucket : " + scoreInfos[i].bucketPoints + "nb cans : " + scoreInfos[i].syrupCans + " total cans : " + scoreInfos[i].syrupCanPoints + " TOTAL : " + scoreInfos[i].score);
+        }
+
+        winnerIndex = PlayerScore.GetWinner(PlayerManager.Instance.players[0], PlayerManager.Instance.players[1]);
+        Debug.Log("Winner is player " + winnerIndex);
     }
 
     public void ClearData()

@@ -14,7 +14,7 @@ public class PlayerScore
         APPLE,
         HORN
     };
-
+    int index;
     string playerName;
 
     Player player;
@@ -35,9 +35,11 @@ public class PlayerScore
         { Bonus.HORN, 40},
     };
 
+    public int Index { get => index;}
+
     public PlayerScore(Player _player) {
         player = _player;
-
+        this.index = _player.index;
         bonusPoints = 0;
     }
 
@@ -63,16 +65,16 @@ public class PlayerScore
         return CalculateSyrupCans() + CalculateBuckets() + bonusPoints;
     }
 
-    public static Player GetWinner(Player _player1, Player _player2) {
+    public static int GetWinner(Player _player1, Player _player2) {
         int player1Score = _player1.playerScore.CalculateScore();
         int player2Score = _player2.playerScore.CalculateScore();
 
         if (player1Score > player2Score)
-            return _player1;
+            return _player1.index;
         if (player2Score > player1Score)
-            return _player2;
+            return _player2.index;
         else
-            return null;
+            return 0;
     }
 
     public ScoreInfo GetScoreInfo() {
