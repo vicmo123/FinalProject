@@ -6,7 +6,7 @@ using System.Linq;
 using System.IO;
 
 public enum ScenesNames { MainMenu, Setup, Title, GamePlay, EndGame };
-public enum Colors { Blue, Green, Pink, Red, Yellow}
+public enum Colors { Blue, Green, Pink, Red, Yellow }
 
 public class UIManager
 {
@@ -31,10 +31,8 @@ public class UIManager
     }
     #endregion
 
-    
-
     private bool DEBUG_MODE = true;
-    public float gameDuration;
+    public float gameDuration = 500f;
     private List<string> scenes;
     private int currentScene = 0;
     private List<ScenesNames> sceneNames;
@@ -52,7 +50,7 @@ public class UIManager
     #region Player2Data
     public string p2_name = "Player 2";
     public string p2_deviceName = "";
-    public int p2_deviceId  ;
+    public int p2_deviceId;
     #endregion
 
     public void Initialize()
@@ -97,11 +95,12 @@ public class UIManager
                 break;
             case "Yellow":
                 newColor = Color.yellow;
-                break;     
-                
+                break;
+
         }
         return newColor;
     }
+
     public void LoadOneScene(ScenesNames name)
     {
         SceneManager.LoadScene(name.ToString());
@@ -126,11 +125,16 @@ public class UIManager
         }
     }
     
-
     public PlayerGameData[] GetPlayerInfo()
     {
         return playersGD;
     }
+
+    public void GatherData()
+    {
+        Debug.Log("Gathering Data for the end of the game");
+    }
+
     public void ClearData()
     {
         for (int i = 0; i < playersGD.Length; i++)
@@ -138,6 +142,10 @@ public class UIManager
             playersGD[i] = null;
         }
         playersGD = null;
+    }
+    public void InitializeGameData()
+    {
+        Debug.Log("Initializing Game Data in UIManager");
     }
 
 }
@@ -148,7 +156,7 @@ public class PlayerGameData
     public string name = "";
     public string deviceName = "";
     public int deviceId = 0;
-    public int indexBeard= 0;
+    public int indexBeard = 0;
     public int indexShirt = 0;
     public bool connected = false;
 
@@ -157,6 +165,9 @@ public class PlayerGameData
     {
         return playerIndex;
     }
+
+
+
 }
 
 /***

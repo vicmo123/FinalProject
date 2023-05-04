@@ -448,10 +448,10 @@
                 {
                     "name": "",
                     "id": "206745ab-0fd5-4ab0-a925-fdc53e604f72",
-                    "path": "*/{PrimaryAction}",
+                    "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller;Keyboard",
+                    "groups": "Controller",
                     "action": "Up",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -470,10 +470,10 @@
                 {
                     "name": "",
                     "id": "f95691e3-9839-4688-9f3e-f6a0f129a90b",
-                    "path": "*/{PrimaryAction}",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller;Keyboard",
+                    "groups": "Controller",
                     "action": "Down",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -492,10 +492,10 @@
                 {
                     "name": "",
                     "id": "286b6336-b1f5-4aa7-b4b2-a4a74211a465",
-                    "path": "*/{Submit}",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller",
+                    "groups": "Keyboard",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -514,7 +514,7 @@
                 {
                     "name": "",
                     "id": "51ab7353-ba38-4129-90b4-6840a329d23a",
-                    "path": "*/{Back}",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
@@ -541,6 +541,17 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e192626b-0dc1-4e17-8f83-84c73571210b",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

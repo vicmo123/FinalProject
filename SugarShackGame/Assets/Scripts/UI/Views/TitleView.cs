@@ -7,7 +7,8 @@ public class TitleView : MonoBehaviour
 {
     private void Awake()
     {
-        UIManager.Instance.Initialize();       
+        UIManager.Instance.Initialize();
+        Cursor.visible = false;
     }
     
     private void Update()

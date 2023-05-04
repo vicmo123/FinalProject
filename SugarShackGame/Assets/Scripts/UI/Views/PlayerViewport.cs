@@ -32,7 +32,7 @@ public class PlayerViewport : MonoBehaviour
         PlayerInput input = player.gameObject.GetComponent<PlayerInput>();
         if (input.user.pairedDevices.Count > 0)
         {
-            foreach (var item in input.user.pairedDevices)
+            foreach (InputDevice item in input.user.pairedDevices)
             {
                 if (item.device.name == DeviceType.Keyboard.ToString())
                 {
@@ -42,7 +42,7 @@ public class PlayerViewport : MonoBehaviour
                 {
                     DisplayConnecteMsg(DeviceType.Keyboard);
                 }
-                else if (item.device.name == DeviceType.Controller.ToString())
+                else if (item.device.name == DeviceType.XInputControllerWindows.ToString())
                 {
                     DisplayConnecteMsg(DeviceType.Controller);
                 }

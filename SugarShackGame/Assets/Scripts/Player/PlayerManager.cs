@@ -33,7 +33,8 @@ public class PlayerManager : IFlow
     PlayerInputManager playerInputManager;
     PlayerFactory factory;
     public List<Player> players { get; private set; }
-
+    private bool DEBUG = true;
+    public bool playersJoined = false;
 
 
     //Temp for demo
@@ -42,6 +43,10 @@ public class PlayerManager : IFlow
 
     public void PreInitialize()
     {
+        if (DEBUG)
+        {
+            Debug.Log("PlayerManager PreInitialize");
+        }
         playerCamMasks = new LayerMask[2];
         playerCamMasks[0] = LayerMask.GetMask("Player1");
         playerCamMasks[1] = LayerMask.GetMask("Player2");
@@ -57,8 +62,12 @@ public class PlayerManager : IFlow
     }
 
     public void Initialize()
-    {       
-       spawnPositions = GameObject.FindGameObjectsWithTag("SpawnPoint");        
+    {
+        if (DEBUG)
+        {
+            Debug.Log("PlayerManager Initialize");
+        }
+        spawnPositions = GameObject.FindGameObjectsWithTag("SpawnPoint");        
     }
 
     public void Refresh()
@@ -79,6 +88,10 @@ public class PlayerManager : IFlow
 
     public void InitializePlayer(PlayerInput input)
     {
+        if (DEBUG)
+        {
+            Debug.Log("PlayerManager Initialize Player");
+        }
         Debug.Log("player" + input.user.index + " using : " + input.user.pairedDevices[0]);
         Player generatedPlayer = input.gameObject.GetComponent<Player>();
         factory.ChangePlayerColor(ref generatedPlayer, factory.beardColors[UIManager.Instance.playersGD[players.Count].indexBeard], factory.shirtColors[UIManager.Instance.playersGD[players.Count].indexShirt]);
@@ -88,13 +101,17 @@ public class PlayerManager : IFlow
 
         FixCinemachineCam(players[players.Count - 1]);
         players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[UIManager.Instance.playersGD[players.Count -1].indexShirt]);
-        Debug.Log(factory.shirtColors[UIManager.Instance.playersGD[players.Count -1].indexShirt].ToString());
+
+        //Debug.Log(factory.shirtColors[UIManager.Instance.playersGD[players.Count -1].indexShirt].ToString());
+
         players[players.Count - 1].PreInitialize();
         players[players.Count - 1].Initialize();
         players[players.Count - 1].SpawnAtLocation(spawnPositions[players.Count - 1].transform.position);
 
         currentBeardIndex++;
         currentShirtIndex++;
+
+        playersJoined = true;
     }
 
     private void FixCinemachineCam(Player player)

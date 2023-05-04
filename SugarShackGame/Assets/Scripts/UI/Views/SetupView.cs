@@ -6,11 +6,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.UI;
 public enum DirectionType { Up, Down, Left, Right };
-public enum DeviceType { Controller, Keyboard, Mouse };
+public enum DeviceType { Controller, Keyboard, Mouse, XInputControllerWindows };
 public enum PlayerID { zero, First, Second };
 public class SetupView : MonoBehaviour
 {
-    private bool DEBUG_MODE = true;
+    private bool DEBUG_MODE = false;
 
     Dictionary<Player, PlayerViewport> dict;
     public Canvas nextCanvas;
@@ -19,6 +19,7 @@ public class SetupView : MonoBehaviour
 
     public PlayerViewport viewport1;
     public PlayerViewport viewport2;
+    private bool inputEnabled = true;
 
 
     #region PlayerGameData
@@ -37,10 +38,22 @@ public class SetupView : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         nextCanvas.gameObject.SetActive(false);
-
+        Cursor.visible = false;
         SetUIResources();
         LoadPlayers();
         InitActions();
+    }
+
+    private void Update()
+    {
+        if (!inputEnabled)
+        {
+            actions.Disable();
+        }
+        else
+        {
+            actions.Enable();
+        }
     }
 
     private void SetDefaultPlayerGameData()
@@ -85,7 +98,7 @@ public class SetupView : MonoBehaviour
         actions = new PlayerControls();
         actions.UI_Navigation.Submit.performed += Submit_performed;
         actions.UI_Navigation.Left.performed += Left_performed;
-        actions.UI_Navigation.Right.performed += Right_performed; 
+        actions.UI_Navigation.Right.performed += Right_performed;
         actions.UI_Navigation.Enable();
 
         InputSystem.onDeviceChange +=
@@ -193,8 +206,9 @@ public class SetupView : MonoBehaviour
     {
         p1.gameObject.SetActive(false);
         p2.gameObject.SetActive(false);
-        this.gameObject.SetActive(false);
         nextCanvas.gameObject.SetActive(true);
+        nextCanvas.GetComponent<GameDurationView>().IsCalled(actions);
+        this.gameObject.SetActive(false);
     }
 
     #region Actions
@@ -252,24 +266,22 @@ public class SetupView : MonoBehaviour
 
     private void Submit_performed(InputAction.CallbackContext obj)
     {
-        if (obj.control.device.deviceId == (int)PlayerID.First)
+        Debug.Log(obj.control.device.deviceId);
+        if (!viewport1.IsReady())
         {
-            UIManager.Instance.playersGD[0].deviceId = 1;
-            UIManager.Instance.playersGD[0].deviceName = obj.control.device.name;
             viewport1.DisplayReady();
         }
-        else if (obj.control.device.deviceId == (int)PlayerID.Second)
+        else if (!viewport2.IsReady())
         {
-            UIManager.Instance.playersGD[1].deviceId = 2;
-            UIManager.Instance.playersGD[1].deviceName = obj.control.device.name;
             viewport2.DisplayReady();
         }
 
         if (viewport1.IsReady() && viewport2.IsReady())
         {
+            DisableInputForDelay(1.5f);
             SaveColors();
+            ExitActions();
             GoToNextPage();
-            actions.UI_Navigation.Disable();
         }
 
         //for debug purpose :
@@ -279,7 +291,7 @@ public class SetupView : MonoBehaviour
             GoToNextPage();
             DisplayAllPlayerGameData();
             actions.UI_Navigation.Disable();
-            nextCanvas.GetComponent<GameDurationView>().IsCalled();
+            nextCanvas.GetComponent<GameDurationView>().IsCalled(actions);
         }
     }
 
@@ -287,9 +299,34 @@ public class SetupView : MonoBehaviour
     {
         foreach (var item in UIManager.Instance.playersGD)
         {
-            Debug.Log($"Player info : connected:{item.connected}, deviceId:{item.deviceId}, deviceName:{item.deviceName}, indexBeard:{item.indexBeard}, indexShirt:{item.indexShirt}, name:{item.name}");
+            Debug.Log($"Player info : connected:{item.connected}, deviceId:{item.deviceId}, deviceName:{item.deviceName}, indexBeard:{item.indexBeard}, indexShirt:{item.indexShirt}, name :{item.name}");
         }
     }
 
     #endregion
+
+    private void ExitActions()
+    {
+        actions.UI_Navigation.Submit.performed -= Submit_performed;
+        actions.UI_Navigation.Left.performed -= Left_performed;
+        actions.UI_Navigation.Right.performed -= Right_performed;
+    }
+
+    public void DisableInputForDelay(float delayTime)
+    {
+        if (inputEnabled)
+        {
+            StartCoroutine(DisableInputCoroutine(delayTime));
+        }
+    }
+
+    private IEnumerator DisableInputCoroutine(float delayTime)
+    {
+        inputEnabled = false;
+        actions.Disable();
+;
+        yield return new WaitForSeconds(delayTime);
+
+        inputEnabled = true;
+    } 
 }
