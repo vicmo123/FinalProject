@@ -46,8 +46,6 @@ public class PauseView : MonoBehaviour
 
     private void Up_performed(InputAction.CallbackContext obj)
     {
-        Debug.Log("Up");
-
         currentSelection--;
         if (currentSelection == -1)
         {
@@ -58,7 +56,6 @@ public class PauseView : MonoBehaviour
 
     private void Down_performed(InputAction.CallbackContext obj)
     {
-        Debug.Log("Down");
         currentSelection++;
         currentSelection %= buttons.Count;
         buttons[currentSelection].Select();
