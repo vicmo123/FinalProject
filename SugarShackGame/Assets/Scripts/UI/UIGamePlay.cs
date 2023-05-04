@@ -10,24 +10,20 @@ public class UIGamePlay : MonoBehaviour
 {
     public Canvas Gameplay;
     public Canvas Pause;
-    public Camera debug_Camera;
     public Viewport[] viewports;
 
     private List<Player> players;
     private List<PlayerInput> pi;
-    private List<Sprite> sprites;
     private Sprite empty;
 
     public TMP_Text timerMin_TextBox;
     public TMP_Text timerSec_TextBox;
     public PlayerControls actions;
-
-    private Dictionary<AbilityType, Sprite> abilities;
+    
 
     float countdown;
     bool gameOnPause = false;
     bool playersSet = false;
-    const float GAME_DURATION = 320;
 
     private void Start()
     {
@@ -35,7 +31,7 @@ public class UIGamePlay : MonoBehaviour
         //Turn off debug camera
        // debug_Camera.gameObject.SetActive(false);
         //Init Timer
-        countdown = GAME_DURATION;
+        countdown = UIManager.Instance.gameDuration;
 
         LoadResources();
         DisplayUI();
@@ -46,29 +42,7 @@ public class UIGamePlay : MonoBehaviour
     #region Init
     private void LoadResources()
     {
-        //Load UI resources :
-        abilities = new Dictionary<AbilityType, Sprite>();
-        sprites = Resources.LoadAll<Sprite>("Sprites/Abilities").ToList();
-
-        List<AbilityType> abilityNames = Enum.GetValues(typeof(AbilityType)).Cast<AbilityType>().ToList();
-
-
-        for (int i = 0; i < sprites.Count; i++)
-        {
-            if (sprites[i].name.Equals("Empty"))
-            {
-                empty = sprites[i];
-            }
-            for (int j = 0; j < abilityNames.Count; j++)
-            {
-                if (sprites[i].name.Equals(abilityNames[j].ToString()))
-                {
-                    abilities.Add(abilityNames[j], sprites[i]);
-                    continue;
-                }
-
-            }
-        }
+        empty = Resources.Load<Sprite>("Sprites/Abilities/Empty");
     }
     private void InitPlayers()
     {
@@ -107,8 +81,6 @@ public class UIGamePlay : MonoBehaviour
 
     private void Pause_performed(InputAction.CallbackContext obj)
     {
-        Debug.Log("PAUSE");
-        
         Pause.gameObject.SetActive(true);
         Pause.GetComponent<PauseView>().OnPause();
     }
@@ -122,7 +94,7 @@ public class UIGamePlay : MonoBehaviour
             UpdateTime();
 
             if (playersSet)
-                UpdateSlots();
+                UpdatePlayerUI();
         }
     }
 
@@ -147,7 +119,7 @@ public class UIGamePlay : MonoBehaviour
 
     private void ResetCountdown()
     {
-        countdown = GAME_DURATION;
+        countdown = UIManager.Instance.gameDuration;
     }
 
     public void Resume()
@@ -161,19 +133,15 @@ public class UIGamePlay : MonoBehaviour
         }
     }
 
-    public void UpdateSlots()
+    public void UpdatePlayerUI()
     {
-        Debug.Log("update slots");
         for (int i = 0; i < viewports.Length; i++)
         {
+            #region Slots
             Sprite[] newSprites = new Sprite[2];
-            //newSprites[0] = this.sprites[0];
-            //newSprites[1] = this.sprites[4];
 
             if (players[i].abilityHandler.abilitySlots[0].sprite != null)
             {
-
-                Debug.Log("Slots 0 conatins : " + players[i].abilityHandler.abilitySlots[0].sprite.name);
                 newSprites[0] = players[i].abilityHandler.abilitySlots[0].sprite;
             }
             else
@@ -182,7 +150,6 @@ public class UIGamePlay : MonoBehaviour
             }
             if (players[i].abilityHandler.abilitySlots[1].sprite != null)
             {
-                Debug.Log("Slots 1 conatins : " + players[i].abilityHandler.abilitySlots[0].sprite.name);
                 newSprites[1] = players[i].abilityHandler.abilitySlots[1].sprite;
             }
             else
@@ -191,10 +158,15 @@ public class UIGamePlay : MonoBehaviour
             }
 
             viewports[i].RefreshSlots(newSprites);
+            #endregion
+            #region Buckets
+            viewports[i].RefreshBucket(players[i].playerBucket.sapAmount);
+            #endregion
+            #region Syrup
+            viewports[i].RefreshSyrup(players[i].syrupCanManager.GetCanCount());
+            #endregion
+
         }
     }
+
 }
-
-//NOTES FOR LATER :
-
-//    playerInput.actions.FindActionMap("Actions2").Enable();

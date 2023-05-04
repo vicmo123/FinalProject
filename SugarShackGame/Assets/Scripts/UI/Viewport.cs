@@ -9,8 +9,8 @@ public class Viewport : MonoBehaviour
     public Image bucket;
     public TMP_Text nbCans;
     public Image[] images;
+
     private Image[] slots;
-    public Sprite test;
     private Player player;
 
     private void Start()
@@ -34,5 +34,15 @@ public class Viewport : MonoBehaviour
         {
             slots[i].sprite = sprites[i];
         }
+    }
+
+    public void RefreshBucket(float amount)
+    {
+
+    }
+
+    public void RefreshSyrup(int nbCans)
+    {
+        this.nbCans.text = nbCans.ToString();
     }
 }
