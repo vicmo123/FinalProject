@@ -2501,14 +2501,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400522578}
-  m_LocalRotation: {x: -0, y: 0.89324814, z: -0, w: 0.449564}
+  m_LocalRotation: {x: -0, y: 0.22322224, z: -0, w: 0.9747676}
   m_LocalPosition: {x: 165.6, y: 4.6, z: 81.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 126.569, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 25.797, z: 0}
 --- !u!114 &400522582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5320,6 +5320,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2a75046247a25e64c8e40eb5ec527286, type: 3}
   m_PrefabInstance: {fileID: 1056063793}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1061542825 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1850559069976198667, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+  m_PrefabInstance: {fileID: 2118857154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1079500039
 GameObject:
   m_ObjectHideFlags: 0
@@ -5696,6 +5701,9 @@ MonoBehaviour:
   viewports:
   - {fileID: 2131219335}
   - {fileID: 111837151}
+  nameColors:
+  - {fileID: 1506957370}
+  - {fileID: 1061542825}
   timerMin_TextBox: {fileID: 1464325057}
   timerSec_TextBox: {fileID: 1723456420}
 --- !u!4 &1180517559 stripped
@@ -8031,6 +8039,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 9104eaddd8ced5946acf67b56a5dab28, type: 3}
   m_PrefabInstance: {fileID: 1490207985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1506957370 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9160969336159571282, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+  m_PrefabInstance: {fileID: 2118857154}
   m_PrefabAsset: {fileID: 0}
 --- !u!223 &1521017206 stripped
 Canvas:
@@ -12029,9 +12042,49 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1427977787, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427977787, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427977787, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.43263286
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427977787, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.90157026
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427977787, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 231.27
+      objectReference: {fileID: 0}
     - target: {fileID: 1454503081, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454503082, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454503082, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454503082, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.6239485
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454503082, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7814655
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454503082, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 257.21
       objectReference: {fileID: 0}
     - target: {fileID: 2826883754127782, guid: 3b9ac68070f21844e9c137fd2a9b39b9, type: 3}
       propertyPath: m_NavMeshLayer

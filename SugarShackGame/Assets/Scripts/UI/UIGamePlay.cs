@@ -5,21 +5,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
+using UnityEngine.UI;
 
 public class UIGamePlay : MonoBehaviour
 {
     public Canvas Gameplay;
     public Canvas Pause;
     public Viewport[] viewports;
-
-    private List<Player> players;
-    private List<PlayerInput> pi;
-    private Sprite empty;
+    public GameObject[] nameColors;
 
     public TMP_Text timerMin_TextBox;
     public TMP_Text timerSec_TextBox;
     public PlayerControls actions;
-    
+
+    private List<Player> players;
+    private List<PlayerInput> pi;
+    private Sprite empty;
 
     float countdown;
     bool gameOnPause = false;
@@ -29,7 +30,7 @@ public class UIGamePlay : MonoBehaviour
     {
         Cursor.visible = false;
         //Turn off debug camera
-       // debug_Camera.gameObject.SetActive(false);
+        // debug_Camera.gameObject.SetActive(false);
         //Init Timer
         countdown = UIManager.Instance.gameDuration;
 
@@ -51,16 +52,15 @@ public class UIGamePlay : MonoBehaviour
         {
             players = PlayerManager.Instance.players;
             pi = new List<PlayerInput>();
-            foreach (var item in players)
+
+            for (int i = 0; i < players.Count; i++)
             {
-                pi.Add(item.GetComponent<PlayerInput>());
-            }
-            for (int i = 0; i < viewports.Length; i++)
-            {
+                pi.Add(players[i].GetComponent<PlayerInput>());
                 viewports[i].LinkPlayer(players[i]);
+                nameColors[i].GetComponent<MeshRenderer>().materials[0].color = players[i].color;
             }
             playersSet = true;
-        }        
+        }
     }
 
     private void InitActions()
