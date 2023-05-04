@@ -45,7 +45,7 @@ public class PlayerScore
         bonusPoints += bonus[bonusType];
     }
 
-    private int CalculateBuckets() {
+    public int CalculateBuckets() {
         claimedBuckets = 0;
         foreach (var bucket in BucketManager.Instance.buckets) {
             if (bucket.player == player)
@@ -54,12 +54,12 @@ public class PlayerScore
         return claimedBuckets* claimedBucketValue;
     }
 
-    private int CalculateSyrupCans() {
+    public int CalculateSyrupCans() {
         syrupCans = player.syrupCanManager.GetCanCount();
         return syrupCans * syrupCanValue;
     }
 
-    private int CalculateScore() {
+    public int CalculateScore() {
         return CalculateSyrupCans() + CalculateBuckets() + bonusPoints;
     }
 
