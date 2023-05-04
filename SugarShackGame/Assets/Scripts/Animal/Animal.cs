@@ -16,8 +16,10 @@ public class Animal : MonoBehaviour, IFlow
     public bool isScared = false;
 
     [Header("Adapt To Slop Angle")]
-    public float maxRayDist = 100f;
+    public float maxRayDist = 1.5f;
     public float slopeRotChangeSpeed = 10f;
+    [HideInInspector]
+    public Vector3 offset = Vector3.zero;
 
     public void SpawnAtPosition(Vector3 spawnPos)
     {
@@ -27,7 +29,7 @@ public class Animal : MonoBehaviour, IFlow
     }
 
     public virtual void PreInitialize()
-    { 
+    {
         stateMachine = new AnimalStateMachine(this);
         stateMachine.InitStateMachine();
 
@@ -38,6 +40,8 @@ public class Animal : MonoBehaviour, IFlow
     {
         SetDelgsForStateMachine();
         ragdoll.Initialize();
+
+        offset = transform.up;
     }
 
     public virtual void Refresh()
@@ -47,7 +51,7 @@ public class Animal : MonoBehaviour, IFlow
         UpdateAnimationSpeedVariable();
         ragdoll.Refresh();
 
-        if(chaseTarget == null)
+        if (chaseTarget == null)
         {
             FindVisibleTargets(stats.targetTagName);
         }
@@ -126,7 +130,7 @@ public class Animal : MonoBehaviour, IFlow
         {
             Transform target = targetsInViewRadius[i].transform;
             if (target.CompareTag(targetTagName))
-            {   
+            {
                 Vector3 dirToTarget = (target.position - transform.position).normalized;
                 if (Vector3.Angle(transform.forward, dirToTarget) < stats.viewAngle / 2)
                 {
@@ -148,7 +152,7 @@ public class Animal : MonoBehaviour, IFlow
 
         float animSpeed = 0f;
 
-        if (agent.speed == stats.walkSpeed) 
+        if (agent.speed == stats.walkSpeed)
             animSpeed = Mathf.Clamp01(speedRatio) * 0.7f;
         else if (agent.speed == stats.runSpeed)
             animSpeed = Mathf.Clamp01(speedRatio);
@@ -167,36 +171,24 @@ public class Animal : MonoBehaviour, IFlow
         return awayDirection;
     }
 
-    
+
 
     public void AdaptToSlopeAngle()
     {
-        //Get the object's position
-        Transform objTrans = gameObject.transform;
-        Vector3 origin = objTrans.position;
+        Vector3 origin = transform.position;
 
-        //Only register raycast consided as Hill(Can be any layer name)
         int hillLayerIndex = LayerMask.NameToLayer("Ground");
-        //Calculate layermask to Raycast to. 
         int layerMask = (1 << hillLayerIndex);
-
 
         RaycastHit slopeHit;
 
-        //Perform raycast from the object's position downwards
-        if (Physics.Raycast(origin, Vector3.down, out slopeHit, maxRayDist, layerMask))
+        if (Physics.Raycast(origin + offset, Vector3.down, out slopeHit, maxRayDist, layerMask))
         {
-            //Drawline to show the hit point
             Debug.DrawLine(origin, slopeHit.point, Color.red);
 
-            //Get slope angle from the raycast hit normal then calcuate new pos of the object
-            Quaternion newRot = Quaternion.FromToRotation(objTrans.up, slopeHit.normal)
-                * objTrans.rotation;
+            Quaternion newRot = Quaternion.FromToRotation(transform.up, slopeHit.normal) * transform.rotation;
 
-            //Apply the rotation 
-            objTrans.rotation = Quaternion.Lerp(objTrans.rotation, newRot,
-                Time.deltaTime * slopeRotChangeSpeed);
-
+            transform.rotation = Quaternion.Lerp(transform.rotation, newRot, Time.deltaTime * slopeRotChangeSpeed);
         }
     }
 
@@ -292,7 +284,7 @@ public class Animal : MonoBehaviour, IFlow
     #region OnExit
     public virtual void OnPatrolExit()
     {
-        
+
     }
 
     public virtual void OnFleeExit()
@@ -338,7 +330,7 @@ public class Animal : MonoBehaviour, IFlow
 
     public virtual bool IsChaseFinished()
     {
-        if(chaseTarget == null)
+        if (chaseTarget == null)
             return true;
         else
             return false;
