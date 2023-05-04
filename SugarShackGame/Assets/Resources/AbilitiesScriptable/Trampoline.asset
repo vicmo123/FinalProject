@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Trampoline
   m_EditorClassIdentifier: 
   type: 5
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: f5840b7af12632548b7afb64ddcef452, type: 3}
   sound: 0
   isThrowable: 1
   timeBeforeDestruction: 10

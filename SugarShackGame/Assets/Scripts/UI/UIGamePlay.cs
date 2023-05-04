@@ -170,21 +170,24 @@ public class UIGamePlay : MonoBehaviour
             //newSprites[0] = this.sprites[0];
             //newSprites[1] = this.sprites[4];
 
-            if (abilities[players[i].abilityHandler.abilitySlots[0].type] != null)
+            if (players[i].abilityHandler.abilitySlots[0].sprite != null)
             {
-                sprites[0] = abilities[players[i].abilityHandler.abilitySlots[0].type];
+
+                Debug.Log("Slots 0 conatins : " + players[i].abilityHandler.abilitySlots[0].sprite.name);
+                newSprites[0] = players[i].abilityHandler.abilitySlots[0].sprite;
             }
             else
             {
-                sprites[0] = empty;
+                newSprites[0] = empty;
             }
-            if (abilities[players[i].abilityHandler.abilitySlots[1].type] != null)
+            if (players[i].abilityHandler.abilitySlots[1].sprite != null)
             {
-                sprites[1] = abilities[players[i].abilityHandler.abilitySlots[1].type];
+                Debug.Log("Slots 1 conatins : " + players[i].abilityHandler.abilitySlots[0].sprite.name);
+                newSprites[1] = players[i].abilityHandler.abilitySlots[1].sprite;
             }
             else
             {
-                sprites[1] = empty;
+                newSprites[1] = empty;
             }
 
             viewports[i].RefreshSlots(newSprites);

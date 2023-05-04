@@ -8,9 +8,21 @@ public class Viewport : MonoBehaviour
 {
     public Image bucket;
     public TMP_Text nbCans;
-    public Image[] slots;
+    public Image[] images;
+    private Image[] slots;
+    public Sprite test;
     private Player player;
 
+    private void Start()
+    {
+        slots = new Image[2];
+
+        for (int i = 0; i < images.Length; i++)
+        {
+            slots[i] = images[i].GetComponent<Image>();          
+        }
+        
+    }
     public void LinkPlayer(Player player)
     {
         this.player = player;
@@ -18,7 +30,7 @@ public class Viewport : MonoBehaviour
 
     public void RefreshSlots(Sprite[] sprites)
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < images.Length; i++)
         {
             slots[i].sprite = sprites[i];
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   type: 6
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 6a4baf69fa4d9d24882d5667bd4ebcea, type: 3}
   sound: 0
   isThrowable: 1
   timeBeforeDestruction: 10

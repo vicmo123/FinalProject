@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Syrup
   m_EditorClassIdentifier: 
   type: 3
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 51d09496ac31b4d45b8336a647cdf845, type: 3}
   sound: 0
   isThrowable: 0
   timeBeforeDestruction: 1

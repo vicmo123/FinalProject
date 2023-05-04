@@ -90,14 +90,14 @@ public class MainEntry : MonoBehaviour
     #region OnEnter
     public void OnGameplayEnter()
     {
-        Debug.Log("OnGameplayEnter");
+       // Debug.Log("OnGameplayEnter");
 
 
     }
 
     public void OnPauseEnter()
     {
-        Debug.Log("OnPauseEnter");
+        //Debug.Log("OnPauseEnter");
         isPauseFinished = false;
         //Stop Updating IFlow
         //Disable game controls
@@ -107,7 +107,7 @@ public class MainEntry : MonoBehaviour
 
     public void OnEndGameEnter()
     {
-        Debug.Log("OnEndGameEnter");
+        //Debug.Log("OnEndGameEnter");
         //Stop Updating IFlow
         //Disable game controls
     }
@@ -118,7 +118,7 @@ public class MainEntry : MonoBehaviour
     #region OnLogic
     public void OnGameplayLogic()
     {
-        Debug.Log("OnGameplayLogic");
+        //Debug.Log("OnGameplayLogic");
 
         stateMachine.CurrentState = GameStateMachine.Gameplay;
         GameManager.Instance.Refresh();
@@ -127,7 +127,7 @@ public class MainEntry : MonoBehaviour
 
     public void OnPauseLogic()
     {
-        Debug.Log("OnPauseLogic");
+        //Debug.Log("OnPauseLogic");
         stateMachine.CurrentState = GameStateMachine.Pause;
         Time.timeScale = 0;
 
@@ -140,7 +140,7 @@ public class MainEntry : MonoBehaviour
 
     public void OnEndGameLogic()
     {
-        Debug.Log("OnEndGameLogic");
+        //Debug.Log("OnEndGameLogic");
         stateMachine.CurrentState = GameStateMachine.EndGame;
         //Give Data to the UIManager / Score Manager
         UIManager.Instance.GatherData();
@@ -155,12 +155,12 @@ public class MainEntry : MonoBehaviour
     #region OnExit
     public void OnGameplayExit()
     {
-        Debug.Log("OnGameplayExit");
+        //Debug.Log("OnGameplayExit");
     }
 
     public void OnPauseExit()
     {
-        Debug.Log("OnPauseExit");
+        //Debug.Log("OnPauseExit");
         //disable Pause View
         //Disable UI controls
         //Enable Game Controls
@@ -169,7 +169,7 @@ public class MainEntry : MonoBehaviour
 
     public void OnEndGameExit()
     {
-        Debug.Log("OnEndGameExit");
+        //Debug.Log("OnEndGameExit");
         //Enable UI controls
         //Load Next Scene
     }
@@ -183,12 +183,12 @@ public class MainEntry : MonoBehaviour
     {
         if (isPaused)
         {
-            Debug.Log("Is Paused =  true");
+            //Debug.Log("Is Paused =  true");
             return true;
         }
         else
         {
-            Debug.Log("Is Paused =  false");
+            //Debug.Log("Is Paused =  false");
             return false;
         }
     }

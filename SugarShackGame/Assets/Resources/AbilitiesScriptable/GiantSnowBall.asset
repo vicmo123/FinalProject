@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GiantSnowBall
   m_EditorClassIdentifier: 
   type: 8
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 6a7d29c9bc909bf4f8c22b8f51649007, type: 3}
   sound: 0
   isThrowable: 1
   timeBeforeDestruction: 10
