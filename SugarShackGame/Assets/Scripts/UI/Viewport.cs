@@ -38,7 +38,7 @@ public class Viewport : MonoBehaviour
 
     public void RefreshBucket(float amount)
     {
-        bucket.GetComponent<Image>().fillAmount = (amount * 100.0f )/ 30;
+        bucket.GetComponent<Image>().fillAmount = amount / 30;
     }
 
     public void RefreshSyrup(int nbCans)
