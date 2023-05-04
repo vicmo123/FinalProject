@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2200782376249833561}
   - component: {fileID: 1946150452094389184}
   m_Layer: 0
-  m_Name: Steal
+  m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,3 +130,4 @@ MonoBehaviour:
   abilityStats: {fileID: 0}
   readyToBeDestroyed: 0
   player: {fileID: 0}
+  rb: {fileID: 0}

@@ -33,16 +33,30 @@ public class Highlight : MonoBehaviour, IFlow
     }
 
     public void ToggleHighlight(bool val) {
-        if (val) {
+        if (gameObject.CompareTag("Cauldron")) {
+            if (val) {
+                endDelay = Time.time + highlightDelay;
+                foreach (var material in materials) {
+                    material.EnableKeyword("_EMISSION");
+                    material.SetColor("_EmissionColor", color * 1);
+                }
+            }
+            else {
+                foreach (var material in materials) {
+                    material.DisableKeyword("_EMISSION");
+                }
+            }
+        }
+        else if (val) {
             endDelay = Time.time + highlightDelay;
             foreach (var material in materials) {
-                material.EnableKeyword("_EMISSION");
-                material.SetColor("_EmissionColor", color * -0.8f);
+                material.DisableKeyword("_EMISSION");
             }
         }
         else {
             foreach (var material in materials) {
-                material.DisableKeyword("_EMISSION");
+                material.EnableKeyword("_EMISSION");
+                material.SetColor("_EmissionColor", color * (gameObject.CompareTag("Cauldron") ? 1 : -.8f));
             }
         }
     }

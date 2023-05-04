@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-[Serializable]
 public class PlayerScore
 {
     public enum Bonus
@@ -46,20 +45,27 @@ public class PlayerScore
         bonusPoints += bonus[bonusType];
     }
 
-    public int Calculate() {
-        syrupCans = player.syrupCanManager.GetCanCount();
+    public int CalculateBuckets() {
         claimedBuckets = 0;
         foreach (var bucket in BucketManager.Instance.buckets) {
             if (bucket.player == player)
                 claimedBuckets++;
         }
+        return claimedBuckets* claimedBucketValue;
+    }
 
-        return syrupCans * syrupCanValue + claimedBuckets * claimedBucketValue + bonusPoints;
+    public int CalculateSyrupCans() {
+        syrupCans = player.syrupCanManager.GetCanCount();
+        return syrupCans * syrupCanValue;
+    }
+
+    public int CalculateScore() {
+        return CalculateSyrupCans() + CalculateBuckets() + bonusPoints;
     }
 
     public static Player GetWinner(Player _player1, Player _player2) {
-        int player1Score = _player1.playerScore.Calculate();
-        int player2Score = _player2.playerScore.Calculate();
+        int player1Score = _player1.playerScore.CalculateScore();
+        int player2Score = _player2.playerScore.CalculateScore();
 
         if (player1Score > player2Score)
             return _player1;
@@ -67,5 +73,27 @@ public class PlayerScore
             return _player2;
         else
             return null;
+    }
+
+    public ScoreInfo GetScoreInfo() {
+        return new ScoreInfo(this);
+    }
+}
+
+[Serializable]
+public class ScoreInfo
+{
+    public int claimedBuckets, syrupCans, bucketPoints, syrupCanPoints, bonusPoints, score;
+
+    public ScoreInfo(PlayerScore playerScore) {
+        score = playerScore.CalculateScore();
+
+        claimedBuckets = playerScore.claimedBuckets;
+        bucketPoints = playerScore.CalculateBuckets();
+
+        syrupCans = playerScore.syrupCans;
+        syrupCanPoints = playerScore.CalculateSyrupCans();
+
+        bonusPoints = playerScore.bonusPoints;
     }
 }

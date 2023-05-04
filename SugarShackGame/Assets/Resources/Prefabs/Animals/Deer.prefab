@@ -55,6 +55,9 @@ MonoBehaviour:
   animController: {fileID: 2434709315635916184}
   ragdoll: {fileID: 8732981480696989610}
   isScared: 0
+  maxRayDist: 1.5
+  slopeRotChangeSpeed: 10
+  offset: {x: 0, y: 0.5, z: 0}
 --- !u!195 &1059973490975107251
 NavMeshAgent:
   m_ObjectHideFlags: 0
