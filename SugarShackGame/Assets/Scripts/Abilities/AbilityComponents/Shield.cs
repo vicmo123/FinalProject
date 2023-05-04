@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Steal : UnThrowableAbility
+public class Shield : UnThrowableAbility
 {
     public override void InitAbility(Ability _stats, Player _player)
     {

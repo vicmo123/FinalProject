@@ -4,8 +4,6 @@ using UnityEngine;
 using System;
 using System.Reflection;
 
-public enum AbilityType { MysteryDrink, Horn, Steal, Syrup, BucketCannotSpill, Trampoline, Apple, IceBall, GiantSnowBall, SnowBall};
-
 [CreateAssetMenu(menuName = "Stats/Ability")]
 public class Ability : ScriptableObject
 {
