@@ -11,7 +11,6 @@ public class Fox : Animal
     public override void Initialize()
     {
         base.Initialize();
-        Debug.Log("I am a fox");
     }
     public override void Refresh()
     {

@@ -11,7 +11,6 @@ public class Bear : Animal
     public override void Initialize()
     {
         base.Initialize();
-        Debug.Log("I am a bear");
     }
     public override void Refresh()
     {

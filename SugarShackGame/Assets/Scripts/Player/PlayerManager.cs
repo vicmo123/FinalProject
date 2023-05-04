@@ -33,7 +33,7 @@ public class PlayerManager : IFlow
     PlayerInputManager playerInputManager;
     PlayerFactory factory;
     public List<Player> players { get; private set; }
-    private bool DEBUG = true;
+    private bool DEBUG = false;
     public bool playersJoined = false;
 
 
@@ -67,7 +67,7 @@ public class PlayerManager : IFlow
         {
             Debug.Log("PlayerManager Initialize");
         }
-        spawnPositions = GameObject.FindGameObjectsWithTag("SpawnPoint");        
+        spawnPositions = GameObject.FindGameObjectsWithTag("SpawnPoint");
     }
 
     public void Refresh()
@@ -91,8 +91,8 @@ public class PlayerManager : IFlow
         if (DEBUG)
         {
             Debug.Log("PlayerManager Initialize Player");
+            Debug.Log("player" + input.user.index + " using : " + input.user.pairedDevices[0]);
         }
-        Debug.Log("player" + input.user.index + " using : " + input.user.pairedDevices[0]);
         Player generatedPlayer = input.gameObject.GetComponent<Player>();
         factory.ChangePlayerColor(ref generatedPlayer, factory.beardColors[UIManager.Instance.playersGD[players.Count].indexBeard], factory.shirtColors[UIManager.Instance.playersGD[players.Count].indexShirt]);
         players.Add(generatedPlayer);
@@ -100,7 +100,7 @@ public class PlayerManager : IFlow
         players[players.Count - 1].index = players.Count - 1;
 
         FixCinemachineCam(players[players.Count - 1]);
-        players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[UIManager.Instance.playersGD[players.Count -1].indexShirt]);
+        players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[UIManager.Instance.playersGD[players.Count - 1].indexShirt]);
 
         //Debug.Log(factory.shirtColors[UIManager.Instance.playersGD[players.Count -1].indexShirt].ToString());
 

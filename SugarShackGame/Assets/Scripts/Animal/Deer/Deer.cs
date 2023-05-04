@@ -11,7 +11,6 @@ public class Deer : Animal
     public override void Initialize()
     {
         base.Initialize();
-        Debug.Log("I am a deer");
     }
     public override void Refresh()
     {

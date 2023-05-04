@@ -57,7 +57,6 @@ public class PlayerAbilityHandler : MonoBehaviour, IFlow
             {
                 abilitySlots[i] = slotFactory.CreateAbility(AbilityType.SnowBall);
             }
-            Debug.Log(abilitySlots[i]);
         }
     }
 

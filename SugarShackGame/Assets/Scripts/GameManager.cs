@@ -30,8 +30,7 @@ public class GameManager : IFlow
     List<IFlow> managerList;
 
     public void GameManagerSetup()
-    {
-        Debug.Log("GameManager Setup");
+    {        
         managerList = new List<IFlow>();
 
         //Must add ManagerAttribute to your Manager for it to be added to the list. It must be a singleton with Instance property
