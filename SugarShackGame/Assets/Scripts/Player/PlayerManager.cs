@@ -94,6 +94,8 @@ public class PlayerManager : IFlow
             Debug.Log("player" + input.user.index + " using : " + input.user.pairedDevices[0]);
         }
         Player generatedPlayer = input.gameObject.GetComponent<Player>();
+        Debug.Log($"Index barbe joueur { players.Count}: " + UIManager.Instance.playersGD[players.Count].indexBeard);
+        Debug.Log("Index barbe joueur { players.Count} : " + UIManager.Instance.playersGD[players.Count].indexShirt);
         factory.ChangePlayerColor(ref generatedPlayer, factory.beardColors[UIManager.Instance.playersGD[players.Count].indexBeard], factory.shirtColors[UIManager.Instance.playersGD[players.Count].indexShirt]);
         players.Add(generatedPlayer);
         //Assign index to the player

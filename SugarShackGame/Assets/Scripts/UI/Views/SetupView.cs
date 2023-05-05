@@ -25,7 +25,7 @@ public class SetupView : MonoBehaviour
 
 
     #region PlayerGameData
-    private PlayerGameData[] players;
+    private PlayerGameData[] playersGD;
 
     public Transform p1SPawn;
     public Transform p2Spawn;
@@ -69,7 +69,7 @@ public class SetupView : MonoBehaviour
 
     private void LoadPlayers()
     {
-        players = UIManager.Instance.playersGD;
+        playersGD = UIManager.Instance.playersGD;
 
         SetDefaultPlayerGameData();
 
@@ -154,8 +154,8 @@ public class SetupView : MonoBehaviour
     {
         for (int i = 0; i < UIManager.Instance.playersGD.Length; i++)
         {
-            UIManager.Instance.playersGD[i].indexBeard = players[i].indexBeard;
-            UIManager.Instance.playersGD[i].indexShirt = players[i].indexShirt;
+            UIManager.Instance.playersGD[i].indexBeard = playersGD[i].indexBeard;
+            UIManager.Instance.playersGD[i].indexShirt = playersGD[i].indexShirt;
         }
     }
 
@@ -240,8 +240,9 @@ public class SetupView : MonoBehaviour
 
         if (viewport1.IsReady() && viewport2.IsReady())
         {
+            Debug.Log("Everyone is ready!");
             DisableInputForDelay(1.5f);
-            SaveColors();
+            //SaveColors();
             ExitActions();
             GoToNextPage();
         }

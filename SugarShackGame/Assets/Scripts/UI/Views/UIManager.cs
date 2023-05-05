@@ -41,20 +41,10 @@ public class UIManager
 
     public PlayerGameData[] playersGD;
 
-    #region Player1Data
-    public string p1_name = "Player 1";
-    public string p1_deviceName = "";
-    public int p1_deviceId;
-    #endregion
-
-    #region Player2Data
-    public string p2_name = "Player 2";
-    public string p2_deviceName = "";
-    public int p2_deviceId;
-    #endregion
 
     public void Initialize()
     {
+        Debug.Log("Initialise UIManage");
         playersGD = new PlayerGameData[2] { new PlayerGameData(), new PlayerGameData() };
 
         if (DEBUG_MODE)
