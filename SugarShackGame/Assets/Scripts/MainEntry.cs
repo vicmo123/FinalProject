@@ -23,6 +23,7 @@ public class MainEntry : MonoBehaviour
     public float timeLeft;
 
     private bool gameStarted = false;
+    private bool exiting = false;
 
     private void Awake()
     {
@@ -48,13 +49,13 @@ public class MainEntry : MonoBehaviour
 
     void Update()
     {
-      
+
         //if(timeLeft <= 0)
         //{
         //    isGameOver = true;
         //}
-        if(gameStarted)
-        stateMachine.UpdateStateMachine();
+        if (gameStarted)
+            stateMachine.UpdateStateMachine();
     }
 
     private void FixedUpdate()
@@ -90,26 +91,19 @@ public class MainEntry : MonoBehaviour
     #region OnEnter
     public void OnGameplayEnter()
     {
-       // Debug.Log("OnGameplayEnter");
-
-
+        // Debug.Log("OnGameplayEnter");
     }
 
     public void OnPauseEnter()
     {
-        //Debug.Log("OnPauseEnter");
+        Debug.Log("OnPauseEnter");
         isPauseFinished = false;
-        //Stop Updating IFlow
-        //Disable game controls
-        //Enable UI controls
-        //Display UI : Pause View
     }
 
     public void OnEndGameEnter()
     {
-        //Debug.Log("OnEndGameEnter");
-        //Stop Updating IFlow
-        //Disable game controls
+        Debug.Log("OnEndGameEnter");
+        UIManager.Instance.GatherData();
     }
 
 
@@ -130,22 +124,19 @@ public class MainEntry : MonoBehaviour
         //Debug.Log("OnPauseLogic");
         stateMachine.CurrentState = GameStateMachine.Pause;
         Time.timeScale = 0;
-
-        //Wait until button pressed
-
-
-        //if exit : IsExit = true;
-        //if resume : IsPaused = false;
     }
 
     public void OnEndGameLogic()
     {
-        //Debug.Log("OnEndGameLogic");
+        Debug.Log("OnEndGameLogic");
         stateMachine.CurrentState = GameStateMachine.EndGame;
-        //Give Data to the UIManager / Score Manager
-        UIManager.Instance.GatherData();
-        //Clear Managers (lists)      
-
+        if (!exiting)
+        {
+            //Give Data to the UIManager / Score Manager
+            UIManager.Instance.LoadOneScene(ScenesNames.EndGame);
+            //Clear Managers (lists)   
+            exiting = true;
+        }
     }
 
 
@@ -155,23 +146,18 @@ public class MainEntry : MonoBehaviour
     #region OnExit
     public void OnGameplayExit()
     {
-        //Debug.Log("OnGameplayExit");
+        Debug.Log("OnGameplayExit");
     }
 
     public void OnPauseExit()
     {
-        //Debug.Log("OnPauseExit");
-        //disable Pause View
-        //Disable UI controls
-        //Enable Game Controls
+        Debug.Log("OnPauseExit");
         Time.timeScale = 1;
     }
 
     public void OnEndGameExit()
     {
         //Debug.Log("OnEndGameExit");
-        //Enable UI controls
-        //Load Next Scene
     }
 
 
@@ -183,12 +169,10 @@ public class MainEntry : MonoBehaviour
     {
         if (isPaused)
         {
-            //Debug.Log("Is Paused =  true");
             return true;
         }
         else
         {
-            //Debug.Log("Is Paused =  false");
             return false;
         }
     }

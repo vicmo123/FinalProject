@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -19,7 +20,7 @@ public class PauseView : MonoBehaviour
     private void Start()
     {
         InitActions();
-
+        EventSystem.current.SetSelectedGameObject(null);
         buttons[0].GetComponent<Button>().onClick.AddListener(() => DePause());
         buttons[1].GetComponent<Button>().onClick.AddListener(() => Exit());
     }
@@ -37,6 +38,14 @@ public class PauseView : MonoBehaviour
         actions.UI_Navigation.Up.performed += Up_performed;
         actions.UI_Navigation.Down.performed += Down_performed;
 
+    }
+
+    private void ExitActions()
+    {
+        actions.UI_Navigation.Submit.performed -= Submit_performed;
+        actions.UI_Navigation.Up.performed -= Up_performed;
+        actions.UI_Navigation.Down.performed -= Down_performed;
+        actions.UI_Navigation.Disable();
     }
 
     private void Submit_performed(InputAction.CallbackContext obj)
@@ -78,6 +87,7 @@ public class PauseView : MonoBehaviour
 
     private void Exit()
     {
+        ExitActions();
         mainEntry.isExit = true;
     }
     //private void OnEnable()

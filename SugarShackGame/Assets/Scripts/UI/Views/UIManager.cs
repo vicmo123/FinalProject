@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using System.IO;
 
-public enum ScenesNames { MainMenu, Setup, Title, GamePlay, EndGame };
+public enum ScenesNames { MainMenu, Setup, Title, GamePlay, EndGame, Credits, Controls };
 public enum Colors { Blue, Green, Pink, Red, Yellow }
 
 public class UIManager
@@ -31,7 +31,7 @@ public class UIManager
     }
     #endregion
 
-    private bool DEBUG_MODE = true;
+    private bool DEBUG_MODE = false;
     public float gameDuration = 500f;
     private List<string> scenes;
     private int currentScene = 0;
@@ -110,6 +110,7 @@ public class UIManager
     {
         CurrentScene++;
         SceneManager.LoadScene(CurrentScene);
+        Debug.Log("Current scene : " + CurrentScene);
     }
 
     public void LoadPreviousScene()

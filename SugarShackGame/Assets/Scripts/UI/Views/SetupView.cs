@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class SetupView : MonoBehaviour
 
     Dictionary<Player, PlayerViewport> dict;
     public Canvas nextCanvas;
+    public GameObject nextCanvasFirstBtn;
     private PlayerFactory factory;
     private PlayerControls actions;
 
@@ -36,6 +38,7 @@ public class SetupView : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Steup Scene");
         this.gameObject.SetActive(true);
         nextCanvas.gameObject.SetActive(false);
         Cursor.visible = false;
@@ -99,52 +102,7 @@ public class SetupView : MonoBehaviour
         actions.UI_Navigation.Submit.performed += Submit_performed;
         actions.UI_Navigation.Left.performed += Left_performed;
         actions.UI_Navigation.Right.performed += Right_performed;
-        actions.UI_Navigation.Enable();
-
-        InputSystem.onDeviceChange +=
-        (device, change) =>
-        {
-            switch (change)
-            {
-                case InputDeviceChange.Added:
-                    // New Device.
-                    for (int i = 0; i < UIManager.Instance.playersGD.Length; i++)
-                    {
-                        if (UIManager.Instance.playersGD[i].connected == false && UIManager.Instance.playersGD[i].deviceId == 0)
-                        {
-                            UIManager.Instance.playersGD[i].deviceId = device.deviceId;
-                            UIManager.Instance.playersGD[i].deviceName = device.name;
-                            UIManager.Instance.playersGD[i].connected = true;
-                            Debug.Log("New device added for Player " + UIManager.Instance.playersGD[i].GetId() + " : " + device.name);
-                        }
-                    }
-                    //Assign to a player : Id, device
-                    break;
-                case InputDeviceChange.Disconnected:
-                    // Device got unplugged.
-                    for (int i = 0; i < UIManager.Instance.playersGD.Length; i++)
-                    {
-                        if (UIManager.Instance.playersGD[i].connected == true && UIManager.Instance.playersGD[i].deviceId == device.deviceId)
-                        {
-                            UIManager.Instance.playersGD[i].connected = false;
-                        }
-                    }
-                    break;
-                case InputDeviceChange.Reconnected:
-                    // Plugged back in.
-                    for (int i = 0; i < UIManager.Instance.playersGD.Length; i++)
-                    {
-                        if (UIManager.Instance.playersGD[i].connected == false && UIManager.Instance.playersGD[i].deviceId == device.deviceId)
-                        {
-                            UIManager.Instance.playersGD[i].connected = true;
-                        }
-                    }
-                    break;
-                default:
-                    // See InputDeviceChange reference for other event types.
-                    break;
-            }
-        };
+        actions.UI_Navigation.Enable();       
     }
 
 
@@ -204,11 +162,15 @@ public class SetupView : MonoBehaviour
 
     private void GoToNextPage()
     {
+        //Hide the characters
         p1.gameObject.SetActive(false);
         p2.gameObject.SetActive(false);
+        //Show next Canvas
         nextCanvas.gameObject.SetActive(true);
-        nextCanvas.GetComponent<GameDurationView>().IsCalled(actions);
         this.gameObject.SetActive(false);
+        //Button selected by default
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(nextCanvasFirstBtn);
     }
 
     #region Actions
@@ -283,16 +245,6 @@ public class SetupView : MonoBehaviour
             ExitActions();
             GoToNextPage();
         }
-
-        //for debug purpose :
-        if (DEBUG_MODE)
-        {
-            SaveColors();
-            GoToNextPage();
-            DisplayAllPlayerGameData();
-            actions.UI_Navigation.Disable();
-            nextCanvas.GetComponent<GameDurationView>().IsCalled(actions);
-        }
     }
 
     private void DisplayAllPlayerGameData()
@@ -301,15 +253,6 @@ public class SetupView : MonoBehaviour
         {
             Debug.Log($"Player info : connected:{item.connected}, deviceId:{item.deviceId}, deviceName:{item.deviceName}, indexBeard:{item.indexBeard}, indexShirt:{item.indexShirt}, name :{item.name}");
         }
-    }
-
-    #endregion
-
-    private void ExitActions()
-    {
-        actions.UI_Navigation.Submit.performed -= Submit_performed;
-        actions.UI_Navigation.Left.performed -= Left_performed;
-        actions.UI_Navigation.Right.performed -= Right_performed;
     }
 
     public void DisableInputForDelay(float delayTime)
@@ -324,9 +267,18 @@ public class SetupView : MonoBehaviour
     {
         inputEnabled = false;
         actions.Disable();
-;
+        ;
         yield return new WaitForSeconds(delayTime);
 
         inputEnabled = true;
+    }
+
+    #endregion
+
+    private void ExitActions()
+    {
+        actions.UI_Navigation.Submit.performed -= Submit_performed;
+        actions.UI_Navigation.Left.performed -= Left_performed;
+        actions.UI_Navigation.Right.performed -= Right_performed;
     } 
 }

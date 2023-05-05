@@ -6,11 +6,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIGamePlay : MonoBehaviour
 {
     public Canvas Gameplay;
     public Canvas Pause;
+    public GameObject pauseFirstBtn;
     public Viewport[] viewports;
     public GameObject[] nameColors;
 
@@ -28,11 +30,13 @@ public class UIGamePlay : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Gameplay scene");
         Cursor.visible = false;
         //Turn off debug camera
         // debug_Camera.gameObject.SetActive(false);
         //Init Timer
         countdown = UIManager.Instance.gameDuration;
+        Debug.Log("time for the game : " + countdown);
 
         LoadResources();
         DisplayUI();
@@ -82,6 +86,8 @@ public class UIGamePlay : MonoBehaviour
     private void Pause_performed(InputAction.CallbackContext obj)
     {
         Pause.gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(pauseFirstBtn);
         Pause.GetComponent<PauseView>().OnPause();
     }
 

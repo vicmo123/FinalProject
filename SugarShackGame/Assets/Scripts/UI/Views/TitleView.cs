@@ -7,10 +7,11 @@ public class TitleView : MonoBehaviour
 {
     private void Awake()
     {
+        Debug.Log("title scene");
         UIManager.Instance.Initialize();
         Cursor.visible = false;
     }
-    
+
     private void Update()
     {
         if (Input.anyKey)

@@ -6,69 +6,69 @@ using UnityEngine.UI;
 
 public class MainMenuView : MonoBehaviour
 {
-    public Canvas credits;
-    public Canvas controls;
-    public Button startGameButton;
-    public Button creditsButton;
-    public Button controlsButton;
-
-    private void Awake()
-    {
-        credits.gameObject.SetActive(false);
-        controls.gameObject.SetActive(false);       
-    }
+    public Button[] buttons;
+    private Button[] cmtButtons;
+    private int currentSelection = 0;
+    [HideInInspector]
+    public PlayerControls actions;
+    
     private void Start()
     {
-        Button startBtn = startGameButton.GetComponent<Button>();
-        Button credBtn = creditsButton.GetComponent<Button>();
-        Button contBtn = controlsButton.GetComponent<Button>();
+        actions = new PlayerControls();
 
-        startBtn.onClick.AddListener(StartGame);
-        credBtn.onClick.AddListener(GoToCreditsView);
-        contBtn.onClick.AddListener(GoToControlsView);
+        cmtButtons = new Button[3];
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            cmtButtons[i]  = buttons[i].GetComponent<Button>();
+            Debug.Log(buttons[i]);
+        }
+        buttons[currentSelection].Select();
+
+        cmtButtons[0].onClick.AddListener(StartGame);
+        cmtButtons[1].onClick.AddListener(GoToControlsView);
+        cmtButtons[2].onClick.AddListener(GoToCreditsView);
+
+        actions.UI_Navigation.Submit.performed += Submit_performed;
+        actions.UI_Navigation.Up.performed += Up_performed;
+        actions.UI_Navigation.Down.performed += Down_performed;
+        actions.UI_Navigation.Enable();
+    }
+
+    private void Down_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Debug.Log("Down");
+        currentSelection++;
+        currentSelection %= buttons.Length;
+        buttons[currentSelection].Select();
+    }
+
+    private void Up_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Debug.Log("Up");
+        currentSelection--;
+        if (currentSelection == -1)
+        {
+            currentSelection = buttons.Length - 1;
+        }
+        buttons[currentSelection].Select();
+    }
+
+    private void Submit_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Debug.Log("Submit");
+        cmtButtons[currentSelection].onClick.Invoke();
     }
 
     public void StartGame()
     {
         UIManager.Instance.LoadNextScene();
-        //int index = UIManager.Instance.CurrentScene;
-        //++index;
-        //newScene(index);
-        //UIManager.Instance.CurrentScene = index;
     }
     public void GoToCreditsView()
     {
-        credits.gameObject.SetActive(true);
-        this.gameObject.SetActive(false);
+        UIManager.Instance.LoadOneScene(ScenesNames.Credits);
     }
     public void GoToControlsView()
     {
-        controls.gameObject.SetActive(true);
-        this.gameObject.SetActive(false);
-    }
-
-
-    public void newScene(int sceneNumber)
-    {
-        SceneManager.LoadScene(sceneNumber);
-
-        if (SceneManager.GetActiveScene().buildIndex != sceneNumber)
-        {
-            StartCoroutine(waitForSceneLoad(sceneNumber));
-        }
-    }
-
-    IEnumerator waitForSceneLoad(int sceneNumber)
-    {
-        while (SceneManager.GetActiveScene().buildIndex != sceneNumber)
-        {
-            yield return null;
-        }
-
-        // Do anything after proper scene has been loaded
-        if (SceneManager.GetActiveScene().buildIndex == sceneNumber)
-        {
-            Debug.Log(SceneManager.GetActiveScene().buildIndex);
-        }       
+        UIManager.Instance.LoadOneScene(ScenesNames.Controls);
     }
 }
