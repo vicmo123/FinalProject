@@ -1,5 +1,8 @@
 public enum SoundListEnum {
 	Bell,
 	Chop,
-	completetask_0
+	ClaimBucket,
+	CollectSap,
+	completetask_0,
+	PouringSap
 }

@@ -151,6 +151,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     private void CollectSap(Player _player) {
         if (Time.time >= endOfCooldown) {
             Debug.Log("Sap collected!");
+            SoundManager.Play(SoundListEnum.CollectSap);
             // If the playing using the bucket is the owner, gets sap
             sapAmount -= _player.playerBucket.AddSap(sapAmount);
             fillingBarPlayer1.Fill(sapAmount, maxSapAmount);
@@ -160,6 +161,8 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     }
 
     private void Claimed(Player _player) {
+        SoundManager.Play(SoundListEnum.ClaimBucket);
+
         ChangeColor(_player.color);
         if (player)
             Debug.Log("Bucket was stolen!");

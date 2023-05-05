@@ -62,6 +62,9 @@ public class Cauldron : MonoBehaviour, IFlow, IUsable
             sapAmount += amount;
         }
 
+        if (amountAdded > 0)
+            SoundManager.Play(SoundListEnum.PouringSap);
+
         return amountAdded;
     }
     public void Looked(Player _player) {
