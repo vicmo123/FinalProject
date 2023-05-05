@@ -271,10 +271,10 @@ PrefabInstance:
     - target: {fileID: 6864680383699034929, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7b16594bfcbbf0c489644dab2217ee84, type: 3}
+      objectReference: {fileID: 21300000, guid: d3fde396d73b5fd418cf774da35b53b0, type: 3}
     - target: {fileID: 6864680383699034929, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
       propertyPath: m_Color.a
-      value: 0.68235296
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6864680383699034929, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
       propertyPath: m_Color.b
@@ -394,7 +394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8089495788983494778, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
       propertyPath: m_fontSize
-      value: 120
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8089495788983494778, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
       propertyPath: m_fontColor.b
@@ -410,7 +410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8089495788983494778, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
       propertyPath: m_fontSizeBase
-      value: 120
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8089495788983494778, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
       propertyPath: m_enableAutoSizing
