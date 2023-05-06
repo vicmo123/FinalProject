@@ -6,7 +6,6 @@ using System.Linq;
 using System.IO;
 
 public enum ScenesNames { MainMenu, Setup, Title, GamePlay, EndGame, Credits, Controls };
-public enum Colors { Blue, Green, Pink, Red, Yellow }
 
 public class UIManager
 {

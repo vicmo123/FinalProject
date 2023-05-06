@@ -242,7 +242,6 @@ public class SetupView : MonoBehaviour
         {
             Debug.Log("Everyone is ready!");
             DisableInputForDelay(1.5f);
-            //SaveColors();
             ExitActions();
             GoToNextPage();
         }
