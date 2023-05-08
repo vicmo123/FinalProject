@@ -16,6 +16,8 @@ TagManager:
   - NameDisplayer
   - FootStepContainer
   - AnimalSpawn
+  - Fire
+  - Flag
   layers:
   - Default
   - TransparentFX
