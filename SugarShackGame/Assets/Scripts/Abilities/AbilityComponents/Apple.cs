@@ -5,6 +5,7 @@ using UnityEngine;
 public class Apple : ThrowableAbility
 {
     public float attractionDistance = 20f;
+    private float timeBeforeAddingPoints = 1f;
     private System.Action OnDeactivate = () => { };
 
     public override void Initialize()
@@ -30,7 +31,11 @@ public class Apple : ThrowableAbility
             if(toAppleDistance <= attractionDistance)
             {
                 // Bonus
-                thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.APPLE);
+                if (Time.time > timeBeforeAddingPoints)
+                {
+                    thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.APPLE);
+                    timeBeforeAddingPoints = Time.time + timeBeforeAddingPoints;
+                }
 
                 Animal animalComponent = animal.GetComponent<Animal>();
                 animalComponent.chaseTarget = gameObject;

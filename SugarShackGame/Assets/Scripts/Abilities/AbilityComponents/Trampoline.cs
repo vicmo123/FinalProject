@@ -21,7 +21,7 @@ public class Trampoline : ThrowableAbility
             trampolineObj.transform.rotation = Quaternion.Euler(rotation);
             trampolineObj.GetComponent<Rigidbody>().isKinematic = true;
 
-            trampolineObj.GetComponent<TrampolineEffect>().Init();
+            trampolineObj.GetComponent<TrampolineEffect>().Init(player);
 
             readyToBeDestroyed = true;
         }

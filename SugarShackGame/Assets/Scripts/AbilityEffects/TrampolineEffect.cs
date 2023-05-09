@@ -7,14 +7,10 @@ public class TrampolineEffect : MonoBehaviour
 
     public float UpwardsForce = 300f;
     private Vector3 trampolineForce = Vector3.up;
-
+    private Player player;
     public float fadeDuration = 1.0f;
 
-    public void Start()
-    {
-        StartCoroutine(FadeOut(fadeDuration));
-    }
-
+   
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.root.CompareTag("Player") || other.transform.root.CompareTag("Animal"))
@@ -31,9 +27,10 @@ public class TrampolineEffect : MonoBehaviour
         }
     }
 
-    public void Init()
+    public void Init(Player player)
     {
-        //StartCoroutine(FadeOut(fadeDuration));
+        this.player = player;
+        StartCoroutine(FadeOut(fadeDuration));
     }
 
     IEnumerator FadeIn(float duration)

@@ -21,7 +21,8 @@ public class ThrowableAbility : AbilityComponent
 
     public void Throw(float timeHeld, bool isIfiniteTime = false)
     {
-        if (!isIfiniteTime) {
+        if (!isIfiniteTime)
+        {
             timer.StartTimer();
         }
 
@@ -53,15 +54,16 @@ public class ThrowableAbility : AbilityComponent
         Thrower collided = collision.gameObject.GetComponentInParent<Thrower>();
         if (collided != thrower || collided == null)
         {
+            Debug.Log("Oncollision for throwable ability");
             Ragdoll ragdollComponent = collision.collider.GetComponentInParent<Ragdoll>();
 
             if (ragdollComponent != null)
             {
-                // Bonus points
-                if (ragdollComponent.transform.root.CompareTag("Player"))
-                    thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.SNOWBALL_HIT_PLAYER);
-                else
-                    thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.SNOWBALL_HIT_ANIMAL);
+                //// Bonus points
+                //if (ragdollComponent.transform.root.CompareTag("Player"))
+                //    thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.SNOWBALL_HIT_PLAYER);
+                //else
+                //    thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.SNOWBALL_HIT_ANIMAL);
 
                 Vector3 force = rb.velocity;
                 ragdollComponent.ragdollTrigger.Invoke(collision.GetContact(0).point, force);

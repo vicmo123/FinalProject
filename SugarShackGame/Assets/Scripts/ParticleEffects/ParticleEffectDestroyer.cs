@@ -17,7 +17,6 @@ public class ParticleEffectDestroyer : MonoBehaviour
 
     public IEnumerator StartEffect()
     {
-        Debug.Log("Particle effect started");
         // find out the maximum lifetime of any particles in this effect 
         foreach (var system in systems)
         {
@@ -32,7 +31,6 @@ public class ParticleEffectDestroyer : MonoBehaviour
         {
             yield return null;
         }
-        Debug.Log("stopping " + name);
 
         // turn off emission
         foreach (var system in systems)
@@ -44,9 +42,7 @@ public class ParticleEffectDestroyer : MonoBehaviour
 
         // wait for any remaining particles to expire
         yield return new WaitForSeconds(m_MaxLifetime);
-
-        Debug.Log("Particle effect is going to be destroyed");
-
+        
         Destroy(this.gameObject);
     }
 
