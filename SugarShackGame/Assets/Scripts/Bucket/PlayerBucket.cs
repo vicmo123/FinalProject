@@ -30,46 +30,58 @@ public class PlayerBucket : MonoBehaviour, IUsable, IFlow
 
 
 
-    public void Initialize() {
+    public void Initialize()
+    {
         bucketLid.SetActive(false);
     }
 
-    public void PhysicsRefresh() {
+    public void PhysicsRefresh()
+    {
     }
 
-    public void PreInitialize() {
+    public void PreInitialize()
+    {
         inputHandler = GetComponent<CustomInputHandler>();
         ragdoll = GetComponent<Ragdoll>();
     }
 
-    public void Refresh() {
+    public void Refresh()
+    {
         SpillSap();
 
         //Debug.Log(sapAmount);
     }
 
-    public void Use(Player _player) {
+    public void Use(Player _player)
+    {
 
     }
 
-    public float AddSap(float amount) {
+    public float AddSap(float amount)
+    {
         float amountAdded = amount;
-        if (amount + sapAmount > maxSapAmount) {
+        if (amount + sapAmount > maxSapAmount)
+        {
             amountAdded = maxSapAmount - sapAmount;
             sapAmount = maxSapAmount;
         }
-        else {
+        else
+        {
             sapAmount += amount;
         }
 
         return amountAdded;
     }
 
-    public void RemoveSap(float amount) {
+    public void RemoveSap(float amount)
+    {
         sapAmount = Mathf.Clamp(sapAmount - amount, 0, maxSapAmount);
+        if (sapAmount > 0)
+            SpillingEffect();
     }
 
-    public void SpillSap() {
+    public void SpillSap()
+    {
         if (!isSpillable)
             return;
         if (inputHandler.Sprint)
@@ -80,9 +92,12 @@ public class PlayerBucket : MonoBehaviour, IUsable, IFlow
             RemoveSap(spillQuantities[ActionsToSpill.JUMP] * Time.deltaTime);
         if (ragdoll.isRagdollTriggered)
             RemoveSap(spillQuantities[ActionsToSpill.RAGDOLL]);
-        //Add particle system 
+
+    }
+    private void SpillingEffect()
+    {
         GameObject spilling = ParticleEffectManager.Instance.Create(ParticleEffectType.Spilling);
-        spilling.transform.position = this.transform.position;
+        spilling.transform.position = this.spillingAttatchPoint.position;
     }
 
     public IEnumerator NoSpill(float duration)
