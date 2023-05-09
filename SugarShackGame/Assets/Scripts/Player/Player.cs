@@ -17,6 +17,8 @@ public class Player : MonoBehaviour, IFlow
     [HideInInspector]
     public PlayerAbilityHandler abilityHandler;
     [HideInInspector]
+    public FloatingPointsHandler floatingPointHandler;
+    [HideInInspector]
     public SyrupCanManager syrupCanManager;
     [HideInInspector]
     public PlayerFootStepMaker footStepMaker;
@@ -28,12 +30,13 @@ public class Player : MonoBehaviour, IFlow
     {
         ragdoll = GetComponent<Ragdoll>();
         playerController = GetComponent<PlayerController>();
-        //Allo Tommy
         playerBucket = transform.GetComponentInChildren<PlayerBucket>();
 
         throwerComponent = GetComponent<Thrower>();
         recieverComponent = GetComponent<Reciever>();
         abilityHandler = GetComponent<PlayerAbilityHandler>();
+        floatingPointHandler = GetComponentInChildren<FloatingPointsHandler>();
+        Debug.Log("Floating point is there : " + floatingPointHandler.name);
         footStepMaker = GetComponent<PlayerFootStepMaker>();
 
         ragdoll.PreInitialize();
@@ -42,11 +45,12 @@ public class Player : MonoBehaviour, IFlow
         throwerComponent.PreInitialize();
         recieverComponent.PreInitialize();
         abilityHandler.PreInitialize();
+        floatingPointHandler.PreInitialize();
         footStepMaker.PreInitialize();
 
         CauldronManager.Instance.CreateCauldron(this);
         syrupCanManager = new SyrupCanManager();
-        playerScore = new PlayerScore(this);
+        playerScore = new PlayerScore(this, floatingPointHandler);
     }
 
     public void Initialize()
@@ -57,6 +61,7 @@ public class Player : MonoBehaviour, IFlow
         throwerComponent.Initialize();
         recieverComponent.Initialize();
         abilityHandler.Initialize();
+        floatingPointHandler.Initialize();
         footStepMaker.Initialize();
     }
 
@@ -77,6 +82,7 @@ public class Player : MonoBehaviour, IFlow
         throwerComponent.Refresh();
         recieverComponent.Refresh();
         abilityHandler.Refresh();
+        floatingPointHandler.Refresh();
         footStepMaker.Refresh();
     }
 
@@ -88,6 +94,7 @@ public class Player : MonoBehaviour, IFlow
         throwerComponent.PhysicsRefresh();
         recieverComponent.PhysicsRefresh();
         abilityHandler.PhysicsRefresh();
+        floatingPointHandler.PhysicsRefresh();
         footStepMaker.PhysicsRefresh();
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerScore
 {
@@ -18,6 +19,7 @@ public class PlayerScore
     string playerName;
 
     Player player;
+    private FloatingPointsHandler floatPointsEffect;
     public int syrupCans, claimedBuckets, bonusPoints;
     [NonSerialized]
     readonly int syrupCanValue = 1000;
@@ -35,14 +37,16 @@ public class PlayerScore
         { Bonus.HORN, 40},
     };
 
-    public PlayerScore(Player _player) {
+    public PlayerScore(Player _player, FloatingPointsHandler _floatPointsEffect) {
         player = _player;
-
+        floatPointsEffect = _floatPointsEffect;
         bonusPoints = 0;
     }
 
     public void AddBonus(Bonus bonusType) {
         bonusPoints += bonus[bonusType];
+        //FloatingPoints Effect here with color and bonus points
+        floatPointsEffect.makePointsEffect.Invoke(bonus[bonusType].ToString());
     }
 
     public int CalculateBuckets() {
