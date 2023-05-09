@@ -132,6 +132,8 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
                 // Bucket is claimed
                 Claimed(_player);
                 endOfCooldown = Time.time + cooldown;
+                GameObject partEffect = ParticleEffectManager.Instance.Create(ParticleEffectType.Fireworks);
+                partEffect.transform.position = this.transform.position;
             }
         }
         else { // If the player starts to claim
