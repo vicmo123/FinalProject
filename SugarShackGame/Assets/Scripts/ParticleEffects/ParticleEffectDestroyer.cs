@@ -1,28 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleEffectReusable : MonoBehaviour
+public class ParticleEffectDestroyer : MonoBehaviour
 {
-    public float duration = 8;
+    public float duration ;
     
     private float m_MaxLifetime;
     private bool m_EarlyStop;
     private ParticleSystem[] systems;
 
-
-    private bool isPlaying;
-
-    public bool IsPlaying { get => isPlaying; set => isPlaying = value; }
-
     private void Start()
     {
         systems = GetComponentsInChildren<ParticleSystem>();
-
+        StartCoroutine(StartEffect());
     }
 
     public IEnumerator StartEffect()
     {
+        Debug.Log("Particle effect started");
         // find out the maximum lifetime of any particles in this effect 
         foreach (var system in systems)
         {
@@ -50,17 +45,14 @@ public class ParticleEffectReusable : MonoBehaviour
         // wait for any remaining particles to expire
         yield return new WaitForSeconds(m_MaxLifetime);
 
-        isPlaying = false;
+        Debug.Log("Particle effect is going to be destroyed");
+
+        Destroy(this.gameObject);
     }
 
     public void Stop()
     {
         // stops the particle system early
         m_EarlyStop = true;
-    }
-
-    public GameObject Pool(GameObject objToRecycle)
-    {        
-        return this.gameObject;
-    }
+    }   
 }

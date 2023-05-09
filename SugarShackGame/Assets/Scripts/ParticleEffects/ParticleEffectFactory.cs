@@ -7,7 +7,6 @@ using System;
 public enum ParticleEffectType { Fire, Fireworks, Spilling }
 public class ParticleEffectFactory
 {
-    private ParticleEffectPool pool;
     Dictionary<ParticleEffectType, GameObject> resourceDict;
     List<ParticleEffectType> partEffectTypes;
 
@@ -15,7 +14,6 @@ public class ParticleEffectFactory
 
     public ParticleEffectFactory()
     {
-        pool = new ParticleEffectPool();
         resourceDict = new Dictionary<ParticleEffectType, GameObject>();
         LoadResources();
     }
@@ -32,6 +30,7 @@ public class ParticleEffectFactory
             {
                 if (prefabs[j].name.Equals(partEffectTypes[i].ToString()))
                 {
+                    Debug.Log(prefabs[j].name + " " + partEffectTypes[i].ToString());
                     resourceDict.Add(partEffectTypes[i], prefabs[j]);
                     continue;
                 }
@@ -42,32 +41,8 @@ public class ParticleEffectFactory
 
     public GameObject CreateParticleEffect(ParticleEffectType type)
     {
-        GameObject toRet = ReleaseObject(type);
-        if (toRet == null)
-        {
-            toRet = GameObject.Instantiate<GameObject>(resourceDict[type]);
-        }
-        return toRet;
+        return GameObject.Instantiate<GameObject>(resourceDict[type]);
     }
 
-    private GameObject ReleaseObject(ParticleEffectType particleEffectType)
-    {
-        GameObject toRet = pool.Depool(particleEffectType);
-        if (toRet == null)
-        {
-            return null;
-        }
-        return toRet;
-    }
 
-    public void GiveToPool(GameObject toPool)
-    {
-        foreach (var item in partEffectTypes)
-        {
-            if (item.ToString().Equals(toPool.name))
-            {
-                pool.Pool(item, toPool);
-            }
-        }       
-    }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[Manager(typeof(PlayerManager))]
+[Manager(typeof(ParticleEffectManager))]
 public class ParticleEffectManager : IFlow
 {
     #region Singleton
@@ -26,47 +26,18 @@ public class ParticleEffectManager : IFlow
         //Private constructor to prevent outside instantiation
     }
     #endregion
-
-    private List<ParticleEffectReusable> particleEffects;
+    
     private ParticleEffectFactory factory;
-
-    public GameObject Create(ParticleEffectType type)
-    {
-        GameObject particleEffect = factory.CreateParticleEffect(type);       
-        return InstantiateParticleSystem(particleEffect);
-    }
-
-    private GameObject InstantiateParticleSystem(GameObject toInit)
-    {
-        GameObject newObj = GameObject.Instantiate(toInit);
-        ParticleEffectReusable reusePartEffect = newObj.GetComponent<ParticleEffectReusable>();
-        reusePartEffect.StartEffect();
-        reusePartEffect.IsPlaying = true;
-        particleEffects.Add(reusePartEffect);
-        return newObj;
-    }
-
-
-    public void ClearUpNulls()
-    {
-        if (particleEffects.Count > 0)
-        {
-            for (int i = particleEffects.Count - 1; i >= 0; i--)
-            {
-                if (particleEffects[i] == null)
-                {
-                    particleEffects.Remove(particleEffects[i]);
-                }
-            }
-        }
-
-    }
 
 
     public void PreInitialize()
     {
-        particleEffects = new List<ParticleEffectReusable>();
+        Debug.Log("Preinit Part Effect Manager");
         factory = new ParticleEffectFactory();
+    }
+    public GameObject Create(ParticleEffectType type)
+    {           
+        return factory.CreateParticleEffect(type);
     }
 
     public void Initialize()
@@ -75,23 +46,11 @@ public class ParticleEffectManager : IFlow
 
     public void Refresh()
     {
-        for (int i = particleEffects.Count - 1 ; i >= 0 ; i--)
-        {
-            if(particleEffects[i].IsPlaying == false)
-            {
-                factory.GiveToPool(particleEffects[i].gameObject);
-            }
-        }
+        
     }
 
     public void PhysicsRefresh()
     {
     }
-
-
-    //public void Refresh()
-    //{
-    //    ClearUpNulls();
-    //}
 
 }

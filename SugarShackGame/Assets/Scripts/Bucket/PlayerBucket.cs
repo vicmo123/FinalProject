@@ -17,6 +17,7 @@ public class PlayerBucket : MonoBehaviour, IUsable, IFlow
 
     public GameObject bucketLid;
     public float sapAmount = 0.0f;
+    public Transform spillingAttatchPoint;
     private float maxSapAmount = 30.0f;
 
     [HideInInspector] public bool isSpillable = true;
@@ -79,7 +80,9 @@ public class PlayerBucket : MonoBehaviour, IUsable, IFlow
             RemoveSap(spillQuantities[ActionsToSpill.JUMP] * Time.deltaTime);
         if (ragdoll.isRagdollTriggered)
             RemoveSap(spillQuantities[ActionsToSpill.RAGDOLL]);
-
+        //Add particle system 
+        GameObject spilling = ParticleEffectManager.Instance.Create(ParticleEffectType.Spilling);
+        spilling.transform.position = this.transform.position;
     }
 
     public IEnumerator NoSpill(float duration)
