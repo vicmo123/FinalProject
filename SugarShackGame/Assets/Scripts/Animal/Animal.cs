@@ -338,17 +338,11 @@ public class Animal : MonoBehaviour, IFlow
 
     public virtual bool IsSpecialActionFinished()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            return true;
-        else
-            return false;
+        return true;
     }
 
     public virtual bool IsSpecialActionTime()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-            return true;
-        else
             return false;
     }
     #endregion
