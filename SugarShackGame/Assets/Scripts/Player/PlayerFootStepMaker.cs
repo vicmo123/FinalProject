@@ -31,11 +31,11 @@ public class PlayerFootStepMaker : MonoBehaviour, IFlow
         animEvents = GetComponent<PlayerAnimationEvents>();
         animEvents.OnRightStep += () =>
         {
-            GenerateFootSteps(feetObjects[1]);
+            GenerateFootStep(feetObjects[1], Direction.right);
         };
         animEvents.OnLeftStep += () =>
         {
-            GenerateFootSteps(feetObjects[0]);
+            GenerateFootStep(feetObjects[0], Direction.left);
         };
 
         footStepContainer = GameObject.FindGameObjectWithTag("FootStepContainer").transform;
@@ -81,12 +81,24 @@ public class PlayerFootStepMaker : MonoBehaviour, IFlow
         }
     }
 
-    private void GenerateFootSteps(Transform foot)
+    private void GenerateFootStep(Transform foot, Direction footSide)
     {
         RaycastHit hit;
         if (Physics.Raycast(foot.position, Vector3.down, out hit, maxFootprintDistance, groundMask))
         {
             FootPrint newFootprint = factoryPool.Create(hit.point + hit.normal * footprintOffset, Quaternion.identity);
+
+            switch (footSide)
+            {
+                case Direction.right:
+                    newFootprint.SpriteRenderer.flipX = true;
+                    break;
+                case Direction.left:
+                    newFootprint.SpriteRenderer.flipX = false;
+                    break;
+                default:
+                    break;
+            }
 
             Vector3 newFootprintUp = hit.normal;
             Vector3 newFootprintForward = Vector3.Cross(foot.right, newFootprintUp);
@@ -106,5 +118,11 @@ public class PlayerFootStepMaker : MonoBehaviour, IFlow
                 newFootprint.transform.SetParent(footStepContainer);
             }
         }
+    }
+
+    private enum Direction
+    {
+        right,
+        left
     }
 }
