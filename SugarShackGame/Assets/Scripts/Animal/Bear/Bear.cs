@@ -14,12 +14,11 @@ public class Bear : Animal
     public override void Initialize()
     {
         base.Initialize();
-        standUpTimer = new CountDownTimer(GetRadomTime(), false);
+        standUpTimer = new CountDownTimer(GetRadomTime(), true);
         standUpTimer.OnTimeIsUpLogic = () => { 
             standUpTimer.SetDuration(GetRadomTime());
             isStandingUpTime = true;
             animationIsOver = false;
-            standUpTimer.StartTimer();
         };
 
         standUpTimer.StartTimer();
