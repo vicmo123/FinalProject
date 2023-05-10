@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TrampolineEffect : MonoBehaviour
 {
-
     public float UpwardsForce = 300f;
     private Vector3 trampolineForce = Vector3.up;
     private Player player;
@@ -22,7 +21,6 @@ public class TrampolineEffect : MonoBehaviour
                 ragdollComponent.ragdollTriggerAll.Invoke((trampolineForce * UpwardsForce));
 
                 StartCoroutine(FadeIn(fadeDuration));
-                
             }
         }
     }
@@ -112,5 +110,4 @@ public class TrampolineEffect : MonoBehaviour
             renderer.material.color = color;
         }
     }
-
 }
