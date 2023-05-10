@@ -101,6 +101,7 @@ public class AnimalStateMachine
     private void SetTransitions()
     {
         stateMachine.AddTransition(Flee, Patrol, _ => IsFleeFinished.Invoke());
+        stateMachine.AddTransition(SpecialAction, Patrol, _ => IsSpecialActionFinished.Invoke());
         stateMachine.AddTransition(Patrol, Chase, _ => IsPatrolFinished.Invoke());
         stateMachine.AddTransition(Chase, Patrol, _ => IsChaseFinished.Invoke());
 
