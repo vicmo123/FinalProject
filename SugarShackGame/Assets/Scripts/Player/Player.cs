@@ -28,6 +28,7 @@ public class Player : MonoBehaviour, IFlow
 
     public void PreInitialize()
     {
+
         ragdoll = GetComponent<Ragdoll>();
         playerController = GetComponent<PlayerController>();
         playerBucket = transform.GetComponentInChildren<PlayerBucket>();
@@ -36,7 +37,6 @@ public class Player : MonoBehaviour, IFlow
         recieverComponent = GetComponent<Reciever>();
         abilityHandler = GetComponent<PlayerAbilityHandler>();
         floatingPointHandler = GetComponentInChildren<FloatingPointsHandler>();
-        Debug.Log("Floating point is there : " + floatingPointHandler.name);
         footStepMaker = GetComponent<PlayerFootStepMaker>();
 
         ragdoll.PreInitialize();
@@ -65,12 +65,13 @@ public class Player : MonoBehaviour, IFlow
         footStepMaker.Initialize();
     }
 
-    public void SpawnAtLocation(Vector3 spawnLocation)
+    public void SpawnAtLocation(Vector3 spawnLocation, Quaternion spawnRotation)
     {
         CharacterController ctrl = GetComponent<CharacterController>();
 
         ctrl.enabled = false;
         transform.position = spawnLocation;
+        transform.rotation = spawnRotation;
         ctrl.enabled = true;
     }
 

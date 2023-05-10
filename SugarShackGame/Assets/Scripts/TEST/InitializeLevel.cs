@@ -15,8 +15,8 @@ public class InitializeLevel : MonoBehaviour
         var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
         for (int i = 0; i < playerConfigs.Length; i++)
         {
-            var player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
-            PlayerManager.Instance.InitializePlayer(playerConfigs[i].Input);
+            //var player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
+            PlayerManager.Instance.InitializePlayer(playerConfigs[i]);
         }
     }
 

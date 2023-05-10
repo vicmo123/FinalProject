@@ -53,11 +53,13 @@ public class PlayerManager : IFlow
 
         players = new List<Player>();
 
-        playerInputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerInputManager>();
-        playerInputManager.onPlayerJoined += (input) =>
-        {
-            InitializePlayer(input);
-        };
+        playerInputManager = PlayerConfigurationManager.Instance.GetComponent<PlayerInputManager>();
+       
+        //playerInputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerInputManager>();
+        //playerInputManager.onPlayerJoined += (input) =>
+        //{
+        //    InitializePlayer(input);
+        //};
         factory = new PlayerFactory("Prefabs/Player/Player");
     }
 
@@ -68,6 +70,7 @@ public class PlayerManager : IFlow
             Debug.Log("PlayerManager Initialize");
         }
         spawnPositions = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        playerInputManager.splitScreen = true;
     }
 
     public void Refresh()
@@ -86,32 +89,47 @@ public class PlayerManager : IFlow
         }
     }
 
-    public void InitializePlayer(PlayerInput input)
+    public void InitializePlayer(PlayerConfiguration playerConfig)
     {
         if (DEBUG)
         {
             Debug.Log("PlayerManager Initialize Player");
-            Debug.Log("player" + input.user.index + " using : " + input.user.pairedDevices[0]);
+            Debug.Log("player" + playerConfig.PlayerIndex + " using : " + playerConfig.Input.currentControlScheme);
         }
-        Player generatedPlayer = input.gameObject.GetComponent<Player>();
-        Debug.Log($"Index barbe joueur { players.Count}: " + UIManager.Instance.playersGD[players.Count].indexBeard);
-        Debug.Log("Index barbe joueur { players.Count} : " + UIManager.Instance.playersGD[players.Count].indexShirt);
-        factory.ChangePlayerColor(ref generatedPlayer, factory.beardColors[UIManager.Instance.playersGD[players.Count].indexBeard], factory.shirtColors[UIManager.Instance.playersGD[players.Count].indexShirt]);
+        // Player generatedPlayer = input.gameObject.GetComponent<Player>();
+        Player generatedPlayer = factory.CreatPlayer(factory.beardColors[playerConfig.IndexColorBeard], factory.shirtColors[playerConfig.IndexColorShirt]);
+
+      
+        //Debug.Log($"Index barbe joueur { players.Count}: " + UIManager.Instance.playersGD[players.Count].indexBeard);
+        //Debug.Log("Index barbe joueur { players.Count} : " + UIManager.Instance.playersGD[players.Count].indexShirt);
+
+
+        //factory.ChangePlayerColor(ref generatedPlayer, factory.beardColors[UIManager.Instance.playersGD[players.Count].indexBeard], factory.shirtColors[UIManager.Instance.playersGD[players.Count].indexShirt]);
         players.Add(generatedPlayer);
         //Assign index to the player
-        players[players.Count - 1].index = players.Count - 1;
+        //players[players.Count - 1].index = players.Count - 1;
+        players[players.Count - 1].index = playerConfig.PlayerIndex;
 
         FixCinemachineCam(players[players.Count - 1]);
-        players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[UIManager.Instance.playersGD[players.Count - 1].indexShirt]);
+
+        playerConfig.Input.camera = generatedPlayer.GetComponentInChildren<Camera>();
+        PlayerInput input = generatedPlayer.GetComponent<PlayerInput>();
+        input = playerConfig.Input;
+        playerConfig.Input = input;
+        //players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[UIManager.Instance.playersGD[players.Count - 1].indexShirt]);
+
+        //MIGHT HAVE TO TURN THIS BACK ON!!!!!!!!!!
+        //**********************************************
+        //players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[playerConfig.IndexColorShirt]);
 
         //Debug.Log(factory.shirtColors[UIManager.Instance.playersGD[players.Count -1].indexShirt].ToString());
 
         players[players.Count - 1].PreInitialize();
         players[players.Count - 1].Initialize();
-        players[players.Count - 1].SpawnAtLocation(spawnPositions[players.Count - 1].transform.position);
+        players[players.Count - 1].SpawnAtLocation(spawnPositions[players.Count - 1].transform.position, spawnPositions[players.Count - 1].transform.rotation);
 
-        currentBeardIndex++;
-        currentShirtIndex++;
+        //currentBeardIndex++;
+        //currentShirtIndex++;
 
         playersJoined = true;
     }

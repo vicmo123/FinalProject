@@ -2507,6 +2507,7 @@ MonoBehaviour:
   throwerComponent: {fileID: 0}
   recieverComponent: {fileID: 0}
   abilityHandler: {fileID: 0}
+  floatingPointHandler: {fileID: 0}
   footStepMaker: {fileID: 0}
   index: 0
 --- !u!95 &902630649624965883
@@ -2590,7 +2591,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5331886442063392701}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -2804,6 +2805,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 21af4b21-feca-4a08-a877-08f431ca211b
     m_ActionName: UI_Settings_Duration/Submit[/Keyboard/enter,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/rightStick/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 30d950af-7731-4275-9061-4983b2eccc6b
+    m_ActionName: Player/SelectUI[/XInputControllerWindows/buttonSouth,/Keyboard/enter,/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
