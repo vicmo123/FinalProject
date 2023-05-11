@@ -86,7 +86,7 @@ public class UIGamePlay : MonoBehaviour
     private void Pause_performed(InputAction.CallbackContext obj)
     {
         Pause.gameObject.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(null);
+        //EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(pauseFirstBtn);
         Pause.GetComponent<PauseView>().OnPause();
     }

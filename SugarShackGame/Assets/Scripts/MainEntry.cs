@@ -37,14 +37,21 @@ public class MainEntry : MonoBehaviour
 
     void Start()
     {
-        playerInputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerInputManager>();
-        playerInputManager.onPlayerJoined += (input) =>
+        playerInputManager = PlayerConfigurationManager.Instance.GetComponent<PlayerInputManager>();
+        if (playerInputManager.playerCount == 2)
         {
             stateMachine = new GameStateMachine(this);
             stateMachine.InitStateMachine();
             SetDelgsForStateMachine();
             gameStarted = true;
-        };
+        }
+        //playerInputManager.onPlayerJoined += (input) =>
+        //{
+        //    stateMachine = new GameStateMachine(this);
+        //    stateMachine.InitStateMachine();
+        //    SetDelgsForStateMachine();
+        //    gameStarted = true;
+        //};
     }
 
     void Update()
@@ -55,7 +62,7 @@ public class MainEntry : MonoBehaviour
         //    isGameOver = true;
         //}
         Debug.Log("MainEntry Refresh");
-            if (gameStarted)
+        if (gameStarted)
             stateMachine.UpdateStateMachine();
     }
 

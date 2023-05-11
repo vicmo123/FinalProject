@@ -18,6 +18,7 @@ TagManager:
   - AnimalSpawn
   - Fire
   - Flag
+  - PlayerInputManager
   layers:
   - Default
   - TransparentFX
