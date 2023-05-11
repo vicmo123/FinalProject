@@ -27,7 +27,10 @@ public class Bear : Animal
     public override void Refresh()
     {
         base.Refresh();
-        standUpTimer.UpdateTimer();
+        if(agent.enabled == true)
+        {
+            standUpTimer.UpdateTimer();
+        }
     }
 
     public override void OnSpecialActionEnter()
