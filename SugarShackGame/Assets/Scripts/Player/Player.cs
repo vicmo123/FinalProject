@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour, IFlow
 {
@@ -25,7 +26,12 @@ public class Player : MonoBehaviour, IFlow
     [HideInInspector]
     public PlayerScore playerScore;
     public int index;
+    public PlayerInput playerInput;
 
+    public void SetPlayerInput(PlayerInput playerInput)
+    {
+       this.playerInput = playerInput;
+    }
     public void PreInitialize()
     {
 

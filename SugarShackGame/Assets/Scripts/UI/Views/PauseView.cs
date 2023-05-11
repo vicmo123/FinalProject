@@ -14,7 +14,7 @@ public class PauseView : MonoBehaviour
     public PlayerControls actions;
 
     private PlayerInputManager playerInputManager;
-    private List<PlayerInput> pi;
+    private List<PlayerInput> inputs;
     private int currentSelection = 0;
 
     private void Start()
@@ -27,12 +27,13 @@ public class PauseView : MonoBehaviour
 
     private void InitActions()
     {
-        pi = new List<PlayerInput>();
-        playerInputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerInputManager>();
-        playerInputManager.onPlayerJoined += (input) =>
+        inputs = new List<PlayerInput>();
+        playerInputManager = GameObject.FindGameObjectWithTag("PlayerInputManager").GetComponent<PlayerInputManager>();
+        if(playerInputManager.playerCount == 2)
         {
-            pi.Add(input);
-        };
+            inputs.Add(playerInputManager.transform.GetChild(0).GetComponent<PlayerInput>());
+            inputs.Add(playerInputManager.transform.GetChild(1).GetComponent<PlayerInput>());
+        }        
         actions = new PlayerControls();
         actions.UI_Navigation.Submit.performed += Submit_performed;
         actions.UI_Navigation.Up.performed += Up_performed;
@@ -73,15 +74,15 @@ public class PauseView : MonoBehaviour
     public void OnPause()
     {
         mainEntry.isPaused = true;
-        actions.UI_Navigation.Enable();
-        actions.Player.Disable();
+        //actions.UI_Navigation.Enable();
+        //actions.Player.Disable();
     }
 
     public void DePause()
     {
         mainEntry.isPaused = false;
-        actions.UI_Navigation.Disable();
-        actions.Player.Enable();
+        //actions.UI_Navigation.Disable();
+        //actions.Player.Enable();
         mainEntry.isPauseFinished = true;
     }
 

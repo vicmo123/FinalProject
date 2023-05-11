@@ -2843,7 +2843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &507613053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2892,8 +2892,8 @@ MonoBehaviour:
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 9fe15fa02f7c7104c8d46733ec6332a0, type: 3}
   m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: 0}
-  m_SubmitAction: {fileID: 8954792558296037468, guid: 9fe15fa02f7c7104c8d46733ec6332a0, type: 3}
+  m_MoveAction: {fileID: 3834501930719566047, guid: 9fe15fa02f7c7104c8d46733ec6332a0, type: 3}
+  m_SubmitAction: {fileID: 7357329168163092792, guid: 9fe15fa02f7c7104c8d46733ec6332a0, type: 3}
   m_CancelAction: {fileID: 0}
   m_LeftClickAction: {fileID: 0}
   m_MiddleClickAction: {fileID: 0}

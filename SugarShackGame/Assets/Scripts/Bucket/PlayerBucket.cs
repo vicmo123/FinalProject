@@ -41,7 +41,7 @@ public class PlayerBucket : MonoBehaviour, IUsable, IFlow
 
     public void PreInitialize()
     {
-        inputHandler = GetComponent<CustomInputHandler>();
+        inputHandler = GetComponent<PlayerController>()._inputHandler;
         ragdoll = GetComponent<Ragdoll>();
     }
 

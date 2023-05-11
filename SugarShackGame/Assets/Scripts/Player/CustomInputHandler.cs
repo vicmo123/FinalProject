@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,7 @@ public class CustomInputHandler : MonoBehaviour
     [HideInInspector]
     public bool Pause { get; private set; } = false;
 
+   
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -61,6 +63,11 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        Debug.Log("On Look!!!");
+        if (context.control.device.name.Equals("mouse")){
+            Debug.Log("A MOUSE MOVEMENT WAS REGISTERED");
+        }
+
         if (!isControlsBlocked)
             Look = context.ReadValue<Vector2>();
         else
@@ -82,6 +89,7 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
+        Debug.Log("THROWINGGGGGG!!!");
         if (!isControlsBlocked)
             Throw = context.action.triggered;
         else
@@ -106,6 +114,7 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnRightPowerUp(InputAction.CallbackContext context)
     {
+        Debug.Log("On Right POwer Up!");
         if (!isControlsBlocked)
             UseRightPowerUp = context.action.triggered;
         else
@@ -122,8 +131,26 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
+        Debug.Log("ON Pause!");
         Pause = context.action.triggered;
+
     }
+
+    public void OnUp(InputAction.CallbackContext context)
+    {
+        Debug.Log("UP");
+    }
+
+    public void OnDown(InputAction.CallbackContext context)
+    {
+        Debug.Log("Down");
+    }
+
+    public void OnSubmit(InputAction.CallbackContext context)
+    {
+        Debug.Log("Submit");
+    }
+
     #endregion
 
     private void OnApplicationFocus(bool hasFocus)
@@ -145,4 +172,6 @@ public class CustomInputHandler : MonoBehaviour
     {
         isControlsBlocked = false;
     }
+
+
 }

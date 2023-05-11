@@ -119,6 +119,7 @@ public class Ragdoll : MonoBehaviour, IFlow
 
         if (input)
         {
+            Debug.Log("Blocking Controls!!!!");
             input.BlockControls();
         }
         if (animator)

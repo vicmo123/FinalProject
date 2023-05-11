@@ -26,7 +26,7 @@ public class Thrower : MonoBehaviour, IFlow
 
     public void PreInitialize()
     {
-        inputHandler = GetComponent<CustomInputHandler>();
+        inputHandler = GetComponent<PlayerController>()._inputHandler;
         animator = GetComponent<Animator>();
         animEventReciever = GetComponent<PlayerAnimationEvents>();
         animEventReciever.OnThrowAnimation += () => { OnThrowAnimationEvent(); };

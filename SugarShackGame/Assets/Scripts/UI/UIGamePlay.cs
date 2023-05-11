@@ -59,7 +59,7 @@ public class UIGamePlay : MonoBehaviour
 
             for (int i = 0; i < players.Count; i++)
             {
-                pi.Add(players[i].GetComponent<PlayerInput>());
+                pi.Add(players[i].playerInput);
                 viewports[i].LinkPlayer(players[i]);
                 nameColors[i].GetComponent<MeshRenderer>().materials[0].color = players[i].color;
             }

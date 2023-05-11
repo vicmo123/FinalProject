@@ -104,6 +104,7 @@ public class PlayerManager : IFlow
         Debug.Log("Instantiating player");
         Player generatedPlayer = factory.CreatPlayer(factory.beardColors[playerConfig.IndexColorBeard], factory.shirtColors[playerConfig.IndexColorShirt]);
         generatedPlayer.GetComponent<PlayerController>().SetInputHandler(customHandler);
+        generatedPlayer.SetPlayerInput(playerConfig.Input);
      
         players.Add(generatedPlayer);
         //Assign index to the player

@@ -24,7 +24,7 @@ public class PlayerAbilityHandler : MonoBehaviour, IFlow
         slotFactory = new AbilityFactory();
         abilitySlots = new Ability[numberOfSlots];
 
-        inputHandler = GetComponent<CustomInputHandler>();
+        inputHandler = GetComponent<PlayerController>()._inputHandler;
         player = GetComponent<Player>();
     }
 

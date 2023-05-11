@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour, IFlow
     [SerializeField] private PlayerStats _playerStats;
 
     //Inputs
-    private CustomInputHandler _inputHandler;
+    [HideInInspector]
+    public CustomInputHandler _inputHandler;
     //#if ENABLE_INPUT_SYSTEM
     private PlayerInput _playerInput;
     //#endif
@@ -67,10 +68,12 @@ public class PlayerController : MonoBehaviour, IFlow
 
     private bool IsCurrentDeviceMouse
     {
+
         get
         {
-            if (this._playerInput)
-                return _playerInput.currentControlScheme == "Keyboard";
+            Debug.Log("Propriete IsCurrentDeviceMouse ??");
+            if (_playerInput.currentControlScheme == "Keyboard")
+                return true;
             else
             return false;
       
@@ -88,8 +91,7 @@ public class PlayerController : MonoBehaviour, IFlow
         Cursor.lockState = CursorLockMode.Locked;
 
         _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
-        
-        _playerInput = GetComponent<PlayerInput>();
+        _playerInput = GetComponent<Player>().playerInput;
         _controller = GetComponent<CharacterController>();
         Debug.Log("CustomInoutHandler has been initialized : " + _inputHandler.name);
         //_inputHandler = GetComponent<CustomInputHandler>();
@@ -132,6 +134,7 @@ public class PlayerController : MonoBehaviour, IFlow
 
     private void LateUpdate()
     {
+        Debug.Log("PlayerController Late Update ... ?!?!?!");
         if (_inputHandler && _playerStats)
             CameraRotation();
     }
@@ -167,6 +170,7 @@ public class PlayerController : MonoBehaviour, IFlow
 
     private void CameraRotation()
     {
+        Debug.Log("CameraRotation function");
         // if there is an input and camera position is not fixed
         if (_inputHandler.Look.sqrMagnitude >= _threshold && !_playerStats.LockCameraPosition)
         {
