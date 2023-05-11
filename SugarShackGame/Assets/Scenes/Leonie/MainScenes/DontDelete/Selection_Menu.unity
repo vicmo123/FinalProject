@@ -443,11 +443,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2604248528140128107, guid: 592d8161c471a1f44893b7f2da17a662, type: 3}
       propertyPath: m_SplitScreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2604248528140128107, guid: 592d8161c471a1f44893b7f2da17a662, type: 3}
+      propertyPath: m_JoinBehavior
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2604248528140128107, guid: 592d8161c471a1f44893b7f2da17a662, type: 3}
+      propertyPath: m_JoinAction.m_Reference
+      value: 
+      objectReference: {fileID: 7357329168163092792, guid: 9fe15fa02f7c7104c8d46733ec6332a0, type: 3}
+    - target: {fileID: 2604248528140128107, guid: 592d8161c471a1f44893b7f2da17a662, type: 3}
+      propertyPath: m_JoinAction.m_Action.m_Id
+      value: 90a8ff1c-f387-4091-80bd-9206d16e1606
       objectReference: {fileID: 0}
     - target: {fileID: 2604248528140128107, guid: 592d8161c471a1f44893b7f2da17a662, type: 3}
       propertyPath: m_FixedNumberOfSplitScreens
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2604248528140128107, guid: 592d8161c471a1f44893b7f2da17a662, type: 3}
+      propertyPath: m_JoinAction.m_UseReference
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2604248528140128107, guid: 592d8161c471a1f44893b7f2da17a662, type: 3}
+      propertyPath: m_JoinAction.m_Action.m_Name
+      value: Join
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592d8161c471a1f44893b7f2da17a662, type: 3}

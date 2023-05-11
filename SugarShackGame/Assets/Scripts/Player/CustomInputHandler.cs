@@ -5,9 +5,7 @@ using UnityEngine.InputSystem;
 
 
 [RequireComponent(typeof(CharacterController))]
-#if ENABLE_INPUT_SYSTEM
-[RequireComponent(typeof(PlayerInput))]
-#endif
+
 public class CustomInputHandler : MonoBehaviour
 {
     [HideInInspector]
@@ -45,6 +43,7 @@ public class CustomInputHandler : MonoBehaviour
     //These must be here to work for some reason, doenst work in custom handler.
     public void OnMove(InputAction.CallbackContext context)
     {
+        Debug.Log("A move was triggered");
         if (!isControlsBlocked)
             Move = context.ReadValue<Vector2>();
         else
@@ -53,6 +52,7 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        Debug.Log("JUMPING!");
         if (!isControlsBlocked)
             Jump = context.action.triggered;
         else

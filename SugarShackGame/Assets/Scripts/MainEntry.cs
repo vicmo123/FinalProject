@@ -54,7 +54,8 @@ public class MainEntry : MonoBehaviour
         //{
         //    isGameOver = true;
         //}
-        if (gameStarted)
+        Debug.Log("MainEntry Refresh");
+            if (gameStarted)
             stateMachine.UpdateStateMachine();
     }
 
@@ -115,6 +116,11 @@ public class MainEntry : MonoBehaviour
         //Debug.Log("OnGameplayLogic");
 
         stateMachine.CurrentState = GameStateMachine.Gameplay;
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            //hihi
+            int i = 0;
+        }
         GameManager.Instance.Refresh();
         GameManager.Instance.PhysicsRefresh();
     }

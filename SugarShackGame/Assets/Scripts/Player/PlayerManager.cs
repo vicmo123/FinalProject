@@ -89,49 +89,41 @@ public class PlayerManager : IFlow
         }
     }
 
-    public void InitializePlayer(PlayerConfiguration playerConfig)
+    public Player InitializePlayer(PlayerConfiguration playerConfig)
     {
+
+        CustomInputHandler customHandler = playerConfig.Input.gameObject.GetComponent<CustomInputHandler>();
+        
         if (DEBUG)
         {
             Debug.Log("PlayerManager Initialize Player");
             Debug.Log("player" + playerConfig.PlayerIndex + " using : " + playerConfig.Input.currentControlScheme);
         }
-        // Player generatedPlayer = input.gameObject.GetComponent<Player>();
+
+
+        Debug.Log("Instantiating player");
         Player generatedPlayer = factory.CreatPlayer(factory.beardColors[playerConfig.IndexColorBeard], factory.shirtColors[playerConfig.IndexColorShirt]);
-
-      
-        //Debug.Log($"Index barbe joueur { players.Count}: " + UIManager.Instance.playersGD[players.Count].indexBeard);
-        //Debug.Log("Index barbe joueur { players.Count} : " + UIManager.Instance.playersGD[players.Count].indexShirt);
-
-
-        //factory.ChangePlayerColor(ref generatedPlayer, factory.beardColors[UIManager.Instance.playersGD[players.Count].indexBeard], factory.shirtColors[UIManager.Instance.playersGD[players.Count].indexShirt]);
+        generatedPlayer.GetComponent<PlayerController>().SetInputHandler(customHandler);
+     
         players.Add(generatedPlayer);
         //Assign index to the player
-        //players[players.Count - 1].index = players.Count - 1;
         players[players.Count - 1].index = playerConfig.PlayerIndex;
-
         FixCinemachineCam(players[players.Count - 1]);
 
-        playerConfig.Input.camera = generatedPlayer.GetComponentInChildren<Camera>();
-        PlayerInput input = generatedPlayer.GetComponent<PlayerInput>();
-        input = playerConfig.Input;
-        playerConfig.Input = input;
-        //players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[UIManager.Instance.playersGD[players.Count - 1].indexShirt]);
-
-        //MIGHT HAVE TO TURN THIS BACK ON!!!!!!!!!!
-        //**********************************************
-        //players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[playerConfig.IndexColorShirt]);
-
-        //Debug.Log(factory.shirtColors[UIManager.Instance.playersGD[players.Count -1].indexShirt].ToString());
-
+        //Temp store the values of Input
+        int index = playerConfig.PlayerIndex;
+        string controlscheme = playerConfig.Input.currentControlScheme;
+        PlayerInput plInput = generatedPlayer.GetComponent<PlayerInput>();
+                
+      
+        players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[playerConfig.IndexColorShirt]);
         players[players.Count - 1].PreInitialize();
         players[players.Count - 1].Initialize();
         players[players.Count - 1].SpawnAtLocation(spawnPositions[players.Count - 1].transform.position, spawnPositions[players.Count - 1].transform.rotation);
-
-        //currentBeardIndex++;
-        //currentShirtIndex++;
-
+        
         playersJoined = true;
+
+        return generatedPlayer;
     }
 
     private void FixCinemachineCam(Player player)

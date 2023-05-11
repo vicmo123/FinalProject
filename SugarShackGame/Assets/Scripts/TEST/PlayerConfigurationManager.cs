@@ -51,10 +51,10 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public void HandlePLayerJoin(PlayerInput pi)
     {
-        Debug.Log("Player joined  :" + pi.playerIndex);
         if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
         {
-             pi.transform.SetParent(transform);
+            Debug.Log("Player joined !!!!!!!! :" + pi.playerIndex);
+            pi.transform.SetParent(transform);
             playerConfigs.Add(new PlayerConfiguration(pi));
         }
     }
@@ -78,5 +78,9 @@ public class PlayerConfiguration
         Input = pi;
     }
 
+    public void SetCamera(Camera camera)
+    {
+        Input.camera = camera;
+    }
 
 }
