@@ -10,8 +10,10 @@ using UnityEngine.EventSystems;
 
 public class UIGamePlay : MonoBehaviour
 {
+    public MainEntry mainEntry;
     public Canvas Gameplay;
     public Canvas Pause;
+    public PauseView pauseView;
     public GameObject pauseFirstBtn;
     public Viewport[] viewports;
     public GameObject[] nameColors;
@@ -26,6 +28,7 @@ public class UIGamePlay : MonoBehaviour
 
     private float countdown;
     private bool gameOnPause = false;
+    private bool gameOver = false;
     private float pauseDeltaTimeout = 0.5f;
     private bool canUpdateUISettings = false;
 
@@ -33,6 +36,8 @@ public class UIGamePlay : MonoBehaviour
     {
         Cursor.visible = false;
         countdown = UIManager.Instance.gameDuration;
+        pauseView = Pause.gameObject.GetComponent<PauseView>();
+        Debug.Log(pauseView.name);
 
         LoadResources();
         DisplayUI();
@@ -79,7 +84,7 @@ public class UIGamePlay : MonoBehaviour
         Pause.gameObject.SetActive(true);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        Pause.GetComponent<PauseView>().OnPause();
+        pauseView.OnPause();
     }
 
     private void Update()
@@ -89,7 +94,7 @@ public class UIGamePlay : MonoBehaviour
         //Checking value of Pause in CustomInputHandler
         PauseCheck();
 
-        if (!gameOnPause)
+        if (!gameOnPause && !gameOver)
         {
             UpdateTime();
 
@@ -97,6 +102,8 @@ public class UIGamePlay : MonoBehaviour
                 UpdatePlayerUI();
         }
 
+        if(gameOver)
+            mainEntry.isGameOver = true;
     }
 
     public void PauseCheck()
@@ -104,14 +111,14 @@ public class UIGamePlay : MonoBehaviour
         for (int i = 0; i < inputHandlers.Count; i++)
         {
             //allowing to trigger only once
-            if (inputHandlers[i].Pause && !gameOnPause)
+            if (inputHandlers[i].Pause )
             {
                 Pause_performed();
                 gameOnPause = true;
             }
         }
 
-        if (!Pause.GetComponent<PauseView>().paused)
+        if (!pauseView.paused)
         {
             gameOnPause = false;
         }
@@ -125,22 +132,20 @@ public class UIGamePlay : MonoBehaviour
             double d = System.Math.Round(countdown, 2);
             float min = Mathf.FloorToInt(countdown / 60);
             float sec = Mathf.FloorToInt(countdown % 60);
-            timerMin_TextBox.text = min.ToString("00");
-            timerSec_TextBox.text = sec.ToString("00");
+            if (min == 0 && sec == 0)
+                gameOver = true;
+            else
+            {
+                timerMin_TextBox.text = min.ToString("00");
+                timerSec_TextBox.text = sec.ToString("00");
+            }
         }
 
         else
         {
-            ResetCountdown();
-            UIManager.Instance.LoadNextScene();
+            gameOver = true;                    
         }
     }
-
-    private void ResetCountdown()
-    {
-        countdown = UIManager.Instance.gameDuration;
-    }
-
 
     public void UpdatePlayerUI()
     {

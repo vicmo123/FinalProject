@@ -31,7 +31,7 @@ public class UIManager
     #endregion
 
     private bool DEBUG_MODE = false;
-    public float gameDuration = 500f;
+    public float gameDuration = 10f;
     private List<string> scenes;
     private int currentScene = 0;
     private List<ScenesNames> sceneNames;

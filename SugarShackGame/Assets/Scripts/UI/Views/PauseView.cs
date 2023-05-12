@@ -82,7 +82,7 @@ public class PauseView : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    private void Exit()
+    public void Exit()
     {
         ExitActions();
         mainEntry.isExit = true;

@@ -6052,8 +6052,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb744ba8eaae5746ab3f831dc821f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainEntry: {fileID: 498150745}
   Gameplay: {fileID: 1521017206}
   Pause: {fileID: 814819509}
+  pauseView: {fileID: 0}
   pauseFirstBtn: {fileID: 1219035264}
   viewports:
   - {fileID: 2131219335}
