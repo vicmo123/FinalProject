@@ -26,7 +26,7 @@ MonoBehaviour:
   GroundedRadius: 0.25
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 4352
   TopClamp: 70
   BottomClamp: -30
   CameraAngleOverride: 0
