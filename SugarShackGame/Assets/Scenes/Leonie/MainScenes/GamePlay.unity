@@ -3928,6 +3928,7 @@ MonoBehaviour:
   buttons:
   - {fileID: 2032855275}
   - {fileID: 2032855274}
+  paused: 0
 --- !u!1001 &826945146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11963,16 +11964,36 @@ PrefabInstance:
       value: 0.94509804
       objectReference: {fileID: 0}
     - target: {fileID: 4495539391317747134, guid: 728546a2128adfb4cadc9ed29636ed66, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495539391317747134, guid: 728546a2128adfb4cadc9ed29636ed66, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495539391317747134, guid: 728546a2128adfb4cadc9ed29636ed66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4495539391317747134, guid: 728546a2128adfb4cadc9ed29636ed66, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1160294473}
     - target: {fileID: 4495539391317747134, guid: 728546a2128adfb4cadc9ed29636ed66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1160294473}
     - target: {fileID: 4495539391317747134, guid: 728546a2128adfb4cadc9ed29636ed66, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495539391317747134, guid: 728546a2128adfb4cadc9ed29636ed66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: Resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495539391317747134, guid: 728546a2128adfb4cadc9ed29636ed66, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIGamePlay, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4495539391317747134, guid: 728546a2128adfb4cadc9ed29636ed66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName

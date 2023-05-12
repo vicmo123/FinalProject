@@ -94,7 +94,7 @@ public class PlayerAbilityHandler : MonoBehaviour, IFlow
                     var objAbility = AbilityObjectManager.Instance.AddObjectToCollection(abilitySlots[slotIndex].type, player);
                     objAbility.InitAbility(abilitySlots[slotIndex], player);
                 }
-                Debug.Log(abilitySlots[slotIndex]);
+                //Debug.Log(abilitySlots[slotIndex]);
                 abilitySlots[slotIndex] = slotFactory.CreateRandomAbility();
             }
         }

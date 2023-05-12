@@ -27,10 +27,10 @@ public class CustomInputHandler : MonoBehaviour
     public bool UseRightPowerUp { get; set; } = false;
     [HideInInspector]
     public bool Aim { get; private set; } = false;
-    [HideInInspector]
-    public bool Pause { get; private set; } = false;
 
-   
+    public bool Pause { get;  set; } = false;
+
+    public Action OnPauseAction = () => { };
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -63,7 +63,8 @@ public class CustomInputHandler : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         Debug.Log("On Look!!!");
-        if (context.control.device.name.Equals("mouse")){
+        if (context.control.device.name.Equals("Mouse"))
+        {
             Debug.Log("A MOUSE MOVEMENT WAS REGISTERED");
         }
 
@@ -130,8 +131,10 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        Debug.Log("ON Pause!");
-        Pause = context.action.triggered;
+        if (!isControlsBlocked)
+            Pause = context.action.triggered;
+        else
+            Pause = false;
 
     }
 
@@ -145,10 +148,6 @@ public class CustomInputHandler : MonoBehaviour
         Debug.Log("Down");
     }
 
-    public void OnSubmit(InputAction.CallbackContext context)
-    {
-        Debug.Log("Submit");
-    }
 
     #endregion
 

@@ -22,20 +22,18 @@ public class UIGamePlay : MonoBehaviour
 
     private List<Player> players;
     private List<PlayerInput> pi;
+    private List<CustomInputHandler> inputHandlers;
     private Sprite empty;
 
     float countdown;
     bool gameOnPause = false;
-    bool playersSet = false;
+    private float pauseDeltaTimeout = 0.5f;
+    bool canUpdateUISettings = false;
 
     private void Start()
     {
         Cursor.visible = false;
-        //Turn off debug camera
-        // debug_Camera.gameObject.SetActive(false);
-        //Init Timer
         countdown = UIManager.Instance.gameDuration;
-        Debug.Log("time for the game : " + countdown);
 
         LoadResources();
         DisplayUI();
@@ -48,58 +46,79 @@ public class UIGamePlay : MonoBehaviour
     {
         empty = Resources.Load<Sprite>("Sprites/Abilities/Empty");
     }
-    private void InitPlayers()
+    private void InitWorldUIPlayerSettings()
     {
-        //Init Players
-        if (PlayerManager.Instance.players.Count == 2 && !playersSet)
+        if (FindObjectOfType<PlayerInputManager>().playerCount == 2)
+            canUpdateUISettings = true;
+
+        if (canUpdateUISettings)
         {
             players = PlayerManager.Instance.players;
             pi = new List<PlayerInput>();
+            inputHandlers = new List<CustomInputHandler>();
 
             for (int i = 0; i < players.Count; i++)
             {
                 pi.Add(players[i].playerInput);
+                inputHandlers.Add(pi[i].gameObject.GetComponent<CustomInputHandler>());
+
                 viewports[i].LinkPlayer(players[i]);
                 nameColors[i].GetComponent<MeshRenderer>().materials[0].color = players[i].color;
+                pi[i].gameObject.GetComponent<CustomInputHandler>().OnPauseAction += Pause_performed;
             }
-            playersSet = true;
         }
     }
 
     private void InitActions()
     {
-        //Init actions :
         actions = new PlayerControls();
-        actions.Player.Pause.performed += Pause_performed;
-        actions.Player.Enable();
     }
 
     private void DisplayUI()
     {
-        //Display the right UI
         Pause.gameObject.SetActive(false);
         Gameplay.gameObject.SetActive(true);
     }
     #endregion
-
-    private void Pause_performed(InputAction.CallbackContext obj)
+    public void Pause_performed()
     {
         Pause.gameObject.SetActive(true);
-        //EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(pauseFirstBtn);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         Pause.GetComponent<PauseView>().OnPause();
     }
 
     private void Update()
     {
-        InitPlayers();
+        InitWorldUIPlayerSettings();
+
+        //Checking what is the value of Pause in CustomInputHandler
+        PauseCheck();
 
         if (!gameOnPause)
         {
             UpdateTime();
 
-            if (playersSet)
+            if (canUpdateUISettings)
                 UpdatePlayerUI();
+        }
+
+    }
+
+    public void PauseCheck()
+    {
+        for (int i = 0; i < inputHandlers.Count; i++)
+        {
+            if (inputHandlers[i].Pause && !gameOnPause)
+            {
+                Pause_performed();
+                gameOnPause = true;
+            }
+        }
+
+        if (!Pause.GetComponent<PauseView>().paused)
+        {
+            gameOnPause = false;
         }
     }
 
@@ -127,16 +146,6 @@ public class UIGamePlay : MonoBehaviour
         countdown = UIManager.Instance.gameDuration;
     }
 
-    public void Resume()
-    {
-        gameOnPause = false;
-        Pause.gameObject.SetActive(false);
-        actions.UI_Navigation.Disable();
-        for (int i = 0; i < pi.Count; i++)
-        {
-            pi[i].SwitchCurrentActionMap("Player");
-        }
-    }
 
     public void UpdatePlayerUI()
     {
@@ -170,8 +179,6 @@ public class UIGamePlay : MonoBehaviour
             #region Syrup
             viewports[i].RefreshSyrup(players[i].syrupCanManager.GetCanCount());
             #endregion
-
         }
     }
-
 }

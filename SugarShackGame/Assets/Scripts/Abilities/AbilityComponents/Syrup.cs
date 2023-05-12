@@ -9,6 +9,6 @@ public class Syrup : UnThrowableAbility
         base.InitAbility(_stats, _player);
         player.syrupCanManager.AddCan();
 
-        Debug.Log(player.syrupCanManager.GetCanCount());
+        //Debug.Log(player.syrupCanManager.GetCanCount());
     }
 }

@@ -180,7 +180,6 @@ public class Ragdoll : MonoBehaviour, IFlow
 
         foreach (var ragdollPart in partsList)
         {
-            Debug.Log(ragdollPart.rb.gameObject.name);
             ragdollPart.rb.isKinematic = true;
             ragdollPart.rb.velocity = Vector3.zero;
             ragdollPart.rb.angularVelocity = Vector3.zero;

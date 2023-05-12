@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1864935458601992854}
   - component: {fileID: 2738834627791581583}
   - component: {fileID: 469992565098710378}
+  - component: {fileID: 6367773302667934498}
   m_Layer: 0
   m_Name: PlayerConfiguration
   m_TagString: Untagged
@@ -258,41 +259,17 @@ MonoBehaviour:
     m_ActionId: 30d950af-7731-4275-9061-4983b2eccc6b
     m_ActionName: Player/SelectUI[/XInputControllerWindows/buttonSouth,/Keyboard/enter,/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2971841531636681689}
-        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
-        m_MethodName: OnUp
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 4c53ca4e-2517-4088-8f5c-c60bb18e7c22
     m_ActionName: UI_Navigation/Up[/XInputControllerWindows/leftStick/up,/Keyboard/w]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2971841531636681689}
-        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
-        m_MethodName: OnDown
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: f0fa5069-3c0c-425b-893e-48594536d8ae
     m_ActionName: UI_Navigation/Down[/XInputControllerWindows/leftStick/down,/Keyboard/s]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2971841531636681689}
-        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
+      - m_Target: {fileID: 6367773302667934498}
+        m_TargetAssemblyTypeName: CustomUIInputs, Assembly-CSharp
         m_MethodName: OnSubmit
         m_Mode: 0
         m_Arguments:
@@ -325,6 +302,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 21af4b21-feca-4a08-a877-08f431ca211b
     m_ActionName: UI_Settings_Duration/Submit[/Keyboard/enter,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/rightStick/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6367773302667934498}
+        m_TargetAssemblyTypeName: CustomUIInputs, Assembly-CSharp
+        m_MethodName: OnUIMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fabb4d79-868e-4c3f-8eb0-2a7554977ba3
+    m_ActionName: UI_Navigation/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -417,3 +410,15 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &6367773302667934498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131529724733625024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a559e563aa008c40b2f3e1abd2b85ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

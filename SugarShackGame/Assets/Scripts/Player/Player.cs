@@ -84,7 +84,7 @@ public class Player : MonoBehaviour, IFlow
     public void Refresh()
     {
         ragdoll.Refresh();
-        Debug.Log("Player Refresh");
+        //Debug.Log("Player Refresh");
         playerController.Refresh();
         playerBucket.Refresh();
         throwerComponent.Refresh();

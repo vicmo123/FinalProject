@@ -506,6 +506,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""fabb4d79-868e-4c3f-8eb0-2a7554977ba3"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -616,6 +625,72 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""56d9f214-fbb2-460f-b524-9aa3d46a8830"",
+                    ""path"": ""2DVector(mode=1)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""cbf6e87d-7acf-4e13-9ede-cf6f6810750a"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""ddc307c6-7fee-45e6-a78f-d49491336da1"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""cb554b31-dd59-4e42-92a7-ce459cd50425"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""886d7a74-b5ac-4b87-9e45-570de4787b8c"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53afe132-7651-47b8-a89f-b4a92dd3e809"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": ""StickDeadzone"",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -840,6 +915,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_UI_Navigation_Submit = m_UI_Navigation.FindAction("Submit", throwIfNotFound: true);
         m_UI_Navigation_Left = m_UI_Navigation.FindAction("Left", throwIfNotFound: true);
         m_UI_Navigation_Right = m_UI_Navigation.FindAction("Right", throwIfNotFound: true);
+        m_UI_Navigation_Movement = m_UI_Navigation.FindAction("Movement", throwIfNotFound: true);
         // UI_Settings_Duration
         m_UI_Settings_Duration = asset.FindActionMap("UI_Settings_Duration", throwIfNotFound: true);
         m_UI_Settings_Duration_Up = m_UI_Settings_Duration.FindAction("Up", throwIfNotFound: true);
@@ -1030,6 +1106,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Navigation_Submit;
     private readonly InputAction m_UI_Navigation_Left;
     private readonly InputAction m_UI_Navigation_Right;
+    private readonly InputAction m_UI_Navigation_Movement;
     public struct UI_NavigationActions
     {
         private @PlayerControls m_Wrapper;
@@ -1039,6 +1116,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Submit => m_Wrapper.m_UI_Navigation_Submit;
         public InputAction @Left => m_Wrapper.m_UI_Navigation_Left;
         public InputAction @Right => m_Wrapper.m_UI_Navigation_Right;
+        public InputAction @Movement => m_Wrapper.m_UI_Navigation_Movement;
         public InputActionMap Get() { return m_Wrapper.m_UI_Navigation; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1063,6 +1141,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Right.started -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnRight;
                 @Right.performed -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnRight;
                 @Right.canceled -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnRight;
+                @Movement.started -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_UI_NavigationActionsCallbackInterface.OnMovement;
             }
             m_Wrapper.m_UI_NavigationActionsCallbackInterface = instance;
             if (instance != null)
@@ -1082,6 +1163,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Right.started += instance.OnRight;
                 @Right.performed += instance.OnRight;
                 @Right.canceled += instance.OnRight;
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
             }
         }
     }
@@ -1175,6 +1259,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSubmit(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
+        void OnMovement(InputAction.CallbackContext context);
     }
     public interface IUI_Settings_DurationActions
     {

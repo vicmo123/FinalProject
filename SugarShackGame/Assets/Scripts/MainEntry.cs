@@ -134,7 +134,7 @@ public class MainEntry : MonoBehaviour
 
     public void OnPauseLogic()
     {
-        //Debug.Log("OnPauseLogic");
+        Debug.Log("OnPauseLogic");
         stateMachine.CurrentState = GameStateMachine.Pause;
         Time.timeScale = 0;
     }
