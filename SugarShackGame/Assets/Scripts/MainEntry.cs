@@ -159,7 +159,7 @@ public class MainEntry : MonoBehaviour
     #region OnExit
     public void OnGameplayExit()
     {
-        Debug.Log("OnGameplayExit");
+        //Debug.Log("OnGameplayExit");
     }
 
     public void OnPauseExit()

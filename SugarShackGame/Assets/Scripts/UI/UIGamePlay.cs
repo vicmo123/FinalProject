@@ -30,7 +30,6 @@ public class UIGamePlay : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Gameplay scene");
         Cursor.visible = false;
         //Turn off debug camera
         // debug_Camera.gameObject.SetActive(false);

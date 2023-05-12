@@ -30,7 +30,6 @@ public class ParticleEffectFactory
             {
                 if (prefabs[j].name.Equals(partEffectTypes[i].ToString()))
                 {
-                    Debug.Log(prefabs[j].name + " " + partEffectTypes[i].ToString());
                     resourceDict.Add(partEffectTypes[i], prefabs[j]);
                     continue;
                 }

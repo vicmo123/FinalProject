@@ -57,7 +57,7 @@ public class GameManager : IFlow
     {
         foreach (var manager in managerList)
         {
-            Debug.Log("GameManager Resfresh");
+           // Debug.Log("GameManager Resfresh");
             manager.Refresh();
         }
     }

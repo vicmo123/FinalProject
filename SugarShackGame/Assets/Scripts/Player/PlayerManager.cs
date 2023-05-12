@@ -100,8 +100,7 @@ public class PlayerManager : IFlow
             Debug.Log("player" + playerConfig.PlayerIndex + " using : " + playerConfig.Input.currentControlScheme);
         }
 
-
-        Debug.Log("Instantiating player");
+        
         Player generatedPlayer = factory.CreatPlayer(factory.beardColors[playerConfig.IndexColorBeard], factory.shirtColors[playerConfig.IndexColorShirt]);
         generatedPlayer.GetComponent<PlayerController>().SetInputHandler(customHandler);
         generatedPlayer.SetPlayerInput(playerConfig.Input);

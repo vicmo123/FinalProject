@@ -32,7 +32,6 @@ public class ParticleEffectManager : IFlow
 
     public void PreInitialize()
     {
-        Debug.Log("Preinit Part Effect Manager");
         factory = new ParticleEffectFactory();
     }
     public GameObject Create(ParticleEffectType type)

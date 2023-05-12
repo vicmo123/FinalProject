@@ -54,7 +54,6 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        Debug.Log("JUMPING!");
         if (!isControlsBlocked)
             Jump = context.action.triggered;
         else

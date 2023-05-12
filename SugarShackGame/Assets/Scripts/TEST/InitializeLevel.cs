@@ -20,7 +20,6 @@ public class InitializeLevel : MonoBehaviour
         PlayerInputManager pim = pcm.GetComponent<PlayerInputManager>();
         //pim.playerPrefab = 
         var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
-        Debug.Log("playerConfigs.Length" + playerConfigs.Length);
 
         //pim = pcm.GetComponent<PlayerInputManager>();
 
