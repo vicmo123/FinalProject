@@ -137,7 +137,7 @@ public class UIManager
     {
         Debug.Log("Initializing Game Data in UIManager");
     }
-
+   
 }
 
 public class PlayerGameData
@@ -156,7 +156,7 @@ public class PlayerGameData
         return playerIndex;
     }
 
-
+    
 
 }
 

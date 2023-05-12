@@ -146,8 +146,11 @@ public class MainEntry : MonoBehaviour
         if (!exiting)
         {
             //Give Data to the UIManager / Score Manager
+            //Clear Managers (lists)  
+            Debug.Log(FindObjectOfType<ClearInputs>().gameObject.name);
+            FindObjectOfType<ClearInputs>().GetComponent<ClearInputs>().Clearing();
             UIManager.Instance.LoadOneScene(ScenesNames.EndGame);
-            //Clear Managers (lists)   
+           
             exiting = true;
         }
     }
@@ -170,7 +173,8 @@ public class MainEntry : MonoBehaviour
 
     public void OnEndGameExit()
     {
-        //Debug.Log("OnEndGameExit");
+        Debug.Log("OnEndGameExit");
+        
     }
 
 

@@ -11,7 +11,7 @@ public class UIEndGame : MonoBehaviour
         UIManager.Instance.CurrentScene = 1;
     }
     public void ExitBtnPressed()
-    {
+    {        
         UIManager.Instance.LoadOneScene(ScenesNames.MainMenu);
     }
 }
