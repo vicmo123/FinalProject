@@ -13,7 +13,9 @@ public class PauseView : MonoBehaviour
     public PlayerControls actions;
 
     private PlayerInputManager playerInputManager;
+
     private List<PlayerInput> inputs;
+    private List<CustomInputHandler> customInputs;
     
     public bool paused = false;
 
@@ -28,12 +30,14 @@ public class PauseView : MonoBehaviour
     private void InitActions()
     {
         inputs = new List<PlayerInput>();
+        customInputs = new List<CustomInputHandler>();
         playerInputManager = GameObject.FindGameObjectWithTag("PlayerInputManager").GetComponent<PlayerInputManager>();
       
 
         for (int i = 0; i < playerInputManager.playerCount; i++)
         {
-            inputs.Add(playerInputManager.transform.GetChild(i).gameObject.GetComponent<PlayerInput>());        
+            inputs.Add(playerInputManager.transform.GetChild(i).gameObject.GetComponent<PlayerInput>());
+            customInputs.Add(inputs[i].gameObject.GetComponent<CustomInputHandler>());
         }
         actions = new PlayerControls();
     }
@@ -46,14 +50,26 @@ public class PauseView : MonoBehaviour
     
     public void OnPause()
     {
-        Debug.Log("Pause");
         mainEntry.isPaused = true;
         paused = true;
     }
 
     public void DePause()
     {
-        Debug.Log("DEPAUSE");
+        //Delay for no jumping when we get back in the scene
+        StartCoroutine(DelayPlayerActionsInput());      
+    }
+
+    private IEnumerator DelayPlayerActionsInput()
+    {
+        yield return null;  // wait a frame
+
+        ActionsOnPause();
+    }
+
+    private void ActionsOnPause()
+    {
+        StopFromJumping();
         mainEntry.isPaused = false;
         mainEntry.isPauseFinished = true;
         paused = false;
@@ -63,7 +79,6 @@ public class PauseView : MonoBehaviour
             inputs[i].actions.FindActionMap("Player").Enable();
             inputs[i].actions.FindActionMap("UI_Navigation").Disable();
         }
-
         this.gameObject.SetActive(false);
     }
 
@@ -72,5 +87,13 @@ public class PauseView : MonoBehaviour
         ExitActions();
         mainEntry.isExit = true;
         paused = false;
+    }
+
+    private void StopFromJumping()
+    {
+        for (int i = 0; i < customInputs.Count; i++)
+        {
+            customInputs[i].Jump = false ;
+        }
     }
 }

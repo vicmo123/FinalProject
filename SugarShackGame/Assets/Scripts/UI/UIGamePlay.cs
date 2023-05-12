@@ -18,17 +18,16 @@ public class UIGamePlay : MonoBehaviour
 
     public TMP_Text timerMin_TextBox;
     public TMP_Text timerSec_TextBox;
-    public PlayerControls actions;
 
     private List<Player> players;
     private List<PlayerInput> pi;
     private List<CustomInputHandler> inputHandlers;
     private Sprite empty;
 
-    float countdown;
-    bool gameOnPause = false;
+    private float countdown;
+    private bool gameOnPause = false;
     private float pauseDeltaTimeout = 0.5f;
-    bool canUpdateUISettings = false;
+    private bool canUpdateUISettings = false;
 
     private void Start()
     {
@@ -37,8 +36,6 @@ public class UIGamePlay : MonoBehaviour
 
         LoadResources();
         DisplayUI();
-        InitActions();
-
     }
 
     #region Init
@@ -46,6 +43,7 @@ public class UIGamePlay : MonoBehaviour
     {
         empty = Resources.Load<Sprite>("Sprites/Abilities/Empty");
     }
+
     private void InitWorldUIPlayerSettings()
     {
         if (FindObjectOfType<PlayerInputManager>().playerCount == 2)
@@ -69,10 +67,6 @@ public class UIGamePlay : MonoBehaviour
         }
     }
 
-    private void InitActions()
-    {
-        actions = new PlayerControls();
-    }
 
     private void DisplayUI()
     {
@@ -92,7 +86,7 @@ public class UIGamePlay : MonoBehaviour
     {
         InitWorldUIPlayerSettings();
 
-        //Checking what is the value of Pause in CustomInputHandler
+        //Checking value of Pause in CustomInputHandler
         PauseCheck();
 
         if (!gameOnPause)
@@ -109,6 +103,7 @@ public class UIGamePlay : MonoBehaviour
     {
         for (int i = 0; i < inputHandlers.Count; i++)
         {
+            //allowing to trigger only once
             if (inputHandlers[i].Pause && !gameOnPause)
             {
                 Pause_performed();
