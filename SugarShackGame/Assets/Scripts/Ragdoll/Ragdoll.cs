@@ -30,6 +30,11 @@ public class Ragdoll : MonoBehaviour, IFlow
     public float timeBeforeForcingRecovery = 5f;
     private CountDownTimer recoveryTimer;
 
+    public void SetInputHandler(CustomInputHandler inputHandler)
+    {
+        input = inputHandler;
+    }
+
     public void PreInitialize()
     {
         // this timer is to force the recovery it it has been too long
@@ -43,7 +48,7 @@ public class Ragdoll : MonoBehaviour, IFlow
         ragdollTrigger = (hitPoint, hitForce) => { TriggerRagdoll(hitPoint, hitForce); };
         ragdollTriggerAll = (hitForce) => { TriggerRagdollAll(hitForce); };
 
-        input = GetComponent<CustomInputHandler>();
+        //input = GetComponent<CustomInputHandler>();
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         agent = GetComponent<NavMeshAgent>();
@@ -116,6 +121,8 @@ public class Ragdoll : MonoBehaviour, IFlow
         {
             part.rb.isKinematic = false;
         }
+
+        Debug.Log(input);
 
         if (input)
         {

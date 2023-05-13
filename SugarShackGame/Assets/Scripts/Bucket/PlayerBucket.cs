@@ -28,7 +28,10 @@ public class PlayerBucket : MonoBehaviour, IUsable, IFlow
         {ActionsToSpill.RAGDOLL, 30.0f}
     };
 
-
+    public void SetInputHandler(CustomInputHandler _inputHandler)
+    {
+        inputHandler = _inputHandler;
+    }
 
     public void Initialize()
     {
@@ -41,7 +44,6 @@ public class PlayerBucket : MonoBehaviour, IUsable, IFlow
 
     public void PreInitialize()
     {
-        inputHandler = GetComponent<PlayerController>()._inputHandler;
         ragdoll = GetComponent<Ragdoll>();
     }
 
@@ -100,7 +102,13 @@ public class PlayerBucket : MonoBehaviour, IUsable, IFlow
         spilling.transform.position = this.spillingAttatchPoint.position;
     }
 
-    public IEnumerator NoSpill(float duration)
+
+    public void MakeNoSpill(float duration)
+    {
+        StartCoroutine(NoSpillEffect(duration));
+    }
+
+    private IEnumerator NoSpillEffect(float duration)
     {
         bucketLid.SetActive(true);
         isSpillable = false;
