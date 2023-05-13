@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using System.IO;
 
-public enum ScenesNames { MainMenu, Setup, Title, GamePlay, EndGame, Credits, Controls };
+public enum ScenesNames { MainMenu, NewSelectionMenu, Title, NewGamePlay, EndGame, Controls, Credits };
 
 public class UIManager
 {
@@ -65,7 +65,7 @@ public class UIManager
             playersGD[i].name = $"player{i + 1}";
         }
     }
-    public Color AssignColor(string color)
+    public Color StringToColor(string color)
     {
         Color newColor = Color.yellow;
         switch (color)

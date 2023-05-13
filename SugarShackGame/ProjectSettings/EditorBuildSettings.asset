@@ -12,17 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Leonie/MainScenes/MainMenu.unity
     guid: 63b0e031a861b384f8218ad4b5eacda6
   - enabled: 1
-    path: Assets/Scenes/Leonie/MainScenes/DontDelete/Selection_Menu.unity
+    path: Assets/Scenes/Leonie/MainScenes/NewSelectionMenu.unity
     guid: 400a799875fd4b344befa015e32336c2
   - enabled: 1
-    path: Assets/Scenes/Leonie/MainScenes/DontDelete/GamePlay_SpawnTest.unity
+    path: Assets/Scenes/Leonie/MainScenes/NewGamePlay.unity
     guid: 4452f240f29c82b458d06b7a2f225880
-  - enabled: 0
-    path: Assets/Scenes/Leonie/MainScenes/Setup.unity
-    guid: 8791b14e14d132d4b8a7896d6d4457ab
-  - enabled: 0
-    path: Assets/Scenes/Leonie/MainScenes/GamePlay.unity
-    guid: 2c6c0d54a26e95441bf86242e1608070
   - enabled: 1
     path: Assets/Scenes/Leonie/MainScenes/EndGame.unity
     guid: ba4c1e21528c77044b3d639cac5afd79

@@ -116,7 +116,7 @@ public class PlayerManager : IFlow
         PlayerInput plInput = generatedPlayer.GetComponent<PlayerInput>();
                 
       
-        players[players.Count - 1].color = UIManager.Instance.AssignColor(factory.shirtColors[playerConfig.IndexColorShirt]);
+        players[players.Count - 1].color = UIManager.Instance.StringToColor(factory.shirtColors[playerConfig.IndexColorShirt]);
         players[players.Count - 1].PreInitialize();
         players[players.Count - 1].Initialize();
         players[players.Count - 1].SpawnAtLocation(spawnPositions[players.Count - 1].transform.position, spawnPositions[players.Count - 1].transform.rotation);

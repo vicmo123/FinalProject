@@ -42,7 +42,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         {
             try
             {
-                SceneManager.LoadScene("GamePlay_SpawnTest");
+                SceneManager.LoadScene("NewGamePlay");
             }
             catch
             {
