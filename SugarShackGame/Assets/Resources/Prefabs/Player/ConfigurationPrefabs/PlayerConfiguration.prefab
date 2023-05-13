@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb64b81291303f6418518e998794d87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSetupMenuPrefab: {fileID: 5645351702797949225, guid: 82d1471f32e36af4cb44ce3edae6da7f, type: 3}
+  PlayerSetupMenuPrefab: {fileID: 7273653309997851462, guid: e60e09ccc5643c6449cee750d527ba71, type: 3}
   pi: {fileID: 1313652934740870647}
 --- !u!143 &1864935458601992854
 CharacterController:
