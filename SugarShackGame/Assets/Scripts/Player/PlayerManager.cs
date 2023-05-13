@@ -133,4 +133,14 @@ public class PlayerManager : IFlow
         player.GetComponentInChildren<CinemachineBrain>().gameObject.layer = layerToAdd;
         player.GetComponentInChildren<Camera>().cullingMask |= 1 << layerToAdd;
     }
+
+    public PlayerScore[] GetPlayerScores()
+    {
+        PlayerScore[] playerScores = new PlayerScore[2];
+        for (int i = 0; i < players.Count; i++)
+        {
+            playerScores[i] = players[i].playerScore;
+        }
+        return playerScores;
+    }
 }

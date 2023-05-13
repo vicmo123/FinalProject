@@ -17,6 +17,7 @@ public class PlayerScore
     };
 
     string playerName;
+    int playerIndex;
 
     Player player;
     private FloatingPointsHandler floatPointsEffect;
@@ -39,12 +40,19 @@ public class PlayerScore
 
     public PlayerScore(Player _player, FloatingPointsHandler _floatPointsEffect) {
         player = _player;
+        playerIndex = player.playerInput.playerIndex;
         floatPointsEffect = _floatPointsEffect;
         bonusPoints = 0;
     }
 
+    public int GetPlayerIndex()
+    {
+        return this.playerIndex;
+    }
+
     public void AddBonus(Bonus bonusType) {
         bonusPoints += bonus[bonusType];
+
         //FloatingPoints Effect here with color and bonus points
         floatPointsEffect.makePointsEffect.Invoke(bonus[bonusType].ToString());
     }
@@ -87,15 +95,15 @@ public class PlayerScore
 [Serializable]
 public class ScoreInfo
 {
-    public int claimedBuckets, syrupCans, bucketPoints, syrupCanPoints, bonusPoints, score;
+    public int nbClaimedBuckets, nbSyrupCans, bucketPoints, syrupCanPoints, bonusPoints, totalScore;
 
     public ScoreInfo(PlayerScore playerScore) {
-        score = playerScore.CalculateScore();
+        totalScore = playerScore.CalculateScore();
 
-        claimedBuckets = playerScore.claimedBuckets;
+        nbClaimedBuckets = playerScore.claimedBuckets;
         bucketPoints = playerScore.CalculateBuckets();
 
-        syrupCans = playerScore.syrupCans;
+        nbSyrupCans = playerScore.syrupCans;
         syrupCanPoints = playerScore.CalculateSyrupCans();
 
         bonusPoints = playerScore.bonusPoints;

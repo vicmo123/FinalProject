@@ -35,6 +35,7 @@ public class UIManager
     private List<string> scenes;
     private int currentScene = 0;
     private List<ScenesNames> sceneNames;
+    private PlayerScore[] playerScores;
 
     public int CurrentScene { get => currentScene; set => currentScene = value; }
 
@@ -136,6 +137,16 @@ public class UIManager
     public void InitializeGameData()
     {
         Debug.Log("Initializing Game Data in UIManager");
+    }
+
+    public void SaveScore(PlayerScore[] playerScores)
+    {
+        this.playerScores = playerScores;
+    }
+
+    public PlayerScore[] GetScores()
+    {
+        return this.playerScores;
     }
    
 }
