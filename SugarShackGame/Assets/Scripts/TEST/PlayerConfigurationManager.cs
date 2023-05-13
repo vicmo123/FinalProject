@@ -9,6 +9,8 @@ public class PlayerConfigurationManager : MonoBehaviour
     private List<PlayerConfiguration> playerConfigs;
     [SerializeField]
     private int maxPlayers = 2;
+    [SerializeField]
+    private GameObject StartCanvas;
 
     public static PlayerConfigurationManager Instance { get; set; }
 
@@ -51,6 +53,9 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public void HandlePLayerJoin(PlayerInput pi)
     {
+        if (pi.playerIndex == 0)
+            StartCanvas.SetActive(false);
+
         if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
         {
             Debug.Log("Player joined !!!!!!!! :" + pi.playerIndex);

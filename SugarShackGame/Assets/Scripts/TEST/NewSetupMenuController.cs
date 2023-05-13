@@ -60,7 +60,7 @@ public class NewSetupMenuController : MonoBehaviour
 
         player.transform.position = spawnPosition.position;
         player.transform.rotation = new Quaternion(0, 1, 0, 0);
-        player.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+        player.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     public void SetPlayerIndex(int pi)
@@ -108,8 +108,8 @@ public class NewSetupMenuController : MonoBehaviour
 
     public IEnumerator SelectEffect(Player player)
     {
-        float delta = 1.3f;
-        while (delta < 1.5f)
+        float delta = 1f;
+        while (delta < 1.2f)
         {
             delta += Time.deltaTime;
             player.transform.localScale = new Vector3(delta, delta, delta);
