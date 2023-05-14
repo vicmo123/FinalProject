@@ -26,14 +26,12 @@ public class UIScoreMenu : MonoBehaviour
     private void FillScorePages(PlayerScore[] players)
     {
         int winnerIndex = GetWinnerIndex(players);
-        Debug.Log("Winner  is :" + winnerIndex);
 
         for (int i = 0; i < scorePages.Length; i++)
         {
             //if score is equal : both players are winners
-            winnerIndex = winnerIndex == -1 ? i : winnerIndex;
-
-            scorePages[i].DisplayScore(players[i], (winnerIndex == i));
+            int newWinnerIndex = (winnerIndex == -1 )? i : winnerIndex;
+            scorePages[i].DisplayScore(players[i], (newWinnerIndex == i));
         }
     }
 
