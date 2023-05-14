@@ -31,7 +31,7 @@ public class UIManager
     #endregion
 
     private bool DEBUG_MODE = false;
-    public float gameDuration = 300f;
+    public float gameDuration = 60f;
     private List<string> scenes;
     private int currentScene = 0;
     private List<ScenesNames> sceneNames;
@@ -44,7 +44,6 @@ public class UIManager
 
     public void Initialize()
     {
-        Debug.Log("Initialise UIManage");
         playersGD = new PlayerGameData[2] { new PlayerGameData(), new PlayerGameData() };
 
         if (DEBUG_MODE)
@@ -121,10 +120,6 @@ public class UIManager
         return playersGD;
     }
 
-    public void GatherData()
-    {
-        Debug.Log("Gathering Data for the end of the game");
-    }
 
     public void ClearData()
     {

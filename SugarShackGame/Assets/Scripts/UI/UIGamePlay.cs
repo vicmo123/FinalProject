@@ -37,7 +37,6 @@ public class UIGamePlay : MonoBehaviour
         Cursor.visible = false;
         countdown = UIManager.Instance.gameDuration;
         pauseView = Pause.gameObject.GetComponent<PauseView>();
-        Debug.Log(pauseView.name);
 
         LoadResources();
         DisplayUI();

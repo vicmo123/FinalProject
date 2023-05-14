@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class UIScorePage : MonoBehaviour
 {
-    PlayerScore player;
     public TMP_Text indexPlayerText;
 
     public Image winnerImg;
@@ -22,25 +21,25 @@ public class UIScorePage : MonoBehaviour
     public TMP_Text TotalScoreText;
     
 
-    public void DisplayScore(PlayerScore player, bool isWinner)
+    public void DisplayScore(PlayerScore playerScore, bool isWinner)
     {
-        this.player = player;
         //Show winner or loser image
         if (isWinner == true)
             Winner();
         else
             Loser();
 
-        indexPlayerText.text = "Player " + player.GetPlayerIndex().ToString();
+        indexPlayerText.text = "Player " + playerScore.GetPlayerIndex().ToString();
 
-        nbBucketsText.text = player.claimedBuckets.ToString();
-        totalBocuketText.text = player.CalculateBuckets().ToString();
+        //Calculate total of buckets BEFORE getting the number. Important.
+        totalBocuketText.text = playerScore.totalClaimedBuckets.ToString();
+        nbBucketsText.text = playerScore.claimedBuckets.ToString();
 
-        nbCansText.text = player.syrupCans.ToString();
-        totalCansText.text = player.CalculateSyrupCans().ToString();
+        totalCansText.text = playerScore.totalSyrupCan.ToString();
+        nbCansText.text = playerScore.syrupCans.ToString();
 
-        totalBonusText.text = player.bonusPoints.ToString();
-        TotalScoreText.text = player.CalculateScore().ToString();
+        totalBonusText.text = playerScore.bonusPoints.ToString();
+        TotalScoreText.text = playerScore.totalScore.ToString();
 
     }
 

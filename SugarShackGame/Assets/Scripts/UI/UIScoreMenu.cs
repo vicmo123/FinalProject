@@ -6,29 +6,27 @@ using System.Linq;
 
 public class UIScoreMenu : MonoBehaviour
 {
-    private bool DEBUG = true;
     public TMP_Text gameDurationText;
     public UIScorePage[] scorePages;
 
     private void Start()
     {
         PlayerScore[] playerScores;
-        if (DEBUG)        
-            playerScores = FakeFillPlayerScores();
-        
-        else        
-            playerScores = UIManager.Instance.GetScores();
-               
+        playerScores = UIManager.Instance.GetScores();
+
         FillScorePages(playerScores);
+        DisplayGameDuration(UIManager.Instance.gameDuration);
     }
     private void DisplayGameDuration(float duration)
     {
-        gameDurationText.text = duration.ToString();
+        float durationInMinutes = duration / 60.0f;
+        gameDurationText.text = durationInMinutes.ToString() + " min";
     }
 
     private void FillScorePages(PlayerScore[] players)
     {
         int winnerIndex = GetWinnerIndex(players);
+        Debug.Log("Winner  is :" + winnerIndex);
 
         for (int i = 0; i < scorePages.Length; i++)
         {
@@ -44,10 +42,10 @@ public class UIScoreMenu : MonoBehaviour
         if (players.Length > 1)
         {
             //Are the score equals ?
-            if (players[0].CalculateScore() == players[1].CalculateScore())
+            if (players[0].totalScore == players[1].totalScore)
                 return -1;
             else
-                return players[0].CalculateScore() > players[1].CalculateScore() ? 0 : 1;
+                return players[0].totalScore > players[1].totalScore ? 0 : 1;
         }
         else
         {
@@ -55,15 +53,5 @@ public class UIScoreMenu : MonoBehaviour
         }
     }
 
-    private PlayerScore[] FakeFillPlayerScores()
-    {
-        PlayerScore[] playerScores = new PlayerScore[2];
-        for (int i = 0; i < playerScores.Length; i++)
-        {
-            //
-        }
 
-        throw new System.Exception("Fake fill playerScore is not done yet!");
-        return playerScores;
-    }
 }

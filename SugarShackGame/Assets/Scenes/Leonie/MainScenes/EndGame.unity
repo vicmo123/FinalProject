@@ -1030,6 +1030,10 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3644386374201653160, guid: 7dd546d34f97db9488c422c4cd62a5e4, type: 3}
+      propertyPath: m_Name
+      value: Total1
+      objectReference: {fileID: 0}
     - target: {fileID: 3644386374201653166, guid: 7dd546d34f97db9488c422c4cd62a5e4, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -1257,6 +1261,10 @@ PrefabInstance:
     - target: {fileID: 3644386374907648354, guid: 7dd546d34f97db9488c422c4cd62a5e4, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3644386374912251049, guid: 7dd546d34f97db9488c422c4cd62a5e4, type: 3}
+      propertyPath: m_Name
+      value: nbOfBuckets1
       objectReference: {fileID: 0}
     - target: {fileID: 3644386374912251055, guid: 7dd546d34f97db9488c422c4cd62a5e4, type: 3}
       propertyPath: m_fontSize

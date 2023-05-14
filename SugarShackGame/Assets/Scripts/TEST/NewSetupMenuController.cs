@@ -49,11 +49,9 @@ public class NewSetupMenuController : MonoBehaviour
         player = factory.CreatPlayer(beards[0], shirts[0]);
 
         GameObject spawningParent = GameObject.FindGameObjectWithTag("SpawnPoint");
-        Debug.Log(spawningParent.name);
         if (spawningParent != null && spawningParent.transform.childCount > 1)
         {
             spawnPosition = spawningParent.transform.GetChild(playerIndex).transform;
-            Debug.Log(spawnPosition.name);
             Transform camTransform = spawnPosition.GetChild(0);
             camTransform.gameObject.SetActive(true);
         }

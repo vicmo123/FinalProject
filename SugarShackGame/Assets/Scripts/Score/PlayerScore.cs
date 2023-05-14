@@ -17,11 +17,11 @@ public class PlayerScore
     };
 
     string playerName;
-    int playerIndex;
+    public int playerIndex;
 
     Player player;
     private FloatingPointsHandler floatPointsEffect;
-    public int syrupCans, claimedBuckets, bonusPoints;
+    public int syrupCans, totalSyrupCan, claimedBuckets, totalClaimedBuckets, bonusPoints, totalScore;
     [NonSerialized]
     readonly int syrupCanValue = 1000;
     [NonSerialized]
@@ -38,9 +38,16 @@ public class PlayerScore
         { Bonus.HORN, 40},
     };
 
-    public PlayerScore(Player _player, FloatingPointsHandler _floatPointsEffect) {
+    public PlayerScore(Player _player, FloatingPointsHandler _floatPointsEffect)
+    {
+        Debug.Log("Constructor of PLayerScore of player : " + _player.index);
         player = _player;
-        playerIndex = player.playerInput.playerIndex;
+
+        if (player == null)
+            throw new Exception("Player is null in PlayerScore");
+        else
+            playerIndex = player.index;
+
         floatPointsEffect = _floatPointsEffect;
         bonusPoints = 0;
     }
@@ -50,32 +57,47 @@ public class PlayerScore
         return this.playerIndex;
     }
 
-    public void AddBonus(Bonus bonusType) {
+    public void AddBonus(Bonus bonusType)
+    {
+        Debug.Log("Add Bonus function");
         bonusPoints += bonus[bonusType];
 
         //FloatingPoints Effect here with color and bonus points
         floatPointsEffect.makePointsEffect.Invoke(bonus[bonusType].ToString());
     }
 
-    public int CalculateBuckets() {
+    public int CalculateBuckets()
+    {
         claimedBuckets = 0;
-        foreach (var bucket in BucketManager.Instance.buckets) {
-            if (bucket.player == player)
+        int i = 0;
+        foreach (var bucket in BucketManager.Instance.buckets)
+        {
+            if (bucket.player)
+                if(bucket.player.index == playerIndex)
                 claimedBuckets++;
+            i++;
         }
-        return claimedBuckets* claimedBucketValue;
+        //claimedBuckets = 29 - claimedBuckets;
+        Debug.Log("Nb of buckets : " + claimedBuckets + " for player : " + playerIndex);
+        totalClaimedBuckets = claimedBuckets * claimedBucketValue;
+        return claimedBuckets * claimedBucketValue;
     }
 
-    public int CalculateSyrupCans() {
+    public int CalculateSyrupCans()
+    {
         syrupCans = player.syrupCanManager.GetCanCount();
+        totalSyrupCan = syrupCans * syrupCanValue;
         return syrupCans * syrupCanValue;
     }
 
-    public int CalculateScore() {
+    public int CalculateScore()
+    {
+        totalScore = CalculateSyrupCans() + CalculateBuckets() + bonusPoints;
         return CalculateSyrupCans() + CalculateBuckets() + bonusPoints;
     }
 
-    public static Player GetWinner(Player _player1, Player _player2) {
+    public static Player GetWinner(Player _player1, Player _player2)
+    {
         int player1Score = _player1.playerScore.CalculateScore();
         int player2Score = _player2.playerScore.CalculateScore();
 
@@ -87,25 +109,34 @@ public class PlayerScore
             return null;
     }
 
-    public ScoreInfo GetScoreInfo() {
-        return new ScoreInfo(this);
+    public PlayerScore GetSavedPlayerScore()
+    {
+        CalculateScore();
+        return this;
     }
+
+    //public ScoreInfo GetScoreInfo()
+    //{
+    //    return new ScoreInfo(this);
+    //}
 }
 
-[Serializable]
-public class ScoreInfo
-{
-    public int nbClaimedBuckets, nbSyrupCans, bucketPoints, syrupCanPoints, bonusPoints, totalScore;
+//[Serializable]
+//public class ScoreInfo
+//{
+//    public int nbClaimedBuckets, nbSyrupCans, bucketPoints, syrupCanPoints, bonusPoints, totalScore;
 
-    public ScoreInfo(PlayerScore playerScore) {
-        totalScore = playerScore.CalculateScore();
+//    public ScoreInfo(PlayerScore playerScore)
+//    {
 
-        nbClaimedBuckets = playerScore.claimedBuckets;
-        bucketPoints = playerScore.CalculateBuckets();
+//        Debug.Log("Constructeur de ScoreInfo");
+//        totalScore = playerScore.CalculateScore();
+//        nbClaimedBuckets = playerScore.claimedBuckets;
+//        bucketPoints = playerScore.CalculateBuckets();
 
-        nbSyrupCans = playerScore.syrupCans;
-        syrupCanPoints = playerScore.CalculateSyrupCans();
+//        nbSyrupCans = playerScore.syrupCans;
+//        syrupCanPoints = playerScore.CalculateSyrupCans();
 
-        bonusPoints = playerScore.bonusPoints;
-    }
-}
+//        bonusPoints = playerScore.bonusPoints;
+//    }
+//}

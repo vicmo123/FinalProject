@@ -139,7 +139,7 @@ public class PlayerManager : IFlow
         PlayerScore[] playerScores = new PlayerScore[2];
         for (int i = 0; i < players.Count; i++)
         {
-            playerScores[i] = players[i].playerScore;
+            playerScores[i] = players[i].playerScore.GetSavedPlayerScore();
         }
         return playerScores;
     }

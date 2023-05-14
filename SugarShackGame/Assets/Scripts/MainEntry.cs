@@ -111,7 +111,6 @@ public class MainEntry : MonoBehaviour
     public void OnEndGameEnter()
     {
         Debug.Log("OnEndGameEnter");
-        UIManager.Instance.GatherData();
     }
 
 
@@ -146,14 +145,14 @@ public class MainEntry : MonoBehaviour
         if (!exiting)
         {
             //Give Data to the UIManager / Score Manager
-
             UIManager.Instance.SaveScore(PlayerManager.Instance.GetPlayerScores());
                 //Clear Managers (lists)  
-            Debug.Log(FindObjectOfType<ClearInputs>().gameObject.name);
+           
             FindObjectOfType<ClearInputs>().GetComponent<ClearInputs>().Clearing();
+            exiting = true;
+            Debug.Log("Loading End Game scene");
             UIManager.Instance.LoadOneScene(ScenesNames.EndGame);
 
-            exiting = true;
         }
     }
 

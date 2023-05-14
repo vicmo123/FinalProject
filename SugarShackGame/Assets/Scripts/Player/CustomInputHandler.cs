@@ -45,7 +45,6 @@ public class CustomInputHandler : MonoBehaviour
     //These must be here to work for some reason, doenst work in custom handler.
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("A move was triggered");
         if (!isControlsBlocked)
             Move = context.ReadValue<Vector2>();
         else
@@ -56,7 +55,6 @@ public class CustomInputHandler : MonoBehaviour
     {
         if (!isControlsBlocked && !Pause)
         {
-            Debug.Log("JUMP");
             Jump = context.action.triggered;
         }
         else
@@ -65,12 +63,6 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        Debug.Log("On Look!!!");
-        if (context.control.device.name.Equals("Mouse"))
-        {
-            Debug.Log("A MOUSE MOVEMENT WAS REGISTERED");
-        }
-
         if (!isControlsBlocked)
             Look = context.ReadValue<Vector2>();
         else
@@ -92,7 +84,6 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        Debug.Log("THROWINGGGGGG!!!");
         if (!isControlsBlocked)
             Throw = context.action.triggered;
         else
@@ -117,7 +108,6 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnRightPowerUp(InputAction.CallbackContext context)
     {
-        Debug.Log("On Right POwer Up!");
         if (!isControlsBlocked)
             UseRightPowerUp = context.action.triggered;
         else
@@ -143,12 +133,10 @@ public class CustomInputHandler : MonoBehaviour
 
     public void OnUp(InputAction.CallbackContext context)
     {
-        Debug.Log("UP");
     }
 
     public void OnDown(InputAction.CallbackContext context)
     {
-        Debug.Log("Down");
     }
 
 

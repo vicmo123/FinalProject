@@ -107,7 +107,6 @@ public class PlayerController : MonoBehaviour, IFlow
 
     public void Initialize()
     {
-        Debug.Log("PlayerController Initialize");
         if (_hasAnimator)
         {
             AssignAnimationIDs();
