@@ -46,7 +46,7 @@ public class NewSetupMenuController : MonoBehaviour
 
     private void LoadPlayers()
     {
-        player = factory.CreatPlayer(beards[0], shirts[0]);
+        player = factory.CreatPlayer(beards[playerIndex], shirts[playerIndex]);
 
         GameObject spawningParent = GameObject.FindGameObjectWithTag("SpawnPoint");
         if (spawningParent != null && spawningParent.transform.childCount > 1)
