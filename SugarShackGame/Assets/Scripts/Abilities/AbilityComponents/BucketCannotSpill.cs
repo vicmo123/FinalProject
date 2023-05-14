@@ -13,6 +13,6 @@ public class BucketCannotSpill : UnThrowableAbility
 
     public override void MakeEffect()
     {
-        StartCoroutine(player.playerBucket.NoSpill(noSpillDuration));
+        player.playerBucket.MakeNoSpill(noSpillDuration);
     }
 }

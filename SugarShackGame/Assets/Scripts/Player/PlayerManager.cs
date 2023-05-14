@@ -54,7 +54,7 @@ public class PlayerManager : IFlow
         players = new List<Player>();
 
         playerInputManager = PlayerConfigurationManager.Instance.GetComponent<PlayerInputManager>();
-       
+
         //playerInputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerInputManager>();
         //playerInputManager.onPlayerJoined += (input) =>
         //{
@@ -91,20 +91,22 @@ public class PlayerManager : IFlow
 
     public Player InitializePlayer(PlayerConfiguration playerConfig)
     {
-
         CustomInputHandler customHandler = playerConfig.Input.gameObject.GetComponent<CustomInputHandler>();
-        
+
         if (DEBUG)
         {
             Debug.Log("PlayerManager Initialize Player");
             Debug.Log("player" + playerConfig.PlayerIndex + " using : " + playerConfig.Input.currentControlScheme);
         }
 
-        
         Player generatedPlayer = factory.CreatPlayer(factory.beardColors[playerConfig.IndexColorBeard], factory.shirtColors[playerConfig.IndexColorShirt]);
+
         generatedPlayer.GetComponent<PlayerController>().SetInputHandler(customHandler);
+        generatedPlayer.GetComponent<Ragdoll>().SetInputHandler(customHandler);
+        generatedPlayer.GetComponent<PlayerBucket>().SetInputHandler(customHandler);
+
         generatedPlayer.SetPlayerInput(playerConfig.Input);
-     
+
         players.Add(generatedPlayer);
         //Assign index to the player
         players[players.Count - 1].index = playerConfig.PlayerIndex;
@@ -114,13 +116,13 @@ public class PlayerManager : IFlow
         int index = playerConfig.PlayerIndex;
         string controlscheme = playerConfig.Input.currentControlScheme;
         PlayerInput plInput = generatedPlayer.GetComponent<PlayerInput>();
-                
-      
+
+
         players[players.Count - 1].color = UIManager.Instance.StringToColor(factory.shirtColors[playerConfig.IndexColorShirt]);
         players[players.Count - 1].PreInitialize();
         players[players.Count - 1].Initialize();
         players[players.Count - 1].SpawnAtLocation(spawnPositions[players.Count - 1].transform.position, spawnPositions[players.Count - 1].transform.rotation);
-        
+
         playersJoined = true;
 
         return generatedPlayer;

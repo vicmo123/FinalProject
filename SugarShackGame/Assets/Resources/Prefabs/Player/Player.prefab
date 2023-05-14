@@ -1111,8 +1111,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2638729458249309510}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20000005, y: 1, z: -4}
+  m_LocalRotation: {x: -0.0061298884, y: -0.0022062194, z: -0.000013524165, w: 0.9999788}
+  m_LocalPosition: {x: 0.20441222, y: 0.9877404, z: -3.9999151}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2509,6 +2509,7 @@ MonoBehaviour:
   floatingPointHandler: {fileID: 0}
   footStepMaker: {fileID: 0}
   index: 0
+  playerInput: {fileID: 0}
 --- !u!95 &902630649624965883
 Animator:
   serializedVersion: 5
@@ -2583,6 +2584,7 @@ MonoBehaviour:
   _cinemachineVirtualCamera: {fileID: 6075371598265408454}
   cursor: {fileID: 5782285731268800214}
   _playerStats: {fileID: 11400000, guid: 67f2e8ff81de1d54c9a393dba2abb936, type: 2}
+  _inputHandler: {fileID: 0}
 --- !u!114 &974000302012181050
 MonoBehaviour:
   m_ObjectHideFlags: 0

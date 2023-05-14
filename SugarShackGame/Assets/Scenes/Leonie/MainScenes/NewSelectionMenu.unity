@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -368,7 +368,6 @@ GameObject:
   m_Component:
   - component: {fileID: 216127904}
   - component: {fileID: 216127906}
-  - component: {fileID: 216127905}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -391,14 +390,6 @@ Transform:
   m_Father: {fileID: 1467400247}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &216127905
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216127903}
-  m_Enabled: 1
 --- !u!20 &216127906
 Camera:
   m_ObjectHideFlags: 0
@@ -1261,7 +1252,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1566216690}
   - component: {fileID: 1566216692}
-  - component: {fileID: 1566216691}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1284,14 +1274,6 @@ Transform:
   m_Father: {fileID: 1002957152}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1566216691
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1566216689}
-  m_Enabled: 1
 --- !u!20 &1566216692
 Camera:
   m_ObjectHideFlags: 0
@@ -1345,7 +1327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1579812401}
   - component: {fileID: 1579812403}
-  - component: {fileID: 1579812402}
+  - component: {fileID: 1579812404}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1368,14 +1350,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1579812402
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1579812400}
-  m_Enabled: 1
 --- !u!20 &1579812403
 Camera:
   m_ObjectHideFlags: 0
@@ -1419,6 +1393,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &1579812404
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579812400}
+  m_Enabled: 1
 --- !u!1 &1626512248
 GameObject:
   m_ObjectHideFlags: 0

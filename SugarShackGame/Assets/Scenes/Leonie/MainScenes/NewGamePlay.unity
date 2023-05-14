@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.42291707, g: 0.46704593, b: 0.60227084, a: 1}
+  m_IndirectSpecularColor: {r: 0.42291752, g: 0.46704644, b: 0.6022718, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -297,6 +297,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 2a75046247a25e64c8e40eb5ec527286, type: 3}
       propertyPath: m_Name
       value: BigRock3 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2a75046247a25e64c8e40eb5ec527286, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2a75046247a25e64c8e40eb5ec527286, type: 3}
       propertyPath: m_NavMeshLayer
@@ -1619,6 +1623,10 @@ PrefabInstance:
       value: Rock1 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 87a986172b8f53343bf5925193846245, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 87a986172b8f53343bf5925193846245, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2069,6 +2077,10 @@ PrefabInstance:
       value: Rock_17
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 23bb1cba492c502439f675027112ce1e, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 23bb1cba492c502439f675027112ce1e, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2268,6 +2280,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: b86ea68bdbb307347840946d10f6576b, type: 3}
       propertyPath: m_Name
       value: Rock_15
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b86ea68bdbb307347840946d10f6576b, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: b86ea68bdbb307347840946d10f6576b, type: 3}
       propertyPath: m_NavMeshLayer
@@ -3699,6 +3715,10 @@ PrefabInstance:
       value: BigRock1 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 35cda2b6f35107d44bfabfd15b84cfe5, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 35cda2b6f35107d44bfabfd15b84cfe5, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -4130,6 +4150,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 23bb1cba492c502439f675027112ce1e, type: 3}
       propertyPath: m_Name
       value: Rock_17 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 23bb1cba492c502439f675027112ce1e, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 23bb1cba492c502439f675027112ce1e, type: 3}
       propertyPath: m_NavMeshLayer
@@ -6328,6 +6352,10 @@ PrefabInstance:
       value: Rock_16
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 7949c5c9e31651a4d95b93b09271bfe3, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7949c5c9e31651a4d95b93b09271bfe3, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -7165,6 +7193,10 @@ PrefabInstance:
       value: BigRock3 (9)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2a75046247a25e64c8e40eb5ec527286, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2a75046247a25e64c8e40eb5ec527286, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -7975,6 +8007,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 3018ac24869de1c438fd3e445db63e92, type: 3}
       propertyPath: m_Name
       value: Rock_10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3018ac24869de1c438fd3e445db63e92, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 3018ac24869de1c438fd3e445db63e92, type: 3}
       propertyPath: m_NavMeshLayer
@@ -8796,6 +8832,10 @@ PrefabInstance:
       value: Rock2
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 3fc1bcce53374864ab60d4c8a68a44f2, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3fc1bcce53374864ab60d4c8a68a44f2, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -8952,6 +8992,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 222aacc66726a5147b15e126dacb2b7a, type: 3}
       propertyPath: m_Name
       value: Rock_14
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 222aacc66726a5147b15e126dacb2b7a, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 222aacc66726a5147b15e126dacb2b7a, type: 3}
       propertyPath: m_NavMeshLayer
@@ -9461,6 +9505,10 @@ PrefabInstance:
       value: Rock1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 87a986172b8f53343bf5925193846245, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 87a986172b8f53343bf5925193846245, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -9732,6 +9780,10 @@ PrefabInstance:
       value: Rock_25 (17)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9104eaddd8ced5946acf67b56a5dab28, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 9104eaddd8ced5946acf67b56a5dab28, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -9974,6 +10026,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 1275cdac7bf6e7c4f83bff30ef907413, type: 3}
       propertyPath: m_Name
       value: Rock4
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1275cdac7bf6e7c4f83bff30ef907413, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1275cdac7bf6e7c4f83bff30ef907413, type: 3}
       propertyPath: m_NavMeshLayer
@@ -10732,6 +10788,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 2a75046247a25e64c8e40eb5ec527286, type: 3}
       propertyPath: m_Name
       value: BigRock3 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2a75046247a25e64c8e40eb5ec527286, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2a75046247a25e64c8e40eb5ec527286, type: 3}
       propertyPath: m_NavMeshLayer
