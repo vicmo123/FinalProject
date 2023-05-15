@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public enum ParticleEffectType { Fire, Fireworks, Spilling, FloatingText, SnowSteps, Dust }
+public enum ParticleEffectType { Fire, Fireworks, Spilling, FloatingText, SnowSteps, Dust, Trail }
 public class ParticleEffectFactory
 {
     Dictionary<ParticleEffectType, GameObject> resourceDict;
