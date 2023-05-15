@@ -21,7 +21,7 @@ public class Horn : UnThrowableAbility
 
     private void PlayTheHorn()
     {
-        SoundManager.Play?.Invoke(hornSound);
+        SoundManager.Play(SoundListEnum.horn1);
     }
 
     public override void MakeEffect()

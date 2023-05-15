@@ -185,7 +185,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     }
 
     private void Claimed(Player _player) {
-        SoundManager.Play(SoundListEnum.claimbucket);
+        SoundManager.Play(SoundListEnum.ClaimBucket);
 
         ChangeColor(_player.color);
         if (player)

@@ -27,6 +27,8 @@ public class PlayerFootStepMaker : MonoBehaviour, IFlow
 
     public void PreInitialize() {
         factoryPool = new footsteps.FootprintFactoryPool(footStepPrefab);
+
+        SoundManager.SetVolume(SoundListEnum.Footstep04, .4f);
     }
 
     public void Initialize() {
