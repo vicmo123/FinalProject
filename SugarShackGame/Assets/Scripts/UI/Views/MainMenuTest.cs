@@ -17,7 +17,20 @@ public class MainMenuTest : MonoBehaviour
         Controls.SetActive(false);
         Credits.SetActive(false);
     }
- 
+
+    private void Update()
+    {
+        if(currentView != MainMenu)
+        {
+            Debug.Log(Input.GetButtonDown("CancelButton"));
+        }
+
+        if (Input.GetButtonDown("CancelButton"))
+        {
+            Debug.Log("CancelButton");
+        }
+    }
+
     public void SwitchView(GameObject nextCanvas, GameObject firstBtn)
     {
         nextCanvas.SetActive(true);
@@ -52,5 +65,7 @@ public class MainMenuTest : MonoBehaviour
     {
         SwitchView(MainMenu, mainMenuFirstBtn);
     }
+
+
     
 }
