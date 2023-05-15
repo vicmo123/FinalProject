@@ -79,8 +79,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d762cc1fdf4584a825a3295c11a432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   fillingBarObject: {fileID: 5980863875700788164, guid: a4519b7f8a726124c98fa52c94e9a906, type: 3}
   positionForFillingBar: {fileID: 7720652974147727809}
+  readyToUse: {fileID: 4531332719862388500, guid: bdf356cb2bcb34c409898cc3cb6c2330, type: 3}
   sapAmount: 0
 --- !u!65 &3933495132076701739
 BoxCollider:

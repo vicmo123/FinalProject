@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class PlayerScore
 {
@@ -22,11 +23,8 @@ public class PlayerScore
     Player player;
     private FloatingPointsHandler floatPointsEffect;
     public int syrupCans, totalSyrupCan, claimedBuckets, totalClaimedBuckets, bonusPoints, totalScore;
-    [NonSerialized]
     readonly int syrupCanValue = 1000;
-    [NonSerialized]
     readonly int claimedBucketValue = 250;
-    [NonSerialized]
     readonly Dictionary<Bonus, int> bonus = new Dictionary<Bonus, int>() {
         { Bonus.SNOWBALL_HIT_PLAYER, 50},
         { Bonus.SNOWBALL_HIT_ANIMAL, 40},
@@ -115,28 +113,124 @@ public class PlayerScore
         return this;
     }
 
-    //public ScoreInfo GetScoreInfo()
-    //{
-    //    return new ScoreInfo(this);
-    //}
+    public int CheckForBestScores() {
+        Debug.Log("TEST");
+        BestScores scores = LoadScores();
+        int pos = scores.CheckScore(CalculateScore());
+        if (pos != -1)
+            scores.NewBest(pos, new ScoreInfo(this));
+        SaveScores(scores);
+        return pos;
+    }
+
+    public void SaveScores(BestScores scores) {
+        BestScores bestScores = SerializeObject(scores) as BestScores;
+
+        string jsonSerializationOfNewClass = JsonUtility.ToJson(bestScores);
+
+        string directoryPath = Path.Combine(Application.streamingAssetsPath, "Leaderboard/");
+        if (!Directory.Exists(directoryPath))
+            Directory.CreateDirectory(directoryPath);
+
+        string filePath;
+        filePath = Path.Combine(directoryPath, "bestScores.txt");
+
+        File.WriteAllText(filePath, jsonSerializationOfNewClass);
+    }
+
+    private object SerializeObject(BestScores scores) {
+        return scores;
+    }
+
+    public BestScores LoadScores() {
+        string directoryPath = Path.Combine(Application.streamingAssetsPath, "Leaderboard/");
+        if (!Directory.Exists(directoryPath))
+            Directory.CreateDirectory(directoryPath);
+
+        string filePath;
+        filePath = Path.Combine(directoryPath, "bestScores.txt");
+
+        if (File.Exists(filePath)) {
+            string jsonDeserialized = File.ReadAllText(filePath);
+
+            BestScores newClassLoadedFromJson = JsonUtility.FromJson<BestScores>(jsonDeserialized);
+            DeserializeObject(newClassLoadedFromJson);
+            return newClassLoadedFromJson;
+        }
+        else {
+            Debug.Log("File not found.");
+            return new BestScores();
+        }
+    }
+
+    private void DeserializeObject(object o) {
+        BestScores scores = o as BestScores;
+        scores.CheckLength();
+    }
 }
 
-//[Serializable]
-//public class ScoreInfo
-//{
-//    public int nbClaimedBuckets, nbSyrupCans, bucketPoints, syrupCanPoints, bonusPoints, totalScore;
+[Serializable]
+public class ScoreInfo
+{
+    public int nbClaimedBuckets, nbSyrupCans, bucketPoints, syrupCanPoints, bonusPoints, totalScore;
 
-//    public ScoreInfo(PlayerScore playerScore)
-//    {
+    public ScoreInfo(PlayerScore playerScore) {
 
-//        Debug.Log("Constructeur de ScoreInfo");
-//        totalScore = playerScore.CalculateScore();
-//        nbClaimedBuckets = playerScore.claimedBuckets;
-//        bucketPoints = playerScore.CalculateBuckets();
+        Debug.Log("Constructeur de ScoreInfo");
+        totalScore = playerScore.CalculateScore();
+        nbClaimedBuckets = playerScore.claimedBuckets;
+        bucketPoints = playerScore.CalculateBuckets();
 
-//        nbSyrupCans = playerScore.syrupCans;
-//        syrupCanPoints = playerScore.CalculateSyrupCans();
+        nbSyrupCans = playerScore.syrupCans;
+        syrupCanPoints = playerScore.CalculateSyrupCans();
 
-//        bonusPoints = playerScore.bonusPoints;
-//    }
-//}
+        bonusPoints = playerScore.bonusPoints;
+    }
+
+    public ScoreInfo() {
+        totalScore = 0;
+
+        nbClaimedBuckets = 0;
+        bucketPoints = 0;
+
+        nbSyrupCans = 0;
+        syrupCanPoints = 0;
+
+        bonusPoints = 0;
+    }
+}
+
+[Serializable]
+public class BestScores
+{
+    public BestScores() {
+        scores = new ScoreInfo[0];
+        CheckLength();
+    }
+    public ScoreInfo[] scores;
+    public void CheckLength() {
+        int length = scores.Length;
+        if (length == 5)
+            return;
+        else {
+            ScoreInfo[] temp = new ScoreInfo[5];
+            for (int i = 0; i < length; i++) {
+                temp[i] = scores[i];
+            }
+            for (int i = length; i < 5; i++) {
+                temp[i] = new ScoreInfo();
+            }
+            scores = temp;
+        }
+    }
+    public int CheckScore(int score) {
+        for (int i = 0; i < scores.Length; i++) {
+            if (scores[i].totalScore < score)
+                return i;
+        }
+        return -1;
+    }
+    public void NewBest(int position, ScoreInfo info) {
+        scores[position] = info;
+    }
+}

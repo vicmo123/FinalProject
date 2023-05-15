@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1836299370010710407}
   - component: {fileID: 7429032119703853688}
   m_Layer: 0
-  m_Name: ClaimBucket
+  m_Name: claimbucket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
