@@ -12,6 +12,11 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
     private Highlight highlight;
 
+    [SerializeField] private GameObject readyToUse;
+    private Transform readyIcon;
+    private float readyDelay = 0.2f;
+    private float endDelay;
+
     [HideInInspector] public float sapAmount = 0.0f;
     private float maxSapAmount = 20.0f;
     private float sapGainSpeed = 3.0f;
@@ -47,15 +52,33 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
         highlight.PreInitialize();
 
         CreateFillingBars();
-
+        CreateReadyIcon();
     }
 
     public void Refresh() {
         Sap();
 
         highlight.Refresh();
+
+        if (Time.time >= endDelay)
+            ToggleReady(false);
     }
 
+    private void ToggleReady(bool val) {
+        if (val) {
+            endDelay = Time.time + readyDelay;
+        }
+
+        readyIcon.gameObject.SetActive(val);
+
+    }
+
+    private void CreateReadyIcon() {
+        readyIcon = GameObject.Instantiate(readyToUse).transform;
+        readyIcon.transform.SetParent(transform);
+        readyIcon.position = positionForFillingBar.position + new Vector3(0, .3f, 0);
+        readyIcon.gameObject.SetActive(false);
+    }
     private void CreateFillingBars() {
         fillingBarPlayer1 = GameObject.Instantiate(fillingBarObject).GetComponent<FillingBar>();
         fillingBarPlayer1.gameObject.layer = 9;
@@ -121,6 +144,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
     public void Looked(Player _player) {
         highlight.ToggleHighlight(true);
+        ToggleReady(true);
     }
 
     private void Claim(Player _player) {

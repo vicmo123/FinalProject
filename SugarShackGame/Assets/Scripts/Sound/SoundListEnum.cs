@@ -1,8 +1,21 @@
 public enum SoundListEnum {
+	bearroar,
 	Bell,
+	boiling,
 	Chop,
 	ClaimBucket,
+	collectsap,
 	CollectSap,
 	completetask_0,
-	PouringSap
+	fire,
+	Footstep04,
+	horn1,
+	musique1,
+	musique2,
+	musique3,
+	pouringwater,
+	PouringSap,
+	scareddeer,
+	snowballhit,
+	snowstep
 }

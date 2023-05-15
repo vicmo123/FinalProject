@@ -44,6 +44,18 @@ public class MainEntry : MonoBehaviour
             stateMachine.InitStateMachine();
             SetDelgsForStateMachine();
             gameStarted = true;
+
+            int music = UnityEngine.Random.Range(1, 3);
+            if (music == 1) {
+                SoundManager.Loop(SoundListEnum.musique1, true);
+                SoundManager.Play(SoundListEnum.musique1);
+            }else if (music == 2) {
+                SoundManager.Loop(SoundListEnum.musique2, true);
+                SoundManager.Play(SoundListEnum.musique2);
+            }else if (music == 3) {
+                SoundManager.Loop(SoundListEnum.musique3, true);
+                SoundManager.Play(SoundListEnum.musique3);
+            }
         }
         //playerInputManager.onPlayerJoined += (input) =>
         //{
@@ -125,7 +137,7 @@ public class MainEntry : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Y))
         {
             //hihi
-            int i = 0;
+            //int i = 0;
         }
         GameManager.Instance.Refresh();
         GameManager.Instance.PhysicsRefresh();

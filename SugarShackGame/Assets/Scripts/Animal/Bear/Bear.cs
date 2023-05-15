@@ -37,6 +37,8 @@ public class Bear : Animal
     {
         isStandingUpTime = false;
 
+        SoundManager.Play(SoundListEnum.bearroar);
+
         base.OnSpecialActionEnter();
         animController.SetTrigger("StandUp");
         var agent = GetComponent<NavMeshAgent>();

@@ -16,6 +16,7 @@ public class SoundManager : MonoBehaviour
     public static Action<SoundListEnum, float> SetPitch = null;
     public static Action<SoundListEnum> Pause = null;
     public static Action<SoundListEnum> UnPause = null;
+    public static Action<SoundListEnum, bool> Loop = null;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class SoundManager : MonoBehaviour
         SetPitch = (name, pitch) => { SetSoundPitch(name, pitch); };
         Pause = (name) => { PauseSound(name); };
         UnPause = (name) => { UnPauseSound(name); };
+        Loop = (name, loop) => { LoopSound(name, loop); };
     }
 
     private void LoadSounds()
@@ -92,6 +94,12 @@ public class SoundManager : MonoBehaviour
             var audioSource = soundMap[soundName];
             if (!audioSource.isPlaying)
                 audioSource.UnPause();
+        }
+    }
+
+    private void LoopSound(SoundListEnum soundName, bool loop) {
+        if (soundMap.ContainsKey(soundName)) {
+            soundMap[soundName].loop = loop;
         }
     }
 
