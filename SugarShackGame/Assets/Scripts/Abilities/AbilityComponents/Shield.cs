@@ -12,6 +12,6 @@ public class Shield : UnThrowableAbility
 
     public override void MakeEffect()
     {
-        
+        Debug.Log("Protect me");
     }
 }
