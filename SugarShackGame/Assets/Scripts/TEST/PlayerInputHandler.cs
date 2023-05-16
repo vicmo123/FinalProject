@@ -40,7 +40,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     }
 
-
     private void Input_onActionTriggered(InputAction.CallbackContext obj)
     {
         if (obj.action.name == controls.Player.Movement.name)
@@ -55,6 +54,5 @@ public class PlayerInputHandler : MonoBehaviour
         {
             customInputHandler.OnJump(obj);
         }
-
     }
 }
