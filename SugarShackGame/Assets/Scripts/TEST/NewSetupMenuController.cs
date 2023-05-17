@@ -31,10 +31,8 @@ public class NewSetupMenuController : MonoBehaviour
 
     private void Start()
     {
-
         SetUIResources();
         LoadPlayers();
-        //InitActions();
     }
 
     private void SetUIResources()
@@ -46,7 +44,9 @@ public class NewSetupMenuController : MonoBehaviour
 
     private void LoadPlayers()
     {
-        player = factory.CreatPlayer(beards[playerIndex], shirts[playerIndex]);
+        currentShirtIndex = playerIndex;
+        player = factory.CreatPlayer(beards[playerIndex], shirts[currentShirtIndex]);
+        
 
         GameObject spawningParent = GameObject.FindGameObjectWithTag("SpawnPoint");
         if (spawningParent != null && spawningParent.transform.childCount > 1)

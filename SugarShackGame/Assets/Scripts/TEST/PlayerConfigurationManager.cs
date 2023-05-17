@@ -58,7 +58,6 @@ public class PlayerConfigurationManager : MonoBehaviour
 
         if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
         {
-            Debug.Log("Player joined !!!!!!!! :" + pi.playerIndex);
             pi.transform.SetParent(transform);
             playerConfigs.Add(new PlayerConfiguration(pi));
         }
@@ -69,6 +68,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         return playerConfigs;
     }
 }
+
 public class PlayerConfiguration
 {
     public PlayerInput Input { get; set; }
@@ -87,5 +87,4 @@ public class PlayerConfiguration
     {
         Input.camera = camera;
     }
-
 }
