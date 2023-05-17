@@ -437,19 +437,16 @@ public class PlayerController : MonoBehaviour, IFlow
 
     public void InversedControlsEffect(float duration)
     {
-        Debug.Log("Inversed Controls");
         StartCoroutine(ApplyInverseControls(duration));
     }
 
     public void BoostEffect(float duration)
     {
-        Debug.Log("Boost");
         StartCoroutine(ApplyBoost(duration));
     }
 
     public void SlowDownEffect(float duration)
     {
-        Debug.Log("Slow Down");
         StartCoroutine(ApplySlowDown(duration));
     }
 

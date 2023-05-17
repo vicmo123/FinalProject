@@ -54,19 +54,23 @@ public class ThrowableAbility : AbilityComponent
         Thrower collided = collision.gameObject.GetComponentInParent<Thrower>();
         if (collided != thrower || collided == null)
         {
-            Debug.Log("Oncollision for throwable ability");
-            Ragdoll ragdollComponent = collision.collider.GetComponentInParent<Ragdoll>();
-
-            if (ragdollComponent != null)
+            var shieldComponent = collision.collider.GetComponentInParent<ShieldEffect>();
+            if (shieldComponent == null)
             {
-                //// Bonus points
-                //if (ragdollComponent.transform.root.CompareTag("Player"))
-                //    thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.SNOWBALL_HIT_PLAYER);
-                //else
-                //    thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.SNOWBALL_HIT_ANIMAL);
+                Debug.Log("Oncollision for throwable ability");
+                Ragdoll ragdollComponent = collision.collider.GetComponentInParent<Ragdoll>();
 
-                Vector3 force = rb.velocity;
-                ragdollComponent.ragdollTrigger.Invoke(collision.GetContact(0).point, force);
+                if (ragdollComponent != null)
+                {
+                    //// Bonus points
+                    //if (ragdollComponent.transform.root.CompareTag("Player"))
+                    //    thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.SNOWBALL_HIT_PLAYER);
+                    //else
+                    //    thrower.GetComponent<Player>().playerScore.AddBonus(PlayerScore.Bonus.SNOWBALL_HIT_ANIMAL);
+
+                    Vector3 force = rb.velocity;
+                    ragdollComponent.ragdollTrigger.Invoke(collision.GetContact(0).point, force);
+                }
             }
         }
     }

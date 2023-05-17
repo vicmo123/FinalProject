@@ -163,5 +163,5 @@ MonoBehaviour:
   readyToBeDestroyed: 0
   player: {fileID: 0}
   rb: {fileID: 0}
-  ShieldPrefab: {fileID: 5037749448479562751, guid: 1139b56c6ad22184eaecb4d25893ee09, type: 3}
+  ShieldPrefab: {fileID: 6097607340613215309, guid: 1139b56c6ad22184eaecb4d25893ee09, type: 3}
   ShieldEffectDuration: 8
