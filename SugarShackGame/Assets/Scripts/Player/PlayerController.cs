@@ -112,6 +112,10 @@ public class PlayerController : MonoBehaviour, IFlow
         // reset our timeouts on start
         _jumpTimeoutDelta = _playerStats.JumpTimeout;
         _fallTimeoutDelta = _playerStats.FallTimeout;
+
+        initialMoveSpeed = _playerStats.MoveSpeed;
+        initialRunSpeed = _playerStats.SprintSpeed;
+        initialJumpHeight = _playerStats.JumpHeight;
     }
 
     public void Refresh()
@@ -456,24 +460,24 @@ public class PlayerController : MonoBehaviour, IFlow
         _inputHandler.UnInverseControls();
     }
 
+    private float initialMoveSpeed;
+    private float initialRunSpeed;
+    private float initialJumpHeight;
+
     private float boostWalkSpeed = 15;
     private float boostRunSpeed = 25;
     private float boostJumpHeight = 7;
     private IEnumerator ApplyBoost(float duration)
     {
-        float oldWalkSpeed = _playerStats.MoveSpeed;
-        float oldRunSpeed = _playerStats.SprintSpeed;
-        float oldJumpHeight = _playerStats.JumpHeight;
-
         _playerStats.MoveSpeed = boostWalkSpeed;
         _playerStats.SprintSpeed = boostRunSpeed;
         _playerStats.JumpHeight = boostJumpHeight;
 
         yield return new WaitForSeconds(duration);
 
-        _playerStats.MoveSpeed = oldWalkSpeed;
-        _playerStats.SprintSpeed = oldRunSpeed;
-        _playerStats.JumpHeight = oldJumpHeight;
+        _playerStats.MoveSpeed = initialMoveSpeed;
+        _playerStats.SprintSpeed = initialRunSpeed;
+        _playerStats.JumpHeight = initialJumpHeight;
     }
 
     private float slowDownWalkSpeed = 2;
@@ -481,18 +485,14 @@ public class PlayerController : MonoBehaviour, IFlow
     private float slowDownJumpHeight = 0.5f;
     private IEnumerator ApplySlowDown(float duration)
     {
-        float oldWalkSpeed = _playerStats.MoveSpeed;
-        float oldRunSpeed = _playerStats.SprintSpeed;
-        float oldJumpHeight = _playerStats.JumpHeight;
-
         _playerStats.MoveSpeed = slowDownWalkSpeed;
         _playerStats.SprintSpeed = slowDownRunSpeed;
         _playerStats.JumpHeight = slowDownJumpHeight;
 
         yield return new WaitForSeconds(duration);
 
-        _playerStats.MoveSpeed = oldWalkSpeed;
-        _playerStats.SprintSpeed = oldRunSpeed;
-        _playerStats.JumpHeight = oldJumpHeight;
+        _playerStats.MoveSpeed = initialMoveSpeed;
+        _playerStats.SprintSpeed = initialRunSpeed;
+        _playerStats.JumpHeight = initialJumpHeight;
     }
 }

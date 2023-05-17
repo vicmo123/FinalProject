@@ -9,6 +9,8 @@ using UnityEngine.InputSystem;
 
 public class Ragdoll : MonoBehaviour, IFlow
 {
+    private bool isLocked = false;
+
     //Ragdoll
     private List<RagdollBodyPart> partsList;
     public Action<Vector3, Vector3> ragdollTrigger;
@@ -99,20 +101,26 @@ public class Ragdoll : MonoBehaviour, IFlow
 
     private void TriggerRagdoll(Vector3 hitPoint, Vector3 hitForce)
     {
-        EnableRagdoll();
+        if (!isLocked)
+        {
+            EnableRagdoll();
 
-        Rigidbody hitRigidbody = partsList.OrderBy(part => Vector3.Distance(part.rb.position, hitPoint)).First().rb;
-        hitRigidbody.AddForceAtPosition(hitForce, hitPoint, ForceMode.Impulse);
+            Rigidbody hitRigidbody = partsList.OrderBy(part => Vector3.Distance(part.rb.position, hitPoint)).First().rb;
+            hitRigidbody.AddForceAtPosition(hitForce, hitPoint, ForceMode.Impulse);
+        }
     }
 
     private void TriggerRagdollAll(Vector3 hitForce)
     {
-        EnableRagdoll();
-
-        foreach (var part in partsList)
+        if (!isLocked)
         {
-            part.rb.AddForce(hitForce, ForceMode.Impulse);
-        }
+            EnableRagdoll();
+
+            foreach (var part in partsList)
+            {
+                part.rb.AddForce(hitForce, ForceMode.Impulse);
+            }
+        } 
     }
 
     private void EnableRagdoll()
@@ -273,5 +281,15 @@ public class Ragdoll : MonoBehaviour, IFlow
             defaultPosition = rb.transform.localPosition;
             defaultRotation = rb.transform.localRotation;
         }
+    }
+
+    public void Lock()
+    {
+        isLocked = true;
+    }
+
+    public void UnLock()
+    {
+        isLocked = false;
     }
 }
