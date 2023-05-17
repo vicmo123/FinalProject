@@ -29,7 +29,7 @@ public class UIScorePage : MonoBehaviour
         else
             Loser();
 
-        indexPlayerText.text = "Player " + playerScore.GetPlayerIndex().ToString();
+        indexPlayerText.text = "Player " + (playerScore.GetPlayerIndex()+1).ToString();
 
         //Calculate total of buckets BEFORE getting the number. Important.
         totalBocuketText.text = playerScore.totalClaimedBuckets.ToString();

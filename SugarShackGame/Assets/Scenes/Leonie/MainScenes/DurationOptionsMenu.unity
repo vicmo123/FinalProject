@@ -570,7 +570,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 576315417}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1174025470}
+        m_TargetAssemblyTypeName: GameDurationView, Assembly-CSharp
+        m_MethodName: SetGameDuration
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 10
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &576315417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,7 +704,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 648411992}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1174025470}
+        m_TargetAssemblyTypeName: GameDurationView, Assembly-CSharp
+        m_MethodName: SetGameDuration
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 5
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &648411992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,13 +910,31 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -344.3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1174025469, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
 --- !u!224 &1174025468 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6864680383699034928, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
   m_PrefabInstance: {fileID: 1174025467}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1174025469 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6864680384574794103, guid: 7bae55aee92088349aecdafa7d2d0bf6, type: 3}
+  m_PrefabInstance: {fileID: 1174025467}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1174025470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174025469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e576ab0a17763d14087d33030b5c479b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1255942669
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,7 +1221,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1988700979}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1174025470}
+        m_TargetAssemblyTypeName: GameDurationView, Assembly-CSharp
+        m_MethodName: SetGameDuration
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 3
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1988700979
 MonoBehaviour:
   m_ObjectHideFlags: 0

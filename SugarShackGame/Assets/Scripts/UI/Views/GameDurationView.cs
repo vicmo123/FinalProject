@@ -16,6 +16,8 @@ public class GameDurationView : MonoBehaviour
     {
         UIManager.Instance.gameDuration = duration * 60.0f;
         Debug.Log("Game duration is : " + duration);
+
+        StartGameBtnPressed();
     }
 
     public void StartGameBtnPressed()
