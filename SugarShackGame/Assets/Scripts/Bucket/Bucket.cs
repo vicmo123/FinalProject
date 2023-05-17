@@ -201,6 +201,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
     private void Claimed(Player _player) {
         SoundManager.Play(SoundListEnum.claimbucket);
+        _player.floatingPointHandler.makePointsEffect("250");
 
         ChangeColor(_player.color);
         if (player)
@@ -214,7 +215,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
         }
 
         player = _player;
-
+        
         // Temporary change of color
     }
 
