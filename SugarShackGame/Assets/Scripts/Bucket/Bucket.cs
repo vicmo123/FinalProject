@@ -190,7 +190,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
     private void CollectSap(Player _player) {
         if (Time.time >= endOfCooldown) {
-            SoundManager.Play(SoundListEnum.CollectSap);
+            SoundManager.Play(SoundListEnum.collectsap);
             // If the playing using the bucket is the owner, gets sap
             sapAmount -= _player.playerBucket.AddSap(sapAmount);
             fillingBarPlayer1.Fill(sapAmount, maxSapAmount);
