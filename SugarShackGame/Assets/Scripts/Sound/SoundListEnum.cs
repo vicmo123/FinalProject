@@ -5,7 +5,6 @@ public enum SoundListEnum {
 	Chop,
 	claimbucket,
 	collectsap,
-	CollectSap,
 	completetask_0,
 	deerattack,
 	deerscared,
@@ -16,7 +15,6 @@ public enum SoundListEnum {
 	musique2,
 	musique3,
 	pouringwater,
-	PouringSap,
 	scareddeer,
 	snowballhit,
 	snowstep

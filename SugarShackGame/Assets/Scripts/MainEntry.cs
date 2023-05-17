@@ -25,8 +25,7 @@ public class MainEntry : MonoBehaviour
     private bool gameStarted = false;
     private bool exiting = false;
 
-    private void Awake()
-    {
+    private void Awake() {
         GameManager.Instance.GameManagerSetup();
         GameManager.Instance.PreInitialize();
         GameManager.Instance.Initialize();
@@ -35,30 +34,13 @@ public class MainEntry : MonoBehaviour
         //  Assign player with UI viewport
     }
 
-    void Start()
-    {
+    void Start() {
         playerInputManager = PlayerConfigurationManager.Instance.GetComponent<PlayerInputManager>();
-        if (playerInputManager.playerCount == 2)
-        {
+        if (playerInputManager.playerCount == 2) {
             stateMachine = new GameStateMachine(this);
             stateMachine.InitStateMachine();
             SetDelgsForStateMachine();
             gameStarted = true;
-
-            int music = UnityEngine.Random.Range(1, 3);
-            if (music == 1) {
-                SoundManager.Loop(SoundListEnum.musique1, true);
-                SoundManager.SetVolume(SoundListEnum.musique1, .5f);
-                SoundManager.Play(SoundListEnum.musique1);
-            }else if (music == 2) {
-                SoundManager.Loop(SoundListEnum.musique2, true);
-                SoundManager.SetVolume(SoundListEnum.musique2, .5f);
-                SoundManager.Play(SoundListEnum.musique2);
-            }else if (music == 3) {
-                SoundManager.Loop(SoundListEnum.musique3, true);
-                SoundManager.SetVolume(SoundListEnum.musique3, .5f);
-                SoundManager.Play(SoundListEnum.musique3);
-            }
         }
         //playerInputManager.onPlayerJoined += (input) =>
         //{
@@ -69,8 +51,7 @@ public class MainEntry : MonoBehaviour
         //};
     }
 
-    void Update()
-    {
+    void Update() {
 
         //if(timeLeft <= 0)
         //{
@@ -81,14 +62,12 @@ public class MainEntry : MonoBehaviour
             stateMachine.UpdateStateMachine();
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
 
     }
 
     #region StateMachine Setup
-    public void SetDelgsForStateMachine()
-    {
+    public void SetDelgsForStateMachine() {
         //OnEnter
         stateMachine.OnGameplayEnter += () => { OnGameplayEnter(); };
         stateMachine.OnPauseEnter += () => { OnPauseEnter(); };
@@ -112,19 +91,16 @@ public class MainEntry : MonoBehaviour
     }
 
     #region OnEnter
-    public void OnGameplayEnter()
-    {
+    public void OnGameplayEnter() {
         // Debug.Log("OnGameplayEnter");
     }
 
-    public void OnPauseEnter()
-    {
+    public void OnPauseEnter() {
         Debug.Log("OnPauseEnter");
         isPauseFinished = false;
     }
 
-    public void OnEndGameEnter()
-    {
+    public void OnEndGameEnter() {
         Debug.Log("OnEndGameEnter");
     }
 
@@ -132,13 +108,11 @@ public class MainEntry : MonoBehaviour
     #endregion
 
     #region OnLogic
-    public void OnGameplayLogic()
-    {
+    public void OnGameplayLogic() {
         //Debug.Log("OnGameplayLogic");
 
         stateMachine.CurrentState = GameStateMachine.Gameplay;
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
+        if (Input.GetKeyDown(KeyCode.Y)) {
             //hihi
             //int i = 0;
         }
@@ -146,23 +120,20 @@ public class MainEntry : MonoBehaviour
         GameManager.Instance.PhysicsRefresh();
     }
 
-    public void OnPauseLogic()
-    {
+    public void OnPauseLogic() {
         Debug.Log("OnPauseLogic");
         stateMachine.CurrentState = GameStateMachine.Pause;
         Time.timeScale = 0;
     }
 
-    public void OnEndGameLogic()
-    {
+    public void OnEndGameLogic() {
         Debug.Log("OnEndGameLogic");
         stateMachine.CurrentState = GameStateMachine.EndGame;
-        if (!exiting)
-        {
+        if (!exiting) {
             //Give Data to the UIManager / Score Manager
             UIManager.Instance.SaveScore(PlayerManager.Instance.GetPlayerScores());
-                //Clear Managers (lists)  
-           
+            //Clear Managers (lists)  
+
             FindObjectOfType<ClearInputs>().GetComponent<ClearInputs>().Clearing();
             exiting = true;
             Debug.Log("Loading End Game scene");
@@ -176,19 +147,16 @@ public class MainEntry : MonoBehaviour
 
 
     #region OnExit
-    public void OnGameplayExit()
-    {
+    public void OnGameplayExit() {
         //Debug.Log("OnGameplayExit");
     }
 
-    public void OnPauseExit()
-    {
+    public void OnPauseExit() {
         Debug.Log("OnPauseExit");
         Time.timeScale = 1;
     }
 
-    public void OnEndGameExit()
-    {
+    public void OnEndGameExit() {
         Debug.Log("OnEndGameExit");
 
     }
@@ -198,36 +166,30 @@ public class MainEntry : MonoBehaviour
 
 
     #region Transitons
-    public bool IsPaused()
-    {
-        if (isPaused)
-        {
+    public bool IsPaused() {
+        if (isPaused) {
             return true;
         }
-        else
-        {
+        else {
             return false;
         }
     }
 
-    public bool IsPauseFinished()
-    {
+    public bool IsPauseFinished() {
         if (isPauseFinished)
             return true;
         else
             return false;
     }
 
-    public bool IsGameOver()
-    {
+    public bool IsGameOver() {
         if (isGameOver)
             return true;
         else
             return false;
     }
 
-    public bool IsExit()
-    {
+    public bool IsExit() {
         if (isExit)
             return true;
         else

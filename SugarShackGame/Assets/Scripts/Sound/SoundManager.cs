@@ -19,6 +19,8 @@ public class SoundManager : MonoBehaviour
     public static Action<SoundListEnum, bool> Loop = null;
 
     private void Awake() {
+        DontDestroyOnLoad(gameObject);
+
         soundMap = new Dictionary<SoundListEnum, AudioSource>();
 
         LoadSounds();
@@ -30,6 +32,8 @@ public class SoundManager : MonoBehaviour
         Pause = (name) => { PauseSound(name); };
         UnPause = (name) => { UnPauseSound(name); };
         Loop = (name, loop) => { LoopSound(name, loop); };
+
+        PlayMusic();
     }
 
     private void LoadSounds() {
@@ -99,5 +103,24 @@ public class SoundManager : MonoBehaviour
         SetPitch = null;
         Pause = null;
         UnPause = null;
+    }
+
+    private void PlayMusic() {
+        int music = UnityEngine.Random.Range(1, 3);
+        if (music == 1) {
+            SoundManager.Loop(SoundListEnum.musique1, true);
+            SoundManager.SetVolume(SoundListEnum.musique1, .5f);
+            SoundManager.Play(SoundListEnum.musique1);
+        }
+        else if (music == 2) {
+            SoundManager.Loop(SoundListEnum.musique2, true);
+            SoundManager.SetVolume(SoundListEnum.musique2, .5f);
+            SoundManager.Play(SoundListEnum.musique2);
+        }
+        else if (music == 3) {
+            SoundManager.Loop(SoundListEnum.musique3, true);
+            SoundManager.SetVolume(SoundListEnum.musique3, .5f);
+            SoundManager.Play(SoundListEnum.musique3);
+        }
     }
 }
