@@ -8,8 +8,7 @@ public class MainMenuTest : MonoBehaviour
     public GameObject MainMenu, Controls, Credits;
     public GameObject mainMenuFirstBtn, controlsFirstBtn, creditsFirstBtn;
     private GameObject currentView;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         currentView = MainMenu;
@@ -20,15 +19,15 @@ public class MainMenuTest : MonoBehaviour
 
     private void Update()
     {
-        if(currentView != MainMenu)
-        {
-            Debug.Log(Input.GetButtonDown("CancelButton"));
-        }
+        //if(currentView != MainMenu)
+        //{
+        //    Debug.Log(Input.GetButtonDown("CancelButton"));
+        //}
 
-        if (Input.GetButtonDown("CancelButton"))
-        {
-            Debug.Log("CancelButton");
-        }
+        //if (Input.GetButtonDown("CancelButton"))
+        //{
+        //    Debug.Log("CancelButton");
+        //}
     }
 
     public void SwitchView(GameObject nextCanvas, GameObject firstBtn)

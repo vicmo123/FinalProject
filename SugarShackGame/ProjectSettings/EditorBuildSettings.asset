@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Leonie/MainScenes/MainMenu.unity
     guid: 63b0e031a861b384f8218ad4b5eacda6
+  - enabled: 0
+    path: Assets/Scenes/Leonie/MainScenes/DurationOptionsMenu.unity
+    guid: 4fde1ee804f51724c9e4d0198eaf48b9
   - enabled: 1
     path: Assets/Scenes/Leonie/MainScenes/NewSelectionMenu.unity
     guid: 400a799875fd4b344befa015e32336c2
