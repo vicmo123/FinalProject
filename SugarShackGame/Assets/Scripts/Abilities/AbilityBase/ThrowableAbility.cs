@@ -57,7 +57,6 @@ public class ThrowableAbility : AbilityComponent
             var shieldComponent = collision.collider.GetComponentInParent<ShieldEffect>();
             if (shieldComponent == null)
             {
-                Debug.Log("Oncollision for throwable ability");
                 Ragdoll ragdollComponent = collision.collider.GetComponentInParent<Ragdoll>();
 
                 if (ragdollComponent != null)

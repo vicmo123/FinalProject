@@ -14,13 +14,17 @@ public class TrampolineEffect : MonoBehaviour
     {
         if (other.transform.root.CompareTag("Player") || other.transform.root.CompareTag("Animal"))
         {
-            Ragdoll ragdollComponent = other.GetComponentInParent<Ragdoll>();
-
-            if (ragdollComponent != null)
+            var shieldComponent = other.transform.root.GetComponentInChildren<ShieldEffect>();
+            if (shieldComponent == null)
             {
-                ragdollComponent.ragdollTriggerAll.Invoke((trampolineForce * UpwardsForce));
+                Ragdoll ragdollComponent = other.GetComponentInParent<Ragdoll>();
 
-                StartCoroutine(FadeIn(fadeDuration));
+                if (ragdollComponent != null)
+                {
+                    ragdollComponent.ragdollTriggerAll.Invoke((trampolineForce * UpwardsForce));
+
+                    StartCoroutine(FadeIn(fadeDuration));
+                }
             }
         }
     }
