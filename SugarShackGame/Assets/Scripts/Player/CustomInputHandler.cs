@@ -28,7 +28,7 @@ public class CustomInputHandler : MonoBehaviour
     [HideInInspector]
     public bool Aim { get; private set; } = false;
 
-    public bool Pause { get;  set; } = false;
+    public bool Pause { get; set; } = false;
 
     public Action OnPauseAction = () => { };
 
@@ -40,6 +40,7 @@ public class CustomInputHandler : MonoBehaviour
     public bool cursorInputForLook = true;
 
     private bool isControlsBlocked = false;
+    private bool isControlsReversed = false;
 
     #region CheckInput
     //These must be here to work for some reason, doenst work in custom handler.
@@ -49,6 +50,9 @@ public class CustomInputHandler : MonoBehaviour
             Move = context.ReadValue<Vector2>();
         else
             Move = Vector2.zero;
+
+        if (isControlsReversed)
+            Move = -Move;
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -67,6 +71,9 @@ public class CustomInputHandler : MonoBehaviour
             Look = context.ReadValue<Vector2>();
         else
             Look = Vector2.zero;
+
+        if (isControlsReversed)
+            Look = -Look;
     }
 
     public void OnSprint(InputAction.CallbackContext context)
@@ -162,5 +169,13 @@ public class CustomInputHandler : MonoBehaviour
         isControlsBlocked = false;
     }
 
+    public void InverseControls()
+    {
+        isControlsReversed = true;
+    }
 
+    public void UnInverseControls()
+    {
+        isControlsReversed = false;
+    }
 }

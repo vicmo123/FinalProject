@@ -2,7 +2,8 @@ using Cinemachine;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using System.Reflection;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 
@@ -57,10 +58,6 @@ public class PlayerController : MonoBehaviour, IFlow
 
     //Animation IDs
     private int _animIDSpeed;
-    private int _animIDGrounded;
-    private int _animIDJump;
-    private int _animIDFreeFall;
-    private int _animIDMotionSpeed;
 
     //Animation variables
     private const float _threshold = 0.01f;
@@ -115,6 +112,10 @@ public class PlayerController : MonoBehaviour, IFlow
         // reset our timeouts on start
         _jumpTimeoutDelta = _playerStats.JumpTimeout;
         _fallTimeoutDelta = _playerStats.FallTimeout;
+
+        initialMoveSpeed = _playerStats.MoveSpeed;
+        initialRunSpeed = _playerStats.SprintSpeed;
+        initialJumpHeight = _playerStats.JumpHeight;
     }
 
     public void Refresh()
@@ -140,10 +141,6 @@ public class PlayerController : MonoBehaviour, IFlow
     private void AssignAnimationIDs()
     {
         _animIDSpeed = Animator.StringToHash("Speed");
-        _animIDGrounded = Animator.StringToHash("Grounded");
-        _animIDJump = Animator.StringToHash("Jump");
-        _animIDFreeFall = Animator.StringToHash("FreeFall");
-        _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
     }
 
     private void GroundedCheck()
@@ -153,12 +150,6 @@ public class PlayerController : MonoBehaviour, IFlow
             transform.position.z);
         _grounded = Physics.CheckSphere(spherePosition, _playerStats.GroundedRadius, _playerStats.GroundLayers,
             QueryTriggerInteraction.Ignore);
-
-        // update animator if using character
-        if (_hasAnimator)
-        {
-            _animator.SetBool(_animIDGrounded, _grounded);
-        }
     }
 
     private void CameraRotation()
@@ -247,7 +238,6 @@ public class PlayerController : MonoBehaviour, IFlow
         if (_hasAnimator)
         {
             _animator.SetFloat(_animIDSpeed, _animationBlend);
-            _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
         }
     }
 
@@ -443,5 +433,66 @@ public class PlayerController : MonoBehaviour, IFlow
             }
         }
         //Debug.DrawRay(model.position + new Vector3(0, .5f, 0), model.TransformDirection(Vector3.forward), Color.red, 1000);
+    }
+
+    public void InversedControlsEffect(float duration)
+    {
+        Debug.Log("Inversed Controls");
+        StartCoroutine(ApplyInverseControls(duration));
+    }
+
+    public void BoostEffect(float duration)
+    {
+        Debug.Log("Boost");
+        StartCoroutine(ApplyBoost(duration));
+    }
+
+    public void SlowDownEffect(float duration)
+    {
+        Debug.Log("Slow Down");
+        StartCoroutine(ApplySlowDown(duration));
+    }
+
+    private IEnumerator ApplyInverseControls(float duration)
+    {
+        _inputHandler.InverseControls();
+        yield return new WaitForSeconds(duration);
+        _inputHandler.UnInverseControls();
+    }
+
+    private float initialMoveSpeed;
+    private float initialRunSpeed;
+    private float initialJumpHeight;
+
+    private float boostWalkSpeed = 15;
+    private float boostRunSpeed = 25;
+    private float boostJumpHeight = 7;
+    private IEnumerator ApplyBoost(float duration)
+    {
+        _playerStats.MoveSpeed = boostWalkSpeed;
+        _playerStats.SprintSpeed = boostRunSpeed;
+        _playerStats.JumpHeight = boostJumpHeight;
+
+        yield return new WaitForSeconds(duration);
+
+        _playerStats.MoveSpeed = initialMoveSpeed;
+        _playerStats.SprintSpeed = initialRunSpeed;
+        _playerStats.JumpHeight = initialJumpHeight;
+    }
+
+    private float slowDownWalkSpeed = 2;
+    private float slowDownRunSpeed = 5;
+    private float slowDownJumpHeight = 0.5f;
+    private IEnumerator ApplySlowDown(float duration)
+    {
+        _playerStats.MoveSpeed = slowDownWalkSpeed;
+        _playerStats.SprintSpeed = slowDownRunSpeed;
+        _playerStats.JumpHeight = slowDownJumpHeight;
+
+        yield return new WaitForSeconds(duration);
+
+        _playerStats.MoveSpeed = initialMoveSpeed;
+        _playerStats.SprintSpeed = initialRunSpeed;
+        _playerStats.JumpHeight = initialJumpHeight;
     }
 }
