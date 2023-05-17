@@ -18,8 +18,7 @@ public class SoundManager : MonoBehaviour
     public static Action<SoundListEnum> UnPause = null;
     public static Action<SoundListEnum, bool> Loop = null;
 
-    private void Awake()
-    {
+    private void Awake() {
         soundMap = new Dictionary<SoundListEnum, AudioSource>();
 
         LoadSounds();
@@ -33,64 +32,54 @@ public class SoundManager : MonoBehaviour
         Loop = (name, loop) => { LoopSound(name, loop); };
     }
 
-    private void LoadSounds()
-    {
+    private void LoadSounds() {
         var enumSoundNames = System.Enum.GetValues(typeof(SoundListEnum)).Cast<SoundListEnum>().ToList();
 
-        foreach (var soundName in enumSoundNames)
-        {
+        foreach (var soundName in enumSoundNames) {
             var soundPrefab = Resources.Load<GameObject>(folderPath + soundName.ToString());
             if (soundPrefab != null)
                 soundMap.Add(soundName, InstantiateSound(soundPrefab.GetComponent<AudioSource>()));
             else
                 Debug.LogWarning($"Could not load sound {soundName.ToString()} from path {folderPath}");
+
         }
     }
 
-    private AudioSource InstantiateSound(AudioSource original)
-    {
+    private AudioSource InstantiateSound(AudioSource original) {
         var soundInstance = Instantiate(original, transform);
         return soundInstance;
     }
 
-    private void PlaySound(SoundListEnum soundName)
-    {
+    private void PlaySound(SoundListEnum soundName) {
         if (soundMap.ContainsKey(soundName))
             soundMap[soundName].Play();
     }
 
-    private void StopSound(SoundListEnum soundName)
-    {
+    private void StopSound(SoundListEnum soundName) {
         if (soundMap.ContainsKey(soundName))
             soundMap[soundName].Stop();
     }
 
-    private void SetSoundVolume(SoundListEnum soundName, float volume)
-    {
+    private void SetSoundVolume(SoundListEnum soundName, float volume) {
         if (soundMap.ContainsKey(soundName))
             soundMap[soundName].volume = volume;
     }
 
-    private void SetSoundPitch(SoundListEnum soundName, float pitch)
-    {
+    private void SetSoundPitch(SoundListEnum soundName, float pitch) {
         if (soundMap.ContainsKey(soundName))
             soundMap[soundName].pitch = pitch;
     }
 
-    private void PauseSound(SoundListEnum soundName)
-    {
-        if (soundMap.ContainsKey(soundName))
-        {
+    private void PauseSound(SoundListEnum soundName) {
+        if (soundMap.ContainsKey(soundName)) {
             var audioSource = soundMap[soundName];
             if (audioSource.isPlaying)
                 audioSource.Pause();
         }
     }
 
-    private void UnPauseSound(SoundListEnum soundName)
-    {
-        if (soundMap.ContainsKey(soundName))
-        {
+    private void UnPauseSound(SoundListEnum soundName) {
+        if (soundMap.ContainsKey(soundName)) {
             var audioSource = soundMap[soundName];
             if (!audioSource.isPlaying)
                 audioSource.UnPause();
@@ -103,8 +92,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         Play = null;
         Stop = null;
         SetVolume = null;

@@ -83,6 +83,9 @@ MonoBehaviour:
   fillingBarObject: {fileID: 5980863875700788164, guid: a4519b7f8a726124c98fa52c94e9a906, type: 3}
   positionForFillingBar: {fileID: 7720652974147727809}
   readyToUse: {fileID: 4531332719862388500, guid: bdf356cb2bcb34c409898cc3cb6c2330, type: 3}
+  readyRenderer: {fileID: 0}
+  matLooked: {fileID: 2100000, guid: 3af1494ea68834f41837478a2bb7330b, type: 2}
+  matUsed: {fileID: 2100000, guid: 39de60e2d5a0db74383c495e5f2888af, type: 2}
   sapAmount: 0
 --- !u!65 &3933495132076701739
 BoxCollider:

@@ -79,6 +79,7 @@ public class AudioPrefabCreator : EditorWindow
             // Create the prefab
             GameObject prefab = new GameObject();
             prefab.AddComponent<AudioSource>().clip = clip;
+            prefab.GetComponent<AudioSource>().playOnAwake = false;
 
             // Save the prefab
             string prefabPath = prefabFolderPath + "/" + clip.name + ".prefab";

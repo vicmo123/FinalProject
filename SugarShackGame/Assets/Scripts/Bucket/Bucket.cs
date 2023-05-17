@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Bucket : MonoBehaviour, IFlow, IUsable
@@ -13,6 +14,9 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     private Highlight highlight;
 
     [SerializeField] private GameObject readyToUse;
+    [SerializeField] private List<Renderer> readyRenderers;
+    [SerializeField] private Material matLooked;
+    [SerializeField] private Material matUsed;
     private Transform readyIcon;
     private float readyDelay = 0.2f;
     private float endDelay;
@@ -75,6 +79,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
 
     private void CreateReadyIcon() {
         readyIcon = GameObject.Instantiate(readyToUse).transform;
+        readyRenderers.AddRange(readyIcon.GetComponentsInChildren<Renderer>());
         readyIcon.transform.SetParent(transform);
         readyIcon.position = positionForFillingBar.position + new Vector3(0, .3f, 0);
         readyIcon.gameObject.SetActive(false);
@@ -95,6 +100,10 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     }
 
     public void Use(Player _player) {
+        foreach (var readyRenderer in readyRenderers) {
+            readyRenderer.material = matUsed;
+        }
+
         if (!player) {
             // If there is no owner yet, allows them to claim the bucket
             Claim(_player);
@@ -145,10 +154,14 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     public void Looked(Player _player) {
         highlight.ToggleHighlight(true);
         ToggleReady(true);
+        foreach (var readyRenderer in readyRenderers) {
+            readyRenderer.material = matLooked;
+        }
     }
 
     private void Claim(Player _player) {
         if (Time.time - lastUsedTime <= 1.0f) { // If the player is already claiming
+
             if (remainingTimeToClaim > 0.0f)
                 remainingTimeToClaim -= Time.deltaTime;
             else {
@@ -160,6 +173,8 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
             }
         }
         else { // If the player starts to claim
+
+
             if (!player)
                 remainingTimeToClaim = timeToClaim;
             else
@@ -185,7 +200,7 @@ public class Bucket : MonoBehaviour, IFlow, IUsable
     }
 
     private void Claimed(Player _player) {
-        SoundManager.Play(SoundListEnum.ClaimBucket);
+        SoundManager.Play(SoundListEnum.claimbucket);
 
         ChangeColor(_player.color);
         if (player)

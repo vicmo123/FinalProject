@@ -48,12 +48,15 @@ public class MainEntry : MonoBehaviour
             int music = UnityEngine.Random.Range(1, 3);
             if (music == 1) {
                 SoundManager.Loop(SoundListEnum.musique1, true);
+                SoundManager.SetVolume(SoundListEnum.musique1, .5f);
                 SoundManager.Play(SoundListEnum.musique1);
             }else if (music == 2) {
                 SoundManager.Loop(SoundListEnum.musique2, true);
+                SoundManager.SetVolume(SoundListEnum.musique2, .5f);
                 SoundManager.Play(SoundListEnum.musique2);
             }else if (music == 3) {
                 SoundManager.Loop(SoundListEnum.musique3, true);
+                SoundManager.SetVolume(SoundListEnum.musique3, .5f);
                 SoundManager.Play(SoundListEnum.musique3);
             }
         }
