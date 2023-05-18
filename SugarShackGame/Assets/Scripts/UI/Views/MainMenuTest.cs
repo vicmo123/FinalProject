@@ -65,6 +65,9 @@ public class MainMenuTest : MonoBehaviour
         SwitchView(MainMenu, mainMenuFirstBtn);
     }
 
-
+    public void QuitBttnPressed()
+    {
+        Application.Quit();
+    }
     
 }
