@@ -2565,7 +2565,7 @@ MonoBehaviour:
   hips: {fileID: 2032001247026384773}
   minLerpSpeed: 2
   maxLerpSpeed: 4
-  timeBeforeRecovery: 2
+  timeBeforeRecovery: 3.5
   groundMask:
     serializedVersion: 2
     m_Bits: 256

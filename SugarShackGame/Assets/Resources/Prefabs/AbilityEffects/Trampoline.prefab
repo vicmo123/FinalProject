@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed846ea07b0232a4692339820acebbb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpwardsForce: 50
+  UpwardsForce: 8.5
   fadeDuration: 1
 --- !u!54 &-8621979811106305989
 Rigidbody:
