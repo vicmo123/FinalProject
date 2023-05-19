@@ -367,7 +367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3229540730052007182
 RectTransform:
   m_ObjectHideFlags: 0
@@ -470,19 +470,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5994086346014864648}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2979755516277629784}
-        m_TargetAssemblyTypeName: NewSetupMenuController, Assembly-CSharp
-        m_MethodName: SetColor
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &5255352697766919987
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2019646239812056090
 RectTransform:
   m_ObjectHideFlags: 0
@@ -739,19 +727,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7151978038320633332}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2979755516277629784}
-        m_TargetAssemblyTypeName: NewSetupMenuController, Assembly-CSharp
-        m_MethodName: RightArrow
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7273653308592379980
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,7 +745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7273653308592379979
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1039,7 +1015,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7273653308651171112
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1088,7 +1064,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player 1
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fbc0b8ff30730194c9e398400b716358, type: 2}
   m_sharedMaterial: {fileID: 5722944200101443578, guid: fbc0b8ff30730194c9e398400b716358, type: 2}
@@ -1620,7 +1596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3391704129264065806
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1723,16 +1699,4 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6907088493842064507}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2979755516277629784}
-        m_TargetAssemblyTypeName: NewSetupMenuController, Assembly-CSharp
-        m_MethodName: LeftArrow
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []

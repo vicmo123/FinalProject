@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class NewSetupMenuController : MonoBehaviour
 {
+    private GameObject selectionCanvas;
+    private Transform playerCanvas;
+    private Transform selectionMenu;
+    private Transform readyMenu;
+
+    private PlayerInputManager playerInputManager;
+    private CustomInputHandler inputHandler;
     [SerializeField]
     private Transform spawnPosition;
     [SerializeField]
@@ -26,13 +35,17 @@ public class NewSetupMenuController : MonoBehaviour
     private PlayerFactory factory;
     private Player player;
 
-    private float ignoreInputTime = 1.5f;
+    private float ignoreInputTime = 0.2f;
+    private float startInputTime = 0.5f;
     private bool inputEnable = false;
+    private bool readyPlayer = false;
+    private bool spawnPlayer = false;
 
     private void Start()
     {
         SetUIResources();
         LoadPlayers();
+        playerInputManager = GameObject.FindGameObjectWithTag("PlayerInputManager").GetComponent<PlayerInputManager>();
     }
 
     private void SetUIResources()
@@ -40,13 +53,19 @@ public class NewSetupMenuController : MonoBehaviour
         factory = new PlayerFactory("Prefabs/Player/PlayerDemo");
         beards = factory.beardColors;
         shirts = factory.shirtColors;
+
+        selectionCanvas = GameObject.Find("SelectionCanvas");
+        playerCanvas = selectionCanvas.transform.GetChild(playerIndex);
+        selectionMenu = playerCanvas.GetChild(0);
+        readyMenu = selectionCanvas.transform.GetChild(1);
+        
     }
 
     private void LoadPlayers()
     {
         currentShirtIndex = playerIndex;
         player = factory.CreatPlayer(beards[playerIndex], shirts[currentShirtIndex]);
-        
+
 
         GameObject spawningParent = GameObject.FindGameObjectWithTag("SpawnPoint");
         if (spawningParent != null && spawningParent.transform.childCount > 1)
@@ -61,32 +80,78 @@ public class NewSetupMenuController : MonoBehaviour
         player.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
-    public void SetPlayerIndex(int pi)
+    public void SetPlayerIndex(int pi, CustomInputHandler _inputHandler)
     {
         playerIndex = pi;
         titleText.SetText("Player " + (pi + 1).ToString());
-        ignoreInputTime = Time.time + ignoreInputTime;
+        
+        inputHandler = _inputHandler;
+        inputHandler.Jump = false;
     }
 
     private void Update()
     {
-        if (Time.time > ignoreInputTime)
+        if(!spawnPlayer)
+        {
+            playerInputManager.onPlayerJoined += Instance_onPlayerJoined;
+            //InputSystem.onAnyButtonPress.CallOnce(any => WaitForSpawn());           
+        }
+        else if (Time.time > ignoreInputTime )
         {
             inputEnable = true;
+            if (!readyPlayer)
+            {
+                bool selectLeft = inputHandler.SelectLeft;
+                bool selectright = inputHandler.SelectRight;
+                Vector2 move = new Vector3(inputHandler.Move.x, 0.0f, inputHandler.Move.y).normalized;
+
+                if(selectLeft)
+                    LeftArrow();
+                else if (move == Vector2.left)
+                    LeftArrow();
+
+                if (selectright)
+                    RightArrow();
+                else if (move == Vector2.right)
+                    RightArrow();
+
+            }
+
+            bool submit = inputHandler.Jump;
+            if (submit)
+            {
+                ReadyPlayer();
+            }
         }
+    }
+
+    private void Instance_onPlayerJoined(PlayerInput obj)
+    {
+        Debug.Log("A player just joined.");
+        ignoreInputTime = Time.time + startInputTime;
+        spawnPlayer = true;
+    }
+
+    private void WaitForSpawn()
+    {
+        Debug.Log("Wait for spawn");
+        spawnPlayer = true;
+        ignoreInputTime = Time.time + startInputTime;
     }
 
     public void SetColor()
     {
-        if (!inputEnable) return;
-        PlayerConfigurationManager.Instance.SetPlayerColor(currentShirtIndex, playerIndex, playerIndex);
-        readyPanel.SetActive(true);
-        readyButton.Select();
-        menuPanel.SetActive(false);
+        //PlayerConfigurationManager.Instance.SetPlayerColor(currentShirtIndex, playerIndex, playerIndex);
+        //readyPanel.SetActive(true);
+        //readyButton.Select();
+        //menuPanel.SetActive(false);
+
+        //ResetTime();
     }
 
     public void LeftArrow()
     {
+        if (!inputEnable) return;
         currentShirtIndex--;
         if (currentShirtIndex == -1)
         {
@@ -94,14 +159,19 @@ public class NewSetupMenuController : MonoBehaviour
         }
         factory.ChangePlayerColor(ref player, beards[playerIndex], shirts[currentShirtIndex]);
         StartCoroutine(SelectEffect(player));
+
+        ResetTime();
     }
 
     public void RightArrow()
     {
+        if (!inputEnable) return;
         currentShirtIndex++;
         currentShirtIndex %= shirts.Length;
         factory.ChangePlayerColor(ref player, beards[playerIndex], shirts[currentShirtIndex]);
         StartCoroutine(SelectEffect(player));
+
+        ResetTime();
     }
 
     public IEnumerator SelectEffect(Player player)
@@ -120,7 +190,17 @@ public class NewSetupMenuController : MonoBehaviour
     {
         if (!inputEnable) return;
 
+        Debug.Log("ReadyPlayer!");
+        PlayerConfigurationManager.Instance.SetPlayerColor(currentShirtIndex, playerIndex, playerIndex);
         PlayerConfigurationManager.Instance.ReadyPlayer(playerIndex);
-        readyButton.gameObject.SetActive(false);
+
+        readyPlayer = true;
+        //readyButton.gameObject.SetActive(false);
+    }
+
+    private void ResetTime()
+    {
+        ignoreInputTime = Time.time + ignoreInputTime;
+        inputEnable = false;
     }
 }

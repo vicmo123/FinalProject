@@ -30,6 +30,9 @@ public class CustomInputHandler : MonoBehaviour
 
     public bool Pause { get; set; } = false;
 
+    public bool SelectLeft { get; set; } = false;
+    public bool SelectRight { get; set; } = false;
+
     public Action OnPauseAction = () => { };
 
     [Header("Movement Settings")]
@@ -138,12 +141,20 @@ public class CustomInputHandler : MonoBehaviour
 
     }
 
-    public void OnUp(InputAction.CallbackContext context)
+    public void OnSelectLeft(InputAction.CallbackContext context)
     {
+        if (!isControlsBlocked)
+            SelectLeft = context.action.triggered;
+        else
+            SelectLeft = false;
     }
 
-    public void OnDown(InputAction.CallbackContext context)
+    public void OnSelectRight(InputAction.CallbackContext context)
     {
+        if (!isControlsBlocked)
+            SelectRight = context.action.triggered;
+        else
+            SelectRight = false;
     }
 
 

@@ -255,7 +255,19 @@ MonoBehaviour:
     m_ActionId: 7dca1581-5976-4aee-8665-5898b0be6736
     m_ActionName: Player/Pause[/Keyboard/escape,/XInputControllerWindows/start]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2971841531636681689}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
+        m_MethodName: OnSelectLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 30d950af-7731-4275-9061-4983b2eccc6b
     m_ActionName: Player/SelectUI[/XInputControllerWindows/buttonSouth,/Keyboard/enter,/Keyboard/space]
   - m_PersistentCalls:
@@ -318,6 +330,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fabb4d79-868e-4c3f-8eb0-2a7554977ba3
     m_ActionName: UI_Navigation/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2971841531636681689}
+        m_TargetAssemblyTypeName: CustomInputHandler, Assembly-CSharp
+        m_MethodName: OnSelectRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0fd8bc46-e248-4666-8547-13a00c1e2207
+    m_ActionName: Player/SelectRight[/XInputControllerWindows/dpad/right]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -337,6 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerSetupMenuPrefab: {fileID: 7273653309997851462, guid: e60e09ccc5643c6449cee750d527ba71, type: 3}
   pi: {fileID: 1313652934740870647}
+  inputHandler: {fileID: 2971841531636681689}
 --- !u!143 &1864935458601992854
 CharacterController:
   m_ObjectHideFlags: 0

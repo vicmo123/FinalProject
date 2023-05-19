@@ -127,9 +127,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SelectUI"",
+                    ""name"": ""SelectLeft"",
                     ""type"": ""Button"",
                     ""id"": ""30d950af-7731-4275-9061-4983b2eccc6b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""0fd8bc46-e248-4666-8547-13a00c1e2207"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -425,34 +434,23 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""51f98d77-dd05-4812-8943-ed9f15c0294b"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""id"": ""0cc7d5f5-5fe3-4613-8920-6921bce8f1c0"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controller"",
-                    ""action"": ""SelectUI"",
+                    ""action"": ""SelectLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4f135d5b-d807-4298-bde8-9b614a4c017a"",
-                    ""path"": ""<Keyboard>/enter"",
+                    ""id"": ""1b050f9b-606e-4d50-b877-0cc11617ebe4"",
+                    ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""SelectUI"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""24d8cd0f-73c2-473d-bac7-5bb8604ba3f0"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectUI"",
+                    ""groups"": ""Controller"",
+                    ""action"": ""SelectRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -907,7 +905,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_RightPowerUp = m_Player.FindAction("RightPowerUp", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
-        m_Player_SelectUI = m_Player.FindAction("SelectUI", throwIfNotFound: true);
+        m_Player_SelectLeft = m_Player.FindAction("SelectLeft", throwIfNotFound: true);
+        m_Player_SelectRight = m_Player.FindAction("SelectRight", throwIfNotFound: true);
         // UI_Navigation
         m_UI_Navigation = asset.FindActionMap("UI_Navigation", throwIfNotFound: true);
         m_UI_Navigation_Up = m_UI_Navigation.FindAction("Up", throwIfNotFound: true);
@@ -991,7 +990,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RightPowerUp;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Pause;
-    private readonly InputAction m_Player_SelectUI;
+    private readonly InputAction m_Player_SelectLeft;
+    private readonly InputAction m_Player_SelectRight;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -1007,7 +1007,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @RightPowerUp => m_Wrapper.m_Player_RightPowerUp;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
-        public InputAction @SelectUI => m_Wrapper.m_Player_SelectUI;
+        public InputAction @SelectLeft => m_Wrapper.m_Player_SelectLeft;
+        public InputAction @SelectRight => m_Wrapper.m_Player_SelectRight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1050,9 +1051,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
-                @SelectUI.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectUI;
-                @SelectUI.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectUI;
-                @SelectUI.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectUI;
+                @SelectLeft.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectLeft;
+                @SelectLeft.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectLeft;
+                @SelectLeft.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectLeft;
+                @SelectRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectRight;
+                @SelectRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectRight;
+                @SelectRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectRight;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1090,9 +1094,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
-                @SelectUI.started += instance.OnSelectUI;
-                @SelectUI.performed += instance.OnSelectUI;
-                @SelectUI.canceled += instance.OnSelectUI;
+                @SelectLeft.started += instance.OnSelectLeft;
+                @SelectLeft.performed += instance.OnSelectLeft;
+                @SelectLeft.canceled += instance.OnSelectLeft;
+                @SelectRight.started += instance.OnSelectRight;
+                @SelectRight.performed += instance.OnSelectRight;
+                @SelectRight.canceled += instance.OnSelectRight;
             }
         }
     }
@@ -1250,7 +1257,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnRightPowerUp(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnSelectUI(InputAction.CallbackContext context);
+        void OnSelectLeft(InputAction.CallbackContext context);
+        void OnSelectRight(InputAction.CallbackContext context);
     }
     public interface IUI_NavigationActions
     {

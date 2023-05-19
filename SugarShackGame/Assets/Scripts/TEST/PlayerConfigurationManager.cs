@@ -11,6 +11,8 @@ public class PlayerConfigurationManager : MonoBehaviour
     private int maxPlayers = 2;
     [SerializeField]
     private GameObject StartCanvas;
+    [SerializeField]
+    private GameObject[] selectionCanvas;
 
     public static PlayerConfigurationManager Instance { get; set; }
 
@@ -60,6 +62,12 @@ public class PlayerConfigurationManager : MonoBehaviour
         {
             pi.transform.SetParent(transform);
             playerConfigs.Add(new PlayerConfiguration(pi));
+
+            if(selectionCanvas.Length > 1)
+            {
+                CustomInputHandler inputHandler = pi.gameObject.transform.GetComponent<CustomInputHandler>();
+                selectionCanvas[pi.playerIndex].GetComponent<SelectionPlayerCanvas>().SetLinks(pi, inputHandler);
+            }         
         }
     }
 

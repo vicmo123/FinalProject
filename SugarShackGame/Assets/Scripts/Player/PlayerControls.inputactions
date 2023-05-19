@@ -105,9 +105,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SelectUI",
+                    "name": "SelectLeft",
                     "type": "Button",
                     "id": "30d950af-7731-4275-9061-4983b2eccc6b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectRight",
+                    "type": "Button",
+                    "id": "0fd8bc46-e248-4666-8547-13a00c1e2207",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -403,34 +412,23 @@
                 },
                 {
                     "name": "",
-                    "id": "51f98d77-dd05-4812-8943-ed9f15c0294b",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "Press(behavior=2)",
+                    "id": "0cc7d5f5-5fe3-4613-8920-6921bce8f1c0",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "SelectUI",
+                    "action": "SelectLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "4f135d5b-d807-4298-bde8-9b614a4c017a",
-                    "path": "<Keyboard>/enter",
+                    "id": "1b050f9b-606e-4d50-b877-0cc11617ebe4",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
-                    "action": "SelectUI",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "24d8cd0f-73c2-473d-bac7-5bb8604ba3f0",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectUI",
+                    "groups": "Controller",
+                    "action": "SelectRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -152,6 +152,11 @@ public class UIGamePlay : MonoBehaviour
         {
             #region Slots
             Sprite[] newSprites = new Sprite[2];
+            Debug.Log(players[i]);
+            Debug.Log(players[i].abilityHandler);
+            Debug.Log(players[i].abilityHandler.abilitySlots[0]);
+            Debug.Log(players[i].abilityHandler.abilitySlots[0].sprite);
+
 
             if (players[i].abilityHandler.abilitySlots[0].sprite != null)
             {
