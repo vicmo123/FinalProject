@@ -61,7 +61,7 @@ public class BucketManager : IFlow
                 bucket.gameObject.transform.SetParent(maple.transform);
                 bucket.PreInitialize();
                 buckets.Add(bucket);
-                Debug.Log("Buckets in the collection : " + buckets.Count + " Player associated with it  = " + bucket.player);
+                //Debug.Log("Buckets in the collection : " + buckets.Count + " Player associated with it  = " + bucket.player);
             }
 
         }
