@@ -28,8 +28,8 @@ public class AnimalManager : IFlow
 
     private AnimalFactory animalFactory;
     private List<Animal> animalList;
-    private int maxNumberAnimals = 25;
-    private Vector2 rangeTimeOfSpawn = new Vector2(3.0f, 5.0f);
+    private int maxNumberAnimals = 50;
+    private Vector2 rangeTimeOfSpawn = new Vector2(1.0f, 3.0f);
     private CountDownTimer timer;
     private Transform[] spawnPoints;
 
