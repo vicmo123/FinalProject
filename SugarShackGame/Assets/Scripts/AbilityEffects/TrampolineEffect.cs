@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrampolineEffect : MonoBehaviour
 {
-    public float UpwardsForce = 150f;
+    public float UpwardsForce = 50f;
     private Vector3 trampolineForce = Vector3.up;
     private Player player;
     public float fadeDuration = 1.0f;
