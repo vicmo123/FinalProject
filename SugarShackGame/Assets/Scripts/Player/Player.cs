@@ -25,7 +25,9 @@ public class Player : MonoBehaviour, IFlow
     public PlayerFootStepMaker footStepMaker;
     [HideInInspector]
     public PlayerScore playerScore;
+    [HideInInspector]
     public int index;
+    [HideInInspector]
     public PlayerInput playerInput;
 
     public void SetPlayerInput(PlayerInput playerInput)

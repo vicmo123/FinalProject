@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrampolineEffect : MonoBehaviour
 {
-    public float UpwardsForce = 300f;
+    public float UpwardsForce = 150f;
     private Vector3 trampolineForce = Vector3.up;
     private Player player;
     public float fadeDuration = 1.0f;
@@ -21,7 +21,7 @@ public class TrampolineEffect : MonoBehaviour
 
                 if (ragdollComponent != null)
                 {
-                    ragdollComponent.ragdollTriggerAll.Invoke((trampolineForce * UpwardsForce));
+                    ragdollComponent.ragdollTriggerAllTrampoline.Invoke((trampolineForce * UpwardsForce));
 
                     StartCoroutine(FadeIn(fadeDuration));
                 }

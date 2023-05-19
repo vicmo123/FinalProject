@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a7b202cec83bf488efeddd2448dc13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hips: {fileID: 3759480052611497706}
   minLerpSpeed: 1
   maxLerpSpeed: 2
   timeBeforeRecovery: 2
@@ -226,6 +227,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.23014158, y: 0.39, z: 0.39439937}
   m_Center: {x: 0.109647416, y: 0.08, z: 0.00000052154064}
+--- !u!4 &3759480052611497706 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5112492738790397023, guid: 5eb05b6c8318ec04b978420dd940c6bb, type: 3}
+  m_PrefabInstance: {fileID: 8277442664871144117}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3832246832532581361 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5184067650522104132, guid: 5eb05b6c8318ec04b978420dd940c6bb, type: 3}

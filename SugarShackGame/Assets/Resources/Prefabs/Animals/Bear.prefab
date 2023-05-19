@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a7b202cec83bf488efeddd2448dc13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hips: {fileID: 1500645354916510095}
   minLerpSpeed: 1
   maxLerpSpeed: 2
   timeBeforeRecovery: 2
@@ -307,6 +308,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.36780512, y: 0.6, z: 0.72905755}
   m_Center: {x: 0.18024893, y: 0.19, z: 0.00000029802322}
+--- !u!4 &1500645354916510095 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 340977997700432060, guid: 3d997f6427f05c94b9a4b22c66d75930, type: 3}
+  m_PrefabInstance: {fileID: 1182257923524131123}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1721078934918307544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3d997f6427f05c94b9a4b22c66d75930, type: 3}

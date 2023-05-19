@@ -53,7 +53,7 @@ public class MysteryDrink : UnThrowableAbility
     public void FallOverEffect()
     {
         var ragdollComponenent = player.gameObject.GetComponent<Ragdoll>();
-        ragdollComponenent.ragdollTriggerAll(ragdollComponenent.transform.forward * fallOverForce);
+        ragdollComponenent.ragdollTriggerAllTrampoline(ragdollComponenent.transform.forward * fallOverForce);
     }
 
     private void SetEffects(params Action[] actionsToSet)

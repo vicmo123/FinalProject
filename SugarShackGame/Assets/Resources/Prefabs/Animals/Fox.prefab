@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a7b202cec83bf488efeddd2448dc13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hips: {fileID: 1979645632547452991}
   minLerpSpeed: 1
   maxLerpSpeed: 2
   timeBeforeRecovery: 2
@@ -367,6 +368,11 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!4 &1979645632547452991 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8320845949854365160, guid: a1f699fe48ee8e746a893915d807c4d8, type: 3}
+  m_PrefabInstance: {fileID: 7494139832863935959}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2315355393150489716 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4025862862010263133, guid: a1f699fe48ee8e746a893915d807c4d8, type: 3}

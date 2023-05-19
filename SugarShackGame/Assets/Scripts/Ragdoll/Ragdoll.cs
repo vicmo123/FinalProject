@@ -14,7 +14,7 @@ public class Ragdoll : MonoBehaviour, IFlow
     //Ragdoll
     private List<RagdollBodyPart> partsList;
     public Action<Vector3, Vector3> ragdollTrigger;
-    public Action<Vector3> ragdollTriggerAll;
+    public Action<Vector3> ragdollTriggerAllTrampoline;
 
     //To Deactivate
     private CustomInputHandler input;
@@ -24,6 +24,8 @@ public class Ragdoll : MonoBehaviour, IFlow
     private PlayerController playerController;
 
     //Recovery
+    public bool isPlayer = false;
+    public Transform hips;
     public float minLerpSpeed = 0.1f;
     public float maxLerpSpeed = 0.5f;
     public float timeBeforeRecovery = 2f;
@@ -48,7 +50,7 @@ public class Ragdoll : MonoBehaviour, IFlow
         };
 
         ragdollTrigger = (hitPoint, hitForce) => { TriggerRagdoll(hitPoint, hitForce); };
-        ragdollTriggerAll = (hitForce) => { TriggerRagdollAll(hitForce); };
+        ragdollTriggerAllTrampoline = (hitForce) => { TriggerRagdollAll(hitForce); };
 
         //input = GetComponent<CustomInputHandler>();
         animator = GetComponent<Animator>();
@@ -89,7 +91,6 @@ public class Ragdoll : MonoBehaviour, IFlow
                 StartCoroutine(Recover());
                 isRagdollTriggered = false;
             }
-
         }
         recoveryTimer.UpdateTimer();
     }
@@ -130,8 +131,6 @@ public class Ragdoll : MonoBehaviour, IFlow
             part.rb.isKinematic = false;
         }
 
-        Debug.Log(input);
-
         if (input)
         {
             Debug.Log("Blocking Controls!!!!");
@@ -143,7 +142,7 @@ public class Ragdoll : MonoBehaviour, IFlow
         }
         if (characterController)
         {
-            characterController.enabled = false;
+            //characterController.enabled = false;
         }
         if (agent)
         {
@@ -175,7 +174,7 @@ public class Ragdoll : MonoBehaviour, IFlow
         }
         if (characterController)
         {
-            characterController.enabled = true;
+            //characterController.enabled = true;
         }
         if (agent)
         {
@@ -191,15 +190,26 @@ public class Ragdoll : MonoBehaviour, IFlow
     int numCoroutines = 0;
     private IEnumerator Recover()
     {
-        numCoroutines = 0;
-
         foreach (var ragdollPart in partsList)
         {
             ragdollPart.rb.isKinematic = true;
             ragdollPart.rb.velocity = Vector3.zero;
             ragdollPart.rb.angularVelocity = Vector3.zero;
             ragdollPart.rb.ResetInertiaTensor();
+        }
 
+        if (isPlayer)
+        {
+            Vector3 targetDirection = (transform.TransformPoint(hips.localPosition));
+            WarpToPosition(targetDirection);
+        }
+
+        yield return new WaitForSeconds(0.001f);
+
+        numCoroutines = 0;
+
+        foreach (var ragdollPart in partsList)
+        {
             numCoroutines++;
             StartCoroutine(LerpToDefaultPosition(ragdollPart));
         }
@@ -216,7 +226,7 @@ public class Ragdoll : MonoBehaviour, IFlow
         }
         if (characterController)
         {
-            characterController.enabled = true;
+            //characterController.enabled = true;
         }
         if (agent)
         {
@@ -291,5 +301,24 @@ public class Ragdoll : MonoBehaviour, IFlow
     public void UnLock()
     {
         isLocked = false;
+    }
+
+    Vector3 warpPosition = Vector3.zero;
+    public void WarpToPosition(Vector3 newPosition)
+    {
+        warpPosition = newPosition;
+    }
+
+    void LateUpdate()
+    {
+        if (warpPosition != Vector3.zero)
+        {
+            transform.position = warpPosition;
+
+            //To not break
+            hips.localPosition = new Vector3(0f, hips.localPosition.y, 0f);
+            
+            warpPosition = Vector3.zero;
+        }
     }
 }

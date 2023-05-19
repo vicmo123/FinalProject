@@ -57,7 +57,7 @@ public class MainEntry : MonoBehaviour
         //{
         //    isGameOver = true;
         //}
-        Debug.Log("MainEntry Refresh");
+        //Debug.Log("MainEntry Refresh");
         if (gameStarted)
             stateMachine.UpdateStateMachine();
     }
