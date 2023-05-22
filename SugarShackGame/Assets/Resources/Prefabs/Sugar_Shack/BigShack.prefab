@@ -4234,7 +4234,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2508803079818082220, guid: 616fdaa7dbff40e4f91c695be15f9f4f, type: 3}
       propertyPath: m_Name
-      value: cauldron1
+      value: cauldron2
       objectReference: {fileID: 0}
     - target: {fileID: 2508803079818082220, guid: 616fdaa7dbff40e4f91c695be15f9f4f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -4300,7 +4300,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2508803079818082220, guid: 616fdaa7dbff40e4f91c695be15f9f4f, type: 3}
       propertyPath: m_Name
-      value: cauldron2
+      value: cauldron1
       objectReference: {fileID: 0}
     - target: {fileID: 2508803079818082220, guid: 616fdaa7dbff40e4f91c695be15f9f4f, type: 3}
       propertyPath: m_StaticEditorFlags

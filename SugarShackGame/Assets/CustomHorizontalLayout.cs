@@ -19,7 +19,6 @@ public class CustomHorizontalLayout : MonoBehaviour
 
         if (!allSet)
         {
-            Debug.Log(childCount);
             if (childCount == 1)
             {
                 child1 = transform.GetChild(0);

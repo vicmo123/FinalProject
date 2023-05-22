@@ -8569,6 +8569,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1612675901}
     m_Modifications:
+    - target: {fileID: 334768697279473310, guid: 90c0eafcceeedbe44ab977539da19526, type: 3}
+      propertyPath: m_Name
+      value: cauldron1
+      objectReference: {fileID: 0}
+    - target: {fileID: 334768697651448129, guid: 90c0eafcceeedbe44ab977539da19526, type: 3}
+      propertyPath: m_Name
+      value: cauldron2
+      objectReference: {fileID: 0}
     - target: {fileID: 518864741459958247, guid: 90c0eafcceeedbe44ab977539da19526, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1

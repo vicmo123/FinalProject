@@ -49,6 +49,7 @@ public class CauldronManager : IFlow
     public void CreateCauldron(Player _player) {
         Cauldron cauldron = cauldronObjects[cauldrons.Count].AddComponent<Cauldron>();
         cauldron.player = _player;
+        Debug.Log("This cauldron " + cauldron + " was linked with player : " + _player.index);
 
         cauldron.PreInitialize();
         cauldron.Initialize();

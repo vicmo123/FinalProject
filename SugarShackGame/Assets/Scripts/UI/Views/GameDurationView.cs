@@ -15,14 +15,12 @@ public class GameDurationView : MonoBehaviour
     public void SetGameDuration(float duration)
     {
         UIManager.Instance.gameDuration = duration * 60.0f;
-        Debug.Log("Game duration is : " + duration);
 
         StartGameBtnPressed();
     }
 
     public void StartGameBtnPressed()
     {
-        Debug.Log("Going to next scene");
         UIManager.Instance.LoadNextScene();
     }
 

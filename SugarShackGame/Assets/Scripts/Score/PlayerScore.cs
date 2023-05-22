@@ -38,7 +38,6 @@ public class PlayerScore
 
     public PlayerScore(Player _player, FloatingPointsHandler _floatPointsEffect)
     {
-        Debug.Log("Constructor of PLayerScore of player : " + _player.index);
         player = _player;
 
         if (player == null)

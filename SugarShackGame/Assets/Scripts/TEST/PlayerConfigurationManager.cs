@@ -18,7 +18,7 @@ public class PlayerConfigurationManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.Log("Trying to instantiate another Test_Multiplayer_Input, which is a singleton");
+            Debug.Log("Trying to instantiate another PlayerConfiguration, but it is a singleton");
         }
         else
         {
