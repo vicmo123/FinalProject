@@ -327,10 +327,10 @@ public class PlayerController : MonoBehaviour, IFlow
                 }
             }
 
-            if (!cursor.gameObject.activeInHierarchy)
-            {
-                cursor.gameObject.SetActive(true);
-            }
+            //if (!cursor.gameObject.activeInHierarchy)
+            //{
+            //    cursor.gameObject.SetActive(true);
+            //}
 
             _targetRotation = Mathf.Atan2(_mainCamera.transform.forward.x, _mainCamera.transform.forward.z) * Mathf.Rad2Deg;
             float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _playerStats.RotationSmoothTime);
