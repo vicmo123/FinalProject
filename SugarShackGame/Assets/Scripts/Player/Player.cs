@@ -58,7 +58,6 @@ public class Player : MonoBehaviour, IFlow
 
         CauldronManager.Instance.CreateCauldron(this);
         syrupCanManager = new SyrupCanManager();
-        Debug.Log("USing index of player to make new PlayerScore : " + index);
         playerScore = new PlayerScore(this, floatingPointHandler);
     }
 
