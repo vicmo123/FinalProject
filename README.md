@@ -1,2 +1,2 @@
 # FinalProject
-Final School Project for school. Funny sugar shack game. 
+Final Project for school. Funny sugar shack game. 
